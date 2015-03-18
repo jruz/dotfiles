@@ -13,9 +13,18 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-haml'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'gertjanreynaert/cobalt2-vim-theme'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+let g:indentLine_char = '│'
+let g:indentLine_color_term = 90
 
 syntax enable
-colorscheme monokai 
+"set number
+colorscheme monokai
