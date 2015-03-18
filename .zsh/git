@@ -1,0 +1,6 @@
+alias ga='git add -A'
+alias gcd='git checkout develop'
+alias gd='git diff'
+alias gmd='git merge develop'
+alias gp='git pull'
+alias gs='git status'

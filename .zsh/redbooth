@@ -1,0 +1,2 @@
+alias cs='./script/tools/check-javascript-syntax'
+alias cb='./script/tools/check-javascript-bad-practices'
