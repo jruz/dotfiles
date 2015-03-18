@@ -1,0 +1,2 @@
+alias rt='rspec -c -f d'
+alias zt='zeus test -c -f d'
