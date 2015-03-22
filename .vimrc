@@ -15,6 +15,8 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'gertjanreynaert/cobalt2-vim-theme'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'Yggdroot/indentLine'
+Plugin 'elzr/vim-json'
+Plugin 'scrooloose/nerdcommenter'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -24,6 +26,7 @@ set expandtab
 
 let g:indentLine_char = '│'
 let g:indentLine_color_term = 90
+let mapleader=","
 
 syntax enable
 "set number
