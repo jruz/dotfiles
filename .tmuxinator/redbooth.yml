@@ -1,0 +1,22 @@
+# ~/.tmuxinator/redbooth.yml
+
+name: redbooth
+root: ~/dev
+
+windows:
+  # - Server:
+  #   layout: tiled
+  #   panes:
+  #     - frontend:
+  #       - cd ~/dev/frontend
+  #       - echo 'hola'
+  #     - backend:
+  #       - cd ~/dev/backend
+  #       - echo 'hola'
+  - Server:
+    - cd ~/dev/frontend
+    - node development.js
+  - GIT Frontend:
+    - cd ~/dev/frontend
+  - GIT Backend:
+    - cd ~/dev/backend
