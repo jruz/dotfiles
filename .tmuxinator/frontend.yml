@@ -1,0 +1,7 @@
+name: Frontend
+root: ~/dev/frontend
+
+windows:
+  - Vim: vim
+  - Server: node development.js
+  - Git:

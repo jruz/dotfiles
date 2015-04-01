@@ -10,16 +10,22 @@ Plugin 'mattn/emmet-vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-haml'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'gertjanreynaert/cobalt2-vim-theme'
-Plugin 'digitaltoad/vim-jade'
 Plugin 'Yggdroot/indentLine'
-Plugin 'elzr/vim-json'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+
+"--------------- Syntax highlighting
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-haml'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'elzr/vim-json'
+
+"--------------- Color Schemes
+Plugin 'rickharris/vim-monokai'
+Plugin 'gertjanreynaert/cobalt2-vim-theme'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -29,9 +35,11 @@ set shiftwidth=2
 set expandtab
 let g:indentLine_char = '│'
 let mapleader=","
-colorscheme monokai
 syntax enable
 "set number
+
+"--------------- Active Theme
+colorscheme monokai
 
 "--------------- NERDTree settings
 " auto open if no file is especified
@@ -39,13 +47,14 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " sytart with bookmarks open
 let NERDTreeShowBookmarks=1
-" key for toggle 
+" key for toggle
 map <C-n> :NERDTreeToggle<CR>
 " close if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endifq
+" ignore folders
+let g:NERDTreeIgnore=['node_modules$[[dir]]']
 
-
-"--------------- Syntastic 
+"--------------- Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -53,3 +62,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+"--------------- CtrlP
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*
