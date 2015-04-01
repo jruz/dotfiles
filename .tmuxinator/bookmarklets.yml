@@ -1,0 +1,8 @@
+name: bookmarklets
+root: ~/dev/jruz/bookmarklets
+
+windows:
+  - Vim:
+    - vim 
+  - Git:
+    - gs

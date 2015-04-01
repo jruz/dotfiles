@@ -1,0 +1,11 @@
+name: Backend 
+root: ~/dev/backend
+
+windows:
+  - Vim: vim
+  - Server: bundle exec rails server
+  - Git:
+  - Parrot:
+    - cd ~/dev/parrot
+    - git pull
+    - npm start
