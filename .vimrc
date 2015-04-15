@@ -35,8 +35,15 @@ set shiftwidth=2
 set expandtab
 let g:indentLine_char = '│'
 let mapleader=","
-syntax enable
-"set number
+syntax enable               " enable syntax highlighting
+"set number                 " show line numbers
+set autoread                " auto refresh files if modified outside
+
+
+"--------------- Enable mouse
+set ttyfast
+set mouse=a
+set ttymouse=xterm2
 
 "--------------- Active Theme
 colorscheme monokai
