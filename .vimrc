@@ -74,3 +74,7 @@ let g:syntastic_loc_list_height=4
 
 "--------------- CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*
+
+"--------------- change cursor between modes on tmux
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
