@@ -41,7 +41,7 @@ set autoread                " auto refresh files if modified outside
 
 
 "--------------- Enable mouse
-set ttyfast
+"set ttyfast
 set mouse=a
 set ttymouse=xterm2
 
