@@ -39,6 +39,13 @@ syntax enable               " enable syntax highlighting
 "set number                 " show line numbers
 set autoread                " auto refresh files if modified outside
 
+"--------------- Status line
+set laststatus=2                              " always display status line
+set statusline+=%f
+set statusline+=%=
+set statusline+=[%{strlen(&ft)?&ft:'none'}\|  " filetype
+set statusline+=%{strlen(&fenc)?&fenc:&enc}\| " encoding
+set statusline+=%{&fileformat}]               " file format
 
 "--------------- Enable mouse
 set ttyfast
