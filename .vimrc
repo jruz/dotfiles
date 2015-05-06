@@ -16,6 +16,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-surround'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
@@ -39,6 +41,12 @@ syntax enable               " enable syntax highlighting
 "set number                 " show line numbers
 set autoread                " auto refresh files if modified outside
 
+"--------------- Status line
+set laststatus=2                              " always display status line
+set statusline+=%f
+set statusline+=%=
+set statusline+=[%{strlen(&fenc)?&fenc:&enc}\| " encoding
+set statusline+=%{&fileformat}]               " file format
 
 "--------------- Enable mouse
 "set ttyfast
@@ -60,6 +68,13 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endifq
 " ignore folders
 let g:NERDTreeIgnore=['node_modules$[[dir]]']
+let NERDTreeStatusline = 0
+
+"--------------- Folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
 
 "--------------- Syntastic
 set statusline+=%#warningmsg#
@@ -74,7 +89,11 @@ let g:syntastic_loc_list_height=4
 
 "--------------- CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*
+"let g:ctrlp_show_hidden = 1  " find hidden files
 
 "--------------- change cursor between modes on tmux
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
+"--------------- keymappings
+imap <C-w> <esc><C-w>
