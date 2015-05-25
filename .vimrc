@@ -18,6 +18,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'ntpeters/vim-better-whitespace'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
@@ -42,11 +43,11 @@ syntax enable               " enable syntax highlighting
 set autoread                " auto refresh files if modified outside
 
 "--------------- Status line
-set laststatus=2                              " always display status line
+set laststatus=2                               " always display status line
 set statusline+=%f
 set statusline+=%=
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}\| " encoding
-set statusline+=%{&fileformat}]               " file format
+set statusline+=%{&fileformat}]                " file format
 
 "--------------- Enable mouse
 "set ttyfast
@@ -88,7 +89,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_loc_list_height=4
 
 "--------------- CtrlP
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*
 "let g:ctrlp_show_hidden = 1  " find hidden files
 
 "--------------- change cursor between modes on tmux
