@@ -25,6 +25,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'elzr/vim-json'
+Plugin 'jelera/vim-javascript-syntax'
 
 "--------------- Color Schemes
 Plugin 'rickharris/vim-monokai'
