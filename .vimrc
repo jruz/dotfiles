@@ -19,6 +19,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'chase/vim-ansible-yaml'
+Plugin 'd11wtq/ctrlp_bdelete.vim'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
@@ -40,15 +42,34 @@ set expandtab
 let g:indentLine_char = '│'
 let mapleader=","
 syntax enable               " enable syntax highlighting
-"set number                 " show line numbers
+set number                  " show line numbers
 set autoread                " auto refresh files if modified outside
+set splitbelow              " open new splits below
+set splitright              " open new splits right
 
 "--------------- Status line
 set laststatus=2                               " always display status line
 set statusline+=%f
 set statusline+=%=
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%m
 set statusline+=[%{strlen(&fenc)?&fenc:&enc}\| " encoding
 set statusline+=%{&fileformat}]                " file format
+hi statusline ctermbg=3
+
+"--------------- Hard mode
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+"--------------- split navigation with ctrl
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 "--------------- Enable mouse
 "set ttyfast
@@ -79,18 +100,17 @@ set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
 "--------------- Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_loc_list_height=4
+let g:syntastic_aggregate_errors = 1
 
 "--------------- CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*
+call ctrlp_bdelete#init()
 "let g:ctrlp_show_hidden = 1  " find hidden files
 
 "--------------- change cursor between modes on tmux

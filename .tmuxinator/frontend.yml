@@ -1,7 +1,17 @@
-name: Frontend
-root: ~/dev/frontend
+# ~/.tmuxinator/frontend.yml
+
+name: Redbooth
+root: ~/dev/redbooth
 
 windows:
-  - Vim: vim
-  - Server: node development.js
+  - Vim:
+      - cd frontend
+      - vim
+  - Server:
+      layout: main-vertical
+      panes:
+        - cd frontend
+        - cd backend
+        - cd parrot
   - Git:
+      - cd frontend
