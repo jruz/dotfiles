@@ -13,5 +13,6 @@ windows:
         - cd frontend
         - cd backend
         - cd parrot
+        - cd iframely
   - Git:
       - cd frontend
