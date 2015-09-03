@@ -80,16 +80,16 @@ set ttymouse=xterm2
 colorscheme monokai
 
 "--------------- NERDTree settings
-" auto open if no file is especified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" sytart with bookmarks open
-let NERDTreeShowBookmarks=1
-" key for toggle
+"-- auto open if no file is especified
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"-- sytart with bookmarks open
+"let NERDTreeShowBookmarks=1
+"-- key for toggle
 map <C-n> :NERDTreeToggle<CR>
-" close if only nerdtree is open
+"-- close if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endifq
-" ignore folders
+"-- ignore folders
 let g:NERDTreeIgnore=['node_modules$[[dir]]']
 let NERDTreeStatusline = 0
 
