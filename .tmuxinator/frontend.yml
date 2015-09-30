@@ -1,7 +1,7 @@
 # ~/.tmuxinator/frontend.yml
 
-name: Redbooth
-root: ~/dev/redbooth
+name: Frontend
+root: ~/dev
 
 windows:
   - Vim:

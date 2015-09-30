@@ -1,7 +1,7 @@
 eslint () {
   if [[ -f ./node_modules/.bin/eslint ]]; then
-    ./node_modules/.bin/eslint $*
+    ~/dev/frontend/node_modules/.bin/eslint $*
   else
-    "${$(nvm which default)%node}eslint" $*
+    ~/dev/frontend/node_modules/.bin/eslint $*
   fi
 }
