@@ -1,6 +1,6 @@
 # dotfiles
 
-`source ~/dev/dotfiles/.zshrc`
+`echo "source ~/dev/dotfiles/.zshrc" >> ~/.zshrc`
 
 `ln -s ~/dev/dotfiles/.vimrc ~/.vimrc`
 
