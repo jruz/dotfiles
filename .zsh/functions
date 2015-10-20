@@ -5,3 +5,7 @@ eslint () {
     ~/dev/frontend/node_modules/.bin/eslint $*
   fi
 }
+
+chrome_not () {
+  google-chrome --force-device-scale-factor=1.8
+}

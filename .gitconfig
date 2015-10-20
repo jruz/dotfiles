@@ -1,0 +1,7 @@
+[user]
+	email = javierruzg@gmail.com
+	name = Javier Ruz
+[push]
+	default = simple
+[core]
+	excludesfile = ~/.gitignore_global

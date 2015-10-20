@@ -21,6 +21,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'd11wtq/ctrlp_bdelete.vim'
+Plugin 'ngmy/vim-rubocop'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
@@ -32,6 +33,7 @@ Plugin 'jelera/vim-javascript-syntax'
 "--------------- Color Schemes
 Plugin 'rickharris/vim-monokai'
 Plugin 'gertjanreynaert/cobalt2-vim-theme'
+Plugin 'DrSpatula/vim-buddy'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -77,7 +79,7 @@ set mouse=a
 set ttymouse=xterm2
 
 "--------------- Active Theme
-colorscheme monokai
+colorscheme buddy
 
 "--------------- NERDTree settings
 "-- auto open if no file is especified
@@ -114,8 +116,11 @@ call ctrlp_bdelete#init()
 "let g:ctrlp_show_hidden = 1  " find hidden files
 
 "--------------- change cursor between modes on tmux
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"--------------- change cursor between modes on linux
+"let &t_SI = "\<Esc>[6 q"
+"let &t_EI = "\<Esc>[2 q"
 
 "--------------- keymappings
 imap <C-w> <esc><C-w>

@@ -1,0 +1,2 @@
+xrandr --dpi 168
+synclient MaxTapTime=0
