@@ -1,0 +1,8 @@
+#!/bin/bash
+if synclient -l | grep "VertTwoFingerScroll.*=.*0" ; then
+ synclient VertTwoFingerScroll=1 ;
+ synclient HorizTwoFingerScroll=1 ;
+else
+ synclient VertTwoFingerScroll=0 ;
+ synclient HorizTwoFingerScroll=0 ;
+fi

@@ -1,0 +1,13 @@
+# ~/.tmuxinator/scw.yml
+
+name: SCW
+root: ~/dev/freelance/scw
+
+windows:
+  - Vim: vim
+  - Server:
+      layout: main-vertical
+      panes:
+        - rails server
+        - rails console
+  - Git:
