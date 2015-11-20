@@ -2,12 +2,15 @@
 
 name: SCW
 root: ~/dev/freelance/scw
+pre: docker start mariadb
 
 windows:
-  - Vim: vim
-  - Server:
+  - Vim:
       layout: main-vertical
       panes:
-        - rails server
-        - rails console
-  - Git:
+        - vim
+        - guard
+  - Server: rs
+  - Console: rc
+  - Git: gs
+  - Uploads: cd ../uploads

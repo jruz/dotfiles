@@ -29,6 +29,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'elzr/vim-json'
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'vim-scripts/nginx.vim'
 
 "--------------- Color Schemes
 Plugin 'rickharris/vim-monokai'
@@ -48,6 +49,7 @@ set number                  " show line numbers
 set autoread                " auto refresh files if modified outside
 set splitbelow              " open new splits below
 set splitright              " open new splits right
+set lazyredraw              " speed up tweak
 
 "--------------- Status line
 set laststatus=2                               " always display status line
@@ -75,8 +77,8 @@ nnoremap <C-H> <C-W><C-H>
 
 "--------------- Enable mouse
 "set ttyfast
-set mouse=a
-set ttymouse=xterm2
+"set mouse=a
+"set ttymouse=xterm2
 
 "--------------- Active Theme
 colorscheme buddy
@@ -109,6 +111,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_loc_list_height=4
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_haml_checkers = ['haml_lint']
 
 "--------------- CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*
@@ -119,8 +122,9 @@ call ctrlp_bdelete#init()
 "let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 "--------------- change cursor between modes on linux
-"let &t_SI = "\<Esc>[6 q"
-"let &t_EI = "\<Esc>[2 q"
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 "--------------- keymappings
 imap <C-w> <esc><C-w>
