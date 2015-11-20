@@ -1,0 +1,17 @@
+clear control
+clear mod4
+add control = Control_L Super_L
+add mod4 = Super_R
+
+keycode  38 = a A aacute Aacute
+keycode  26 = e E eacute Eacute
+keycode  31 = i I iacute Iacute
+keycode  32 = o O oacute Oacute
+keycode  30 = u U uacute Uacute
+keycode  57 = n N ntilde Ntilde
+
+keycode  13 = 4 dollar EuroSign sterling
+keycode  10 = 1 exclam 1 exclamdown
+keycode  61 = slash question slash questiondown
+
+keycode 108 = Mode_switch

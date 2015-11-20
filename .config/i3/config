@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -27,20 +27,22 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym Control+Return exec termite
+bindsym $mod+Return exec termite
 
 # kill focused window
+bindsym Control+q kill
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # lock screen
-bindsym $mod+l exec i3lock -e -i ~/wallpapers/windows-error.png
+bindsym $mod+l exec i3lock -e -i ~/wallpapers/Arch-Linux-1800x2880.png
 
 # dont focus on mouseover
 focus_follows_mouse no
@@ -94,7 +96,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
+bindsym $mod+1 workspace 1.Tmux
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
@@ -103,10 +105,11 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+0 workspace 10.Chromium
+bindsym $mod+m workspace Spotify
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+1 move container to workspace 1.Tmux
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
@@ -115,7 +118,7 @@ bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+0 move container to workspace 10.Chromium
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -126,26 +129,26 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+  # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym j resize shrink width 10 px or 10 ppt
+  bindsym k resize grow height 10 px or 10 ppt
+  bindsym l resize shrink height 10 px or 10 ppt
+  bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 
 #bindsym $mod+r mode "resize"
@@ -153,8 +156,48 @@ mode "resize" {
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+  status_command i3status
+  font pango:FontAwesome,Icons 8
+	#colors {
+		#separator #2ECC71
+		#background #000000
+		#statusline #DDDDDD
+		#focused_workspace #FFFFFF #2ECC71 #000000
+		#active_workspace #000000 #A4A28D #FFFFFF
+		#inactive_workspace #A4A28D #000000 #DDDDDD
+		#urgent_workspace #2ECC71 #900000 #FFFFFF
+	#}
 }
 
-# applets
-exec nm-applet
+bindsym $mod+Tab workspace next
+
+bindsym XF86KbdBrightnessUp exec kbdlight up 25
+bindsym XF86KbdBrightnessDown exec kbdlight down 25
+
+#bindsym XF86MonBrightnessUp exec echo 500 | sudo tee /sys/class/backlight/gmux_backlight/brightness
+#bindsym XF86MonBrightnessDown exec echo 1012 | sudo tee /sys/class/backlight/gmux_backlight/brightness
+
+bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
+bindsym XF86AudioLowerVolume exec amixer set Master 10%-
+bindsym XF86AudioMute exec amixer set Master toggle
+
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+
+# exec settings
+exec feh --bg-scale ~/wallpapers/bentwood.jpg
+
+# Autostart applications
+exec --no-startup-id compton -b
+exec --no-startup-id conky -c ~/.config/conky/config
+
+# WS Assignment
+assign [class="Chromium"] 10.Chromium
+assign [class="^Spotify$"] Spotify
+
+# Theme colors
+#client.focused #2ECC71 #2ECC71 #000000 #FFFFFF
+client.focused #01ba57 #01ba57 #000000 #FFFFFF
+client.unfocused #222222 #222222 #2ECC71 #222222
+client.urgent #274D01 #900000 #FFFFFF #900000

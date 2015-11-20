@@ -6,7 +6,6 @@ call vundle#begin()
 "--------------- Plugins
 Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'mattn/emmet-vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-endwise'
@@ -14,14 +13,9 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'chase/vim-ansible-yaml'
 Plugin 'd11wtq/ctrlp_bdelete.vim'
-Plugin 'ngmy/vim-rubocop'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
@@ -76,9 +70,9 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 "--------------- Enable mouse
-"set ttyfast
-"set mouse=a
-"set ttymouse=xterm2
+set ttyfast
+set mouse=a
+set ttymouse=xterm2
 
 "--------------- Active Theme
 colorscheme buddy
@@ -122,9 +116,8 @@ call ctrlp_bdelete#init()
 "let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 "--------------- change cursor between modes on linux
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+"let &t_SI = "\<Esc>[6 q"
+"let &t_EI = "\<Esc>[2 q"
 
 "--------------- keymappings
 imap <C-w> <esc><C-w>

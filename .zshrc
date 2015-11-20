@@ -5,7 +5,7 @@ source ~/dev/dotfiles/antigen/antigen.zsh
 antigen use oh-my-zsh
 
 # Install bundles
-antigen bundle vi-mode
+#antigen bundle vi-mode
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 
@@ -15,11 +15,14 @@ antigen theme robbyrussell
 # Antigen do
 antigen apply
 
-bindkey -v
+setopt HIST_IGNORE_DUPS
+
+#bindkey -v
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
 
 # vars
 export EDITOR='vim'
-export TERM='xterm-256color'
 
 # aliases
 for file in ~/dev/dotfiles/.zsh/*

@@ -1,11 +1,24 @@
-eslint () {
-  if [[ -f ./node_modules/.bin/eslint ]]; then
-    ~/dev/frontend/node_modules/.bin/eslint $*
-  else
-    ~/dev/frontend/node_modules/.bin/eslint $*
-  fi
+# vi:syntax=sh
+vpn () {
+  sudo systemctl $* openvpn@UK_London.service
 }
 
-chrome_not () {
-  google-chrome --force-device-scale-factor=1.8
+gri () {
+  git rebase -i HEAD~$1
+}
+
+bl () {
+  min=10
+  max=1010
+  let "val= $1*1010/10"
+  if (($val > $max)); then
+    val=$max
+  elif (($val < $min)); then
+    val=$min
+  fi
+  echo $val | sudo tee /sys/class/backlight/gmux_backlight/brightness
+}
+
+tme () {
+  $EDITOR ~/dev/dotfiles/.tmuxinator/$1.yml
 }
