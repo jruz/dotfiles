@@ -177,8 +177,8 @@ bindsym XF86KbdBrightnessDown exec kbdlight down 25
 #bindsym XF86MonBrightnessUp exec echo 500 | sudo tee /sys/class/backlight/gmux_backlight/brightness
 #bindsym XF86MonBrightnessDown exec echo 1012 | sudo tee /sys/class/backlight/gmux_backlight/brightness
 
-bindsym XF86AudioRaiseVolume exec amixer set Master 10%+
-bindsym XF86AudioLowerVolume exec amixer set Master 10%-
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
 bindsym XF86AudioMute exec amixer set Master toggle
 
 bindsym XF86AudioPrev exec playerctl previous
@@ -191,6 +191,7 @@ exec feh --bg-scale ~/wallpapers/bentwood.jpg
 # Autostart applications
 exec --no-startup-id compton -b
 exec --no-startup-id conky -c ~/.config/conky/config
+exec --no-startup-id blueman-applet
 
 # WS Assignment
 assign [class="Chromium"] 10.Chromium

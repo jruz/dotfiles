@@ -10,7 +10,10 @@ windows:
       panes:
         - vim
         - guard
-  - Server: rs
-  - Console: rc
+  - Server:
+      layout: main-vertical
+      panes:
+        - rs
+        - rc
   - Git: gs
   - Uploads: cd ../uploads
