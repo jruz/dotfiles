@@ -44,8 +44,8 @@ ${goto 40}$color2${top_mem name 8}$alignr$color${top_mem mem_res 8}
 ${goto 40}$color2${top_mem name 9}$alignr$color${top_mem mem_res 9}
 #
 ${voffset 20}${goto 40}${color}NET
-${goto 40}$color2}DOWN $alignr$color${downspeed wlp4s0b1}
-${goto 40}$color2}UP $alignr$color${upspeed wlp4s0b1}
+${goto 40}$color2}DOWN $alignr$color${downspeed wlp4s0}
+${goto 40}$color2}UP $alignr$color${upspeed wlp4s0}
 #
 ${voffset 20}${color2}${alignr}${execi 1200 whoami}@${nodename}
 ${alignr}${color2}${font Bitstream Vera Sans:size=8}uptime: ${color}${uptime_short}

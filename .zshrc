@@ -23,6 +23,7 @@ bindkey '\e[B' history-beginning-search-forward
 
 # vars
 export EDITOR='vim'
+export DOTFILES='/home/jruz/dev/dotfiles'
 
 # aliases
 for file in ~/dev/dotfiles/.zsh/*

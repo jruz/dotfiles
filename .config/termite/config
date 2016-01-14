@@ -4,7 +4,7 @@ scrollback_lines = 10000
 clickable_url = true
 
 [colors]
-background = rgba(39, 40, 34, 0.8)
+background = rgba(39, 40, 34, 0.95)
 
 # Blue replacement
 color4 = #0091FF
