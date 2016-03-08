@@ -1,9 +1,18 @@
 # vi:syntax=sh
 vpn () {
-  sudo systemctl $* openvpn@UK_London.service
-  #sudo systemctl $* openvpn@France.service
-  #sudo systemctl $* openvpn@US_New_York_City.service
-  #sudo systemctl $* openvpn@US_West.service
+  region=$2
+  if [[ $2 == "" ]]; then
+    region="Germany"
+  elif [[ $2 == "uk" ]]; then
+    region="UK_London"
+  elif [[ $2 == "us" ]]; then
+    region="US_New_York_City"
+  fi
+  if [[ $1 == "list" ]]; then
+    ls -1 --ignore=*.crt --ignore=*.pem /etc/openvpn/ | awk '{a=$1; gsub(".conf","",$1); print $1}'
+    return 1
+  fi
+  sudo systemctl $1 openvpn@$region.service
 }
 
 gri () {
@@ -28,14 +37,4 @@ tme () {
 
 eject () {
   udisksctl unmount -b $1 && udisksctl power-off -b $1
-}
-
-scwdiff() {
-  repo="/home/jruz/scw"
-  diff="log --color -p --oneline --stat"
-  tmux new-window -t SCW:0 -n $1 "git -C $repo $diff master..$1"
-  tmux split-window -t SCW:0 -h "git -C $repo $diff $1..$1_incorrect_0";
-  tmux split-window -t SCW:0.1 -v "git -C $repo $diff $1..$1_secure";
-  tmux split-window -t SCW:0.2 -v -p 66 "git -C $repo $diff $1..$1_incorrect_1";
-  tmux split-window -t SCW:0.4 -v "git -C $repo $diff $1..$1_incorrect_2";
 }
