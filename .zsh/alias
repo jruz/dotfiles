@@ -11,6 +11,7 @@ alias tconf='$EDITOR ~/.config/termite/config'
 alias dotfiles='cd ~/dev/dotfiles'
 alias dnsconf='sudo vim /etc/resolv.conf'
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias ngconf='sudo vim /etc/nginx/nginx.conf'
 
 # System
 #alias update='sudo apt-get update && sudo apt-get upgrade -y'
@@ -52,10 +53,12 @@ alias tml='tmux ls'
 
 # Docker
 alias d='docker'
+alias dc='docker-compose'
 alias dps='d ps'
 alias dpsa='d ps -a'
 alias ds='d start'
 alias dr='d run'
+alias da='d attach'
 alias dip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" ${CID}'
 
 # Git
@@ -71,12 +74,14 @@ alias gcmsg='git commit -m'
 alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcp='git cherry-pick'
+alias gcpc='git cherry-pick --continue'
 alias gcpn='git cherry-pick --no-commit'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gdm='git diff master'
 alias gdl='git diff HEAD^ HEAD'
 alias gdr='git diff origin/$(git rev-parse --abbrev-ref HEAD)'
+#alias gdp="git diff $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"
 alias gl='git log --pretty=format:"%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)" --date="short"'
 alias gld='gl master..$(git rev-parse --abbrev-ref HEAD)'
 alias gmd='git merge develop'
@@ -90,8 +95,16 @@ alias gr='git reset'
 alias grc='git rebase --continue'
 alias grd='git rebase develop'
 alias grm='git rebase master'
+#alias grp="git rebase --hard $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"
 alias grh='git reset HEAD~'
 alias grs='git rebase --skip'
 alias gs='git status'
 alias gst='git stash'
 alias gstp='git stash pop'
+
+alias gt0="go_to_challenge_version 0"
+alias gt1="go_to_challenge_version 1"
+alias gt2="go_to_challenge_version 2"
+alias gts="go_to_challenge_version s"
+alias gtp="go_to_challenge_version"
+alias gtc="go_to_challenge"
