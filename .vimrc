@@ -22,6 +22,7 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'd11wtq/ctrlp_bdelete.vim'
 Plugin 'ngmy/vim-rubocop'
+Plugin 'hallison/vim-ruby-sinatra'
 
 "--------------- Syntax highlighting
 Plugin 'vim-ruby/vim-ruby'
