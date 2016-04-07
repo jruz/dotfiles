@@ -1,0 +1,13 @@
+# ~/.tmuxinator/scw-gap.yml
+
+name: SCW GAP
+root: ~/dev/freelance/scw/gap
+
+windows:
+  - Vim: vim
+  - Server:
+      layout: main-vertical
+      panes:
+        -
+        -
+  - Git: gs
