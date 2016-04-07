@@ -2,7 +2,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 "--------------- Plugins
-Plug 'gmarik/Vundle.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -17,11 +16,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'chase/vim-ansible-yaml'
 Plug 'd11wtq/ctrlp_bdelete.vim'
 Plug 'ngmy/vim-rubocop'
-Plug 'hallison/vim-ruby-sinatra'
-Plug 'smancill/conky-syntax.vim'
 
 "--------------- Syntax highlighting
 Plug 'vim-ruby/vim-ruby'
@@ -30,6 +26,9 @@ Plug 'digitaltoad/vim-jade'
 Plug 'elzr/vim-json'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'vim-scripts/nginx.vim'
+Plug 'chase/vim-ansible-yaml'
+Plug 'hallison/vim-ruby-sinatra'
+Plug 'smancill/conky-syntax.vim'
 
 "--------------- Color Schemes
 Plug 'rickharris/vim-monokai'
