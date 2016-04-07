@@ -1,0 +1,19 @@
+# ~/.tmuxinator/scw-rails.yml
+
+name: SCW Rails
+root: ~/dev/freelance/scw/rails
+pre: docker start mariadb
+
+windows:
+  - Vim:
+      layout: main-vertical
+      panes:
+        - vim
+        - guard
+  - Server:
+      layout: main-vertical
+      panes:
+        - rs
+        - rc
+  - Git: gs
+  - DIFF: cd ~

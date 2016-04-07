@@ -1,7 +1,7 @@
 # ~/.tmuxinator/scw.yml
 
-name: SCW
-root: ~/dev/freelance/scw
+name: Rack
+root: ~/dev/freelance/rack
 pre: docker start mariadb
 
 windows:
@@ -9,11 +9,8 @@ windows:
       layout: main-vertical
       panes:
         - vim
-        - guard
   - Server:
       layout: main-vertical
       panes:
-        - rs
-        - rc
+        - ruby server
   - Git: gs
-  - Uploads: cd ../uploads
