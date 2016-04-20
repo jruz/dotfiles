@@ -1,19 +1,14 @@
-# antigen
-source ~/dev/dotfiles/antigen/antigen.zsh
+# load zgen
+source ~/.zgen/zgen.zsh
 
-# load oh-my-zsh
-antigen use oh-my-zsh
+if ! zgen saved; then
+  zgen oh-my-zsh
+  zgen oh-my-zsh themes/robbyrussell
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions
 
-# Install bundles
-#antigen bundle vi-mode
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions
-
-# Themes
-antigen theme robbyrussell
-
-# Antigen do
-antigen apply
+  zgen save
+fi
 
 setopt HIST_IGNORE_DUPS
 
@@ -22,7 +17,7 @@ bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 
 # vars
-export EDITOR='vim'
+export EDITOR='nvim'
 export DOTFILES='/home/jruz/dev/dotfiles'
 
 # aliases
