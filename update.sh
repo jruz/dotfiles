@@ -9,27 +9,30 @@ function titler {
 
 source ~/.zshrc
 
-titler "Antigen"
-antigen selfupdate
+titler "Zgen"
+zgen selfupdate
 
-titler "Antigen plugins"
-antigen update
+titler "Zgen plugins"
+zgen update
 
-titler "Vim plugins"
-vim +PluginUpdate +qa
+titler "Vim"
+vim +PlugUpgrade +qa
+vim +PlugUpdate +qa
+vim +PlugClean! +qa
 
 titler "RVM"
 rvm get stable
 
 titler "NVM"
-cd $NVM_DIR
-git fetch -p
-git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+cd $NVM_DIR && git fetch origin && git checkout `git describe --abbrev=0 --tags`
 source $NVM_DIR/nvm.sh
 cd $OLDPWD
 
-titler "Gems"
-bundle install --gemfile=~/dev/dotfiles/Gemfile
+#titler "Gems"
+#bundle install --gemfile=~/dev/dotfiles/Gemfile
 
-rvm install ruby --latest
-nvm install node latest
+#rvm install ruby --latest
+#nvm install node latest
+
+titler "Clear pacman and pacaur"
+sudo pacaur -Sc --noconfirm

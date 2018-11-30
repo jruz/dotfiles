@@ -1,0 +1,13 @@
+# ~/.tmuxinator/scw-banking.yml
+
+name: SCW Banking
+root: ~/dev/freelance/scw/banking
+
+windows:
+  - Vim: vim
+  - Server:
+      Layout: main-horizontal
+      panes:
+        - docker-compose run -p 443:3000 --rm app
+        -
+  - Git: gs

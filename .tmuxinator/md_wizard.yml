@@ -1,0 +1,20 @@
+# ~/.tmuxinator/meindach.yml
+
+name: WizardFrontend
+root: ~/dev/freelance/meindach/wizard-frontend
+windows:
+  - VIM:
+      layout: even-vertical
+      panes:
+        - vim
+        - make dev
+  - SERVER:
+      layout: even-vertical
+      panes:
+        #- cd ../backend && dc up -d redis db && dc up backend
+        - sleep 1 && make server
+        - sleep 2 && make storybook
+        #- cd ../wordpress && npm start
+  - GIT: git status
+  #- BACKEND: cd ../backend
+  #- WP: cd ../wordpress

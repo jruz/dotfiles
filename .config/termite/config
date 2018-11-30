@@ -1,5 +1,10 @@
 [options]
-font = Monospace 18
+#__Retina
+font = Monospace 24
+
+#__External
+#font = Monospace 18
+
 scrollback_lines = 10000
 clickable_url = true
 

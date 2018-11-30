@@ -11,20 +11,50 @@ general {
   interval = 5
 }
 
-order += "wireless _first_"
+order += "external_script"
+order += "wifi"
+order += "net_rate"
+order += "net_iplist"
 order += "path_exists VPN"
 order += "disk /"
 order += "battery 0"
+order += "sysdata"
 order += "load"
 order += "cpu_usage"
 order += "cpu_temperature 0"
 order += "time"
 order += "tztime local"
+order += "weather_yahoo"
 order += "volume master"
+order += "arch_updates"
 
-wireless _first_ {
-  format_up = " %quality %essid %ip"
-  format_down = ""
+wifi {
+  device = "wlp4s0"
+  use_sudo = true
+  format_up = " {signal_percent} {ssid}"
+  format_down = " "
+  bitrate_bad = 5
+  bitrate_degraded = 10
+}
+
+sysdata {
+  color_good = "#FFFFFF"
+  high_threshold = 80
+  med_threshold = 60
+  precision = 0
+  format = " {mem_used_percent}%"
+}
+
+net_rate {
+  precision = 1
+  units = "kb mb gb tb"
+  format = "{down}  {up}"
+}
+
+arch_updates {
+  cache_timeout = 600
+  include_aur = 1
+  format = " {pacman}/{aur}"
 }
 
 path_exists VPN {
@@ -74,4 +104,22 @@ volume master {
   device = "default"
   mixer = "Master"
   mixer_idx = 0
+}
+
+weather_yahoo {
+  woeid = 638242
+  format_today = "{icon}{temp}°{units} {text}"
+  forecast_days = 0
+}
+
+net_iplist {
+  format = "{format_iface}"
+  iface_blacklist = ['veth*', 'lo', 'docker*', 'wlp4s0']
+  ip_blacklist = ['172.*']
+  format_iface = "{iface}: {ip4}"
+  remove_empty = true
+}
+
+external_script {
+  script_path = "/home/jruz/dev/dotfiles/bin/wifi_name"
 }

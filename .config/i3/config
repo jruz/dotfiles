@@ -28,7 +28,7 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym Control+Return exec termite
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym Control+q kill
@@ -42,7 +42,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # lock screen
-bindsym $mod+l exec i3lock -e -i ~/wallpapers/Arch-Linux-1800x2880.png
+bindsym $mod+l exec i3lock -e -i ~/wallpapers/Arch-Linux-1800x2880.png -c 000000
 
 # dont focus on mouseover
 focus_follows_mouse no
@@ -104,8 +104,8 @@ bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10.Chromium
+bindsym $mod+9 workspace 9.Slack
+bindsym $mod+0 workspace 10.Firefox
 bindsym $mod+m workspace Spotify
 
 # move focused container to workspace
@@ -117,15 +117,16 @@ bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10.Chromium
+bindsym $mod+Shift+9 move container to workspace 9.Slack
+bindsym $mod+Shift+0 move container to workspace 10.Firefox
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -156,8 +157,11 @@ mode "resize" {
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command i3status
+  status_command py3status -i ~/dev/personal/py3status/py3status/modules -c ~/.config/i3status/config
+  #status_command exec conky -c ~/.config/conky/status
+  #status_command i3status
   font pango:FontAwesome,Icons 8
+  tray_output primary
 	#colors {
 		#separator #2ECC71
 		#background #000000
@@ -184,18 +188,22 @@ bindsym XF86AudioMute exec amixer set Master toggle
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
+bindsym $mod+b exec mxmodmap ~/.Xmodmap
 
 # exec settings
-exec feh --bg-scale ~/wallpapers/bentwood.jpg
+#exec feh --bg-scale ~/wallpapers/bentwood.jpg
+#exec --no-startup-id xsetroot -solid black
 
 # Autostart applications
-exec --no-startup-id compton -b
-exec --no-startup-id conky -c ~/.config/conky/config
-exec --no-startup-id blueman-applet
+#exec --no-startup-id compton -b
+exec --no-startup-id conky -c ~/.config/conky/desktop
+#exec --no-startup-id blueman-applet
 
 # WS Assignment
-assign [class="Chromium"] 10.Chromium
+assign [class="Chromium"] 10.Firefox
+assign [class="Firefox"] 10.Firefox
 assign [class="^Spotify$"] Spotify
+assign [class="Slack"] 9.Slack
 
 # Theme colors
 #client.focused #2ECC71 #2ECC71 #000000 #FFFFFF

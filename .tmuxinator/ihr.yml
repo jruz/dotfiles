@@ -1,0 +1,16 @@
+# ~/.tmuxinator/ihr.yml
+
+name: IHR
+root: ~/dev/freelance/ihg/sites/all/themes/ihg
+pre: docker start mysql
+windows:
+  - VIM:
+      layout: even-vertical
+      panes:
+        - vim
+        - bundle exec guard
+  - SERVER:
+      layout: even-vertical
+      panes:
+        - docker-compose run -p 80:80 --rm app
+  - GIT: git status

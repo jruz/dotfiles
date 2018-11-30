@@ -1,0 +1,12 @@
+#!/bin/bash
+
+name () {
+  iwconfig enp0s20u1 | grep ESSID: | sed -e 's/.*ESSID:"//' -e 's/" .*//'
+}
+
+signal () {
+  iwconfig enp0s20u1 | grep 'Signal level=' | awk '{print $4}' | sed -e 's/level=//' -e 's/\/100//g'
+}
+
+echo " $(signal)% $(name)"
+echo "#00FF00"
