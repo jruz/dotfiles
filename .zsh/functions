@@ -9,14 +9,20 @@ vpn () {
     region="US_New_York_City"
   fi
   if [[ $1 == "list" ]]; then
-    ls -1 --ignore=*.crt --ignore=*.pem /etc/openvpn/ | awk '{a=$1; gsub(".conf","",$1); print $1}'
+    ls -1 --ignore=*.crt --ignore=*.pem /etc/openvpn/client/ | awk '{a=$2; gsub(".conf","",$1); print $1}'
     return 1
   fi
-  sudo systemctl $1 openvpn@$region.service
+  sudo systemctl $1 openvpn-client@$region.service
 }
 
 gri () {
   git rebase -i HEAD~$1
+}
+
+blu () {
+  sudo systemctl start bluetooth.service
+  echo -e 'power on\nquit' | bluetoothctl
+  xmodmap ~/.Xmodmap
 }
 
 bl () {
@@ -28,7 +34,7 @@ bl () {
   elif (($val < $min)); then
     val=$min
   fi
-  echo $val | sudo tee /sys/class/backlight/gmux_backlight/brightness
+  printf %.0f $val | sudo tee /sys/class/backlight/gmux_backlight/brightness
 }
 
 tme () {
@@ -37,4 +43,63 @@ tme () {
 
 eject () {
   udisksctl unmount -b $1 && udisksctl power-off -b $1
+}
+
+t () {
+  if [[ $1 == "start" ]]; then
+    transmission-daemon
+  elif [[ $1 == "stop" ]]; then
+    transmission-remote --exit
+  elif [[ $1 == "status" ]]; then
+    transmission-remote -l
+  elif [[ $1 == "clear" ]]; then
+    transmission-remote -t all -r
+  elif [[ $1 == "cli" ]]; then
+    transmission-remote-cli
+  elif [[ $1 == "add" ]]; then
+    transmission-remote -w /mnt/external/series -a $2
+  fi
+}
+
+untar () {
+  tar -xzvf $1
+}
+
+update_mirrorlist () {
+  sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.pacold
+  sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+}
+
+get_ip () {
+  ip -4 a show $1 | grep inet | awk '{print $2}' | sed 's/\/.*//'
+}
+
+wifi_ip () {
+  get_ip enp0s20u1
+}
+
+cable_ip () {
+  get_ip ens9
+}
+
+wifi_name () {
+  iwconfig enp0s20u1 | grep ESSID: | awk '{print $4}' | sed -e 's/ESSID://' -e 's/"//g'
+}
+
+home_resolution () {
+  xrandr --output eDP-1 --off
+  xrandr --output DP-1 --mode 2560x1440
+  xrandr --output DP-2 --mode 2560x1440 --rotate left --left-of DP-1
+  xrandr --dpi 109
+  xset r rate 180 40
+  xmodmap ~/.Xmodmap
+}
+
+work_resolution () {
+  xrandr --output eDP-1 --off
+  xrandr --output DP-1 --mode 2560x1440
+  xrandr --output HDMI-1 --mode 2560x1440 --rotate left --left-of DP-1
+  xrandr --dpi 109
+  xset r rate 180 40
+  xmodmap ~/.Xmodmap
 }

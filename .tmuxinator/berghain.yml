@@ -1,0 +1,18 @@
+# ~/.tmuxinator/berghain.yml
+
+name: Berghain
+root: ~/dev/personal/berghain
+
+windows:
+  - API:
+      layout: main-vertical
+      panes:
+        - cd api && vim
+        - cd api
+        - cd api
+  - WEB:
+      layout: main-horizontal
+      panes:
+        - cd web && vim
+        - cd web && npm run dev
+  - DEPLOY: gs

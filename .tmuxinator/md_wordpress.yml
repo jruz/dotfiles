@@ -1,0 +1,12 @@
+name: WordpressDE
+root: ~/dev/freelance/meindach/md-wordpress
+windows:
+  - VIM:
+      layout: even-vertical
+      panes:
+        - vim
+  - SERVER:
+      layout: even-vertical
+      panes:
+        - make start
+  - GIT: git status

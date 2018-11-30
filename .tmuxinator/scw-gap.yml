@@ -6,8 +6,9 @@ root: ~/dev/freelance/scw/gap
 windows:
   - Vim: vim
   - Server:
-      layout: main-vertical
+      Layout: main-horizontal
       panes:
-        -
+        - docker-compose run -p 443:3000 --rm app
         -
   - Git: gs
+  - Rails: cd ~/dev/freelance/scw/rails

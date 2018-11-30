@@ -18,6 +18,7 @@ Plug 'tpope/vim-surround'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'd11wtq/ctrlp_bdelete.vim'
 Plug 'ngmy/vim-rubocop'
+"Plug 'benekastah/neomake'
 
 "--------------- Syntax highlighting
 Plug 'vim-ruby/vim-ruby'
@@ -107,15 +108,26 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_loc_list_height=4
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_haml_checkers = ['haml_lint']
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
+"--------------- Neomake
+"autocmd! BufWritePost,BufEnter * Neomake
+"let g:neomake_list_height = 5
+"let g:neomake_open_list = 1
+"let g:neomake_serialize = 1
+"let g:neomake_serialize_abort_on_error = 1
+"let g:neomake_verbose = 1
+"let g:neomake_ruby_enabled_checkers = ['rubocop']
+"let g:neomake_haml_enabled_checkers = ['haml_lint']
 
 "--------------- CtrlP
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*,*/dist/*
 call ctrlp_bdelete#init()
-"let g:ctrlp_show_hidden = 1  " find hidden files
+let g:ctrlp_show_hidden = 1  " find hidden files
 
 "--------------- change cursor between modes on tmux
 "let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"

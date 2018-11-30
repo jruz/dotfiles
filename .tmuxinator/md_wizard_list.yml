@@ -1,0 +1,8 @@
+# ~/.tmuxinator/md_wizard_list.yml
+
+name: WizardList
+root: ~/dev/freelance/meindach/ui-wizard-list
+windows:
+  - VIM: vim
+  - SERVER: make dev
+  - GIT: git status

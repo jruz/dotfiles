@@ -14,6 +14,36 @@ scwdiff() {
   tmux split-window -t ${sesion}:0.4 -v "git $diff ${challenge}..${challenge}_incorrect_2";
 }
 
+scwdiff2() {
+  diff="log --color -p --oneline --stat"
+  session=$(tmux display-message -p '#S')
+  if [[ $1 == "" ]]; then
+    challenge=$(get_parent_challenge)
+  else
+    challenge=$(get_challenge_name $1)
+  fi
+  tmux new-window -t ${sesion}:0 -n ${challenge} "git $diff secure..${challenge}"
+  tmux split-window -t ${sesion}:0 -h "git $diff ${challenge}..${challenge}_incorrect_0";
+  tmux split-window -t ${sesion}:0.1 -v "git diff ${challenge}..secure";
+  tmux split-window -t ${sesion}:0.2 -v -p 66 "git $diff ${challenge}..${challenge}_incorrect_1";
+  tmux split-window -t ${sesion}:0.4 -v "git $diff ${challenge}..${challenge}_incorrect_2";
+}
+
+mindiff() {
+  diff="diff"
+  session=$(tmux display-message -p '#S')
+  if [[ $1 == "" ]]; then
+    challenge=$(get_parent_challenge)
+  else
+    challenge=$(get_challenge_name $1)
+  fi
+  tmux new-window -t ${sesion}:0 -n ${challenge} "git $diff master..${challenge}"
+  tmux split-window -t ${sesion}:0 -h "git $diff ${challenge}..${challenge}_incorrect_0";
+  tmux split-window -t ${sesion}:0.1 -v "git $diff ${challenge}..${challenge}_secure";
+  tmux split-window -t ${sesion}:0.2 -v -p 66 "git $diff ${challenge}..${challenge}_incorrect_1";
+  tmux split-window -t ${sesion}:0.4 -v "git $diff ${challenge}..${challenge}_incorrect_2";
+}
+
 challenge_log() {
   repo="/home/jruz/dev/freelance/scw/sinatra"
   branch="oldmaster"
@@ -34,12 +64,12 @@ get_parent_challenge() {
   git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g'
 }
 
-push_challenges() {
-  git branch | grep $1 | awk '{gsub("*","",$0); system( "git push -u origin "$1 )}'
+push_challenge_branches() {
+  git branch | grep $1 | awk '{gsub("*","",$0); system( "git push -uf origin "$1 )}'
 }
 
-push_current_challenges() {
-  push_challenges $(get_parent_challenge)
+push_current_challenge_branches() {
+  push_challenge_branches $(get_parent_challenge)
 }
 
 go_to_challenge_version(){
@@ -57,12 +87,16 @@ resetchildren() {
   git branch -f ${branch}_incorrect_0 $branch
   git branch -f ${branch}_incorrect_1 $branch
   git branch -f ${branch}_incorrect_2 $branch
-  git branch -f ${branch}_secure $branch
+  #git branch -f ${branch}_secure $branch
 }
 
 reset_parent_to() {
   git reset --hard master
   git cherry-pick $1
+}
+
+rebase_to_parent() {
+  git rebase $(get_parent_challenge)
 }
 
 mini_challenge_log() {
@@ -109,4 +143,23 @@ get_secure_files() {
 show_lines_for() {
   challenge=$(get_challenge_name $1)
   git --no-pager diff ${challenge}^ $challenge | grep -E "@@|---" | awk '{gsub(/ @@ .*|a\/|@@/,"",$0); print($0)}'
+}
+
+
+force_push_challenges() {
+  git branch | grep $1 | awk '{gsub("*","",$0); system( "git push -f origin "$1 )}'
+}
+
+force_push_current_challenges() {
+  force_push_challenges $(get_parent_challenge)
+}
+
+rebase_from_secure(){
+ git rebase secure
+  for i in {0..2}
+  do
+    go_to_challenge_version $i
+    rebase_to_parent
+  done
+  go_to_challenge_version
 }
