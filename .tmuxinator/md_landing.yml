@@ -1,0 +1,10 @@
+name: Landing
+root: ~/dev/freelance/meindach/ui-landing
+windows:
+  - VIM:
+      layout: main-horizontal
+      panes:
+        - vim
+        - make dev
+        - make style
+  - GIT: git status

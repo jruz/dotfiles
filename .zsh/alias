@@ -1,7 +1,7 @@
 # Config files
 alias al='$EDITOR ~/dev/dotfiles/.zsh/alias'
 alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions'
-alias zshconf='$EDITOR ~/.zshrc'
+alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
 #alias vconf='$EDITOR ~/.config/nvim/init.vim'
 alias vconf='$EDITOR ~/.vimrc'
 alias tmconf='$EDITOR ~/.tmux.conf'
