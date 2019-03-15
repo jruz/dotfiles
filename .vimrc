@@ -2,27 +2,26 @@
 call plug#begin('~/.vim/plugged')
 
 "--------------- Plugins
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'd11wtq/ctrlp_bdelete.vim'
+Plug 'elmcast/elm-vim'
+Plug 'Valloric/YouCompleteMe'
 Plug 'kien/ctrlp.vim'
 Plug 'mattn/emmet-vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-endwise'
-Plug 'Yggdroot/indentLine'
-Plug 'scrooloose/nerdcommenter'
-Plug 'ervandew/supertab'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/tpope-vim-abolish'
-Plug 'tpope/vim-repeat'
-Plug 'rking/ag.vim'
-Plug 'tpope/vim-surround'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'd11wtq/ctrlp_bdelete.vim'
-Plug 'tpope/vim-tbone'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/tpope-vim-abolish'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-tbone'
 Plug 'vim-airline/vim-airline'
-Plug 'elmcast/elm-vim'
 Plug 'autozimu/LanguageClient-neovim', {
   \ 'branch': 'next',
   \ 'do': 'bash install.sh',
@@ -34,11 +33,11 @@ Plug 'eraserhd/parinfer-rust', {
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'wokalski/autocomplete-flow'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
+Plug 'quramy/tsuquyomi'
 
 "--------------- Clojure
 Plug 'tpope/vim-salve'
@@ -49,13 +48,8 @@ Plug 'tpope/vim-classpath'
 Plug 'venantius/vim-cljfmt'
 
 "--------------- Linting
-"Plug 'vim-syntastic/syntastic'
-"Plug 'neomake/neomake'
-"Plug 'jaawerth/neomake-local-eslint-first'
-"Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'w0rp/ale'
 Plug 'ngmy/vim-rubocop'
-Plug 'flowtype/vim-flow'
 
 "--------------- Syntax highlighting
 Plug 'ap/vim-css-color'
@@ -73,6 +67,10 @@ Plug 'styled-components/vim-styled-components'
 "Plug 'othree/yajs.vim'
 "Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
+Plug 'towolf/vim-helm'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'chr4/nginx.vim'
+Plug 'leafgarland/typescript-vim'
 
 "--------------- Color Schemes
 "Plug 'rickharris/vim-monokai'
@@ -106,6 +104,23 @@ syntax on                   " enable syntax highlighting
 filetype plugin indent on
 set clipboard=unnamed
 au BufNewFile,BufRead *.inky-haml set filetype=haml
+
+"--------------- Ale
+let g:ale_lint_on_text_changed =  'normal'
+let g:ale_linters = {'js': ['stylelint', 'eslint']}
+let g:ale_linters = {'scss': ['stylelint']}
+let g:ale_linter_aliases = {'js': 'css'}
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+let g:ale_fixers['yml'] = ['prettier']
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fixers['css'] = ['prettier']
+let g:ale_fixers['scss'] = ['prettier']
+let g:ale_fixers['json'] = ['prettier']
+let g:ale_fixers['html'] = ['prettier']
+let g:ale_fixers['markdown'] = ['prettier']
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
 
 "--------------- Relative line numbers
 "autocmd InsertEnter * :set number
@@ -193,25 +208,6 @@ set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
-"--------------- Ale
-let g:ale_lint_on_text_changed =  'normal'
-let g:ale_linters = {'js': ['stylelint', 'eslint', 'flow-language-server']}
-let g:ale_linters = {'scss': ['stylelint']}
-let g:ale_linter_aliases = {'js': 'css'}
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier', 'eslint']
-let g:ale_fixers['yml'] = ['prettier']
-let g:ale_fixers['css'] = ['prettier']
-let g:ale_fixers['scss'] = ['prettier']
-let g:ale_fixers['html'] = ['prettier']
-let g:ale_fixers['markdown'] = ['prettier']
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
-
-"--------------- Flow
-let g:flow#enable = 0
-let g:flow#showquickfix = 0
-
 "--------------- CtrlP
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/a/*,*/node_modules/*,*/spec/cov/*,*/dist/*,*/public/*,*/sites/*/modules/*,*/elm-stuff/*,*/vendor/*
 call ctrlp_bdelete#init()
@@ -242,3 +238,22 @@ call matchadd('ColorColumn', '\%81v', 80)
 "--------------- Clojure plugins
 let g:clj_fmt_autosave = 0
 let g:clojure_maxlines = 80
+
+"--------------- Pasting indentation fix
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+"--------------- Pasting indentation fix

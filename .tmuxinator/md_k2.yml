@@ -1,7 +1,7 @@
 # ~/.tmuxinator/md_k2.yml
 
 name: K2Competition
-root: ~/dev/freelance/meindach/k2-competition
+root: ~/dev/freelance/meindach/ui-k2
 windows:
   - VIM:
       layout: even-vertical

@@ -1,7 +1,5 @@
-# ~/.tmuxinator/meindach.yml
-
 name: B2C
-root: ~/dev/freelance/meindach/b2c
+root: ~/dev/freelance/meindach/ui-b2c-area
 windows:
   - VIM:
       layout: even-vertical
@@ -11,10 +9,6 @@ windows:
   - SERVER:
       layout: even-vertical
       panes:
-        #- cd ../backend && dc up -d redis db && dc up backend
         - sleep 1 && make server
         - sleep 2 && make storybook
-        #- cd ../wordpress && npm start
   - GIT: git status
-  #- BACKEND: cd ../backend
-  #- WP: cd ../wordpress
