@@ -1,0 +1,14 @@
+# ~/.tmuxinator/fractal.yml
+
+name: fractal
+root: ~/dev/freelance/fractal
+
+windows:
+  - VIM: vim
+  - SERVER:
+      layout: even-horizontal
+      panes:
+        - cd compose && make catfish
+        - cd compose && make megalodon
+        - cd nautilus && yarn start
+  - GIT: la
