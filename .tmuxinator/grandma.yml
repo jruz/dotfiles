@@ -1,0 +1,9 @@
+# ~/.tmuxinator/grandma.yml
+
+name: fractal
+root: ~/dev/freelance/fractal/grandma
+
+windows:
+  - VIM: vim
+  - SERVER: la
+  - GIT: la
