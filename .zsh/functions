@@ -103,3 +103,7 @@ work_resolution () {
   xset r rate 180 40
   xmodmap ~/.Xmodmap
 }
+
+encrypt () {
+  gpgtar -c --gpg-args --cipher-algo=AES256 -o $1.gpg $1
+}

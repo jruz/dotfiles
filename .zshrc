@@ -30,25 +30,9 @@ done
 # Personal bins
 export PATH="$PATH:$HOME/dev/dotfiles/bin"
 
-# Heroku
-#export PATH="/usr/local/heroku/bin:$PATH"
-#export PATH="./node_modules/.bin:$PATH"
-
-# RVM
-export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 # Disable Ctrl-Q Ctrl-S
 stty -ixon
 
-# AVN
-#[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
-
-# TRAVIS
-#[ -f /home/jruz/.travis/travis.sh ] && source /home/jruz/.travis/travis.sh
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
+# ASDF
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash

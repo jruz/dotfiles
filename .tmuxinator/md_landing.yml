@@ -6,5 +6,5 @@ windows:
       panes:
         - vim
         - make dev
-        - make style
+  - STORYBOOK: make storybook
   - GIT: git status

@@ -38,6 +38,7 @@ Plug 'Shougo/neosnippet'
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
 Plug 'quramy/tsuquyomi'
+Plug 'jiangmiao/auto-pairs'
 
 "--------------- Clojure
 Plug 'tpope/vim-salve'
