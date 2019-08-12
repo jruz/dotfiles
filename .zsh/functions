@@ -2,7 +2,7 @@
 vpn () {
   region=$2
   if [[ $2 == "" ]]; then
-    region="Germany"
+    region="DE_Berlin"
   elif [[ $2 == "uk" ]]; then
     region="UK_London"
   elif [[ $2 == "us" ]]; then
