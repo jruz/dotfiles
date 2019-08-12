@@ -109,6 +109,7 @@ alias k='kubectl'
 
 # Npm
 alias n='npm'
+alias tags='ctags -R --exclude=.git --exclude=node_modules'
 
 # Git
 #alias gdp="git diff $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"
