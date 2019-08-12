@@ -1,0 +1,14 @@
+name: nautilus
+root: ~/dev/freelance/fractal/nautilus
+windows:
+  - VIM:
+      layout: even-vertical
+      panes:
+        - vim
+        - yarn start
+  - SERVER:
+      layout: even-horizontal
+      panes:
+        - cd ../compose && make catfish
+        - cd ../compose && make megalodon
+  - GIT: gs
