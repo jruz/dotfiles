@@ -20,6 +20,7 @@ bindkey "^O" accept-line-and-down-history
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 export DOTFILES='/home/jruz/dev/dotfiles'
+export GPG_TTY=$(tty)
 
 # aliases
 for file in ~/dev/dotfiles/.zsh/*
