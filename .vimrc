@@ -80,7 +80,7 @@ Plug 'DrSpatula/vim-buddy'
 
 "--------------- Language Servers
 let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['flow-language-server', '--stdio'],
+  \ 'javascript': ['javascript-typescript-stdio'],
   \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -112,7 +112,7 @@ let g:ale_linters = {'js': ['stylelint', 'eslint']}
 let g:ale_linters = {'scss': ['stylelint']}
 let g:ale_linter_aliases = {'js': 'css'}
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+let g:ale_fixers['javascript'] = ['eslint']
 let g:ale_fixers['yml'] = ['prettier']
 let g:ale_fixers['typescript'] = ['prettier', 'eslint']
 let g:ale_fixers['css'] = ['prettier']

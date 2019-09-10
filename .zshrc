@@ -29,6 +29,7 @@ do
 done
 
 # Personal bins
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/dev/dotfiles/bin"
 
 # Disable Ctrl-Q Ctrl-S
@@ -37,3 +38,6 @@ stty -ixon
 # ASDF
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+# Yarn global bins
+export PATH="$(yarn global bin):$PATH"
