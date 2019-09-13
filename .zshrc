@@ -41,3 +41,11 @@ stty -ixon
 
 # Yarn global bins
 export PATH="$(yarn global bin):$PATH"
+
+# AWS
+source /usr/bin/aws_zsh_completer.sh
+export AWS_REGION="eu-central-1"
+
+# Fractal
+export FRCTLS_WORK_DIR="/home/jruz/dev/freelance/fractal"
+source $FRCTLS_WORK_DIR/cli/shell/frctls-completion.sh
