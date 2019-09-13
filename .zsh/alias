@@ -21,7 +21,7 @@ alias off='shutdown -h now'
 alias x='exit'
 alias q='exit'
 alias p='sudo pacman -Sy'
-alias a='yay -Sya --nocleanmenu --noeditmenu --nodiffmenu'
+alias a='yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --cleanafter'
 alias upp='sudo pacman -Syu'
 alias upa='pacaur -k'
 alias ups='$DOTFILES/update.sh'
@@ -81,7 +81,7 @@ alias wi='curl ipinfo.io'
 alias wip='wifi_ip'
 alias wp='curl https://www.privateinternetaccess.com --silent | grep -Eo "<strong style=\"font-weight:bold;\">(.*)</strong>" | sed "s/<[^>]*>//g"'
 
-alias hosts='$EDITOR /etc/hosts'
+alias hosts='sudo $EDITOR /etc/hosts'
 alias reload='. ~/.zshrc'
 alias las='ls -lAHtr --group-directories-first'
 alias la='ls -lAh --group-directories-first'
@@ -107,9 +107,10 @@ alias da='d attach'
 alias dip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" ${CID}'
 alias k='kubectl'
 
-# Npm
+# Other
 alias n='npm'
 alias tags='ctags -R --exclude=.git --exclude=node_modules'
+alias tf='terraform'
 
 # Git
 #alias gdp="git diff $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"

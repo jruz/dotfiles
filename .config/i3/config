@@ -200,7 +200,6 @@ exec --no-startup-id conky -c ~/.config/conky/desktop
 #exec --no-startup-id blueman-applet
 
 # WS Assignment
-assign [class="Chromium"] 10.Firefox
 assign [class="Firefox"] 10.Firefox
 assign [class="^Spotify$"] Spotify
 assign [class="Slack"] 9.Slack
