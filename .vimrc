@@ -39,6 +39,7 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
 Plug 'quramy/tsuquyomi'
 Plug 'jiangmiao/auto-pairs'
+"Plug 'chrisbra/vim-diff-enhanced'
 
 "--------------- Clojure
 Plug 'tpope/vim-salve'
@@ -47,6 +48,10 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-classpath'
 Plug 'venantius/vim-cljfmt'
+
+"--------------- Rust
+Plug 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
 
 "--------------- Linting
 Plug 'w0rp/ale'
