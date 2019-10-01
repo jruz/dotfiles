@@ -1,20 +1,13 @@
-name: Fractal
+name: Nautilus
 root: ~/dev/freelance/fractal/nautilus
 windows:
-  - VIM:
-      layout: even-vertical
-      panes:
-        - vim
-        - cd ../compose && make nautilus
+  - VIM: vim
   - SERVER:
       layout: tiled
       panes:
-        - cd ../compose && make proxy
-        - cd ../compose && make catfish
-        - cd ../compose && make megalodon
-        - cd ../compose && make fangtooth
-        - cd ../compose && make db-admin
-        - cd ../compose && make last-confirmation
+        - cd ../compose && make start
+        - cd ../compose && sleep 30 && make confirmation
   - GIT: gs
   - MEGALODON: cd ../megalodon
   - CATFISH: cd ../catfish
+  - COMPOSE: cd ../compose
