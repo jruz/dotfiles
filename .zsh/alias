@@ -2,7 +2,6 @@
 alias al='$EDITOR ~/dev/dotfiles/.zsh/alias'
 alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions'
 alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
-#alias vconf='$EDITOR ~/.config/nvim/init.vim'
 alias vconf='$EDITOR ~/.vimrc'
 alias tmconf='$EDITOR ~/.tmux.conf'
 alias fishconf='$EDITOR ~/.config/fish/config.fish'
@@ -16,7 +15,6 @@ alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
 
 # System
-#alias update='sudo apt-get update && sudo apt-get upgrade -y'
 alias off='shutdown -h now'
 alias x='exit'
 alias q='exit'
@@ -32,34 +30,7 @@ alias disks='lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7'
 alias errors='journalctl -xe'
 alias sx='startx'
 alias sxe='startx ~/dev/dotfiles/X/home/.xinitrc'
-alias sxm='startx ~/dev/dotfiles/X/meindach/.xinitrc'
-# Retina
-alias retina_on='xrandr --output eDP-1 --mode 2880x1800'
-alias retina_off='xrandr --output eDP-1 --off'
-alias retina_dpi='xrandr --dpi 168'
-#alias retina_on_external='xrandr --output eDP-1 --mode 2880x1800 --below DP-2'
-# Home
-alias external_1_on='xrandr --output DP-1 --mode 2560x1440'
-alias external_2_on='xrandr --output DP-2 --mode 2560x1440 --rotate right --left-of DP-1'
-alias external_dpi='xrandr --dpi 109'
-# MeinDach
-alias external_w_on='xrandr --output HDMI-1 --mode 2560x1440'
-#alias external2_on='xrandr --output DP-2 --mode 2560x1440 --rotate left --left-of DP-1'
-#alias external_off='xrandr --output HDMI-1 --off'
-#alias external_dpi='xrandr --dpi 109'
-# Viewsonic
-#alias external_on='xrandr --output HDMI-1 --mode 1920x1080'
-#alias external_off='xrandr --output HDMI-1 --off'
-# Mariano
-#alias external_on='xrandr --output DP-2 --mode 1920x1080'
-#alias external_off='xrandr --output DP-2 --off'
-#alias external_dpi='xrandr --dpi 109'
-# BCDGDV
-#alias bcg1_off='xrandr --output DP-1 --off'
-#alias bcg1_on='xrandr --output DP-1 --mode 2560x1440'
-#alias bcg2_off='xrandr --output DP-2 --off'
-#alias bcg2_on='xrandr --output DP-2 --mode 2560x1440 --rotate left --left-of DP-1'
-#alias bcg_dpi='xrandr --dpi 109'
+alias ag='ag -ui'
 
 # DHCP
 alias dhcr='sudo systemctl restart dhcpcd.service'
@@ -70,12 +41,12 @@ alias eon='sudo ip link set dev ens9 up'
 alias eoff='sudo ip link set dev ens9 down'
 
 # WIFI
-alias wr='sudo systemctl restart netctl-auto@enp0s20u1.service'
-alias woff='sudo systemctl stop netctl-auto@enp0s20u1.service'
-alias won='sudo systemctl start netctl-auto@enp0s20u1.service'
-alias ws='systemctl status netctl-auto@enp0s20u1.service'
+alias wr='nmcli radio wifi off && sleep 5 && nmcli radio wifi on'
+alias woff='nmcli radio wifi off'
+alias won='nmcli radio wifi on'
+alias ws='nmcli connection show'
 alias wa='netctl-auto current'
-alias wl='nmcli device wifi list ifname wlan0'
+alias wl='nmcli device wifi list ifname wlp0s20u1'
 alias wm='sudo wifi-menu enp0s20u1'
 alias wi='curl ipinfo.io'
 alias wip='wifi_ip'
@@ -113,9 +84,6 @@ alias tags='ctags -R --exclude=.git --exclude=node_modules'
 alias tf='terraform'
 
 # Git
-#alias gdp="git diff $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"
-#alias gpsa='git push --all -u'
-#alias grp="git rebase --hard $(git rev-parse --abbrev-ref HEAD | sed -r 's/_(incorrect|secure)(_[0-2])?//g')"
 alias g='git'
 alias ga='git add'
 alias gaa='git add -A'
@@ -157,10 +125,3 @@ alias gst='git stash --include-untracked'
 alias gstp='git stash pop'
 alias gwip='git commit -m "WIP"'
 alias this_branch='git rev-parse --abbrev-ref HEAD'
-
-#alias gt0="go_to_challenge_version 0"
-#alias gt1="go_to_challenge_version 1"
-#alias gt2="go_to_challenge_version 2"
-#alias gts="go_to_challenge_version s"
-#alias gtp="go_to_challenge_version"
-#alias gtc="go_to_challenge"

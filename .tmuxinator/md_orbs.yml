@@ -1,5 +1,0 @@
-name: CircleCI Orbs
-root: ~/dev/freelance/meindach/circleci-orbs
-windows:
-  - VIM: vim
-  - GIT: git status

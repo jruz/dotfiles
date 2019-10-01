@@ -29,7 +29,7 @@ order += "volume master"
 order += "arch_updates"
 
 wifi {
-  device = "wlp4s0"
+  device = "wlp0s20u1"
   use_sudo = true
   format_up = " {signal_percent} {ssid}"
   format_down = " "

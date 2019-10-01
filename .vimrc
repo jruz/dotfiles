@@ -262,4 +262,8 @@ function! XTermPasteBegin()
   return ""
 endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-"--------------- Pasting indentation fix
+
+"--------------- DIFF settings
+hi DiffDelete ctermbg=none
+hi DiffAdd ctermbg=none
+hi DiffChange ctermbg=none

@@ -1,7 +1,0 @@
-name: Backend
-root: ~/dev/backend
-
-windows:
-  - Vim: vim
-  - Server:
-  - Git:
