@@ -1,8 +1,7 @@
 name: Nautilus
 root: ~/dev/freelance/fractal/nautilus
 windows:
-  - VIM: vim
-  - SERVER:
+  - NAUTILUS:
       layout: tiled
       panes:
         - cd ../compose && make start
