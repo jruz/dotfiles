@@ -24,7 +24,7 @@ order += "cpu_usage"
 order += "cpu_temperature 0"
 order += "time"
 order += "tztime local"
-order += "weather_yahoo"
+order += "weather_owm"
 order += "volume master"
 order += "arch_updates"
 
@@ -106,10 +106,13 @@ volume master {
   mixer_idx = 0
 }
 
-weather_yahoo {
-  woeid = 638242
-  format_today = "{icon}{temp}°{units} {text}"
-  forecast_days = 0
+weather_owm {
+  api_key = ""
+  city = "Berlin"
+  unit_rain = "cm"
+  unit_temperature = "c"
+  unit_wind = "kmh"
+  forecast_days = 1
 }
 
 net_iplist {

@@ -17,8 +17,8 @@ bindkey '\e[B' history-beginning-search-forward
 bindkey "^O" accept-line-and-down-history
 
 # vars
-export EDITOR='vim'
-export GIT_EDITOR='vim'
+export EDITOR='emacs'
+export GIT_EDITOR='emacs'
 export DOTFILES='/home/jruz/dev/dotfiles'
 export GPG_TTY=$(tty)
 
@@ -38,6 +38,7 @@ stty -ixon
 # ASDF
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+export PATH="$HOME/.asdf/installs/rust/1.37.0/bin:$PATH"
 
 # Yarn global bins
 export PATH="$(yarn global bin):$PATH"
@@ -49,3 +50,6 @@ export AWS_REGION="eu-central-1"
 # Fractal
 export FRCTLS_WORK_DIR="/home/jruz/dev/freelance/fractal"
 source $FRCTLS_WORK_DIR/cli/shell/frctls-completion.sh
+
+# Doom
+export PATH="$HOME/.emacs.d/bin:$PATH"
