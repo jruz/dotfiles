@@ -1,4 +1,4 @@
-# vi:syntax=sh
+#; -*-sh-*-
 vpn () {
   region=$2
   if [[ $2 == "" ]]; then

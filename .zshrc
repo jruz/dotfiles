@@ -39,6 +39,7 @@ stty -ixon
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 export PATH="$HOME/.asdf/installs/rust/1.37.0/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Yarn global bins
 export PATH="$(yarn global bin):$PATH"
@@ -53,3 +54,12 @@ source $FRCTLS_WORK_DIR/cli/shell/frctls-completion.sh
 
 # Doom
 export PATH="$HOME/.emacs.d/bin:$PATH"
+
+# Prompt theme
+PROMPT="%(?:%{$fg_bold[green]%}➜:%{$fg_bold[red]%}➜)"
+PROMPT+='%{$fg[cyan]%}(%c)%{$reset_color%}$(git_prompt_info) λ '
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"

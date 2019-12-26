@@ -1,3 +1,4 @@
+# -*-sh-*-
 # Config files
 alias al='$EDITOR ~/dev/dotfiles/.zsh/alias'
 alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions'
@@ -35,6 +36,7 @@ alias sx='startx'
 alias sxe='startx ~/dev/dotfiles/X/home/.xinitrc'
 #alias ag='ag -ui'
 alias ag='rg'
+alias cat='bat'
 
 # DHCP
 alias dhcr='sudo systemctl restart dhcpcd.service'
@@ -93,6 +95,7 @@ alias ga='git add'
 alias gaa='git add -A'
 alias gap='git add -p'
 alias gb='git branch'
+alias gbc='git remote prune origin'
 alias gca='git commit --amend --no-edit'
 alias gcd='git checkout develop'
 alias gcm='git checkout master'
@@ -113,8 +116,7 @@ alias gl='git log --pretty=format:"%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%
 alias gld='gl develop..$(git rev-parse --abbrev-ref HEAD)'
 alias glm='gl master..$(git rev-parse --abbrev-ref HEAD)'
 alias gmd='git merge develop'
-alias gpl='git pull'
-alias gplr='git pull --rebase'
+alias gpl='git pull --rebase'
 alias gps='git push'
 alias gpsf='git push --force'
 alias gpsu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
