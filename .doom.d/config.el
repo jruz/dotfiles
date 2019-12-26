@@ -10,10 +10,10 @@
 
 ;; font size
 (set-face-attribute 'default t :font "Inconsolata")
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :height 160)
 
 ;; tabs
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 
 ;; word wrap
 (global-visual-line-mode t)
@@ -29,13 +29,35 @@
 ; disable paste yank
 (setq evil-kill-on-visual-paste nil)
 
-;; ;; prettier
-;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-;; (add-hook 'web-mode-hook 'prettier-js-mode)
+;; prettier
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
+(add-hook 'json-mode-hook 'prettier-js-mode)
+(add-hook 'scss-mode-hook 'prettier-js-mode)
 
 ;; eslint-fix
 (add-hook 'js2-mode-hook 'eslintd-fix-mode)
 
-;; ;; add-node-modules-path
-;; (eval-after-load 'js-mode
-;;   '(add-hook 'js2-mode-hook #'add-node-modules-path))
+;; Auto refresh files
+(global-auto-revert-mode t)
+
+;; Disable confirmation on exit
+(setq confirm-kill-emacs nil)
+
+;; Toggle maximize
+(defun toggle-maximize-buffer () "Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_)
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
+
+;; TypeScript REPL
+(add-hook 'typescript-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-x C-e") 'ts-send-last-sexp-and-go)))
+
+;; Company mode  delay
+(setq company-idle-delay 0)

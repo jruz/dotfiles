@@ -1,0 +1,10 @@
+name: TODO
+root: ~/dev/personal/todo
+windows:
+  - EMACS: emacs
+  - SERVER:
+      layout: tiled
+      panes:
+        - gs
+        - gs
+  - GIT: gs
