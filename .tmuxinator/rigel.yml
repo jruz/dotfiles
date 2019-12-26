@@ -1,9 +1,0 @@
-# ~/.tmuxinator/rigel.yml
-
-name: Rigel
-root: ~/dev/freelance/rigel.jruz.io
-pre: docker start mysql
-windows:
-  - VIM: vim
-  - SERVER: docker-compose run -p 80:80 --rm app
-  - GIT: git status
