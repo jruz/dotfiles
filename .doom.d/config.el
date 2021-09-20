@@ -3,14 +3,19 @@
 ;; Place your private configuration here
 
 ;; theme
-(load-theme 'doom-molokai)
+(load-theme 'doom-molokai t)
 
 ;; background color
 (add-to-list 'default-frame-alist '(background-color . "#1d1f21"))
 
 ;; font size
 (set-face-attribute 'default t :font "Inconsolata")
-(set-face-attribute 'default nil :height 160)
+;; External monitor
+(set-face-attribute 'default nil :height 240)
+;; Retina
+;; (set-face-attribute 'default nil :height 180)
+
+(setq doom-unicode-font (font-spec :family "Apple Color Emoji"))
 
 ;; tabs
 (setq-default tab-width 2)
@@ -34,6 +39,7 @@
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'typescript-mode-hook 'prettier-js-mode)
 (add-hook 'json-mode-hook 'prettier-js-mode)
+(add-hook 'css-mode-hook 'prettier-js-mode)
 (add-hook 'scss-mode-hook 'prettier-js-mode)
 
 ;; eslint-fix
@@ -61,3 +67,9 @@
 
 ;; Company mode  delay
 (setq company-idle-delay 0)
+
+;; Mac Command key as Control
+(setq mac-command-modifier 'control)
+
+;; Go
+(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-golangci-lint-setup))
