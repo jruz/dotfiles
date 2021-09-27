@@ -1,7 +1,0 @@
-alias rt='rspec -c -f d'
-alias zt='zeus test -c -f d'
-alias bi='bundle install'
-alias bu='bundle update'
-alias rs='bundle exec rails server'
-alias rc='bundle exec rails console'
-alias oc='overcommit --run'
