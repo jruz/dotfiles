@@ -21,6 +21,7 @@ export EDITOR='vim'
 export GIT_EDITOR='vim'
 export DOTFILES='/home/jruz/dev/dotfiles'
 export GPG_TTY=$(tty)
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # ALIAS
 for file in ~/dev/dotfiles/.zsh/*
