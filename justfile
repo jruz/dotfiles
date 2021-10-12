@@ -20,4 +20,6 @@ alias:
 git:
   git config --global user.email "javi@jruz.io"
   git config --global user.name "jruz"
+  git config --global core.excludesfile ~/dev/dotfiles/.gitignore_global
+  git --no-pager config --global -l
 
