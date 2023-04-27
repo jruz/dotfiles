@@ -123,6 +123,14 @@ replace () {
   fi
 }
 
-yf () {
-  cat $1 | pbcopy
+# yf () {
+#   cat $1 | pbcopy
+# }
+
+is_linux () {
+    [[ $('uname') == 'Linux' ]];
+}
+
+is_osx () {
+    [[ $('uname') == 'Darwin' ]]
 }
