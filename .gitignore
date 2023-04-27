@@ -2,3 +2,4 @@ bin/circleci
 bin/terraform
 bin/get_helm.sh
 .config/nvim/pack
+.config/nvim/plugged/*

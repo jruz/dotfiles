@@ -14,8 +14,12 @@ asdf-upgrade:
   cat .tool-versions | gawk '{system("asdf global " $1 " latest")}'
 
 alias:
-  -ln -s ~/dev/dotfiles/.tool-versions ~/.tool-versions
-  -ln -s ~/dev/dotfiles/.tmux.conf ~/.tmux.conf
+  -ln -s ~/dev/dotfiles/.tool-versions \
+    ~/.tool-versions
+  -ln -s ~/dev/dotfiles/.tmux.conf \
+    ~/.tmux.conf
+  -ln -s ~/dev/dotfiles/.config/nvim \
+    ~/.config/nvim
 
 git:
   git config --global user.email "javi@jruz.io"
@@ -23,3 +27,13 @@ git:
   git config --global core.excludesfile ~/dev/dotfiles/.gitignore_global
   git --no-pager config --global -l
 
+vim:
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+tmux:
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  # do ctrl+a I to install the plugins
+
+fonts:
+  ln -s ~/dev/dotfiles/fonts ~/.local/share/fonts
