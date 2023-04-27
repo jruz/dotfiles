@@ -25,13 +25,15 @@ alias a='yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --clean
 alias upp='sudo pacman -Syu'
 alias upa='pacaur -k'
 alias ups='$DOTFILES/update.sh'
+
 # LINUX COPY
-#alias yf='xclip -sel clip <'
+alias yf='xclip -sel clip <'
 #alias yo='xclip -sel clip'
 #alias vim='nvim'
 # MAC COPY
-alias yo='pbcopy'
-#alias vim='vim'
+#alias yo='pbcopy'
+
+alias vim='vim'
 alias disks='lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7'
 alias errors='journalctl -xe'
 alias sx='startx'
@@ -60,11 +62,14 @@ alias wi='curl ipinfo.io'
 alias wip='wifi_ip'
 alias wp='curl https://www.privateinternetaccess.com --silent | grep -Eo "<strong style=\"font-weight:bold;\">(.*)</strong>" | sed "s/<[^>]*>//g"'
 
+# LS
+alias ls='lsd'
+alias las='ls -lAhtr --group-directories-first --color'
+alias la='lsd --almost-all --group-dirs=first --human-readable --long'
+alias lad='la --sort=time --reverse'
+
 alias hosts='sudo $EDITOR /etc/hosts'
 alias reload='. ~/.zshrc'
-alias ls='gls'
-alias las='ls -lAhtr --group-directories-first --color'
-alias la='ls -lAh --group-directories-first --color'
 alias cls='clear'
 alias ..='cd ..'
 alias ...='cd ../..'
