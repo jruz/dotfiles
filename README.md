@@ -1,7 +1,9 @@
 # dotfiles
 
-`echo "source ~/dev/dotfiles/.zshrc" >> ~/.zshrc`
+install nix
+install home-manager
 
-`ln -s ~/dev/dotfiles/.vimrc ~/.vimrc`
-
-`ln -s ~/dev/dotfiles/.tmux.conf ~/.tmux.conf`
+```
+ln -s ~/dev/dotfiles/.config/home-manager ~/.config/home-manager
+home-manager switch
+```
