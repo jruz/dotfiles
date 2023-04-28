@@ -58,7 +58,6 @@ command Prettier :CocCommand prettier.formatFile
 command Config :edit $MYVIMRC
 command Wq :wq
 
-
 "--------------- Hard mode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -85,6 +84,27 @@ call matchadd('ColorColumn', '\%81v', 80)
 "--------------- VIM Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"--------------- WordCount
+let g:wordcount_toggle = 0
+
+function! WordCount()
+    return wordcount().words
+endfunction
+
+function! ShowWordCount()
+    let g:wordcount_toggle = 1
+    let g:airline_section_c = '%{WordCount()} words'
+    call airline#load_theme()
+endfunction
+
+function! HideWordCount()
+    let g:wordcount_toggle = 0
+    let g:airline_section_c = ''
+    call airline#load_theme()
+endfunction
+
+command! WordCount if g:wordcount_toggle | call HideWordCount() | else | call ShowWordCount() | endif
 
 "--------------- COC
 " TextEdit might fail if hidden is not set.
