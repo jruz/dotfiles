@@ -28,12 +28,12 @@ alias ups='$DOTFILES/update.sh'
 
 # LINUX COPY
 alias yf='xclip -sel clip <'
-#alias yo='xclip -sel clip'
-#alias vim='nvim'
+alias yo='xclip -sel clip'
 # MAC COPY
 #alias yo='pbcopy'
 
-alias vim='vim'
+#alias vim='nvim'
+
 alias disks='lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7'
 alias errors='journalctl -xe'
 alias sx='startx'

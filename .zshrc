@@ -17,6 +17,9 @@ bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 bindkey "^O" accept-line-and-down-history
 
+# NIX
+if [ -e /home/jruz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/jruz/.nix-profile/etc/profile.d/nix.sh; fi
+
 # VARS
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'

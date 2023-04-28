@@ -1,7 +1,9 @@
 [user]
-	email = javierruzg@gmail.com
-	name = Javier Ruz
+	email = javi@jruz.io
+	name = jruz
 [push]
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
+[init]
+	defaultBranch = main
