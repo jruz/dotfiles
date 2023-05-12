@@ -1,0 +1,8 @@
+{
+    "workspace.library": [
+        "/nix/store/ipabhm4sq7gkxrmhf4frn9ly86ikh1zl-vimplugin-neodev.nvim-2023-04-19/types/stable",
+        "/nix/store/0vx358rfjpiqbx84vy0j25bdcx00wgrz-neovim-unwrapped-0.9.0/share/nvim/runtime/lua",
+        "/Users/jruz/dev/dotfiles/.config/nvim/lua",
+        "${3rd}/luv/library"
+    ]
+}

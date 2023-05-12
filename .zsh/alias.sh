@@ -1,20 +1,24 @@
+alias e='$EDITOR'
+
 # Config files
 alias al='$EDITOR ~/dev/dotfiles/.zsh/alias.sh'
-alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions.sh'
-alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
-alias vconf='$EDITOR ~/.vimrc'
-alias nvconf='$EDITOR ~/.config/nvim/init.vim'
-alias econf='$EDITOR ~/dev/dotfiles/.doom.d'
-alias e='$EDITOR'
-alias tmconf='$EDITOR ~/.tmux.conf'
-alias i3conf='$EDITOR ~/.config/i3/config'
-alias i3sconf='$EDITOR ~/.config/i3status/config'
-alias tconf='$EDITOR ~/.config/alacritty/alacritty.yml'
 alias dotfiles='cd ~/dev/dotfiles'
-alias dnsconf='sudo vim /etc/resolv.conf'
-alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias econf='$EDITOR ~/dev/dotfiles/.doom.d'
+alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions.sh'
+alias i3conf='$EDITOR ~/dev/dotfiles/.config/i3/config'
+alias i3sconf='$EDITOR ~/dev/dotfiles/.config/i3status/config'
+alias kconf='$EDITOR ~/dev/dotfiles/.config/kitty/kitty.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
-alias logs='journalctl -ef'
+alias nvconf='$EDITOR ~/dev/dotfiles/.config/nvim/init.lua'
+alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias tconf='$EDITOR ~/dev/dotfiles/.config/alacritty/alacritty.yml'
+alias tmconf='$EDITOR ~/dev/dotfiles/.tmux.conf'
+alias vconf='$EDITOR ~/dev/dotfiles/.vimrc'
+alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
+
+# Home Manager
+alias hms='home-manager switch'
+alias hme='home-manager edit'
 
 # System
 alias off='shutdown -h now'
@@ -25,6 +29,8 @@ alias a='yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --clean
 alias upp='sudo pacman -Syu'
 alias upa='pacaur -k'
 alias ups='$DOTFILES/update.sh'
+alias logs='journalctl -ef'
+alias dnsconf='sudo vim /etc/resolv.conf'
 
 # LINUX COPY
 alias yf='xclip -sel clip <'

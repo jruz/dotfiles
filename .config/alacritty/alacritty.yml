@@ -1,7 +1,7 @@
 font:
   normal:
-    family: Inconsolata
-  size: 20
+    family: "DejaVuSansMono Nerd Font"
+  size: 18
 # Monokai-Soda
 colors:
   primary:
@@ -29,3 +29,7 @@ key_bindings:
   - key: V
     mods: Control|Shift
     action: Paste
+  # prevent window close on macOS
+  - key: W
+    mods: Command
+    action: none
