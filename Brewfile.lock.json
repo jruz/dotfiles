@@ -1,0 +1,36 @@
+{
+  "entries": {
+    "cask": {
+      "copilot-for-xcode": {
+        "version": "0.14.1",
+        "options": {
+          "full_name": "copilot-for-xcode"
+        }
+      },
+      "alacritty": {
+        "version": "0.12.0",
+        "options": {
+          "full_name": "alacritty"
+        }
+      },
+      "karabiner-elements": {
+        "version": "14.12.0",
+        "options": {
+          "full_name": "karabiner-elements"
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "ventura": {
+        "HOMEBREW_VERSION": "4.0.16",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "14.3.0.0.1.1679647830",
+        "Xcode": "14.3",
+        "macOS": "13.3.1"
+      }
+    }
+  }
+}

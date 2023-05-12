@@ -1,7 +1,14 @@
 # dotfiles
 
-install nix
-install home-manager
+install
+```
+nix
+home-manager
+
+homebrew
+brew bundle
+```
+
 
 ```
 ln -s ~/dev/dotfiles/.config/home-manager ~/.config/home-manager
