@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> {};
+in
+
 {
   home.username = "jruz";
 
@@ -15,7 +19,6 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    asdf
     asdf
     bat
     curl
@@ -48,24 +51,8 @@
     terraform
     tree-sitter
     stow
-  ];
-
-  home.file = {
-    #".config/alacritty/alacritty.yml".source = ~/dev/dotfiles/.config/alacritty/alacritty.yml;
-    #".config/kitty/kitty.conf".source = ~/dev/dotfiles/.config/kitty/kitty.conf;
-    #".config/nix/nix.conf".source = ~/dev/dotfiles/.config/nix/nix.conf;
-    #".config/nvim".source = ~/dev/dotfiles/.config/nvim;
-    #".gitconfig".source = ~/dev/dotfiles/.gitconfig;
-    #".gitignore_global".source = ~/dev/dotfiles/.gitignore_global;
-    #".tmux.conf".source = ~/dev/dotfiles/.tmux.conf;
-    #".tool-versions".source = ~/dev/dotfiles/.tool-versions;
-    #".zshrc".source = ~/dev/dotfiles/.zshrc;
-    #"Brewfile".source = ~/dev/dotfiles/Brewfile;
-    #"Brewfile.lock.json".source = ~/dev/dotfiles/Brewfile.lock.json;
-  };
-
-  programs.neovim = {
-    enable = true;
-    withNodeJs = true;
-  };
+    neovim
+    luajitPackages.jsregexp
+  ] ++ (with unstable; [
+  ]);
 }
