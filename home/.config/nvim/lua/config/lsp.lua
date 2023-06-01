@@ -1,5 +1,6 @@
 require("neodev").setup({})
 require("mason").setup()
+local on_attach = require("mason").on_attach
 
 require("mason-tool-installer").setup({
   ensure_installed = {
@@ -9,12 +10,16 @@ require("mason-tool-installer").setup({
     "terraform-ls",
     "tflint",
     "tfsec",
+    "rust-analyzer",
+    "rustfmt",
+    "rnix-lsp",
   },
   auto_update = true,
   run_on_start = true,
 })
 
 local lspconfig = require("lspconfig")
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 lspconfig.lua_ls.setup({
   settings = {
@@ -41,6 +46,17 @@ lspconfig.eslint.setup({})
 lspconfig.tsserver.setup({})
 lspconfig.terraformls.setup({})
 lspconfig.tflint.setup({})
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+      },
+    },
+  },
+})
+lspconfig.rnix.setup({})
 
 require("fidget").setup({})
 require("trouble").setup({})
@@ -84,3 +100,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+vim.cmd([[command LSPConfig :edit ~/.config/nvim/lua/config/lsp.lua]])

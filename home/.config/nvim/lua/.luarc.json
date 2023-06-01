@@ -33,6 +33,7 @@
         "${3rd}/luv/library",
         "${3rd}/luassert/library",
         "/home/jruz/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/10cc0b0f",
+        "/home/jruz/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/3ac74b11",
         "/home/jruz/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/3ac74b11"
     ],
     "workspace.checkThirdParty": false
