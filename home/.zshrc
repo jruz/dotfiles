@@ -38,9 +38,6 @@ stty -ixon
 #source /usr/bin/aws_zsh_completer.sh
 #export AWS_REGION="eu-central-1"
 
-# DOOM
-export PATH="$HOME/.emacs.d/bin:$PATH"
-
 # PROMPT THEME
 PROMPT="%(?:%{$fg_bold[green]%}➜:%{$fg_bold[red]%}➜)"
 PROMPT+='%{$fg[cyan]%}(%c)%{$reset_color%}$(git_prompt_info) λ '
@@ -61,30 +58,8 @@ export PATH="$(yarn global bin):$PATH"
 # JUST
 source <(just --completions=bash)
 
-# RUST
-#export PATH="$HOME/.asdf/installs/rust/1.37.0/bin:$PATH"
-#export PATH="$HOME/.cargo/bin:$PATH"
-
-# SOLANA
-export PATH="/home/jruz/.local/share/solana/install/active_release/bin:$PATH"
-
 # SCRIPTS & ALIAS
 for file in ~/dev/dotfiles/.zsh/*
 do
     source $file
 done
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jruz/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jruz/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jruz/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jruz/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
