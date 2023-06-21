@@ -4,6 +4,7 @@ source ~/.zgen/zgen.zsh
 if ! zgen saved; then
   zgen oh-my-zsh
   zgen oh-my-zsh themes/robbyrussell
+  zgen oh-my-zsh plugins/fzf
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions
   zgen save
@@ -16,17 +17,15 @@ bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 bindkey "^O" accept-line-and-down-history
 
+# NIX
+if [ -e /home/jruz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/jruz/.nix-profile/etc/profile.d/nix.sh; fi
+
 # VARS
-export EDITOR='vim'
-export GIT_EDITOR='vim'
+export EDITOR='nvim'
+export GIT_EDITOR='nvim'
 export DOTFILES='/home/jruz/dev/dotfiles'
 export GPG_TTY=$(tty)
-
-# ALIAS
-for file in ~/dev/dotfiles/.zsh/*
-do
-    source $file
-done
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # Personal bins
 export PATH="$PATH:$HOME/.local/bin"
@@ -59,7 +58,33 @@ autoload -Uz compinit && compinit
 # YARN
 export PATH="$(yarn global bin):$PATH"
 
+# JUST
+source <(just --completions=bash)
+
 # RUST
 #export PATH="$HOME/.asdf/installs/rust/1.37.0/bin:$PATH"
 #export PATH="$HOME/.cargo/bin:$PATH"
 
+# SOLANA
+export PATH="/home/jruz/.local/share/solana/install/active_release/bin:$PATH"
+
+# SCRIPTS & ALIAS
+for file in ~/dev/dotfiles/.zsh/*
+do
+    source $file
+done
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/jruz/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/jruz/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jruz/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/jruz/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

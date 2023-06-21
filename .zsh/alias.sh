@@ -1,22 +1,24 @@
-# -*-sh-*-
-# Config files
-alias al='$EDITOR ~/dev/dotfiles/.zsh/alias'
-alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions'
-alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
-alias vconf='$EDITOR ~/.vimrc'
-alias econf='$EDITOR ~/dev/dotfiles/.doom.d'
 alias e='$EDITOR'
-alias tmconf='$EDITOR ~/.tmux.conf'
-alias fishconf='$EDITOR ~/.config/fish/config.fish'
-alias i3conf='$EDITOR ~/.config/i3/config'
-alias i3sconf='$EDITOR ~/.config/i3status/config'
-alias tconf='$EDITOR ~/.config/alacritty/alacritty.yml'
-alias kconf='$EDITOR ~/.config/kitty/kitty.conf'
+
+# Config files
+alias al='$EDITOR ~/dev/dotfiles/.zsh/alias.sh'
 alias dotfiles='cd ~/dev/dotfiles'
-alias dnsconf='sudo vim /etc/resolv.conf'
-alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias econf='$EDITOR ~/dev/dotfiles/.doom.d'
+alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions.sh'
+alias i3conf='$EDITOR ~/dev/dotfiles/.config/i3/config'
+alias i3sconf='$EDITOR ~/dev/dotfiles/.config/i3status/config'
+alias kconf='$EDITOR ~/dev/dotfiles/.config/kitty/kitty.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
-alias logs='journalctl -ef'
+alias nvconf='$EDITOR ~/dev/dotfiles/.config/nvim/init.lua'
+alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias tconf='$EDITOR ~/dev/dotfiles/.config/alacritty/alacritty.yml'
+alias tmconf='$EDITOR ~/dev/dotfiles/.tmux.conf'
+alias vconf='$EDITOR ~/dev/dotfiles/.vimrc'
+alias zshconf='$EDITOR ~/dev/dotfiles/.zshrc'
+
+# Home Manager
+alias hms='home-manager switch'
+alias hme='home-manager edit'
 
 # System
 alias off='shutdown -h now'
@@ -27,20 +29,28 @@ alias a='yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --clean
 alias upp='sudo pacman -Syu'
 alias upa='pacaur -k'
 alias ups='$DOTFILES/update.sh'
+alias logs='journalctl -ef'
+alias dnsconf='sudo vim /etc/resolv.conf'
+
+# LINUX COPY
 alias yf='xclip -sel clip <'
 alias yo='xclip -sel clip'
-alias vim='nvim'
+# MAC COPY
+#alias yo='pbcopy'
+
+#alias vim='nvim'
+
 alias disks='lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7'
 alias errors='journalctl -xe'
 alias sx='startx'
 alias sxe='startx ~/dev/dotfiles/X/home/.xinitrc'
-#alias ag='ag -ui'
-alias ag='rg'
+alias ag='rg -S --hidden'
 alias cat='bat'
+alias awk='gawk'
 
 # DHCP
 alias dhcr='sudo systemctl restart dhcpcd.service'
-alias dhcs'sudo systemctl status dhcpcd.service -l | grep -e "ens9\|enp0s02u1"'
+alias dhcs='sudo systemctl status dhcpcd.service -l | grep -e "ens9\|enp0s02u1"'
 
 # ETHERNET
 alias eon='sudo ip link set dev ens9 up'
@@ -58,10 +68,14 @@ alias wi='curl ipinfo.io'
 alias wip='wifi_ip'
 alias wp='curl https://www.privateinternetaccess.com --silent | grep -Eo "<strong style=\"font-weight:bold;\">(.*)</strong>" | sed "s/<[^>]*>//g"'
 
+# LS
+alias ls='lsd'
+alias las='ls -lAhtr --group-directories-first --color'
+alias la='lsd --almost-all --group-dirs=first --human-readable --long'
+alias lad='la --sort=time --reverse'
+
 alias hosts='sudo $EDITOR /etc/hosts'
 alias reload='. ~/.zshrc'
-alias las='ls -lAHtr --group-directories-first'
-alias la='ls -lAh --group-directories-first'
 alias cls='clear'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -121,10 +135,11 @@ alias gps='git push'
 alias gpsf='git push --force'
 alias gpsu='git push -u origin $(git rev-parse --abbrev-ref HEAD)'
 alias gr='git reset'
-alias grc='git rebase --continue'
+alias grc='GIT_EDITOR=true git rebase --continue'
 alias grd='git rebase develop'
 alias grh='git reset HEAD~'
-alias grm='git rebase master'
+alias grr='git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
+alias grm='git fetch && git rebase origin/master'
 alias grs='git rebase --skip'
 alias gs='git status'
 alias gst='git stash --include-untracked'
