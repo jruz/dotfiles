@@ -1,9 +1,5 @@
+-- Base Config
 vim.o.compatible = false
-
--- Active Theme
-vim.cmd.colorscheme("catppuccin-mocha")
-
--- General
 vim.o.encoding = "utf-8"
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
@@ -14,16 +10,17 @@ vim.wo.number = true
 vim.o.autoread = true
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.lazyredraw = true
 vim.cmd([[syntax on]])
 vim.o.mouse = ""
 
--- Keyboard Shortcuts
-vim.api.nvim_set_keymap("n", "<C-P>", ":Files<Enter>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-B>", ":Buffers<Enter>", { noremap = true })
+-- Package Manager
+require("plugins")
+
+-- Active Theme
+vim.cmd.colorscheme("catppuccin-mocha")
 
 -- Commands
-vim.cmd([[command Config :edit $MYVIMRC]])
+vim.cmd([[command Config :edit ~/.config/nvim/init.lua]])
 vim.cmd([[command Wq :wq]])
 
 -- Hard mode
@@ -49,10 +46,8 @@ vim.cmd([[augroup END]])
 vim.cmd([[highlight ColorColumn ctermbg=magenta]])
 vim.cmd([[call matchadd('ColorColumn', '\\%81v', 80)]])
 
--- VIM Airline
-vim.g.airline_extensions_tabline_enabled = 1
-vim.g.airline_extensions_tabline_formatter = "unique_tail"
-
-require("lsp")
-require("wordcount")
-require("treesitter")
+-- Plugins
+require("config.lsp")
+require("config.wordcount")
+require("config.treesitter")
+require("config.telescope")
