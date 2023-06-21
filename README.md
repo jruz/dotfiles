@@ -19,12 +19,13 @@ Clone repo
 
 - https://brew.sh
 
-    brew bundle
-
+```
+brew bundle
+```
 
 ### Stow
 
-install Stow and link dotfiles
+Install Stow and link dotfiles
 
     stow -t ~ -v home
 
@@ -33,13 +34,9 @@ install Stow and link dotfiles
 - https://nixos.org/download.html
 - https://nix-community.github.io/home-manager/index.html#sec-install-standalone
 
-    home-manager switch
-
-### Homebrew
-
-- https://brew.sh
-
-    brew bundle
+```
+home-manager switch
+```
 
 ### Neovim
 
