@@ -6,13 +6,13 @@ require("mason-tool-installer").setup({
   ensure_installed = {
     "eslint-lsp",
     "lua-language-server",
-    "typescript-language-server",
+    "rnix-lsp",
+    "rust-analyzer",
+    "rustfmt",
     "terraform-ls",
     "tflint",
     "tfsec",
-    "rust-analyzer",
-    "rustfmt",
-    "rnix-lsp",
+    "typescript-language-server",
   },
   auto_update = true,
   run_on_start = true,
@@ -52,6 +52,9 @@ lspconfig.rust_analyzer.setup({
     ["rust-analyzer"] = {
       cargo = {
         allFeatures = true,
+      },
+      checkOnSave = {
+        command = "clippy",
       },
     },
   },

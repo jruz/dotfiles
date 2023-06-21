@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import <nixos-unstable> {};
+  unstable = import <nixos-unstable> { };
 in
 
 {
@@ -53,6 +53,7 @@ in
     stow
     neovim
     luajitPackages.jsregexp
+    cargo-watch
   ] ++ (with unstable; [
   ]);
 }
