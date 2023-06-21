@@ -2,27 +2,45 @@ require("neodev").setup({})
 require("mason").setup()
 
 require("mason-tool-installer").setup({
-	ensure_installed = {
-		"eslint-lsp",
-		"lua-language-server",
-		"typescript-language-server",
-	},
-	auto_update = true,
-	run_on_start = true,
+  ensure_installed = {
+    "eslint-lsp",
+    "lua-language-server",
+    "typescript-language-server",
+    "terraform-ls",
+    "tflint",
+    "tfsec",
+  },
+  auto_update = true,
+  run_on_start = true,
 })
 
 local lspconfig = require("lspconfig")
-lspconfig.lua_ls.setup({})
+
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {
+          'vim',
+          'require'
+        },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
 lspconfig.eslint.setup({})
 lspconfig.tsserver.setup({})
-
---[[
-require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "eslint", "tsserver", "prettier" },
-	automatic_installation = true,
-})
-
---]]
+lspconfig.terraformls.setup({})
+lspconfig.tflint.setup({})
 
 require("fidget").setup({})
 require("trouble").setup({})
