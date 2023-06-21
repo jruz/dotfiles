@@ -1,8 +1,6 @@
 java zulu-16.32.15
 maven 3.8.2
 clojure 1.10.3.967
-
 rust 1.55.0
-
-nodejs 16.9.1
-yarn 1.22.11
+nodejs 20.0.0
+deno 1.16.3

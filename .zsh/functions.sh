@@ -1,4 +1,3 @@
-#; -*-sh-*-
 vpn () {
   region=$2
   if [[ $2 == "" ]]; then
@@ -35,6 +34,10 @@ bl () {
     val=$min
   fi
   printf %.0f $val | sudo tee /sys/class/backlight/gmux_backlight/brightness
+}
+
+last_commit () {
+  git --no-pager log -1 --pretty='format:%s'
 }
 
 tme () {
@@ -106,4 +109,28 @@ work_resolution () {
 
 encrypt () {
   gpgtar -c --gpg-args --cipher-algo=AES256 -o $1.gpg $1
+}
+
+replace () {
+  rg $1
+
+  echo "\n\n"
+  echo "s/$1/$2 (y/n)?"
+  read REPLY
+  if [[ $REPLY = "y" ]]
+  then
+    rg -l $1 | xargs -L 1 sed -i "s/$1/$2/g"
+  fi
+}
+
+# yf () {
+#   cat $1 | pbcopy
+# }
+
+is_linux () {
+    [[ $('uname') == 'Linux' ]];
+}
+
+is_osx () {
+    [[ $('uname') == 'Darwin' ]]
 }
