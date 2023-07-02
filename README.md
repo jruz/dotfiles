@@ -42,3 +42,9 @@ home-manager switch
 
     # auth
     :Copilot
+
+### Mac
+
+- Disable auto correct
+- Increase speed of keyboard repetition
+- Wacom: Settings > Privacy & Security > Accessibility Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app` 
