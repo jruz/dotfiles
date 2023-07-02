@@ -47,4 +47,9 @@ home-manager switch
 
 - Disable auto correct
 - Increase speed of keyboard repetition
-- Wacom: Settings > Privacy & Security > Accessibility Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app` 
+
+#### Wacom
+
+Settings > Privacy & Security > Accessibility  
++ Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app`   
+https://support.wacom.com/hc/en-us/articles/9753655984663  
