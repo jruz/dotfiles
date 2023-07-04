@@ -48,7 +48,8 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 # ASDF
-. $HOME/.asdf/asdf.sh
+#. $HOME/.asdf/asdf.sh
+source $(fd --full-path 'asdf-vm/asdf\.sh$' /nix/store)
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
