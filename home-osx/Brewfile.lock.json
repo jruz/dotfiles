@@ -2,13 +2,13 @@
   "entries": {
     "cask": {
       "copilot-for-xcode": {
-        "version": "0.18.2",
+        "version": "0.19.2",
         "options": {
           "full_name": "copilot-for-xcode"
         }
       },
       "alacritty": {
-        "version": "0.12.1",
+        "version": "0.12.2",
         "options": {
           "full_name": "alacritty"
         }
@@ -20,7 +20,7 @@
         }
       },
       "istat-menus": {
-        "version": "6.70",
+        "version": "6.71",
         "options": {
           "full_name": "istat-menus"
         }
@@ -32,7 +32,7 @@
         }
       },
       "1password": {
-        "version": "8.10.7",
+        "version": "8.10.8",
         "options": {
           "full_name": "1Password"
         }
@@ -62,9 +62,27 @@
         }
       },
       "spotify": {
-        "version": "1.2.13.661,a588f749,987",
+        "version": "1.2.14.1149,a3ae422d,1070",
         "options": {
           "full_name": "spotify"
+        }
+      },
+      "surfshark": {
+        "version": "4.9.5,1874",
+        "options": {
+          "full_name": "surfshark"
+        }
+      },
+      "docker": {
+        "version": "4.21.1,114176",
+        "options": {
+          "full_name": "docker"
+        }
+      },
+      "kitty": {
+        "version": "0.28.1",
+        "options": {
+          "full_name": "kitty"
         }
       }
     },
@@ -186,13 +204,34 @@
       "Xcode": {
         "id": "497799835",
         "version": "14.3.1"
+      },
+      "1Blocker": {
+        "id": "1365531024",
+        "version": "4.1.14"
+      },
+      "1Password for Safari": {
+        "id": "1569813296",
+        "version": "2.12.0"
+      },
+      "OneTab": {
+        "id": "1540160809",
+        "version": "1.75"
+      },
+      "SimplyJSON for Safari": null,
+      "Userscripts-Mac-App": {
+        "id": "1463298887",
+        "version": "4.4.2"
+      },
+      "Vimkey": {
+        "id": "1585682577",
+        "version": "2.8.1"
       }
     }
   },
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "4.0.24",
+        "HOMEBREW_VERSION": "4.0.26",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
         "CLT": "14.3.1.0.1.1683849156",
