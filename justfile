@@ -1,10 +1,8 @@
-install:
+zgen:
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-  echo "source ~/dev/dotfiles/.zshrc" >> ~/.zshrc
 
-asdf:
-  git clone --force https://github.com/asdf-vm/asdf.git ~/.asdf
-  cat .tool-versions | gawk '{print $1}' | xargs -l asdf plugin-add
+asdf-install:
+  cat ~/.tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
   asdf install
   asdf current
 
@@ -28,6 +26,3 @@ vim:
 tmux:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do ctrl+a I to install the plugins
-
-stow-home:
-  stow -t ~ -v home

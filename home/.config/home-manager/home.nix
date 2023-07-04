@@ -19,7 +19,7 @@ in
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    asdf
+    asdf-vm
     bat
     curl
     fd
