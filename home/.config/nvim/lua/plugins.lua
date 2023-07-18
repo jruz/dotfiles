@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  { "catppuccin/nvim", name = "catppuccin" },
+  { "catppuccin/nvim",   name = "catppuccin" },
   {
     "windwp/nvim-autopairs",
     config = function()
@@ -29,7 +29,7 @@ local plugins = {
     config = function()
       local function word_count()
         local file_extension = vim.fn.expand('%:e')
-        if file_extension == 'txt' then
+        if file_extension == 'txt' or file_extension == "md" then
           local current_word_count = vim.fn.wordcount().words
           return string.format('%d words', current_word_count)
         else
@@ -59,6 +59,24 @@ local plugins = {
   "preservim/nerdcommenter",
   "nvim-treesitter/nvim-treesitter",
   "nvim-tree/nvim-web-devicons",
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        openai_params = {
+          model = "gpt-4",
+          max_tokens = 8000,
+        },
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
+  -- Lua
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
@@ -108,7 +126,7 @@ local plugins = {
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  "j-hui/fidget.nvim",
+  { "j-hui/fidget.nvim", tag = "legacy" },
   "folke/neodev.nvim",
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",

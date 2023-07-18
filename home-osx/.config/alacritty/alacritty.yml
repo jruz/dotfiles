@@ -1,6 +1,6 @@
 font:
   normal:
-    family: "DejaVuSansMono Nerd Font"
+    family: "DejaVuSansM Nerd Font"
   size: 18
 # Monokai-Soda
 colors:
@@ -26,10 +26,11 @@ colors:
     cyan: "#58d1eb"
     white: "#f6f6ef"
 key_bindings:
-  - key: V
-    mods: Control|Shift
-    action: Paste
-  # prevent window close on macOS
-  - key: W
-    mods: Command
-    action: none
+  - { key: V, mods: Command|Shift, action: Paste }
+  - { key: A, mods: Command, chars: "\x01" }
+  - { key: C, mods: Command, chars: "\x03" }
+  - { key: E, mods: Command, chars: "\x05" }
+  - { key: L, mods: Command, chars: "\x0c" }
+  - { key: P, mods: Command, chars: "\x10" }
+  - { key: W, mods: Command, chars: "\x17" }
+  - { key: X, mods: Command, chars: "\x18" }

@@ -43,7 +43,7 @@ in
     xclip
     zplug
     zsh
-    (nerdfonts.override { fonts = [ "DejaVuSansMono" ]; })
+    (nerdfonts.override { fonts = [ "DejaVuSansMono" "Lekton" ]; })
     stylua
     nixfmt
     zip
