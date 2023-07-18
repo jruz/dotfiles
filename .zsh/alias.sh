@@ -3,6 +3,7 @@ alias e='$EDITOR'
 # Config files
 alias al='$EDITOR ~/dev/dotfiles/.zsh/alias.sh'
 alias dotfiles='cd ~/dev/dotfiles'
+alias dev='cd ~/dev/personal'
 alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions.sh'
 alias i3conf='$EDITOR ~/.config/i3/config'
 alias i3sconf='$EDITOR ~/.config/i3status/config'

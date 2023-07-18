@@ -10,6 +10,9 @@ if ! zgen saved; then
   zgen save
 fi
 
+# ZSH
+DISABLE_UPDATE_PROMPT=true
+
 setopt HIST_IGNORE_DUPS
 
 #bindkey -v
