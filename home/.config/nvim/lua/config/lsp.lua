@@ -3,9 +3,12 @@ require("mason").setup()
 
 require("mason-tool-installer").setup({
   ensure_installed = {
+    "deno",
     "eslint-lsp",
     "lua-language-server",
+    "rescript-lsp",
     "rnix-lsp",
+    "rome",
     "rust-analyzer",
     "rustfmt",
     "terraform-ls",
@@ -34,6 +37,7 @@ lspconfig.lua_ls.setup({
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       telemetry = {
         enable = false,
@@ -43,6 +47,8 @@ lspconfig.lua_ls.setup({
 })
 lspconfig.eslint.setup({})
 lspconfig.tsserver.setup({})
+--lspconfig.denols.setup({})
+lspconfig.rome.setup({})
 lspconfig.terraformls.setup({})
 lspconfig.tflint.setup({})
 lspconfig.rust_analyzer.setup({
@@ -60,6 +66,18 @@ lspconfig.rust_analyzer.setup({
 })
 lspconfig.rnix.setup({})
 lspconfig.sourcekit.setup({})
+--lspconfig.rescriptls.setup({
+--cmd = {
+--'node',
+--"/home/jruz/.local/share/nvim/mason/packages/rescript-lsp/extension/server/out/server.js",
+--'--stdio',
+--}
+--})
+
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
 
 require("fidget").setup({})
 require("trouble").setup({})
