@@ -15,6 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   { "catppuccin/nvim",   name = "catppuccin" },
   {
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup()
+    end
+  },
+  {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup()
@@ -84,6 +90,12 @@ local plugins = {
       require("luasnip/loaders/from_vscode").load()
     end,
   },
+  -- ReScript
+  --{
+  --"nkrkv/nvim-treesitter-rescript",
+  --dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --},
+  "rescript-lang/vim-rescript",
   -- Rust
   {
     "saecki/crates.nvim",
@@ -112,6 +124,14 @@ local plugins = {
   --},
   --})
   --rt.hover_actions.hover_actions()
+  --end
+  --},
+
+  -- Deno
+  --{
+  --"sigmasd/deno-nvim",
+  --config = function()
+  --require("deno-nvim").setup()
   --end
   --},
 

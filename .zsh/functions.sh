@@ -134,3 +134,11 @@ is_linux () {
 is_osx () {
     [[ $('uname') == 'Darwin' ]]
 }
+
+brain () {
+  if is_osx; then
+    echo "TODO: write the path to MEGA on osx"
+  elif is_linux; then
+    cd "/mnt/c/Users/jruz/Documents/MEGA/Brain"
+  fi
+}

@@ -39,6 +39,7 @@ in
     tmuxinator
     unzip
     vim
+    neovim
     wget
     xclip
     zplug
@@ -51,9 +52,9 @@ in
     terraform
     tree-sitter
     stow
-    neovim
     luajitPackages.jsregexp
     cargo-watch
+    cargo-nextest
   ] ++ (with unstable; [
   ]);
 }
