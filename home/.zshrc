@@ -18,7 +18,14 @@ bindkey '\e[B' history-beginning-search-forward
 bindkey "^O" accept-line-and-down-history
 
 # NIX
-if [ -e /home/jruz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/jruz/.nix-profile/etc/profile.d/nix.sh; fi
+# linux
+if [ -e /home/jruz/.nix-profile/etc/profile.d/nix.sh ]; then
+  source /home/jruz/.nix-profile/etc/profile.d/nix.sh;
+fi
+# macos
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then 
+  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh';
+fi
 
 # VARS
 export EDITOR='nvim'
@@ -48,10 +55,26 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 # ASDF
-#. $HOME/.asdf/asdf.sh
-source $(fd --full-path 'asdf-vm/asdf\.sh$' /nix/store)
-fpath=(${ASDF_DIR}/completions $fpath)
-autoload -Uz compinit && compinit
+ASDF_PATH_FILE=~/.asdf_path
+
+function load_asdf() {
+  source $(cat ~/.asdf_path)
+  fpath=(${ASDF_DIR}/completions $fpath)
+  autoload -Uz compinit && compinit
+}
+
+function update_asdf_path() {
+  fd --full-path 'asdf-vm/asdf\.sh$' /nix/store | head -n 1 > $ASDF_PATH_FILE
+}
+
+if [[ -f "$ASDF_PATH_FILE" ]]; then
+  load_asdf
+  (&>/dev/null update_asdf_path &)
+else
+  echo "ASDF_PATH_FILE not found, creating..."
+  update_asdf_path
+  load_asdf
+fi
 
 # YARN
 export PATH="$(yarn global bin):$PATH"

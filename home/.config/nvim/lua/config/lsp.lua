@@ -1,6 +1,5 @@
 require("neodev").setup({})
 require("mason").setup()
-local on_attach = require("mason").on_attach
 
 require("mason-tool-installer").setup({
   ensure_installed = {
@@ -60,6 +59,7 @@ lspconfig.rust_analyzer.setup({
   },
 })
 lspconfig.rnix.setup({})
+lspconfig.sourcekit.setup({})
 
 require("fidget").setup({})
 require("trouble").setup({})
