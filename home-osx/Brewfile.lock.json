@@ -62,13 +62,13 @@
         }
       },
       "spotify": {
-        "version": "1.2.14.1149,a3ae422d,1070",
+        "version": "1.2.15.828,79f41970,487",
         "options": {
           "full_name": "spotify"
         }
       },
       "surfshark": {
-        "version": "4.9.5,1874",
+        "version": "4.10.1,1919",
         "options": {
           "full_name": "surfshark"
         }
@@ -83,6 +83,12 @@
         "version": "0.28.1",
         "options": {
           "full_name": "kitty"
+        }
+      },
+      "obsidian": {
+        "version": "1.3.5",
+        "options": {
+          "full_name": "obsidian"
         }
       }
     },
@@ -231,12 +237,12 @@
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "4.0.26",
+        "HOMEBREW_VERSION": "4.0.28",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
         "CLT": "14.3.1.0.1.1683849156",
         "Xcode": "14.3.1",
-        "macOS": "13.4"
+        "macOS": "13.4.1"
       }
     }
   }

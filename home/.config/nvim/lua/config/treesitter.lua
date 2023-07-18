@@ -12,6 +12,7 @@ require("nvim-treesitter").setup({
     "lua",
     "python",
     "query",
+    "rescript",
     "rust",
     "toml",
     "typescript",
