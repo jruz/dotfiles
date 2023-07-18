@@ -3,4 +3,4 @@ stow-home:
 	stow -t ~ -v home	
 
 stow-mac: stow-home
-	stow -t ~ -v home-osx
+	stow -t ~ -v home-mac
