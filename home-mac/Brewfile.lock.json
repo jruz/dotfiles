@@ -2,7 +2,7 @@
   "entries": {
     "cask": {
       "copilot-for-xcode": {
-        "version": "0.19.2",
+        "version": "0.20.0",
         "options": {
           "full_name": "copilot-for-xcode"
         }
@@ -50,7 +50,7 @@
         }
       },
       "swiftformat-for-xcode": {
-        "version": "0.51.12",
+        "version": "0.51.13",
         "options": {
           "full_name": "swiftformat-for-xcode"
         }
@@ -62,7 +62,7 @@
         }
       },
       "spotify": {
-        "version": "1.2.15.828,79f41970,487",
+        "version": "1.2.16.947,cfbaa410,105",
         "options": {
           "full_name": "spotify"
         }
@@ -80,7 +80,7 @@
         }
       },
       "kitty": {
-        "version": "0.28.1",
+        "version": "0.29.1",
         "options": {
           "full_name": "kitty"
         }
@@ -89,6 +89,12 @@
         "version": "1.3.5",
         "options": {
           "full_name": "obsidian"
+        }
+      },
+      "chromium": {
+        "version": "latest",
+        "options": {
+          "full_name": "chromium"
         }
       }
     },
@@ -237,7 +243,7 @@
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "4.0.28",
+        "HOMEBREW_VERSION": "4.0.29",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
         "CLT": "14.3.1.0.1.1683849156",
