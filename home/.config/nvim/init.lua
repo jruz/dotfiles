@@ -10,8 +10,10 @@ vim.wo.number = true
 vim.o.autoread = true
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.cmd([[syntax on]])
+vim.o.syntax = "on"
 vim.o.mouse = ""
+vim.o.showmode = false
+
 
 -- Package Manager
 require("plugins")
@@ -22,18 +24,10 @@ vim.cmd.colorscheme("catppuccin-mocha")
 -- Commands
 vim.cmd([[command Config :edit ~/.config/nvim/init.lua]])
 vim.cmd([[command Wq :wq]])
+vim.cmd([[command Wqa :wqa]])
 
--- Hard mode
-vim.api.nvim_set_keymap("n", "<Up>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Down>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Left>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Right>", "<NOP>", { noremap = true })
-
--- Split navigation with ctrl
-vim.api.nvim_set_keymap("n", "<C-J>", "<C-W><C-J>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-K>", "<C-W><C-K>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-L>", "<C-W><C-L>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-H>", "<C-W><C-H>", { noremap = true })
+-- Auto Save
+vim.api.nvim_command('autocmd FocusLost * :wa')
 
 -- Cursorline only on active window
 vim.cmd([[augroup CursorLineOnlyInActiveWindow]])
@@ -46,9 +40,12 @@ vim.cmd([[augroup END]])
 vim.cmd([[highlight ColorColumn ctermbg=magenta]])
 vim.cmd([[call matchadd('ColorColumn', '\\%81v', 80)]])
 
--- Plugins
+-- Plugins Config
 require("config.lsp")
-require("config.wordcount")
+require("config.markdown")
 require("config.treesitter")
 require("config.telescope")
+require("config.lualine")
 require("config.completion")
+require("config.oil")
+require("config.keymaps")

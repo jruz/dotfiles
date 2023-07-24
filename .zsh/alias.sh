@@ -15,6 +15,8 @@ alias tconf='$EDITOR ~/.config/alacritty/alacritty.yml'
 alias tmconf='$EDITOR ~/.tmux.conf'
 alias vconf='$EDITOR ~/.vimrc'
 alias zshconf='$EDITOR ~/.zshrc'
+alias conf='cd ~/.config'
+alias hconf='hx ~/.config/helix/config.toml'
 
 # Home Manager
 alias hms='home-manager switch'

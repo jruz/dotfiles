@@ -19,9 +19,14 @@ in
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "DejaVuSansMono" "Lekton" ]; })
     asdf-vm
+    awscli2
     bat
+    cargo-nextest
+    cargo-watch
     curl
+    emacs-nox
     fd
     fontconfig
     frawk
@@ -29,32 +34,31 @@ in
     gawk
     git
     gnupg
+    helix
     jq
     just
     lsd
+    luajitPackages.jsregexp
+    neovim
+    nixfmt
+    nushell
     procs
     ripgrep
     rlwrap
+    stow
+    stylua
+    terraform
     tmux
     tmuxinator
+    tree-sitter
     unzip
     vim
-    neovim
     wget
     xclip
+    zellij
+    zip
     zplug
     zsh
-    (nerdfonts.override { fonts = [ "DejaVuSansMono" "Lekton" ]; })
-    stylua
-    nixfmt
-    zip
-    awscli2
-    terraform
-    tree-sitter
-    stow
-    luajitPackages.jsregexp
-    cargo-watch
-    cargo-nextest
   ] ++ (with unstable; [
   ]);
 }

@@ -15,12 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   { "catppuccin/nvim",   name = "catppuccin" },
   {
-    "stevearc/oil.nvim",
-    config = function()
-      require("oil").setup()
-    end
-  },
-  {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup()
@@ -30,31 +24,7 @@ local plugins = {
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-  {
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      local function word_count()
-        local file_extension = vim.fn.expand('%:e')
-        if file_extension == 'txt' or file_extension == "md" then
-          local current_word_count = vim.fn.wordcount().words
-          return string.format('%d words', current_word_count)
-        else
-          return ''
-        end
-      end
-
-      require("lualine").setup({
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics', word_count },
-          lualine_c = { 'filename' },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' }
-        },
-      })
-    end
-  },
+  "nvim-lualine/lualine.nvim",
   "tpope/vim-fugitive",
   'NoahTheDuke/vim-just',
   "github/copilot.vim",
@@ -65,23 +35,33 @@ local plugins = {
   "preservim/nerdcommenter",
   "nvim-treesitter/nvim-treesitter",
   "nvim-tree/nvim-web-devicons",
+  "stevearc/oil.nvim",
   {
-    "jackMort/ChatGPT.nvim",
+    "folke/which-key.nvim",
     event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        openai_params = {
-          model = "gpt-4",
-          max_tokens = 8000,
-        },
-      })
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
     end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
+    opts = {}
   },
+  --{
+  --"jackMort/ChatGPT.nvim",
+  --event = "VeryLazy",
+  --config = function()
+  --require("chatgpt").setup({
+  --openai_params = {
+  --model = "gpt-4",
+  --max_tokens = 8000,
+  --},
+  --})
+  --end,
+  --dependencies = {
+  --"MunifTanjim/nui.nvim",
+  --"nvim-lua/plenary.nvim",
+  --"nvim-telescope/telescope.nvim"
+  --}
+  --},
   -- Lua
   {
     "L3MON4D3/LuaSnip",
@@ -141,6 +121,11 @@ local plugins = {
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-cmdline',
   'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lua',
+  'hrsh7th/cmp-omni',
+  'hrsh7th/cmp-nvim-lsp-document-symbol',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+
 
   -- LSP
   "williamboman/mason.nvim",
@@ -150,6 +135,7 @@ local plugins = {
   "folke/neodev.nvim",
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
+  "lukas-reineke/lsp-format.nvim",
   {
     "folke/trouble.nvim",
     config = function()
