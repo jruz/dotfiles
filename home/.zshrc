@@ -1,3 +1,6 @@
+# ZSH
+DISABLE_UPDATE_PROMPT=true
+
 # ZGEN
 source ~/.zgen/zgen.zsh
 
@@ -9,9 +12,6 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions
   zgen save
 fi
-
-# ZSH
-DISABLE_UPDATE_PROMPT=true
 
 setopt HIST_IGNORE_DUPS
 
