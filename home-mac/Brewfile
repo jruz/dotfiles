@@ -3,6 +3,7 @@ brew "stow"
 
 cask "1Password"
 cask "alacritty"
+cask "chromium"
 cask "copilot-for-xcode"
 cask "docker"
 cask "istat-menus"
@@ -11,11 +12,11 @@ cask "kitty"
 cask "lulu"
 cask "megasync"
 cask "native-access"
+cask "obsidian"
 cask "spotify"
 cask "surfshark"
 cask "swiftformat-for-xcode"
 cask "wacom-tablet"
-cask "obsidian"
 
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
