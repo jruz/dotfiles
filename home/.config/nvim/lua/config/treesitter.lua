@@ -10,6 +10,7 @@ require("nvim-treesitter").setup({
     "javascript",
     "json",
     "lua",
+    "nushell",
     "python",
     "query",
     "rescript",
@@ -21,7 +22,7 @@ require("nvim-treesitter").setup({
     "yaml",
   },
 
-  sync_install = false,
+  sync_install = true,
   auto_install = true,
   parser_install_dir = parsers_install_dir,
   ignore_install = { "" },
