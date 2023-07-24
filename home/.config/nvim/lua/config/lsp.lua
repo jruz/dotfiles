@@ -73,7 +73,8 @@ lspconfig.rescriptls.setup({
   capabilities = capabilities,
   cmd = {
     'node',
-    "/home/jruz/.local/share/nvim/mason/packages/rescript-lsp/extension/server/out/server.js",
+    --"/home/jruz/.local/share/nvim/mason/packages/rescript-lsp/extension/server/out/server.js", --Linux
+    '/Users/jruz/.local/share/nvim/lazy/vim-rescript/server/out/server.js', --Mac
     '--stdio',
   }
 })
