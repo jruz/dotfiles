@@ -3,6 +3,7 @@ require("mason").setup()
 
 require("mason-tool-installer").setup({
   ensure_installed = {
+    "bash-language-server",
     "deno",
     "efm",
     "eslint-lsp",
@@ -12,6 +13,7 @@ require("mason-tool-installer").setup({
     "rome",
     "rust-analyzer",
     "rustfmt",
+    "shfmt",
     "terraform-ls",
     "tflint",
     "tfsec",
@@ -46,6 +48,7 @@ lspconfig.lua_ls.setup({
     },
   },
 })
+lspconfig.bashls.setup({})
 lspconfig.eslint.setup({})
 lspconfig.tsserver.setup({})
 --lspconfig.denols.setup({})
@@ -84,6 +87,10 @@ local prettier = {
   formatCommand = [[prettier --stdin-filepath ${INPUT}]],
   formatStdin = true,
 }
+local rustfmt = {
+  formatCommand = "[[rustfmt ${INPUT} --emit=stdout --edition=2021]]",
+  formatStdin = true,
+}
 require("lsp-format").setup({})
 lspconfig.efm.setup({
   on_attach = require("lsp-format").on_attach,
@@ -95,6 +102,7 @@ lspconfig.efm.setup({
       javascript = { prettier },
       json = { prettier },
       markdown = { prettier },
+      rust = { rustfmt },
       typescript = { prettier },
       yaml = { prettier },
     },

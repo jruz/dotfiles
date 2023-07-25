@@ -33,15 +33,6 @@ alias upa='pacaur -k'
 alias ups='$DOTFILES/update.sh'
 alias logs='journalctl -ef'
 alias dnsconf='sudo vim /etc/resolv.conf'
-
-# LINUX COPY
-alias yf='xclip -sel clip <'
-alias yo='xclip -sel clip'
-# MAC COPY
-#alias yo='pbcopy'
-
-#alias vim='nvim'
-
 alias disks='lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7'
 alias errors='journalctl -xe'
 alias sx='startx'
