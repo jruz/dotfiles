@@ -9,7 +9,7 @@ require("oil").setup({
     ["<Space>oh"] = "actions.toggle_hidden",
     ["<Space>ot"] = "actions.select_tab",
     ["<Space>oq"] = "actions.close",
-    ["<Space>ol"] = "actions.refresh",
+    ["<Space>or"] = "actions.refresh",
     ["<Space>o_"] = "actions.open_cwd",
     ["<Space>o`"] = "actions.cd",
     ["<Space>o~"] = "actions.tcd",
