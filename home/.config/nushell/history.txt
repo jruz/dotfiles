@@ -1,0 +1,21 @@
+ks
+ls
+dev
+ls
+cd dev/
+ls
+config nu
+nvim
+config nu
+node --version
+EDITOR=hx config nu
+tmux
+just tmux
+hme
+EDITOR=hx config nu
+la
+nuconf
+EDITOR=hx config nu
+la
+nuconf 
+alias
