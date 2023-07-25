@@ -1,5 +1,5 @@
 stow-home:
-	rm ~/.config/home-manager/home.nix
+	rm -r ~/.config/home-manager
 	stow -t ~ -v home	
 
 stow-mac: stow-home
