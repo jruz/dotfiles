@@ -15,7 +15,7 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 ## CLI Editors:
 
-- NeoVim config
+- NeoVim [config](/home/.config/nvim)
 - Vim config
 - Emacs config
 - Helix config
