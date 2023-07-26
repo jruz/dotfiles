@@ -1,25 +1,17 @@
-install:
+zgen:
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-  echo "source ~/dev/dotfiles/.zshrc" >> ~/.zshrc
 
-asdf:
-  git clone --force https://github.com/asdf-vm/asdf.git ~/.asdf
-  cat .tool-versions | gawk '{print $1}' | xargs -l asdf plugin-add
-  cat .tool-versions | xargs -l asdf install
+asdf-install:
+  cat ~/.tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
+  asdf install
   asdf current
 
+# updates all asdf plugins and installs the latest version of each tool
 asdf-upgrade:
   asdf update
+  asdf plugin-update --all
   cat .tool-versions | gawk '{system("asdf install " $1 " latest")}'
   cat .tool-versions | gawk '{system("asdf global " $1 " latest")}'
-
-alias:
-  -ln -s ~/dev/dotfiles/.tool-versions \
-    ~/.tool-versions
-  -ln -s ~/dev/dotfiles/.tmux.conf \
-    ~/.tmux.conf
-  -ln -s ~/dev/dotfiles/.config/nvim \
-    ~/.config/nvim
 
 git:
   git config --global user.email "javi@jruz.io"
@@ -34,6 +26,3 @@ vim:
 tmux:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do ctrl+a I to install the plugins
-
-fonts:
-  ln -s ~/dev/dotfiles/fonts ~/.local/share/fonts

@@ -1,3 +1,11 @@
+is_linux () {
+    [[ $('uname') == 'Linux' ]];
+}
+
+is_osx () {
+    [[ $('uname') == 'Darwin' ]]
+}
+
 vpn () {
   region=$2
   if [[ $2 == "" ]]; then
@@ -123,14 +131,44 @@ replace () {
   fi
 }
 
-# yf () {
-#   cat $1 | pbcopy
-# }
-
-is_linux () {
-    [[ $('uname') == 'Linux' ]];
+yf () {
+  if is_osx; then
+    cat $1 | pbcopy
+  elif is_linux; then
+    xclip -sel clip < $1
+  fi
 }
 
-is_osx () {
-    [[ $('uname') == 'Darwin' ]]
+yo () {
+  if is_osx; then
+    pbcopy
+  elif is_linux; then
+    xclip -sel clip
+  fi
+}
+
+brain_path () {
+  if is_osx; then
+    echo "TODO: write the path to MEGA on osx"
+  elif is_linux; then
+    echo "/mnt/c/Users/jruz/Documents/MEGA/Brain"
+  fi
+}
+
+brain () {
+  if is_osx; then
+    echo "TODO: write the path to MEGA on osx"
+  elif is_linux; then
+    cd $(brain_path)
+  fi
+}
+
+mp () {
+  cd $(brain_path)/🌞\ Morning\ Pages
+}
+
+asdf_install () {
+  cat ~/.tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
+  asdf install
+  asdf current
 }

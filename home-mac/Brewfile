@@ -1,0 +1,28 @@
+brew "mas"
+brew "stow"
+
+cask "1Password"
+cask "alacritty"
+cask "chromium"
+cask "copilot-for-xcode"
+cask "docker"
+cask "istat-menus"
+cask "karabiner-elements"
+cask "kitty"
+cask "lulu"
+cask "megasync"
+cask "native-access"
+cask "obsidian"
+cask "spotify"
+cask "surfshark"
+cask "swiftformat-for-xcode"
+cask "wacom-tablet"
+
+mas "1Blocker", id: 1365531024
+mas "1Password for Safari", id: 1569813296
+mas "Moom", id: 419330170
+mas "OneTab", id: 1540160809
+mas "SimplyJSON for Safari", id: 1495193038
+mas "Userscripts-Mac-App", id: 1463298887
+mas "Vimkey", id: 1585682577
+mas "Xcode", id: 497799835
