@@ -1,22 +1,26 @@
 alias e='$EDITOR'
 
 # Config files
-alias al='$EDITOR ~/dev/dotfiles/.zsh/alias.sh'
 alias dotfiles='cd ~/dev/dotfiles'
 alias dev='cd ~/dev/personal'
-alias fu='$EDITOR ~/dev/dotfiles/.zsh/functions.sh'
+alias conf='cd ~/.config'
+
+alias al='$EDITOR ~/.config/.zsh/alias.sh'
+alias fu='$EDITOR ~/.config/zsh/functions.sh'
+
 alias i3conf='$EDITOR ~/.config/i3/config'
 alias i3sconf='$EDITOR ~/.config/i3status/config'
+alias aconf='$EDITOR ~/.config/alacritty/alacritty.yml'
 alias kconf='$EDITOR ~/.config/kitty/kitty.conf'
-alias ngconf='sudo vim /etc/nginx/nginx.conf'
 alias nvconf='$EDITOR ~/.config/nvim/init.lua'
-alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
-alias tconf='$EDITOR ~/.config/alacritty/alacritty.yml'
-alias tmconf='$EDITOR ~/.tmux.conf'
 alias vconf='$EDITOR ~/.vimrc'
-alias zshconf='$EDITOR ~/.zshrc'
-alias conf='cd ~/.config'
 alias hconf='hx ~/.config/helix/config.toml'
+alias tmconf='$EDITOR ~/.tmux.conf'
+alias zshconf='$EDITOR ~/.zshrc'
+alias econf='$EDITOR ~/.config/doom'
+
+alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
+alias ngconf='sudo vim /etc/nginx/nginx.conf'
 
 # Home Manager
 alias hms='home-manager switch'
