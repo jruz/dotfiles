@@ -39,13 +39,8 @@ vim.cmd([[augroup END]])
 -- Line length marker
 vim.cmd([[highlight ColorColumn ctermbg=magenta]])
 vim.cmd([[call matchadd('ColorColumn', '\\%81v', 80)]])
+vim.cmd('highlight ExtraWhitespace ctermbg=red guibg=red')
+vim.cmd('autocmd BufWinEnter * match ExtraWhitespace /\\s\\+$/')
 
 -- Plugins Config
-require("config.lsp")
-require("config.markdown")
-require("config.treesitter")
-require("config.telescope")
-require("config.lualine")
-require("config.completion")
-require("config.oil")
-require("config.keymaps")
+require("config")

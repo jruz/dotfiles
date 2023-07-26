@@ -41,7 +41,7 @@ local plugins = {
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 200
     end,
     opts = {}
   },
@@ -62,6 +62,7 @@ local plugins = {
   --"nvim-telescope/telescope.nvim"
   --}
   --},
+
   -- Lua
   {
     "L3MON4D3/LuaSnip",
@@ -70,12 +71,14 @@ local plugins = {
       require("luasnip/loaders/from_vscode").load()
     end,
   },
+
   -- ReScript
+  "rescript-lang/vim-rescript",
   --{
   --"nkrkv/nvim-treesitter-rescript",
   --dependencies = { "nvim-treesitter/nvim-treesitter" },
   --},
-  "rescript-lang/vim-rescript",
+
   -- Rust
   {
     "saecki/crates.nvim",
