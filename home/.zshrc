@@ -81,6 +81,9 @@ fi
 # YARN
 export PATH="$(yarn global bin):$PATH"
 
+# EMACS DOOM
+export PATH="$PATH:$HOME/.config/emacs/bin"
+
 # JUST
 source <(just --completions=bash)
 

@@ -17,7 +17,7 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 - NeoVim [init.lua](/home/.config/nvim)
 - Vim [.vimrc](/home/.vimrc)
-- Emacs [.doom.d](/home/.doom.d)
+- Emacs [doom](/.config/doom)
 - Helix [config.toml](/home/.config/helix/config.toml)
 
 ## Terminal stuff:
