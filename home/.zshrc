@@ -26,7 +26,7 @@ if [ -e /home/jruz/.nix-profile/etc/profile.d/nix.sh ]; then
   source /home/jruz/.nix-profile/etc/profile.d/nix.sh;
 fi
 # macos
-if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then 
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
   source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh';
 fi
 
@@ -39,7 +39,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # Personal bins
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/dev/dotfiles/bin"
 
 # Disable Ctrl-Q Ctrl-S
 stty -ixon
@@ -86,7 +85,7 @@ export PATH="$(yarn global bin):$PATH"
 source <(just --completions=bash)
 
 # SCRIPTS & ALIAS
-for file in ~/dev/dotfiles/.zsh/*
+for file in ~/.config/zsh/*
 do
     source $file
 done
