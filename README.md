@@ -8,25 +8,25 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 ## Apps:
 
-- CLI Nix + Home Manager home.nix
-- GUI Homebrew brewfile
-- Languages ASDF .tool-version
-- .config with Stow config
+- CLI Nix + Home Manager [home.nix](/home/.config/home-manager/home.nix)
+- GUI Homebrew [Brewfile](/home-mac/Brewfile)
+- Languages ASDF [.tool-version](/home/.tool-versions)
+- .configs with Stow [config](/Makefile)
 
 ## CLI Editors:
 
-- NeoVim [config](/home/.config/nvim)
-- Vim config
-- Emacs config
-- Helix config
+- NeoVim [init.lua](/home/.config/nvim)
+- Vim [.vimrc](/home/.vimrc)
+- Emacs [.doom.d](/home/.doom.d)
+- Helix [config.toml](/home/.config/helix/config.toml)
 
 ## Terminal stuff:
 
-- Alacritty config
-- Tmux config
-- Zellij config
-- ZSH config
-- Nushell config
+- Alacritty [alacritty.yml](/home-mac/.config/alacritty.yml)
+- Tmux [.tmux.cof](/home/.tmux.conf)
+- Zellij [config.kdl](/home/.config/zellij/config.kdl)
+- ZSH [.zshrc](/home/.zshrc)
+- Nushell [.config](/home/.config/nushell)
 
 ---
 
