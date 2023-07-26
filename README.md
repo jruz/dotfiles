@@ -22,7 +22,7 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 ## Terminal stuff:
 
-- Alacritty [alacritty.yml](/home-mac/.config/alacritty.yml)
+- Alacritty [alacritty.yml](/home-mac/.config/alacritty/alacritty.yml)
 - Tmux [.tmux.cof](/home/.tmux.conf)
 - Zellij [config.kdl](/home/.config/zellij/config.kdl)
 - ZSH [.zshrc](/home/.zshrc)
