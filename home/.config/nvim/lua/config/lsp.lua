@@ -82,34 +82,8 @@ lspconfig.rescriptls.setup({
   }
 })
 
--- EFM
-local prettier = {
-  formatCommand = [[prettier --stdin-filepath ${INPUT}]],
-  formatStdin = true,
-}
-local rustfmt = {
-  formatCommand = "[[rustfmt ${INPUT} --emit=stdout --edition=2021]]",
-  formatStdin = true,
-}
-require("lsp-format").setup({})
-lspconfig.efm.setup({
-  on_attach = require("lsp-format").on_attach,
-  init_options = { documentFormatting = true },
-  settings = {
-    languages = {
-      css = { prettier },
-      html = { prettier },
-      javascript = { prettier },
-      json = { prettier },
-      markdown = { prettier },
-      rust = { rustfmt },
-      typescript = { prettier },
-      yaml = { prettier },
-    },
-  },
-})
 
-
+-- Markdown
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
   "dataviewjs=javascript"

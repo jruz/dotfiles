@@ -33,7 +33,7 @@ cmp.setup({
       }
     }
   }, {
-    { name = 'buffer' },
+    --{ name = 'buffer' },
   })
 })
 
