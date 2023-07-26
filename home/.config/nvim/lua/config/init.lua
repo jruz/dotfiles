@@ -1,4 +1,3 @@
-require("config.ale")
 require("config.completion")
 require("config.efm")
 require("config.keymaps")

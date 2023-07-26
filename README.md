@@ -1,6 +1,39 @@
 # dotfiles
 
+Welcome to my dotfiles, here's where I try to find a sane way to sync apps and config between my computers
+
+- mac
+- windows + wsl2
+- linux
+
+## Apps:
+
+- CLI Nix + Home Manager home.nix
+- GUI Homebrew brewfile
+- Languages ASDF .tool-version
+- .config with Stow config
+
+## CLI Editors:
+
+- NeoVim config
+- Vim config
+- Emacs config
+- Helix config
+
+## Terminal stuff:
+
+- Alacritty config
+- Tmux config
+- Zellij config
+- ZSH config
+- Nushell config
+
+---
+
+This steps are for myself when I setup a new machine:
+
 ### Github
+
 Generate new key
 
     ssh-keygen -t ed25519 -C "javi@jruz"
@@ -13,7 +46,6 @@ Clone repo
     mkdir -p ~/dev/personal
     cd ~/dev
     git clone git@github.com:jruz/dotfiles.git
-    
 
 ### Homebrew
 
@@ -43,13 +75,18 @@ home-manager switch
     # auth
     :Copilot
 
-### Mac
+### Mac settings
 
 - Disable auto correct
 - Increase speed of keyboard repetition
 
-#### Wacom
+#### Wacom setup
 
-Settings > Privacy & Security > Accessibility  
-+ Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app`   
-https://support.wacom.com/hc/en-us/articles/9753655984663  
+Settings > Privacy & Security > Accessibility
+
+- Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app`  
+  https://support.wacom.com/hc/en-us/articles/9753655984663
+
+### Windows
+
+- Install [AutoHotkey](https://www.autohotkey.com) and remap Ctrl+Tab with script in `dev\dotfiles\windows\AutoHotkey`
