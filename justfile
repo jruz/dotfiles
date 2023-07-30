@@ -17,6 +17,8 @@ git:
   git config --global user.name "jruz"
   git config --global core.excludesfile ~/dev/dotfiles/.gitignore_global
   git --no-pager config --global -l
+  git config --global user.signingkey CECD4EB5EC6AAF54
+  git config --global commit.gpgsign true
 
 tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
