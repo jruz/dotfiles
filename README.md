@@ -45,7 +45,7 @@ Install GPG Key
 
     gpg --import backup.key
 
-Configure Git
+Check git config
 
     just git
 
