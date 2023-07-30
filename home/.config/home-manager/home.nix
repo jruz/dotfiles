@@ -25,6 +25,7 @@ in
     cargo-watch
     cargo-nextest
     rustup
+    git-crypt
     frawk
     fzf
     gawk
