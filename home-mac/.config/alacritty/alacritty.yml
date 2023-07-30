@@ -32,10 +32,14 @@ key_bindings:
   - { key: C, mods: Command, chars: "\x03" }
   - { key: E, mods: Command, chars: "\x05" }
   - { key: F, mods: Command, chars: "\x06" }
+  - { key: I, mods: Command, chars: "\x09" }
   - { key: L, mods: Command, chars: "\x0c" }
   - { key: O, mods: Command, chars: "\x0f" }
   - { key: P, mods: Command, chars: "\x10" }
+  - { key: S, mods: Command, chars: "\x13" }
+  - { key: U, mods: Command, chars: "\x15" }
   - { key: V, mods: Command, chars: "\x16" }
   - { key: V, mods: Command|Shift, action: Paste }
   - { key: W, mods: Command, chars: "\x17" }
   - { key: X, mods: Command, chars: "\x18" }
+  - { key: Y, mods: Command, chars: "\x19" }
