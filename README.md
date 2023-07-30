@@ -41,6 +41,14 @@ Generate new key
 
 Add key to https://github.com/settings/keys
 
+Install GPG Key
+
+    gpg --import backup.key
+
+Configure Git
+
+    just git
+
 Clone repo
 
     mkdir -p ~/dev/personal
@@ -59,7 +67,9 @@ brew bundle
 
 Install Stow and link dotfiles
 
-    stow -t ~ -v home
+    make stow-linux
+    make stow-mac
+
 
 ### Home Manager
 
@@ -72,7 +82,9 @@ home-manager switch
 
 ### Neovim
 
-    # auth
+Open `nvim` first time and let Lazy.vim install all deps.  
+Reopen and setup Copilot
+
     :Copilot
 
 ### Mac settings
