@@ -8,10 +8,10 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 ## Apps:
 
-- CLI Nix + Home Manager [home.nix](/home/.config/home-manager/home.nix)
-- GUI Homebrew [Brewfile](/home-mac/Brewfile)
-- Languages ASDF [.tool-version](/home/.tool-versions)
-- .configs with Stow [config](/Makefile)
+- CLI  - Nix + Home Manager [home.nix](/home/.config/home-manager/home.nix)
+- GUI - Homebrew [Brewfile](/home-mac/Brewfile)
+- Languages - ASDF [.tool-version](/home/.tool-versions)
+- .config -  with Stow [config](/Makefile)
 
 ## CLI Editors:
 
