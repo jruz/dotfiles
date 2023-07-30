@@ -95,7 +95,6 @@ require("vim.lsp._watchfiles")._watchfunc = function()
 end
 
 require("fidget").setup({})
-require("trouble").setup({})
 
 -- Format on save
 vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]

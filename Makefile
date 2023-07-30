@@ -1,3 +1,5 @@
+stow: stow-home
+
 stow-home:
 	rm -r ~/.config/home-manager
 	stow -t ~ -v home	
