@@ -14,6 +14,12 @@ vim.o.syntax = "on"
 vim.o.mouse = ""
 vim.o.showmode = false
 
+-- Folding
+vim.wo.foldmethod = "indent"
+vim.wo.foldnestmax = 4
+vim.wo.foldenable = false
+vim.wo.foldlevel = 1
+
 
 -- Package Manager
 require("plugins")

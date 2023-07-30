@@ -1,9 +1,12 @@
 [user]
 	email = javi@jruz.io
 	name = jruz
+	signingkey = CECD4EB5EC6AAF54
 [push]
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true

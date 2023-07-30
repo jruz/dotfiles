@@ -1,0 +1,6 @@
+--hidden
+
+--glob
+!.git/*
+!.obsidian/*
+!node_modules/*

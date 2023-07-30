@@ -76,7 +76,7 @@ function ToggleTodo()
   end
 end
 
-vim.api.nvim_set_keymap('n', '<Space><Space>', ':lua ToggleTodo()<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-Space>', ':lua ToggleTodo()<cr>', { noremap = true })
 
 function ArchiveTodos()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -105,3 +105,13 @@ function ArchiveTodos()
 end
 
 vim.cmd('command! ArchiveTodos lua ArchiveTodos()')
+
+local wk = require("which-key")
+wk.register({
+  m = {
+    name = "Markdown Tools",
+    r = { ResetTodos, "Uncheck all todos" },
+    t = { ToggleTodo, "Toggle todo" },
+    a = { ArchiveTodos, "Move all completed todos to #Done" }
+  },
+}, { prefix = "<space>" })
