@@ -1,10 +1,9 @@
-zgen:
+stow:
+  make stow
+
+zgen-install:
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
-asdf-install:
-  cat ~/.tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
-  asdf install
-  asdf current
 
 # updates all asdf plugins and installs the latest version of each tool
 asdf-upgrade:
@@ -19,10 +18,15 @@ git:
   git config --global core.excludesfile ~/dev/dotfiles/.gitignore_global
   git --no-pager config --global -l
 
-vim:
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-tmux:
+tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do ctrl+a I to install the plugins
+
+mac-outdated:
+  brew outdated
+  mas outdated
+
+mac-update:
+  brew update
+  brew upgrade
+  mas upgrade

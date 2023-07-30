@@ -16,3 +16,7 @@ render = true
 
 [editor.soft-wrap]
 enable = true
+
+[keys.normal]
+C-s = ":w"
+G = "goto_last_line"

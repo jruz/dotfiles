@@ -37,6 +37,14 @@ local plugins = {
   "nvim-tree/nvim-web-devicons",
   "stevearc/oil.nvim",
   {
+    "LhKipp/nvim-nu",
+    config = function()
+      require("nu").setup({
+        use_lsp_features = true,
+      })
+    end,
+  },
+  {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
@@ -138,16 +146,8 @@ local plugins = {
   "folke/neodev.nvim",
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
-  "lukas-reineke/lsp-format.nvim",
-  {
-    "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup({
-        auto_open = true,
-        auto_close = true,
-      })
-    end
-  },
+  "folke/trouble.nvim",
+  "lukas-reineke/lsp-format.nvim", --EFM
 }
 
 local opts = {

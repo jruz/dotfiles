@@ -16,6 +16,7 @@ require("nvim-treesitter").setup({
     "rescript",
     "rust",
     "toml",
+    "nu",
     "typescript",
     "vim",
     "vimdoc",

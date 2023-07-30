@@ -539,5 +539,13 @@ let-env config = {
   ]
 }
 
-alias al = ls -lah
+alias ls = lsd
+alias la = ls -lah
 alias nuconf = EDITOR=hx config nu
+alias x = exit
+alias q = exit
+alias c = clear
+
+
+# Theme
+source ~/.cache/starship/init.nu

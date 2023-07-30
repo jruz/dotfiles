@@ -18,12 +18,13 @@ in
     asdf-vm
     awscli2
     bat
-    cargo-nextest
-    cargo-watch
     curl
     emacs-nox
     fd
     fontconfig
+    cargo-watch
+    cargo-nextest
+    rustup
     frawk
     fzf
     gawk
@@ -43,7 +44,6 @@ in
     shellcheck
     stow
     stylua
-    terraform
     tmux
     tmuxinator
     tree-sitter
