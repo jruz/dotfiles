@@ -35,7 +35,13 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 export DOTFILES='/home/jruz/dev/dotfiles'
 export GPG_TTY=$(tty)
-export FZF_DEFAULT_COMMAND='rg --files --hidden'
+
+# RG
+export RIPGREP_CONFIG_PATH=~/config/rg/config
+
+# FZF
+export FZF_COMPLETION_TRIGGER='``'
+export FZF_DEFAULT_COMMAND='rg --files --glob=!{.git,node_modules,.obsidian}'
 
 # Personal bins
 export PATH="$PATH:$HOME/.local/bin"
