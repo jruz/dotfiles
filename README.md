@@ -36,7 +36,7 @@ This steps are for myself when I setup a new machine:
 
 Generate new key
 
-    ssh-keygen -t ed25519 -C "javi@jruz"
+    ssh-keygen -t ed25519 -C "--EMAIL--"
     pbcopy < ~/.ssh/id_ed25519.pub
 
 Add key to https://github.com/settings/keys
