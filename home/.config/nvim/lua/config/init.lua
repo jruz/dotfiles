@@ -1,5 +1,5 @@
 require("config.completion")
-require("config.efm")
+--require("config.efm")
 require("config.brain")
 require("config.keymaps")
 require("config.lsp")
