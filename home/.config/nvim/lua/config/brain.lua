@@ -59,9 +59,9 @@ require("which-key").register({
   b = {
     name = "Brain Tools",
     w = { BrainWorkspace, "Open workspace" },
-    k = { CreateJournalFromTemplate, "Create Journal from template" },
+    J = { CreateJournalFromTemplate, "Create Journal from template" },
     j = { OpenJournal, "Open Journal for today" },
-    n = { CreateMPFromTemplate, "Create Morning Page from template" },
-    M = { OpenMP, "Open Morning Page for today" },
+    M = { CreateMPFromTemplate, "Create Morning Page from template" },
+    m = { OpenMP, "Open Morning Page for today" },
   },
 }, { prefix = "<space>" })

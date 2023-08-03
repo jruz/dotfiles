@@ -20,6 +20,7 @@ alias econf='$EDITOR ~/.config/doom'
 alias hconf='$EDITOR ~/.config/helix/config.toml'
 alias nuconf='$EDITOR ~/.config/nushell'
 alias nu='nu --config ~/.config/nushell/config.nu'
+alias jt="just tmux"
 
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'

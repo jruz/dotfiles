@@ -53,6 +53,13 @@ local plugins = {
     end,
     opts = {}
   },
+  {
+    "LukasPietzschmann/telescope-tabs",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("telescope-tabs").setup({})
+    end,
+  },
   --{
   --"jackMort/ChatGPT.nvim",
   --event = "VeryLazy",
