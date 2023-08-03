@@ -62,28 +62,6 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%})%{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
-# ASDF
-ASDF_PATH_FILE=~/.asdf_path
-
-function load_asdf() {
-  source $(cat ~/.asdf_path)
-  fpath=(${ASDF_DIR}/completions $fpath)
-  autoload -Uz compinit && compinit
-}
-
-function update_asdf_path() {
-  fd --full-path 'asdf-vm/asdf\.sh$' /nix/store | head -n 1 > $ASDF_PATH_FILE
-}
-
-if [[ -f "$ASDF_PATH_FILE" ]]; then
-  load_asdf
-  (&>/dev/null update_asdf_path &)
-else
-  echo "ASDF_PATH_FILE not found, creating..."
-  update_asdf_path
-  load_asdf
-fi
-
 # YARN
 export PATH="$(yarn global bin):$PATH"
 

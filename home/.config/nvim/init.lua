@@ -45,7 +45,7 @@ vim.cmd([[augroup END]])
 -- Line length marker
 vim.cmd([[highlight ColorColumn ctermbg=magenta]])
 vim.cmd([[call matchadd('ColorColumn', '\\%81v', 80)]])
-vim.cmd('highlight ExtraWhitespace ctermbg=red guibg=red')
+vim.cmd('highlight ExtraWhitespace guibg=#B4BEFE')
 vim.cmd('autocmd BufWinEnter * match ExtraWhitespace /\\s\\+$/')
 
 -- Plugins Config

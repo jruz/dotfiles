@@ -1,4 +1,6 @@
-require("oil").setup({
+local oil = require("oil")
+
+oil.setup({
   keymaps = {
     ["<Space>o?"] = "actions.show_help",
     ["<CR>"] = "actions.select",
@@ -19,4 +21,4 @@ require("oil").setup({
   },
 })
 
-vim.api.nvim_set_keymap('n', '<C-f>', ':lua require("oil").open_float()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-o>', oil.open_float, {})

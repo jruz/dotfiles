@@ -15,7 +15,7 @@ in
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "DejaVuSansMono" "Lekton" ]; })
-    asdf-vm
+    rtx
     awscli2
     bat
     curl

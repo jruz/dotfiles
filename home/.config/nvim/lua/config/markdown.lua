@@ -15,12 +15,14 @@ function HandleEnter()
       vim.cmd 'normal! o'
       vim.api.nvim_input('- ')
     else
-      vim.cmd 'normal! o'
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
     end
   else
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
   end
 end
+
+vim.api.nvim_set_keymap('i', '<CR>', '<Cmd>lua HandleEnter()<CR>', { noremap = true, silent = true })
 
 function HandleO()
   local line = vim.api.nvim_get_current_line()
@@ -34,14 +36,13 @@ function HandleO()
       vim.api.nvim_feedkeys('a', 'i', true)
       vim.api.nvim_input('- ')
     else
-      vim.cmd 'normal! o'
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('o', true, true, true), 'n', true)
     end
   else
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('o', true, true, true), 'n', true)
   end
 end
 
-vim.api.nvim_set_keymap('i', '<CR>', '<Cmd>lua HandleEnter()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'o', '<Cmd>lua HandleO()<CR>', { noremap = true, silent = true })
 
 function ResetTodos()
