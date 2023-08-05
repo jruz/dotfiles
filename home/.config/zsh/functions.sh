@@ -168,7 +168,7 @@ mp () {
 }
 
 asdf_install () {
-  cat ~/.tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
+  cat .tool-versions | gawk '{print $1}' | xargs -L 1 asdf plugin-add
   asdf install
   asdf current
 }
