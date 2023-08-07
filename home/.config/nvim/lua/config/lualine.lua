@@ -7,26 +7,16 @@ end
 
 local file_extension = vim.fn.expand('%:e')
 
-local function getSections()
-  if file_extension == 'txt' or file_extension == "md" then
-    return {
-      lualine_a = { 'mode' },
-      lualine_b = {},
-      lualine_c = { 'filename' },
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = { word_count }
-    }
-  end
+local markdown_sections = {
+  lualine_a = { 'mode' },
+  lualine_b = {},
+  lualine_c = { 'filename' },
+  lualine_x = {},
+  lualine_y = {},
+  lualine_z = { word_count }
+}
 
-  return {
-    lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
-  }
-end
 
-lualine.setup({ sections = getSections() })
+local markdown = { sections = markdown_sections, filetypes = { 'markdown' } }
+
+lualine.setup({ extensions = { "trouble", markdown } })

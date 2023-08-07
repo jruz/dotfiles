@@ -21,4 +21,4 @@ oil.setup({
   },
 })
 
-vim.keymap.set('n', '<C-o>', oil.open_float, {})
+--vim.keymap.set('n', '<C-o>', oil.open_float, {})

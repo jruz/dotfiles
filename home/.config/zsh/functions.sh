@@ -19,11 +19,11 @@ vpn () {
     ls -1 --ignore=*.crt --ignore=*.pem /etc/openvpn/client/ | awk '{a=$2; gsub(".conf","",$1); print $1}'
     return 1
   fi
-  sudo systemctl $1 openvpn-client@$region.service
+  sudo systemctl "$1" "openvpn-client@$region.service"
 }
 
 gri () {
-  git rebase -i HEAD~$1
+  git rebase -i "HEAD~$1"
 }
 
 blu () {
@@ -49,11 +49,11 @@ last_commit () {
 }
 
 tme () {
-  $EDITOR ~/dev/dotfiles/.tmuxinator/$1.yml
+  $EDITOR "${HOME}/dev/dotfiles/.tmuxinator/$1.yml"
 }
 
 eject () {
-  udisksctl unmount -b $1 && udisksctl power-off -b $1
+  udisksctl unmount -b "$1" && udisksctl power-off -b "$1"
 }
 
 t () {
@@ -68,12 +68,12 @@ t () {
   elif [[ $1 == "cli" ]]; then
     transmission-remote-cli
   elif [[ $1 == "add" ]]; then
-    transmission-remote -w /mnt/external/series -a $2
+    transmission-remote -w /mnt/external/series -a "$2"
   fi
 }
 
 untar () {
-  tar -xzvf $1
+  tar -xzvf "$1"
 }
 
 update_mirrorlist () {
@@ -82,7 +82,7 @@ update_mirrorlist () {
 }
 
 get_ip () {
-  ip -4 a show $1 | grep inet | awk '{print $2}' | sed 's/\/.*//'
+  ip -4 a show "$1" | grep inet | awk '{print $2}' | sed 's/\/.*//'
 }
 
 wifi_ip () {
@@ -116,26 +116,26 @@ work_resolution () {
 }
 
 encrypt () {
-  gpgtar -c --gpg-args --cipher-algo=AES256 -o $1.gpg $1
+  gpgtar -c --gpg-args --cipher-algo=AES256 -o "$1.gpg" "$1"
 }
 
 replace () {
-  rg $1
+  rg "$1"
 
   echo "\n\n"
   echo "s/$1/$2 (y/n)?"
   read REPLY
   if [[ $REPLY = "y" ]]
   then
-    rg -l $1 | xargs -L 1 sed -i "s/$1/$2/g"
+    rg -l "$1" | xargs -L 1 sed -i "s/$1/$2/g"
   fi
 }
 
 yf () {
   if is_osx; then
-    cat $1 | pbcopy
+    cat "$1" | pbcopy
   elif is_linux; then
-    xclip -sel clip < $1
+    xclip -sel clip < "$1"
   fi
 }
 
@@ -159,12 +159,12 @@ brain () {
   if is_osx; then
     echo "TODO: write the path to MEGA on osx"
   elif is_linux; then
-    cd $(brain_path)
+    cd "$(brain_path)" || exit
   fi
 }
 
 mp () {
-  cd $(brain_path)/🌞\ Morning\ Pages
+  cd "$(brain_path)/🌞\ Morning\ Pages" || exit
 }
 
 asdf_install () {
