@@ -1,25 +1,30 @@
 require("neodev").setup({})
 require("mason").setup()
 
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "bashls",
+    "denols",
+    "efm",
+    "eslint",
+    "lua_ls",
+    "rescriptls",
+    "rnix",
+    "rome",
+    "rust_analyzer",
+    "clojure_lsp",
+    "terraformls",
+    "tflint",
+    "tsserver",
+  },
+  automatic_installation = true,
+})
+
 require("mason-tool-installer").setup({
   ensure_installed = {
-    "bash-language-server",
-    "deno",
-    "efm",
-    "eslint-lsp",
-    "lua-language-server",
-    "rescript-lsp",
-    "rnix-lsp",
-    "rome",
-    "rust-analyzer",
-    "clojure-lsp",
     "clj-kondo",
-    "rustfmt",
     "shfmt",
-    "terraform-ls",
-    "tflint",
     "tfsec",
-    "typescript-language-server",
   },
   auto_update = true,
   run_on_start = true,
@@ -75,15 +80,7 @@ lspconfig.rust_analyzer.setup({
 })
 lspconfig.rnix.setup({})
 lspconfig.sourcekit.setup({})
-lspconfig.rescriptls.setup({
-  capabilities = capabilities,
-  cmd = {
-    'node',
-    --"/home/jruz/.local/share/nvim/mason/packages/rescript-lsp/extension/server/out/server.js", --Linux
-    '/Users/jruz/.local/share/nvim/lazy/vim-rescript/server/out/server.js', --Mac
-    '--stdio',
-  }
-})
+lspconfig.rescriptls.setup({})
 
 
 -- Markdown
