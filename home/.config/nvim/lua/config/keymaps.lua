@@ -13,3 +13,11 @@ vim.api.nvim_set_keymap("n", "<C-H>", "<C-W><C-H>", { noremap = true })
 -- Move lines
 vim.api.nvim_set_keymap("n", "<A-j>", ":m .+1<CR>==", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-k>", ":m .-2<CR>==", { noremap = true })
+
+-- Tabs
+vim.api.nvim_set_keymap("n", "<A-T>", ":tabnew<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<A-[>", ":tabprev<CR>", { noremap = true })
+vim.api.nvim_set_keymap('n', '<A-]>', ':tabnext<CR>', { noremap = true })
+
+-- Save all
+vim.api.nvim_set_keymap('n', '<C-S>', ':wa<CR>', { noremap = true })
