@@ -19,6 +19,7 @@ alias zshconf='$EDITOR ~/.zshrc'
 alias econf='$EDITOR ~/.config/doom'
 alias hconf='$EDITOR ~/.config/helix/config.toml'
 alias nuconf='$EDITOR ~/.config/nushell'
+alias rtxconf='$EDITOR ~/.config/rtx/config.toml'
 alias nu='nu --config ~/.config/nushell/config.nu'
 alias jt="just tmux"
 
