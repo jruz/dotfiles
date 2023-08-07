@@ -71,6 +71,9 @@ export PATH="$PATH:$HOME/.config/emacs/bin"
 # JUST
 source <(just --completions=bash)
 
+# RTX
+RTX_USE_TOML=1
+
 # SCRIPTS & ALIAS
 for file in ~/.config/zsh/*
 do
