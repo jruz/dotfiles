@@ -12,6 +12,8 @@ require("mason-tool-installer").setup({
     "rnix-lsp",
     "rome",
     "rust-analyzer",
+    "clojure-lsp",
+    "clj-kondo",
     "rustfmt",
     "shfmt",
     "terraform-ls",
@@ -48,6 +50,7 @@ lspconfig.lua_ls.setup({
     },
   },
 })
+lspconfig.clojure_lsp.setup({})
 lspconfig.bashls.setup({})
 lspconfig.eslint.setup({})
 lspconfig.tsserver.setup({})
