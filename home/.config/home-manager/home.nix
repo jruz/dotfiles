@@ -31,6 +31,7 @@ in
     gawk
     git
     gnupg
+    gnused
     helix
     jq
     just
