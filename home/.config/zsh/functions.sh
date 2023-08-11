@@ -151,7 +151,7 @@ brain_path () {
   if is_osx; then
     echo "TODO: write the path to MEGA on osx"
   elif is_linux; then
-    echo "/mnt/c/Users/jruz/Documents/MEGA/Brain"
+    echo "/mnt/c/Brain"
   fi
 }
 
