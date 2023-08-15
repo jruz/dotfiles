@@ -133,6 +133,14 @@ local plugins = {
   --end
   --},
 
+  -- Clojure
+  'Olical/conjure',
+  'Olical/aniseed',
+  {
+    'eraserhd/parinfer-rust',
+    build = 'cargo build --release',
+  },
+
   -- Completion
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
@@ -154,7 +162,12 @@ local plugins = {
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
   "folke/trouble.nvim",
-  "lukas-reineke/lsp-format.nvim", --EFM
+  {
+    "lukas-reineke/lsp-format.nvim",
+    config = function()
+      require('lsp-format').setup({})
+    end,
+  }
 }
 
 local opts = {
