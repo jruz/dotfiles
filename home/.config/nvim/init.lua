@@ -33,7 +33,7 @@ vim.cmd([[command Wq :wq]])
 vim.cmd([[command Wqa :wqa]])
 
 -- Auto Save
-vim.api.nvim_command('autocmd FocusLost * :wa')
+--vim.api.nvim_command('autocmd FocusLost * :wa')
 
 -- Cursorline only on active window
 vim.cmd([[augroup CursorLineOnlyInActiveWindow]])

@@ -14,3 +14,4 @@ Thumbs.db
 # folders
 node_modules
 .sass-cache
+.clj-kondo
