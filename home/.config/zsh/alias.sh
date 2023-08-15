@@ -22,6 +22,7 @@ alias nuconf='$EDITOR ~/.config/nushell'
 alias rtxconf='$EDITOR ~/.config/rtx/config.toml'
 alias nu='nu --config ~/.config/nushell/config.nu'
 alias jt="just tmux"
+alias j="just"
 
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'

@@ -19,44 +19,61 @@ in
     awscli2
     bat
     curl
-    emacs-nox
     fd
     fontconfig
-    cargo-watch
-    cargo-nextest
-    rustup
-    git-crypt
     frawk
     fzf
     gawk
-    git
     gnupg
     gnused
-    helix
     jq
     just
     lsd
-    luajitPackages.jsregexp
-    neovim
-    nixfmt
-    nushell
     procs
     ripgrep
     rlwrap
-    shellcheck
     stow
-    stylua
-    tmux
-    tmuxinator
-    tree-sitter
     unzip
-    vim
     wget
     xclip
-    zellij
     zip
+    # GIT ------------------------
+    git
+    git-crypt
+    # SHELLS ---------------------
+    nushell
     zplug
     zsh
+    zellij
+    tmux
+    tmuxinator
+    # EDITORS --------------------
+    helix
+    emacs-nox
+    # BUILD ----------------------
+    #llvm
+    #clang
+    #mold
+    #cmake
+    #pkg-config
+    # VIM ------------------------
+    neovim
+    vim
+    tree-sitter
+    shellcheck
+    stylua
+    luajitPackages.jsregexp
+    nixfmt
+    # RUST -----------------------
+    cargo-watch
+    cargo-nextest
+    cargo-leptos
+    cargo-generate
+    trunk
+    rustup
+    dart-sass
+    # CLOJURE --------------------
+    babashka
   ] ++ (with unstable; [
   ]);
 }
