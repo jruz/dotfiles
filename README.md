@@ -32,6 +32,13 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 This steps are for myself when I setup a new machine:
 
+### Shell
+
+    sudo apt-get install -y zsh
+    chsh -s $(which zsh)
+    
+Install [zgen](https://github.com/tarjoilija/zgen)
+
 ### Github
 
 Generate new key
@@ -65,6 +72,10 @@ brew bundle
 
 ### Stow
 
+WSL requirements:
+
+    sudo apt-get install -y make stow build-essential
+
 Install Stow and link dotfiles
 
     make stow-linux
@@ -80,9 +91,13 @@ Install Stow and link dotfiles
 home-manager switch
 ```
 
+### Languages
+
+    rtx install
+
 ### Neovim
 
-Open `nvim` first time and let Lazy.vim install all deps.  
+Open `nvim` first time and let Lazy.vim and TreeSitter install all deps.  
 Reopen and setup Copilot
 
     :Copilot
