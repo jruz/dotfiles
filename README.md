@@ -51,6 +51,10 @@ Add key to https://github.com/settings/keys
 Install GPG Key
 
     gpg --import backup.key
+    gpg --list-keys
+    gpg --edit-key CECD4EB5EC6AAF54
+    > trust
+    > ultimate
 
 Check git config
 
