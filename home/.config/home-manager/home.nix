@@ -9,7 +9,7 @@ in
 
   home.homeDirectory = if pkgs.system == "x86_64-darwin" then "/Users/jruz" else "/home/jruz";
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.11";
 
   programs.home-manager.enable = true;
 
@@ -18,6 +18,7 @@ in
     rtx
     awscli2
     bat
+    watch
     curl
     fd
     fontconfig
@@ -41,9 +42,9 @@ in
     git
     git-crypt
     # SHELLS ---------------------
-    nushell
-    zplug
     zsh
+    zinit
+    nushell
     zellij
     tmux
     tmuxinator

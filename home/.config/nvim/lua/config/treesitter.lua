@@ -1,7 +1,7 @@
 local parsers_install_dir = "~/.config/nvim-treesitter"
 vim.opt.runtimepath:append(parsers_install_dir)
 
-require 'nvim-treesitter.install'.compilers = { "clang" }
+--require 'nvim-treesitter.install'.compilers = { "clang" }
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "bash",
