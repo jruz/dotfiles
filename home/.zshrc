@@ -79,3 +79,6 @@ for file in ~/.config/zsh/*
 do
     source $file
 done
+
+# WATCH FILES LIMIT
+ulimit -n 4096

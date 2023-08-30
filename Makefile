@@ -1,7 +1,7 @@
 stow: stow-home
 
 stow-home:
-	rm -r ~/.config/home-manager
+	rm -rf ~/.config/home-manager
 	stow -t ~ -v home	
 
 stow-mac: stow-home
