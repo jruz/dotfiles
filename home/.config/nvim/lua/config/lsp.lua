@@ -58,7 +58,14 @@ lspconfig.lua_ls.setup({
 })
 lspconfig.clojure_lsp.setup({})
 lspconfig.bashls.setup({})
-lspconfig.eslint.setup({})
+lspconfig.eslint.setup({
+  on_attach = function(_client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
 lspconfig.tsserver.setup({})
 --lspconfig.denols.setup({})
 lspconfig.rome.setup({
