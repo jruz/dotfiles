@@ -2,6 +2,7 @@ alias e='$EDITOR'
 
 # Config files
 alias dotfiles='cd ~/dev/dotfiles'
+alias dot='dotfiles'
 alias dev='cd ~/dev/personal'
 alias conf='cd ~/.config'
 
