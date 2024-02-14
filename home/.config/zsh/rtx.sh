@@ -1,32 +1,32 @@
 export RTX_SHELL=zsh
 
-rtx() {
+mise() {
   local command
   command="${1:-}"
   if [ "$#" = 0 ]; then
-    command rtx
+    command mise
     return
   fi
   shift
 
   case "$command" in
   deactivate|shell)
-    eval "$(command rtx "$command" "$@")"
+    eval "$(command mise "$command" "$@")"
     ;;
   *)
-    command rtx "$command" "$@"
+    command mise "$command" "$@"
     ;;
   esac
 }
 
-_rtx_hook() {
-  eval "$(rtx hook-env -s zsh)";
+_mise_hook() {
+  eval "$(mise hook-env -s zsh)";
 }
 typeset -ag precmd_functions;
-if [[ -z "${precmd_functions[(r)_rtx_hook]+1}" ]]; then
-  precmd_functions=( _rtx_hook ${precmd_functions[@]} )
+if [[ -z "${precmd_functions[(r)_mise_hook]+1}" ]]; then
+  precmd_functions=( _mise_hook ${precmd_functions[@]} )
 fi
 typeset -ag chpwd_functions;
-if [[ -z "${chpwd_functions[(r)_rtx_hook]+1}" ]]; then
-  chpwd_functions=( _rtx_hook ${chpwd_functions[@]} )
+if [[ -z "${chpwd_functions[(r)_mise_hook]+1}" ]]; then
+  chpwd_functions=( _mise_hook ${chpwd_functions[@]} )
 fi
