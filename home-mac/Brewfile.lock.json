@@ -2,91 +2,91 @@
   "entries": {
     "cask": {
       "copilot-for-xcode": {
-        "version": "0.20.0",
+        "version": "0.29.1",
         "options": {
           "full_name": "copilot-for-xcode"
         }
       },
       "alacritty": {
-        "version": "0.12.2",
+        "version": "0.13.1",
         "options": {
           "full_name": "alacritty"
         }
       },
       "karabiner-elements": {
-        "version": "14.12.0",
+        "version": "14.13.0",
         "options": {
           "full_name": "karabiner-elements"
         }
       },
       "istat-menus": {
-        "version": "6.71",
+        "version": "6.73",
         "options": {
           "full_name": "istat-menus"
         }
       },
       "lulu": {
-        "version": "2.5.0",
+        "version": "2.5.1",
         "options": {
           "full_name": "lulu"
         }
       },
       "1password": {
-        "version": "8.10.8",
+        "version": "8.10.23",
         "options": {
           "full_name": "1Password"
         }
       },
       "native-access": {
-        "version": "3.4.0",
+        "version": "3.8.0",
         "options": {
           "full_name": "native-access"
         }
       },
       "megasync": {
-        "version": "4.9.5",
+        "version": "4.12.0",
         "options": {
           "full_name": "megasync"
         }
       },
       "swiftformat-for-xcode": {
-        "version": "0.51.13",
+        "version": "0.53.0",
         "options": {
           "full_name": "swiftformat-for-xcode"
         }
       },
       "wacom-tablet": {
-        "version": "6.4.2-4",
+        "version": "6.4.4-5",
         "options": {
           "full_name": "wacom-tablet"
         }
       },
       "spotify": {
-        "version": "1.2.16.947,cfbaa410,105",
+        "version": "1.2.26.1187,36b715a1,270",
         "options": {
           "full_name": "spotify"
         }
       },
       "surfshark": {
-        "version": "4.10.1,1919",
+        "version": "4.12.5,2083",
         "options": {
           "full_name": "surfshark"
         }
       },
       "docker": {
-        "version": "4.21.1,114176",
+        "version": "4.26.1,131620",
         "options": {
           "full_name": "docker"
         }
       },
       "kitty": {
-        "version": "0.29.1",
+        "version": "0.31.0",
         "options": {
           "full_name": "kitty"
         }
       },
       "obsidian": {
-        "version": "1.3.5",
+        "version": "1.5.3",
         "options": {
           "full_name": "obsidian"
         }
@@ -95,6 +95,12 @@
         "version": "latest",
         "options": {
           "full_name": "chromium"
+        }
+      },
+      "sequel-ace": {
+        "version": "4.0.13,20062",
+        "options": {
+          "full_name": "sequel-ace"
         }
       }
     },
@@ -105,6 +111,11 @@
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:7b11bfefcb43e9a423ff301f7bbc29b0fb86044bf93442f243c5a8a67d8d4869",
+              "sha256": "7b11bfefcb43e9a423ff301f7bbc29b0fb86044bf93442f243c5a8a67d8d4869"
+            },
             "arm64_ventura": {
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:e49511dd1283813c4420aec9fc3b3167d18f9fdbb51d82b1e479b628d5312342",
@@ -119,6 +130,11 @@
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:918a1484de106940f7bebc936e1ded87d7b65652054b09204887ad0651937ec4",
               "sha256": "918a1484de106940f7bebc936e1ded87d7b65652054b09204887ad0651937ec4"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:24e3057991ea1eed52eb4a27c0f17d794106770621e5a8bb975477dae135b82d",
+              "sha256": "24e3057991ea1eed52eb4a27c0f17d794106770621e5a8bb975477dae135b82d"
             },
             "ventura": {
               "cellar": ":any_skip_relocation",
@@ -149,6 +165,11 @@
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/stow/blobs/sha256:23f1b2f714e53439b6070d88d9512779e31bab5888ccfa5841d19d66a6938ecf",
+              "sha256": "23f1b2f714e53439b6070d88d9512779e31bab5888ccfa5841d19d66a6938ecf"
+            },
             "arm64_ventura": {
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/stow/blobs/sha256:41efa9a76b9e62d701778c81edac50a80dc79199b06b1d4857651f9169b87c39",
@@ -163,6 +184,11 @@
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/stow/blobs/sha256:f6dc9f73ac8ef55caa0f8204c893bf41dcdffbae22b39d95a85eee5c99507b55",
               "sha256": "f6dc9f73ac8ef55caa0f8204c893bf41dcdffbae22b39d95a85eee5c99507b55"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/stow/blobs/sha256:458601777bf92d85adc55d7d780eceab7069aaf47a7db81935acf40c7cc869db",
+              "sha256": "458601777bf92d85adc55d7d780eceab7069aaf47a7db81935acf40c7cc869db"
             },
             "ventura": {
               "cellar": ":any_skip_relocation",
@@ -215,19 +241,19 @@
       },
       "Xcode": {
         "id": "497799835",
-        "version": "14.3.1"
+        "version": "15.0"
       },
       "1Blocker": {
         "id": "1365531024",
-        "version": "4.1.14"
+        "version": "4.2"
       },
       "1Password for Safari": {
         "id": "1569813296",
-        "version": "2.12.0"
+        "version": "2.16.0"
       },
       "OneTab": {
         "id": "1540160809",
-        "version": "1.75"
+        "version": "1.84"
       },
       "SimplyJSON for Safari": null,
       "Userscripts-Mac-App": {
@@ -243,12 +269,12 @@
   "system": {
     "macos": {
       "ventura": {
-        "HOMEBREW_VERSION": "4.0.29",
+        "HOMEBREW_VERSION": "4.2.4",
         "HOMEBREW_PREFIX": "/usr/local",
         "Homebrew/homebrew-core": "api",
-        "CLT": "14.3.1.0.1.1683849156",
-        "Xcode": "14.3.1",
-        "macOS": "13.4.1"
+        "CLT": "15.0.0.0.1.1694021235",
+        "Xcode": "15.0",
+        "macOS": "13.5.2"
       }
     }
   }
