@@ -1,1 +1,10 @@
-synclient MaxTapTime=0
+# Disable double tap to click on Touchpad
+# Find the Touchpad
+# > xinput list
+# bcm5974 id=13
+# > xinput list-props 13
+# libinput Tapping Enabled (319): 1
+xinput set-prop 13 319 0
+
+# Load custom Keymaps
+xmodmap ~/.Xmodmap
