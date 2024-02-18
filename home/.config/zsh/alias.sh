@@ -4,6 +4,7 @@ alias e='$EDITOR'
 alias dotfiles='cd ~/dev/dotfiles'
 alias dot='dotfiles'
 alias dev='cd ~/dev/personal'
+alias dl='cd ~/Downloads'
 alias conf='cd ~/.config'
 
 alias al='$EDITOR ~/.config/zsh/alias.sh'
@@ -30,7 +31,7 @@ alias ngconf='sudo vim /etc/nginx/nginx.conf'
 
 # Home Manager
 alias hms='home-manager switch'
-alias hme='home-manager edit'
+alias hme='$EDITOR ~/.config/home-manager/home.nix'
 
 # System
 alias off='shutdown -h now'
@@ -149,3 +150,6 @@ alias gst='git stash --include-untracked'
 alias gstp='git stash pop'
 alias gwip='git commit -m "WIP"'
 alias this_branch='git rev-parse --abbrev-ref HEAD'
+
+# Ubuntu
+alias ubuntu="lsb_release -a"

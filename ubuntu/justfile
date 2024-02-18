@@ -1,0 +1,5 @@
+ansible:
+  ansible-playbook \
+    -v \
+    --ask-become-pass \
+    --inventory ansible/hosts ansible/setup.yml
