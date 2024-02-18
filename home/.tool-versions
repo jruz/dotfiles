@@ -1,9 +1,0 @@
-java    zulu-16.32.15
-maven   3.8.2
-clojure 1.10.3.967
-rust    1.71.1
-node    20.2.0
-deno    1.35.0
-yarn    1.22.19
-python  3.11.4
-go      1.20.6
