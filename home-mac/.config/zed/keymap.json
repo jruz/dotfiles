@@ -1,0 +1,137 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-esc": null,
+      "cmd-t": "terminal_panel::ToggleFocus",
+      "cmd-a h": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "cmd-w h": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "cmd-w l": [
+        "workspace::ActivatePaneInDirection",
+        "Right"
+      ],
+      "cmd-a l": [
+        "workspace::ActivatePaneInDirection",
+        "Right"
+      ],
+      "cmd-a k": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "cmd-a up": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "cmd-a j": [
+        "workspace::ActivatePaneInDirection",
+        "Down"
+      ],
+      "cmd-a down": [
+        "workspace::ActivatePaneInDirection",
+        "Down"
+      ],
+      "cmd-a left": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "cmd-a right": [
+        "workspace::ActivatePaneInDirection",
+        "Right"
+      ],
+      "alt-h": "workspace::ToggleLeftDock",
+      "alt-l": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "q": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-u": "editor::Redo",
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-a z": "workspace::ToggleZoom",
+      "cmd-esc": null,
+      "space l r": "editor::Rename",
+      "shift-enter": "repl::Run",
+      "cmd-r": "editor::Redo",
+      "cmd-.": "editor::ShowCompletions",
+      "cmd-shift-v": "editor::Paste",
+      "cmd-shift-.": "copilot::NextSuggestion",
+      "cmd-shift-,": "zed::OpenKeymap",
+      "ctrl-t": "pane::RevealInProjectPanel",
+      "z a": "editor::Fold",
+      "z o": "editor::UnfoldLines",
+      "alt-right": "editor::GoToDiagnostic",
+      "alt-left": "editor::GoToPrevDiagnostic",
+      "alt-h": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-a z": "workspace::ToggleZoom",
+      "ctrl-a z": "workspace::ToggleZoom",
+      "cmd-a k": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "cmd-a up": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "cmd-a h": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "cmd-a left": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "cmd-a": [
+        "terminal::SendKeystroke",
+        "ctrl-a"
+      ],
+      "cmd-shift-c": "terminal::Copy",
+      "cmd-shift-v": "terminal::Paste",
+      "cmd-e": [
+        "terminal::SendKeystroke",
+        "ctrl-e"
+      ],
+      "cmd-l": [
+        "terminal::SendKeystroke",
+        "ctrl-l"
+      ],
+      "cmd-w": [
+        "terminal::SendKeystroke",
+        "ctrl-w"
+      ],
+      "cmd-r": [
+        "terminal::SendKeystroke",
+        "ctrl-r"
+      ]
+      // "cmd-c": ["terminal::SendKeystroke", "ctrl-c"],
+      // "cmd-shift-,": "zed::OpenKeymap",
+    }
+  }
+]

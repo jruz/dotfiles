@@ -1,0 +1,214 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette
+{
+  "show_edit_predictions": false,
+  "edit_predictions": {
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_assistant": false
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2",
+    "timeout": 100000
+  },
+  "telemetry": {
+    "metrics": false
+  },
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "tab_size": 2,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha"
+  },
+  "terminal": {
+    "dock": "right",
+    "font_family": "DejaVuSansM Nerd Font",
+    "font_size": 12,
+    "max_scroll_history_lines": 100000
+  },
+  "code_actions_on_format": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true
+  },
+  "soft_wrap": "editor_width",
+  "file_types": {
+    "HTML": [
+      "htm",
+      "html",
+      "svelte"
+    ],
+    "Jinja2": [
+      "htmx"
+    ],
+    "JSON": [
+      "prettierrc"
+    ]
+  },
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  },
+  "languages": {
+    "Rust": {
+      "show_edit_predictions": true
+    },
+    "Nix": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "nixfmt",
+          "arguments": [
+            "-"
+          ]
+        }
+      }
+    },
+    "HTML": {
+      "format_on_save": "on",
+      "formatter": "prettier"
+    },
+    "JSON": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": [
+            "biome",
+            "format",
+            "--write",
+            "--stdin-file-path={buffer_path}"
+          ]
+        }
+      }
+    },
+    "HTMX": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": [
+            "prettier",
+            "--write",
+            "--parser",
+            "jinja2",
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "SCSS": {
+        "format_on_save": "on",
+        "formatter": "prettier"
+      },
+      "Python": {
+        "format_on_save": "on",
+        "formatter": {
+          "external": {
+            "command": "black",
+            "arguments": [
+              "-"
+            ]
+          }
+        }
+      },
+      "TypeScript": {
+        "language_servers": [
+          "biome",
+          "typescript-language-server",
+          "!eslint"
+        ],
+        "format_on_save": "on",
+        "formatter": {
+          "external": {
+            "command": "npx",
+            "arguments": [
+              "biome",
+              "format",
+              "--write",
+              "--stdin-file-path={buffer_path}"
+            ]
+          }
+        }
+      },
+      "Svelte": {
+        "tab_size": 2
+      },
+      "Jinja2": {
+        "format_on_save": "on",
+        "formatter": "prettier"
+      }
+    },
+    "eslint": {
+      "enabled": true,
+      "autoFixOnSave": true,
+      "autoFixOnFormat": true,
+      "autoFixOnFormatDelay": 200,
+      "initialization_options": {
+        "checkOnSave": {
+          "command": "eslint"
+        }
+      },
+      "probe": [
+        "javascript",
+        "javascriptreact",
+        "html",
+        "vue",
+        "markdown",
+        "svelte"
+      ],
+      "validate": [
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "svelte"
+      ]
+    },
+    "language_models": {
+      "deepseek-coder-v2": {
+        "low_speed_timeout_in_seconds": 120
+      }
+    }
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy",
+          "extraArgs": [
+            "--",
+            "-W",
+            "clipy::pedantic",
+            "-D",
+            "clippy::unwrap_used"
+          ]
+        },
+        "checkOnSave": true
+      }
+    },
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}

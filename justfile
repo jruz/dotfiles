@@ -9,7 +9,7 @@ git:
 
 tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  # do ctrl+a I to install the plugins
+  # do Ctrl+a I to install the plugins
 
 mac-outdated:
   brew outdated
@@ -29,3 +29,15 @@ nix-update VERSION:
   nix-channel --add https://github.com/nix-community/home-manager/archive/release-{{VERSION}}.tar.gz home-manager
   nix-channel --update
   nix-channel --list
+
+nix-darwin-edit:
+	cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
+	nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
+
+nix-darwin-switch:
+	cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
+	nix run nix-darwin -- switch --flake ~/.config/nix-darwin
+
+nix-darwin-update:
+	nix flake update --flake ~/.config/nix-darwin
+	nix run nix-darwin -- switch --flake ~/.config/nix-darwin

@@ -1,10 +1,10 @@
 [tools]
-rust = '1.71.1'
-node = '20.2.0'
-deno = '1.35.0'
+rust = "1.85.0"
+node = "22.6.0"
 yarn = '1.22.19'
-python = '3.11.4'
+python = "3.12.6"
 golang = '1.20.6'
+deno = "2.0.3"
 
 [settings]
 experimental = true
