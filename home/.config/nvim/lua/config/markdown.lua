@@ -109,10 +109,8 @@ vim.cmd('command! ArchiveTodos lua ArchiveTodos()')
 
 local wk = require("which-key")
 wk.register({
-  m = {
-    name = "Markdown Tools",
-    r = { ResetTodos, "Uncheck all todos" },
-    t = { ToggleTodo, "Toggle todo" },
-    a = { ArchiveTodos, "Move all completed todos to #Done" }
-  },
+  { "<space>m",  group = "Markdown Tools" },
+  { "<space>ma", ArchiveTodos,            desc = "Move all completed todos to #Done" },
+  { "<space>mr", ResetTodos,              desc = "Uncheck all todos" },
+  { "<space>mt", ToggleTodo,              desc = "Toggle todo" },
 }, { prefix = "<space>" })

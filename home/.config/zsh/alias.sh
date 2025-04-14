@@ -12,19 +12,21 @@ alias fu='$EDITOR ~/.config/zsh/functions.sh'
 
 alias i3conf='$EDITOR ~/.config/i3/config'
 alias i3sconf='$EDITOR ~/.config/i3status/config'
-alias aconf='$EDITOR ~/.config/alacritty/alacritty.yml'
+alias aconf='$EDITOR ~/.config/alacritty/alacritty.toml'
 alias kconf='$EDITOR ~/.config/kitty/kitty.conf'
 alias nvconf='$EDITOR ~/.config/nvim/init.lua'
 alias vconf='$EDITOR ~/.vimrc'
 alias tmconf='$EDITOR ~/.tmux.conf'
 alias zshconf='$EDITOR ~/.zshrc'
 alias econf='$EDITOR ~/.config/doom'
-alias hconf='$EDITOR ~/.config/helix/config.toml'
+alias hconf='hx ~/.config/helix/config.toml'
 alias nuconf='$EDITOR ~/.config/nushell'
 alias rtxconf='$EDITOR ~/.config/rtx/config.toml'
+alias zeconf='$EDITOR ~/.config/zellij/config.kdl'
 alias nu='nu --config ~/.config/nushell/config.nu'
 alias jt="just tmux"
 alias j="just"
+alias ze="zellij"
 
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
@@ -74,8 +76,9 @@ alias wp='curl https://www.privateinternetaccess.com --silent | grep -Eo "<stron
 
 # LS
 alias ls='lsd'
-alias las='ls -lAhtr --group-directories-first --color'
 alias la='lsd --almost-all --group-dirs=first --human-readable --long'
+#alias las='/bin/ls -lAhtr --group-directories-first --color'
+alias las='lsd --almost-all --group-dirs=first --human-readable --long --dereference'
 alias lad='la --sort=time --reverse'
 
 alias hosts='sudo $EDITOR /etc/hosts'
@@ -124,7 +127,7 @@ alias gcp='git cherry-pick'
 alias gcpc='git cherry-pick --continue'
 alias gcpn='git cherry-pick --no-commit'
 alias gd='git diff'
-alias gdc='git diff --cached'
+alias gds='git diff --cached'
 alias gdd='git diff develop'
 alias gdl='git diff HEAD^ HEAD'
 alias gdm='git diff main'
