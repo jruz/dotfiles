@@ -72,13 +72,11 @@ function OpenDN()
 end
 
 require("which-key").register({
-  b = {
-    name = "Brain Tools",
-    w = { BrainWorkspace, "Open workspace" },
-    J = { CreateJournalFromTemplate, "Create Journal from template" },
-    j = { OpenJournal, "Open Journal for today" },
-    M = { CreateMPFromTemplate, "Create Morning Page from template" },
-    m = { OpenMP, "Open Morning Page for today" },
-    d = { OpenDN, "Open Daily Note for today" },
-  },
+  { "<space>b",  group = "Brain Tools" },
+  { "<space>bJ", CreateJournalFromTemplate, desc = "Create Journal from template" },
+  { "<space>bM", CreateMPFromTemplate,      desc = "Create Morning Page from template" },
+  { "<space>bd", OpenDN,                    desc = "Open Daily Note for today" },
+  { "<space>bj", OpenJournal,               desc = "Open Journal for today", },
+  { "<space>bm", OpenMP,                    desc = "Open Morning Page for today", },
+  { "<space>bw", BrainWorkspace,            desc = "Open workspace", },
 }, { prefix = "<space>" })

@@ -12,7 +12,7 @@ require("mason-lspconfig").setup({
     "pylyzer",
     "rescriptls",
     "rnix",
-    "rome",
+    "biome",
     "rust_analyzer",
     "terraformls",
     "tflint",
@@ -59,19 +59,26 @@ lspconfig.lua_ls.setup({
 })
 lspconfig.clojure_lsp.setup({})
 lspconfig.bashls.setup({})
-lspconfig.eslint.setup({
-  on_attach = function(_client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
+-- lspconfig.eslint.setup({
+--   on_attach = function(_client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- })
+lspconfig.biome.setup {}
+lspconfig.ts_ls.setup({
+  on_attach = function(client)
+    -- disable formatting so it uses biome
+    client.server_capabilities.documentFormattingProvider = false
   end,
 })
+<<<<<<< Updated upstream
 lspconfig.ts_ls.setup({})
+=======
+>>>>>>> Stashed changes
 --lspconfig.denols.setup({})
-lspconfig.rome.setup({
-  capabilities = capabilities,
-})
 lspconfig.terraformls.setup({})
 lspconfig.tflint.setup({})
 lspconfig.rust_analyzer.setup({
@@ -81,9 +88,13 @@ lspconfig.rust_analyzer.setup({
       cargo = {
         allFeatures = true,
       },
-      checkOnSave = {
+      check = {
         command = "clippy",
+        extraArgs = {
+          "-- -W clippy::pedantic -D clippy::unwrap_used",
+        },
       },
+      checkOnSave = true,
     },
   },
 })
@@ -100,11 +111,6 @@ vim.g.markdown_fenced_languages = {
   "ts=typescript",
   "dataviewjs=javascript"
 }
-
--- Fix for Rome
-require("vim.lsp._watchfiles")._watchfunc = function()
-  return function() end
-end
 
 require("fidget").setup({})
 

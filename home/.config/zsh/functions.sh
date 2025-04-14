@@ -1,12 +1,12 @@
-is_linux () {
-    [[ $('uname') == 'Linux' ]];
+is_linux() {
+  [[ $('uname') == 'Linux' ]]
 }
 
-is_osx () {
-    [[ $('uname') == 'Darwin' ]]
+is_osx() {
+  [[ $('uname') == 'Darwin' ]]
 }
 
-vpn () {
+vpn() {
   region=$2
   if [[ $2 == "" ]]; then
     region="DE_Berlin"
@@ -22,17 +22,17 @@ vpn () {
   sudo systemctl "$1" "openvpn-client@$region.service"
 }
 
-gri () {
+gri() {
   git rebase -i "HEAD~$1"
 }
 
-blu () {
+blu() {
   sudo systemctl start bluetooth.service
   echo -e 'power on\nquit' | bluetoothctl
   xmodmap ~/.Xmodmap
 }
 
-bl () {
+bl() {
   min=10
   max=1010
   let "val= $1*1010/10"
@@ -44,19 +44,19 @@ bl () {
   printf %.0f $val | sudo tee /sys/class/backlight/gmux_backlight/brightness
 }
 
-last_commit () {
+last_commit() {
   git --no-pager log -1 --pretty='format:%s'
 }
 
-tme () {
+tme() {
   $EDITOR "${HOME}/dev/dotfiles/.tmuxinator/$1.yml"
 }
 
-eject () {
+eject() {
   udisksctl unmount -b "$1" && udisksctl power-off -b "$1"
 }
 
-t () {
+t() {
   if [[ $1 == "start" ]]; then
     transmission-daemon
   elif [[ $1 == "stop" ]]; then
@@ -72,32 +72,32 @@ t () {
   fi
 }
 
-untar () {
+untar() {
   tar -xzvf "$1"
 }
 
-update_mirrorlist () {
+update_mirrorlist() {
   sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.pacold
   sudo mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
 }
 
-get_ip () {
+get_ip() {
   ip -4 a show "$1" | grep inet | awk '{print $2}' | sed 's/\/.*//'
 }
 
-wifi_ip () {
+wifi_ip() {
   get_ip enp0s20u1
 }
 
-cable_ip () {
+cable_ip() {
   get_ip ens9
 }
 
-wifi_name () {
+wifi_name() {
   iwconfig enp0s20u1 | grep ESSID: | awk '{print $4}' | sed -e 's/ESSID://' -e 's/"//g'
 }
 
-home_resolution () {
+home_resolution() {
   xrandr --output eDP-1 --off
   xrandr --output DP-1 --mode 2560x1440
   xrandr --output DP-2 --mode 2560x1440 --rotate left --left-of DP-1
@@ -106,7 +106,7 @@ home_resolution () {
   xmodmap ~/.Xmodmap
 }
 
-work_resolution () {
+work_resolution() {
   xrandr --output eDP-1 --off
   xrandr --output DP-1 --mode 2560x1440
   xrandr --output HDMI-1 --mode 2560x1440 --rotate left --left-of DP-1
@@ -115,31 +115,30 @@ work_resolution () {
   xmodmap ~/.Xmodmap
 }
 
-encrypt () {
+encrypt() {
   gpgtar -c --gpg-args --cipher-algo=AES256 -o "$1.gpg" "$1"
 }
 
-replace () {
+replace() {
   rg "$1"
 
   echo "\n\n"
   echo "s/$1/$2 (y/n)?"
   read REPLY
-  if [[ $REPLY = "y" ]]
-  then
+  if [[ $REPLY = "y" ]]; then
     rg -l "$1" | xargs -L 1 sed -i "s/$1/$2/g"
   fi
 }
 
-yf () {
+yf() {
   if is_osx; then
     cat "$1" | pbcopy
   elif is_linux; then
-    xclip -sel clip < "$1"
+    xclip -sel clip <"$1"
   fi
 }
 
-yo () {
+yo() {
   if is_osx; then
     pbcopy
   elif is_linux; then
@@ -147,22 +146,32 @@ yo () {
   fi
 }
 
-brain_path () {
+brain_path() {
   if is_osx; then
-    echo "TODO: write the path to MEGA on osx"
+    echo "/Users/jruz/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain"
   elif is_linux; then
     echo "/mnt/c/Brain"
   fi
 }
 
-brain () {
-  if is_osx; then
-    echo "TODO: write the path to MEGA on osx"
-  elif is_linux; then
-    cd "$(brain_path)" || exit
-  fi
+brain() {
+  cd "$(brain_path)" || return
 }
 
-mp () {
+mp() {
   cd "$(brain_path)/🌞\ Morning\ Pages" || exit
+}
+
+colors() {
+  awk 'BEGIN{
+    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+    for (colnum = 0; colnum<77; colnum++) {
+        r = 255-(colnum*255/76);
+        g = (colnum*510/76);
+        b = (colnum*255/76);
+        if (g>255) g = 510-g;
+        printf "\033[48;2;%d;%d;%dm\033[38;2;%d;%d;%dm%s\033[0m", r,g,b, r,g,b, substr(s,colnum%8+1,1);
+    }
+    printf "\n";
+  }'
 }

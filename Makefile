@@ -21,3 +21,13 @@ setup-home-manager:
 	nix-channel --list
 	nix-channel --update
 	nix-shell '<home-manager>' -A install
+
+linux:
+	make stow-linux
+
+mac:
+	zsh -c "cd home-mac && brew bundle"
+	make stow-mac
+
+wsl:
+	sudo apt-get install -y make stow build-essential
