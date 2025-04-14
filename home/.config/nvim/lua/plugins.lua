@@ -134,12 +134,12 @@ local plugins = {
   --},
 
   -- Clojure
-  'Olical/conjure',
-  'Olical/aniseed',
-  {
-    'eraserhd/parinfer-rust',
-    build = 'cargo build --release',
-  },
+  --'Olical/conjure',
+  --'Olical/aniseed',
+  --{
+  --'eraserhd/parinfer-rust',
+  --build = 'cargo build --release',
+  --},
 
   -- Completion
   'hrsh7th/cmp-nvim-lsp',

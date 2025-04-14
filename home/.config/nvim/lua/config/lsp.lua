@@ -4,18 +4,19 @@ require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
     "bashls",
+    "clojure_lsp",
     "denols",
     "efm",
     "eslint",
     "lua_ls",
+    "pylyzer",
     "rescriptls",
     "rnix",
     "rome",
     "rust_analyzer",
-    "clojure_lsp",
     "terraformls",
     "tflint",
-    "tsserver",
+    "ts_ls",
   },
   automatic_installation = true,
 })
@@ -66,7 +67,7 @@ lspconfig.eslint.setup({
     })
   end,
 })
-lspconfig.tsserver.setup({})
+lspconfig.ts_ls.setup({})
 --lspconfig.denols.setup({})
 lspconfig.rome.setup({
   capabilities = capabilities,
@@ -89,6 +90,9 @@ lspconfig.rust_analyzer.setup({
 lspconfig.rnix.setup({})
 lspconfig.sourcekit.setup({})
 lspconfig.rescriptls.setup({})
+
+-- Python
+lspconfig.pylyzer.setup({})
 
 
 -- Markdown
