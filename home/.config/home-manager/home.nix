@@ -38,9 +38,11 @@ in
     wget
     xclip
     zip
+    yazi
     # GIT ------------------------
     git
     git-crypt
+    lazygit
     # SHELLS ---------------------
     zsh
     zinit
