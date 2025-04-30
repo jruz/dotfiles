@@ -27,7 +27,7 @@ local plugins = {
   "nvim-lualine/lualine.nvim",
   "tpope/vim-fugitive",
   'NoahTheDuke/vim-just',
-  "github/copilot.vim",
+  --"github/copilot.vim",
   "preservim/nerdtree",
   "ryanoasis/vim-devicons",
   "airblade/vim-gitgutter",

@@ -4,7 +4,7 @@ stow:
 zgen-install:
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
-git:
+git-config:
   git --no-pager config --global -l
 
 tmux-plugins:
@@ -20,10 +20,17 @@ mac-update:
   brew upgrade
   mas upgrade
 
+ubuntu-update:
+  sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove
+
 nix-list:
   nix-channel --list
 
-nix-update VERSION:
+nix-update:
+  nix-channel --update
+  home-manager switch
+
+nix-upgrade VERSION:
   nix-channel --list
   nix-channel --add https://nixos.org/channels/nixos-{{VERSION}} nixpkgs
   nix-channel --add https://github.com/nix-community/home-manager/archive/release-{{VERSION}}.tar.gz home-manager
