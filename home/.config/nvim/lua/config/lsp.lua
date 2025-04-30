@@ -74,10 +74,7 @@ lspconfig.ts_ls.setup({
     client.server_capabilities.documentFormattingProvider = false
   end,
 })
-<<<<<<< Updated upstream
 lspconfig.ts_ls.setup({})
-=======
->>>>>>> Stashed changes
 --lspconfig.denols.setup({})
 lspconfig.terraformls.setup({})
 lspconfig.tflint.setup({})
