@@ -39,10 +39,12 @@ in
     xclip
     zip
     yazi
+    openssh
     # GIT ------------------------
     git
     git-crypt
     lazygit
+    gitui
     # SHELLS ---------------------
     zsh
     zinit
