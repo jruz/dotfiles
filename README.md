@@ -37,7 +37,6 @@ This steps are for myself when I setup a new machine:
     sudo apt-get install -y zsh
     chsh -s $(which zsh)
     
-Install [zgen](https://github.com/tarjoilija/zgen)
 
 ### Github
 
@@ -51,15 +50,11 @@ Add key to https://github.com/settings/keys
 
 Install GPG Key
 
-    gpg --import backup.key
+    gpg --import DELETE_ME.key
     gpg --list-keys
     gpg --edit-key CECD4EB5EC6AAF54
     > trust
     > ultimate
-
-Check git config
-
-    just git
 
 Clone repo
 
@@ -67,45 +62,43 @@ Clone repo
     cd ~/dev
     git clone git@github.com:jruz/dotfiles.git
 
-### Homebrew
+Link dotfiles
 
-- https://brew.sh
+    nix-shell -p just stow
+
+    just stow-linux
+    just stow-mac
+
+
+### Nix
+
+- https://nixos.org/download.html
 
 ```
-brew bundle
+    # check latest nix version number
+    just nix-channel-setup 24.11
 ```
-
-### Stow
-
-WSL requirements:
-
-    sudo apt-get install -y make stow build-essential
-
-Install Stow and link dotfiles
-
-    make stow-linux
-    make stow-mac
-
 
 ### Home Manager
 
-- https://nixos.org/download.html
 - https://nix-community.github.io/home-manager/index.html#sec-install-standalone
 
 ```
-home-manager switch
+    nix-shell '<home-manager>' -A install
 ```
+
+Check git config
+
+    just git
 
 ### Languages
 
-    rtx install
+    mise install
 
 ### Neovim
 
 Open `nvim` first time and let Lazy.vim and TreeSitter install all deps.  
-Reopen and setup Copilot
 
-    :Copilot
 
 ### Mac settings
 
