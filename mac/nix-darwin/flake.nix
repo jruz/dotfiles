@@ -36,7 +36,6 @@
             "obsidian"
             "pgadmin4"
             "signal"
-            "skype"
             "spotify"
             "swiftformat-for-xcode"
             "telegram"
@@ -55,7 +54,7 @@
             "SimplyJSON for Safari" = 1495193038;
             "Userscripts-Mac-App" = 1463298887;
             "Vimkey" = 1585682577;
-            "Xcode" = 497799835;
+            # "Xcode" = 497799835;
           };
         };
 
@@ -78,9 +77,9 @@
             "/Users/jruz/Applications/IBKR Desktop/IBKR Desktop.app"
             "/Applications/VMware Fusion.app"
             "/Applications/Signal.app"
-            "/Applications/Skype.app"
             "/Applications/Telegram.app"
             "/Applications/Discord.app"
+            "/Applications/Insta360 Studio.app"
             "/Applications/DaVinci Resolve/DaVinci Resolve.app"
             "/Applications/Spotify.app"
             "/System/Applications/Music.app"
