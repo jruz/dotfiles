@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvim:*)",
+      "WebSearch",
+      "WebFetch(domain:vi.stackexchange.com)",
+      "Bash(timeout 10 nvim:*)",
+      "Bash(echo:*)",
+      "Bash(gtimeout 10 nvim:*)",
+      "Bash(tmuxinator list:*)",
+      "Bash(if [ -d ~/.local/share/nvim/lazy/which-key.nvim ])",
+      "Bash(then cd ~/.local/share/nvim/lazy/which-key.nvim)",
+      "Bash(git log:*)",
+      "Bash(fi)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)",
+      "Bash(git push:*)",
+      "Bash(git stash:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
