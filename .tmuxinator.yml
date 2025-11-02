@@ -1,0 +1,13 @@
+name: DOT
+root: ~/dev/dotfiles
+
+windows:
+  - NVIM:
+      panes:
+        - nvim
+  - CLAUDE:
+      panes:
+        - claude
+  - GIT:
+      panes:
+        - gs

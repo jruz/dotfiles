@@ -5,3 +5,8 @@ fi
 # End Nix
 
 PS1="nix-shell::\W λ "
+
+alias q="exit"
+alias ls='lsd'
+alias la='lsd --almost-all --group-dirs=first --human-readable --long'
+alias las='lsd --almost-all --group-dirs=first --human-readable --long --dereference'

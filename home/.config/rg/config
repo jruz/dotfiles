@@ -1,6 +1,15 @@
 --hidden
+--no-ignore
 
---glob
-!.git/*
-!.obsidian/*
-!node_modules/*
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!**/node_modules/*
+--glob=!target/*
+--glob=!**/target/*
+--glob=!.obsidian/*
+--glob=!Library/*
+--glob=!Pictures/*
+--glob=!Music/*
+--glob=!Movies/*
+--glob=!Trash/*
+--glob=!\.Trash/*

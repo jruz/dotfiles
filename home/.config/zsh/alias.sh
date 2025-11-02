@@ -12,6 +12,7 @@ alias fu='$EDITOR ~/.config/zsh/functions.sh'
 
 alias i3conf='$EDITOR ~/.config/i3/config'
 alias i3sconf='$EDITOR ~/.config/i3status/config'
+alias gconf='$EDITOR ~/.config/ghostty/config'
 alias aconf='$EDITOR ~/.config/alacritty/alacritty.toml'
 alias kconf='$EDITOR ~/.config/kitty/kitty.conf'
 alias nvconf='$EDITOR ~/.config/nvim/init.lua'
