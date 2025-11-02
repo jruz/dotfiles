@@ -28,6 +28,10 @@ local plugins = {
   "tpope/vim-fugitive",
   'NoahTheDuke/vim-just',
   -- "github/copilot.vim",
+  {
+    'Exafunction/windsurf.vim',
+    event = 'BufEnter'
+  },
   "preservim/nerdtree",
   "ryanoasis/vim-devicons",
   "airblade/vim-gitgutter",
@@ -49,9 +53,17 @@ local plugins = {
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 200
+      vim.o.timeoutlen = 300
     end,
-    opts = {}
+    opts = {
+      preset = "modern",
+      delay = 300,
+      expand = 1,
+      icons = {
+        mappings = false,
+        separator = "->",
+      },
+    }
   },
   {
     "LukasPietzschmann/telescope-tabs",
