@@ -12,77 +12,33 @@
       configuration = { pkgs, ... }: {
         environment.systemPackages = [ ];
 
+        system.primaryUser = "jruz";
+
         homebrew = {
           enable = true;
-          brews = [
-            "mas"
-            "stow"
-            "docker"
-          ];
-          casks = [
-            "1Password"
-            "alacritty"
-            "copilot-for-xcode"
-            "discord"
-            "firefox"
-            "firefox@developer-edition"
-            "google-chrome"
-            "ghostty"
-            "istat-menus"
-            "karabiner-elements"
-            "lulu"
-            "megasync"
-            "native-access"
-            "obsidian"
-            "pgadmin4"
-            "signal"
-            "spotify"
-            "swiftformat-for-xcode"
-            "telegram"
-            "the-unarchiver"
-            "transmission"
-            "wacom-tablet"
-            "zed"
-            "zen-browser"
-          ];
-          masApps = {
-            "1Blocker" = 1365531024;
-            "1Password for Safari" = 1569813296;
-            "Mega VPN" = 6456784858;
-            "Moom" = 419330170;
-            "OneTab" = 1540160809;
-            "SimplyJSON for Safari" = 1495193038;
-            "Userscripts-Mac-App" = 1463298887;
-            "Vimkey" = 1585682577;
-            # "Xcode" = 497799835;
-          };
         };
 
         system.defaults.dock = {
           show-recents = false;
+          wvous-tl-corner = 2; # Mission Control
+          wvous-tr-corner = 3; # Application Windows
+          wvous-bl-corner = 13; # Lock Screen
           persistent-apps = [
-            "/System/Applications/Launchpad.app"
             "/Applications/Safari.app"
-            "/Applications/Zen Browser.app"
+            "/Applications/Firefox.app"
             "/Applications/Firefox Developer Edition.app"
             "/Applications/Google Chrome.app"
             "/Applications/Alacritty.app"
             "/Applications/Ghostty.app"
-            "/Applications/kitty.app"
             "/Applications/Zed.app"
             "/Applications/Xcode.app"
             "/Applications/Visual Studio Code.app"
-            "/Applications/pgAdmin 4.app"
             "/Applications/Docker.app"
-            "/Users/jruz/Applications/IBKR Desktop/IBKR Desktop.app"
-            "/Applications/VMware Fusion.app"
+            "/Users/jruz/Applications/IB Gateway 10.30/IB Gateway 10.30.app"
+            "/Users/jruz/Applications/Trader Workstation/Trader Workstation.app"
+            "/Applications/tastytrade.app"
             "/Applications/Signal.app"
-            "/Applications/Telegram.app"
-            "/Applications/Discord.app"
-            "/Applications/Insta360 Studio.app"
-            "/Applications/DaVinci Resolve/DaVinci Resolve.app"
             "/Applications/Spotify.app"
-            "/System/Applications/Music.app"
             "/Applications/Obsidian.app"
             "/System/Applications/Notes.app"
             "/System/Applications/Reminders.app"
@@ -132,16 +88,8 @@
           askForPassword = true;
         };
 
-        system.defaults.dock = {
-          wvous-tl-corner = 2; # Mission Control
-          wvous-tr-corner = 3; # Application Windows
-          wvous-bl-corner = 13; # Lock Screen
-        };
+        security.pam.services.sudo_local.touchIdAuth = true;
 
-        security.pam.enableSudoTouchIdAuth = true;
-
-        # Auto upgrade nix package and the daemon service.
-        services.nix-daemon.enable = true;
         # nix.package = pkgs.nix;
 
         # Necessary for using flakes on this system.

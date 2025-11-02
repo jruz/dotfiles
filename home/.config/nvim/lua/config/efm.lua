@@ -1,4 +1,3 @@
-local lspconfig = require("lspconfig")
 local lspformat = require("lsp-format")
 
 local prettier = {
@@ -16,7 +15,7 @@ local clojure = {
   formatStdin = true,
 }
 
-lspconfig.efm.setup({
+vim.lsp.config('efm', {
   on_attach = lspformat.on_attach,
   init_options = { documentFormatting = true },
   settings = {
@@ -28,10 +27,8 @@ lspconfig.efm.setup({
       markdown = { prettier },
       svelte = { prettier },
       clojure = { clojure },
-      -- rust = { rustfmt },
-      -- toml = { rustfmt },
-      -- typescript = { prettier },
       yaml = { prettier },
     },
   },
 })
+vim.lsp.enable('efm')

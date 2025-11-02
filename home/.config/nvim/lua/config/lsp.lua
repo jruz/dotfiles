@@ -32,10 +32,9 @@ require("mason-tool-installer").setup({
   run_on_start = true,
 })
 
-local lspconfig = require("lspconfig")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.lua_ls.setup({
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
       runtime = {
@@ -57,28 +56,24 @@ lspconfig.lua_ls.setup({
     },
   },
 })
-lspconfig.clojure_lsp.setup({})
-lspconfig.bashls.setup({})
--- lspconfig.eslint.setup({
---   on_attach = function(_client, bufnr)
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       buffer = bufnr,
---       command = "EslintFixAll",
---     })
---   end,
--- })
-lspconfig.biome.setup {}
-lspconfig.ts_ls.setup({
+vim.lsp.enable('lua_ls')
+
+vim.lsp.enable('clojure_lsp')
+vim.lsp.enable('bashls')
+
+vim.lsp.enable('biome')
+
+vim.lsp.config('ts_ls', {
   on_attach = function(client)
-    -- disable formatting so it uses biome
     client.server_capabilities.documentFormattingProvider = false
   end,
 })
-lspconfig.ts_ls.setup({})
---lspconfig.denols.setup({})
-lspconfig.terraformls.setup({})
-lspconfig.tflint.setup({})
-lspconfig.rust_analyzer.setup({
+vim.lsp.enable('ts_ls')
+
+vim.lsp.enable('terraformls')
+vim.lsp.enable('tflint')
+
+vim.lsp.config('rust_analyzer', {
   capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
@@ -95,12 +90,13 @@ lspconfig.rust_analyzer.setup({
     },
   },
 })
-lspconfig.rnix.setup({})
-lspconfig.sourcekit.setup({})
-lspconfig.rescriptls.setup({})
+vim.lsp.enable('rust_analyzer')
 
--- Python
-lspconfig.pylyzer.setup({})
+vim.lsp.enable('rnix')
+vim.lsp.enable('sourcekit')
+vim.lsp.enable('rescriptls')
+
+vim.lsp.enable('pylyzer')
 
 
 -- Markdown

@@ -1,3 +1,6 @@
+tmux:
+  tmuxinator local
+
 stow:
   make stow
 
@@ -11,14 +14,19 @@ tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do Ctrl+a I to install the plugins
 
+mise-upgrade:
+  mise upgrade --bump
+
+mise-outdated:
+  mise outdated --bump
+
 mac-outdated:
   brew outdated
   mas outdated
 
 mac-update:
   brew update
-  brew upgrade
-  mas upgrade
+  cd home-mac && brew bundle upgrade
 
 ubuntu-update:
   sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove
@@ -37,14 +45,17 @@ nix-upgrade VERSION:
   nix-channel --update
   nix-channel --list
 
+nix-darwin-diff:
+	vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
+
 nix-darwin-edit:
 	cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
 	nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
 
 nix-darwin-switch:
 	cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
-	nix run nix-darwin -- switch --flake ~/.config/nix-darwin
+	sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
 nix-darwin-update:
 	nix flake update --flake ~/.config/nix-darwin
-	nix run nix-darwin -- switch --flake ~/.config/nix-darwin
+	sudo darwin-rebuild switch --flake ~/.config/nix-darwin

@@ -52,6 +52,7 @@ in
       git-crypt
       lazygit
       gitui
+      gh
 
       # SHELLS ---------------------
       zsh
@@ -95,7 +96,7 @@ in
 
       # CLOJURE --------------------
       babashka
-      
+
       # Ubuntu ---------------------
     ] ++ (with unstable; [ mise ]);
 }
