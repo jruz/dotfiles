@@ -37,7 +37,7 @@ export DOTFILES='/home/jruz/dev/dotfiles'
 export GPG_TTY=$(tty)
 
 # RG
-export RIPGREP_CONFIG_PATH=~/config/rg/config
+export RIPGREP_CONFIG_PATH=~/.config/rg/config
 
 # FZF
 export FZF_COMPLETION_TRIGGER='``'
