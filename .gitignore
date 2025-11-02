@@ -4,3 +4,4 @@ bin/get_helm.sh
 .config/nvim/pack
 .config/nvim/plugged/*
 error.log
+*.bkp
