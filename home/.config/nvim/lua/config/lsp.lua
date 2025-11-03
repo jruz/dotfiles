@@ -13,7 +13,6 @@ require("mason-lspconfig").setup({
     "rescriptls",
     "rnix",
     "biome",
-    "rust_analyzer",
     "terraformls",
     "tflint",
     "ts_ls",

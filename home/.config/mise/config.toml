@@ -1,5 +1,5 @@
 [tools]
-rust = "1.87.0"
+rust = "1.91.0"
 node = "24.11.0"
 yarn = "4.9.2"
 python = "3.13.5"
