@@ -13,4 +13,5 @@ keybind = cmd+p=text:\x10
 keybind = cmd+s=text:\x13
 keybind = cmd+w=text:\x17
 keybind = cmd+l=text:\x0c
+keybind = cmd+v=text:\x16
 keybind = cmd+shift+v=paste_from_clipboard
