@@ -13,3 +13,7 @@
 --glob=!Movies/*
 --glob=!Trash/*
 --glob=!\.Trash/*
+--glob=!test-results/*
+--glob=!static/*
+--glob=!dist/*
+--glob=!playwright-report/*
