@@ -61,36 +61,44 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
 
+vim.lsp.config('biome', {
+  root_dir = function(fname)
+    local util = require('lspconfig.util')
+    return util.root_pattern('biome.json', 'biome.jsonc')(fname)
+      or util.root_pattern('package.json', '.git')(fname)
+  end,
+  single_file_support = true,
+})
 vim.lsp.enable('biome')
+
+vim.lsp.config('denols', {
+  root_dir = function(fname)
+    local util = require('lspconfig.util')
+    return util.root_pattern('deno.json', 'deno.jsonc')(fname)
+  end,
+  single_file_support = false,
+})
 
 vim.lsp.config('ts_ls', {
   on_attach = function(client)
     client.server_capabilities.documentFormattingProvider = false
   end,
+  root_dir = function(fname)
+    local util = require('lspconfig.util')
+    local deno_root = util.root_pattern('deno.json', 'deno.jsonc')(fname)
+    if deno_root then
+      return nil
+    end
+    return util.root_pattern('package.json')(fname)
+  end,
+  single_file_support = false,
 })
+
+vim.lsp.enable('denols')
 vim.lsp.enable('ts_ls')
 
 vim.lsp.enable('terraformls')
 vim.lsp.enable('tflint')
-
-vim.lsp.config('rust_analyzer', {
-  capabilities = capabilities,
-  settings = {
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-      },
-      check = {
-        command = "clippy",
-        extraArgs = {
-          "-- -W clippy::pedantic -D clippy::unwrap_used",
-        },
-      },
-      checkOnSave = true,
-    },
-  },
-})
-vim.lsp.enable('rust_analyzer')
 
 vim.lsp.enable('rnix')
 vim.lsp.enable('sourcekit')
