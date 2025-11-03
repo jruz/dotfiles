@@ -20,6 +20,71 @@ vim.wo.foldnestmax = 4
 vim.wo.foldenable = false
 vim.wo.foldlevel = 1
 
+-- Rustaceanvim config must be set before plugin loads
+vim.g.rustaceanvim = {
+  tools = {
+    hover_actions = {
+      auto_focus = false,
+    },
+  },
+  server = {
+    default_settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          allFeatures = true,
+          loadOutDirsFromCheck = true,
+          buildScripts = {
+            enable = true,
+          },
+        },
+        check = {
+          command = "clippy",
+          extraArgs = {
+            "-- -W clippy::pedantic -D clippy::unwrap_used",
+          },
+        },
+        checkOnSave = true,
+        procMacro = {
+          enable = true,
+          attributes = {
+            enable = true,
+          },
+        },
+        inlayHints = {
+          bindingModeHints = {
+            enable = false,
+          },
+          chainingHints = {
+            enable = true,
+          },
+          closingBraceHints = {
+            minLines = 25,
+          },
+          closureReturnTypeHints = {
+            enable = "never",
+          },
+          lifetimeElisionHints = {
+            enable = "never",
+            useParameterNames = false,
+          },
+          maxLength = 25,
+          parameterHints = {
+            enable = true,
+          },
+          reborrowHints = {
+            enable = "never",
+          },
+          renderColons = true,
+          typeHints = {
+            enable = true,
+            hideClosureInitialization = false,
+            hideNamedConstructor = false,
+          },
+        },
+      },
+    },
+  },
+}
 
 -- Package Manager
 require("plugins")
