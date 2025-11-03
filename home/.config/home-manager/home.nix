@@ -32,6 +32,7 @@ in
       gawk
       gnupg
       gnused
+      tree
       jq
       just
       lsd
