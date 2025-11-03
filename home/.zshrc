@@ -71,11 +71,13 @@ export PATH="$PATH:$HOME/.config/emacs/bin"
 # JUST
 source <(just --completions=bash)
 
-# SCRIPTS & ALIAS
-for file in ~/.config/zsh/*
-do
-    source $file
-done
+# SCRIPTS & ALIAS (explicit order)
+source ~/.config/zsh/mise.sh
+source ~/.config/zsh/mise_completion.sh
+source ~/.config/zsh/alias.sh
+source ~/.config/zsh/functions.sh
+source ~/.config/zsh/js.sh
+source ~/.config/zsh/path.sh
 
 # WATCH FILES LIMIT
 ulimit -n 4096

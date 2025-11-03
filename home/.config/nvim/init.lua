@@ -46,9 +46,6 @@ vim.g.rustaceanvim = {
         checkOnSave = true,
         procMacro = {
           enable = true,
-          attributes = {
-            enable = true,
-          },
         },
         inlayHints = {
           bindingModeHints = {

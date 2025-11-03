@@ -88,10 +88,10 @@ in
       nixfmt
 
       # RUST -----------------------
+      rust-analyzer
       cargo-watch
       cargo-nextest
       bacon
-      rust-analyzer
       # cargo-generate
       # cargo-lambda
 
