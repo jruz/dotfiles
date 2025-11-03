@@ -43,12 +43,12 @@ wk.add({
 
 wk.add({
   { "<space>t", group = "Trouble" },
-  { "<space>tt", "<cmd>TroubleToggle<cr>", desc = "Toggle" },
-  { "<space>tw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
-  { "<space>td", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
-  { "<space>tq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix" },
-  { "<space>tl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List" },
-  { "<space>tr", "<cmd>TroubleToggle lsp_references<cr>", desc = "References" },
+  { "<space>tt", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Diagnostics" },
+  { "<space>td", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+  { "<space>ts", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
+  { "<space>tl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions" },
+  { "<space>tL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+  { "<space>tq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix" },
 })
 
 wk.add({
