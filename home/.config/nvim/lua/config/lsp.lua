@@ -12,7 +12,6 @@ require("mason-lspconfig").setup({
     "pylyzer",
     "rescriptls",
     "rnix",
-    "biome",
     "terraformls",
     "tflint",
     "ts_ls",
@@ -61,12 +60,7 @@ vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
 
 vim.lsp.config('biome', {
-  root_dir = function(fname)
-    local util = require('lspconfig.util')
-    return util.root_pattern('biome.json', 'biome.jsonc')(fname)
-      or util.root_pattern('package.json', '.git')(fname)
-  end,
-  single_file_support = true,
+  cmd = { 'biome', 'lsp-proxy' },
 })
 vim.lsp.enable('biome')
 
