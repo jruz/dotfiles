@@ -88,7 +88,6 @@ in
       nixfmt
 
       # RUST -----------------------
-      rust-analyzer
       cargo-watch
       cargo-nextest
       bacon
@@ -99,5 +98,8 @@ in
       babashka
 
       # Ubuntu ---------------------
-    ] ++ (with unstable; [ mise ]);
+    ] ++ (with unstable; [
+      mise
+      rust-analyzer
+    ]);
 }

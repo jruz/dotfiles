@@ -1,5 +1,6 @@
 brew "mas"
 brew "stow"
+brew "terminal-notifier"
 # brew "docker"
 
 cask "1Password"
