@@ -192,7 +192,7 @@ local plugins = {
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
   { "j-hui/fidget.nvim", tag = "legacy" },
-  "folke/neodev.nvim",
+  { "folke/lazydev.nvim", ft = "lua", opts = {} },
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
   {
