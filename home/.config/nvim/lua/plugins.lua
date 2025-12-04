@@ -97,6 +97,12 @@ local plugins = {
     opts = {},
   },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = "VeryLazy",
+    opts = {},
+  },
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
