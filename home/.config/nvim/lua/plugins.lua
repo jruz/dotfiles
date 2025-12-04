@@ -67,6 +67,15 @@ local plugins = {
   "osyo-manga/vim-over",
   { "folke/ts-comments.nvim", opts = {}, event = "VeryLazy" },
   {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
+      { "S", function() require("flash").treesitter() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
+    },
+  },
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
