@@ -7,6 +7,18 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "context_servers": {
+    "mcp-server-github": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {
+        "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN"
+      }
+    }
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
   "show_edit_predictions": false,
   "edit_predictions": {
     "mode": "eager",
@@ -20,9 +32,7 @@
     "default_model": {
       "provider": "zed.dev",
       "model": "claude-sonnet-4"
-    },
-    "version": "2",
-    "timeout": 100000
+    }
   },
   "telemetry": {
     "metrics": false
@@ -101,92 +111,36 @@
         }
       }
     },
-    "HTMX": {
+    "SCSS": {
+      "format_on_save": "on",
+      "formatter": "prettier"
+    },
+    "Python": {
       "format_on_save": "on",
       "formatter": {
         "external": {
-          "command": "npx",
+          "command": "black",
           "arguments": [
-            "prettier",
-            "--write",
-            "--parser",
-            "jinja2",
-            "--stdin-filepath",
-            "{buffer_path}"
+            "-"
           ]
         }
-      },
-      "SCSS": {
-        "format_on_save": "on",
-        "formatter": "prettier"
-      },
-      "Python": {
-        "format_on_save": "on",
-        "formatter": {
-          "external": {
-            "command": "black",
-            "arguments": [
-              "-"
-            ]
-          }
-        }
-      },
-      "TypeScript": {
-        "language_servers": [
-          "biome",
-          "typescript-language-server",
-          "!eslint"
-        ],
-        "format_on_save": "on",
-        "formatter": {
-          "external": {
-            "command": "npx",
-            "arguments": [
-              "biome",
-              "format",
-              "--write",
-              "--stdin-file-path={buffer_path}"
-            ]
-          }
-        }
-      },
-      "Svelte": {
-        "tab_size": 2
-      },
-      "Jinja2": {
-        "format_on_save": "on",
-        "formatter": "prettier"
       }
     },
-    "eslint": {
-      "enabled": true,
-      "autoFixOnSave": true,
-      "autoFixOnFormat": true,
-      "autoFixOnFormatDelay": 200,
-      "initialization_options": {
-        "checkOnSave": {
-          "command": "eslint"
-        }
-      },
-      "probe": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "vue",
-        "markdown",
-        "svelte"
+    "TypeScript": {
+      "language_servers": [
+        "biome",
+        "typescript-language-server",
+        "!eslint"
       ],
-      "validate": [
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "svelte"
-      ]
+      "format_on_save": "on",
+      "formatter": { "language_server": { "name": "biome" }}
     },
-    "language_models": {
-      "deepseek-coder-v2": {
-        "low_speed_timeout_in_seconds": 120
-      }
+    "Svelte": {
+      "tab_size": 2
+    },
+    "Jinja2": {
+      "format_on_save": "on",
+      "formatter": "prettier"
     }
   },
   "lsp": {
@@ -208,6 +162,10 @@
     "biome": {
       "settings": {
         "require_config_file": true
+      },
+      "binary": {
+        "path": "./node_modules/.bin/biome",
+        "arguments": ["lsp-proxy"]
       }
     }
   }
