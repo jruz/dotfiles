@@ -1,6 +1,9 @@
 font-size = 18
 font-family = "DejaVuSansM Nerd Font"
 
+window-padding-x = 0
+window-padding-y = 0
+
 keybind = cmd+a=text:\x01
 keybind = cmd+b=text:\x02
 keybind = cmd+c=text:\x03
@@ -10,8 +13,22 @@ keybind = cmd+f=text:\x06
 keybind = cmd+g=text:\x07
 keybind = cmd+i=text:\x09
 keybind = cmd+p=text:\x10
+keybind = cmd+r=text:\x12
 keybind = cmd+s=text:\x13
 keybind = cmd+w=text:\x17
+keybind = cmd+x=text:\x18
 keybind = cmd+l=text:\x0c
 keybind = cmd+v=text:\x16
 keybind = cmd+shift+v=paste_from_clipboard
+keybind = cmd+z=text:\x1a
+keybind = cmd+y=text:\x19
+keybind = cmd+shift+z=text:\x1b[122;6u
+keybind = cmd+up=text:\x1b[1;5A
+keybind = cmd+down=text:\x1b[1;5B
+keybind = cmd+j=text:\x0a
+keybind = cmd+k=text:\x0b
+keybind = cmd+h=text:\x08
+keybind = cmd+t=text:\x14
+keybind = cmd+/=text:\x1f
+keybind = cmd+o=text:\x0f
+keybind = cmd+shift+p=text:\x1b[80;6u
