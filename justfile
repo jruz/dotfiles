@@ -20,6 +20,9 @@ mise-upgrade:
 mise-outdated:
   mise outdated --bump
 
+mise-clean:
+  mise prune
+
 mac-outdated:
   brew outdated
   mas outdated
@@ -59,3 +62,8 @@ nix-darwin-switch:
 nix-darwin-update:
 	nix flake update --flake ~/.config/nix-darwin
 	sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+
+nix-clean:
+  nix-collect-garbage
+
+clean: nix-clean mise-clean

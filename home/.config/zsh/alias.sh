@@ -141,6 +141,7 @@ alias gmd='git merge dev'
 alias gpl='git pull --rebase'
 alias gps='git push'
 alias gps!='git push --force'
+alias gpsf=gps!
 alias gpsu='git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpsu!='git push --force --set-upstream origin $(git rev-parse --abbrev-ref HEAD)'
 alias gr='git reset'
