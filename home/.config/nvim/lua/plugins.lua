@@ -76,6 +76,21 @@ local plugins = {
     },
   },
   {
+    "echasnovski/mini.surround",
+    event = "VeryLazy",
+    opts = {
+      mappings = {
+        add = "gsa",
+        delete = "gsd",
+        replace = "gsr",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
+        update_n_lines = "gsn",
+      },
+    },
+  },
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
