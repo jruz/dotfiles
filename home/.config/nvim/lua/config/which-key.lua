@@ -36,9 +36,18 @@ wk.add({
   { "<space>gc", "<cmd>Git commit<cr>", desc = "Commit" },
   { "<space>gp", "<cmd>Git push<cr>", desc = "Push" },
   { "<space>gP", "<cmd>Git pull<cr>", desc = "Pull" },
-  { "<space>gb", "<cmd>Git blame<cr>", desc = "Blame" },
-  { "<space>gd", "<cmd>Git diff<cr>", desc = "Diff" },
+  { "<space>gb", "<cmd>Gitsigns blame_line<cr>", desc = "Blame Line" },
+  { "<space>gB", "<cmd>Git blame<cr>", desc = "Blame File" },
+  { "<space>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
   { "<space>gl", "<cmd>Git log<cr>", desc = "Log" },
+  { "<space>gh", group = "Hunks" },
+  { "<space>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+  { "<space>ghr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
+  { "<space>ghS", "<cmd>Gitsigns stage_buffer<cr>", desc = "Stage Buffer" },
+  { "<space>ghu", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage" },
+  { "<space>ghp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk" },
+  { "]h", "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+  { "[h", "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
 })
 
 wk.add({
@@ -65,8 +74,10 @@ wk.add({
 
 wk.add({
   { "<space>n", group = "File Tree" },
-  { "<space>nt", "<cmd>NERDTreeToggle<cr>", desc = "Toggle" },
-  { "<space>nf", "<cmd>NERDTreeFind<cr>", desc = "Find Current File" },
+  { "<space>nt", "<cmd>Neotree toggle<cr>", desc = "Toggle" },
+  { "<space>nf", "<cmd>Neotree reveal<cr>", desc = "Find Current File" },
+  { "<space>ng", "<cmd>Neotree git_status<cr>", desc = "Git Status" },
+  { "<space>nb", "<cmd>Neotree buffers<cr>", desc = "Buffers" },
 })
 
 wk.add({
@@ -77,8 +88,14 @@ wk.add({
 wk.add({
   { "<space>c", group = "Code" },
   { "<space>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+  { "<space>cc", "gcc", desc = "Toggle Comment", remap = true },
   { "<space>cf", vim.lsp.buf.format, desc = "Format" },
   { "<space>cr", vim.lsp.buf.rename, desc = "Rename" },
+})
+
+wk.add({
+  { "<space>m", group = "Markdown" },
+  { "<space>mt", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Render" },
 })
 
 wk.add({
@@ -87,4 +104,9 @@ wk.add({
   { "gr", vim.lsp.buf.references, desc = "References" },
   { "gi", vim.lsp.buf.implementation, desc = "Implementation" },
   { "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
+  { "gc", group = "Comment" },
+  { "gcc", desc = "Toggle Line" },
+  { "gco", desc = "Add Below" },
+  { "gcO", desc = "Add Above" },
+  { "gcA", desc = "Add End of Line" },
 })
