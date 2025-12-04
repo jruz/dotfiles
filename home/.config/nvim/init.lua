@@ -7,7 +7,18 @@ vim.o.expandtab = true
 vim.g.indentLine_char = "│"
 vim.g.mapleader = ","
 vim.wo.number = true
+vim.o.signcolumn = "yes"
 vim.o.autoread = true
+vim.o.updatetime = 1000
+
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "FocusGained", "BufEnter" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.syntax = "on"
@@ -91,8 +102,9 @@ vim.cmd.colorscheme("catppuccin-mocha")
 
 -- Commands
 vim.cmd([[command Config :edit ~/.config/nvim/init.lua]])
-vim.cmd([[command Wq :wq]])
-vim.cmd([[command Wqa :wqa]])
+vim.cmd([[command -bang Wq :wq<bang>]])
+vim.cmd([[command -bang Wqa :wqa<bang>]])
+vim.cmd([[command -bang Qa :qa<bang>]])
 
 -- Auto Save
 --vim.api.nvim_command('autocmd FocusLost * :wa')

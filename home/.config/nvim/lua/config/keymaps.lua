@@ -25,8 +25,29 @@ vim.api.nvim_set_keymap('n', '<A-]>', ':tabnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<C-S>', '<Esc>:update<CR>gi', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-S>', ':update<CR>', { noremap = true, silent = true })
 
--- NERDTree
-vim.api.nvim_set_keymap("n", "<C-T>", ":NERDTreeFind<Enter>", { noremap = true })
+-- Neo-tree
+vim.api.nvim_set_keymap("n", "<C-T>", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
+
+-- Undo/Redo
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-z>', '<Cmd>undo<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-S-z>', '<Cmd>redo<CR>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-y>', '<Cmd>redo<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'U', '<Cmd>redo<CR>', { noremap = true, silent = true })
+
+-- Reload file from disk
+vim.keymap.set('n', '<C-r>', '<Cmd>checktime<CR>', { noremap = true, silent = true })
+
+-- Scroll half page
+vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>', { noremap = true, silent = true })
+
+-- Command palette with Cmd+Shift+P
+vim.keymap.set('n', '<C-S-p>', '<cmd>Telescope commands<cr>', { silent = true })
+vim.keymap.set('n', '\x1b[80;6u', '<cmd>Telescope commands<cr>', { silent = true })
+
+-- Toggle comment with Ctrl+/
+vim.keymap.set({ 'n', 'i' }, '<C-_>', 'gcc', { remap = true, silent = true })
+vim.keymap.set('v', '<C-_>', 'gc', { remap = true, silent = true })
 
 -- Copy and paste to system clipboard
 vim.api.nvim_set_keymap('n', 'yy', '"+yy', { noremap = true, silent = true })

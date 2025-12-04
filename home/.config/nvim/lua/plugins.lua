@@ -32,11 +32,49 @@ local plugins = {
     'Exafunction/windsurf.vim',
     event = 'BufEnter'
   },
-  "preservim/nerdtree",
-  "ryanoasis/vim-devicons",
-  "airblade/vim-gitgutter",
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        },
+        follow_current_file = { enabled = true },
+      },
+      window = { position = "left", width = 35 },
+    },
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signs = {
+        add = { text = "▌" },
+        change = { text = "▌" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "▌" },
+        untracked = { text = "▌" },
+      },
+    },
+  },
   "osyo-manga/vim-over",
-  "preservim/nerdcommenter",
+  { "folke/ts-comments.nvim", opts = {}, event = "VeryLazy" },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      heading = { position = "inline", backgrounds = {} },
+      bullet = { icons = { "•" } },
+    },
+  },
   "nvim-treesitter/nvim-treesitter",
   "nvim-tree/nvim-web-devicons",
   "stevearc/oil.nvim",
@@ -157,7 +195,46 @@ local plugins = {
   "folke/neodev.nvim",
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
-  "folke/trouble.nvim",
+  {
+    "folke/trouble.nvim",
+    config = function()
+      local trouble = require("trouble")
+
+      trouble.setup({
+        auto_close = true,
+        auto_open = false,
+      })
+
+      vim.api.nvim_create_autocmd("DiagnosticChanged", {
+        callback = function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local ft = vim.bo[bufnr].filetype
+          local bt = vim.bo[bufnr].buftype
+
+          local ignored_filetypes = { "lazy", "mason", "trouble", "TelescopePrompt", "qf" }
+          for _, ignored in ipairs(ignored_filetypes) do
+            if ft == ignored then
+              return
+            end
+          end
+
+          if bt ~= "" then
+            return
+          end
+
+          local diagnostics = vim.diagnostic.get(bufnr)
+
+          if #diagnostics > 0 then
+            trouble.open({ mode = "diagnostics", filter = { buf = bufnr }, focus = false })
+          else
+            if trouble.is_open() then
+              trouble.close()
+            end
+          end
+        end,
+      })
+    end,
+  },
   {
     "lukas-reineke/lsp-format.nvim",
     config = function()
