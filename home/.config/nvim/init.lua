@@ -25,6 +25,15 @@ vim.o.syntax = "on"
 vim.o.mouse = ""
 vim.o.showmode = false
 
+vim.filetype.add({
+  pattern = {
+    ['%.env'] = 'dotenv',
+    ['%.env%..*'] = 'dotenv',
+    ['.*%.env'] = 'dotenv',
+  },
+})
+vim.treesitter.language.register('bash', 'dotenv')
+
 -- Folding
 vim.wo.foldmethod = "indent"
 vim.wo.foldnestmax = 4
