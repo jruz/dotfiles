@@ -59,10 +59,30 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
 
-vim.lsp.config('biome', {
-  cmd = { 'biome', 'lsp-proxy' },
-})
-vim.lsp.enable('biome')
+local function get_biome_cmd()
+  local util = require('lspconfig.util')
+  local root_dir = util.root_pattern('biome.json', 'biome.jsonc', 'package.json', '.git')(vim.fn.getcwd())
+
+  if root_dir then
+    local local_biome = util.path.join(root_dir, 'node_modules', '.bin', 'biome')
+    if vim.fn.executable(local_biome) == 1 then
+      return { local_biome, 'lsp-proxy' }
+    end
+  end
+
+  if vim.fn.executable('biome') == 1 then
+    return { 'biome', 'lsp-proxy' }
+  end
+
+  return nil
+end
+
+if get_biome_cmd() then
+  vim.lsp.config('biome', {
+    cmd = get_biome_cmd(),
+  })
+  vim.lsp.enable('biome')
+end
 
 vim.lsp.config('denols', {
   root_dir = function(fname)
