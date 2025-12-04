@@ -24,6 +24,7 @@ vim.o.splitright = true
 vim.o.syntax = "on"
 vim.o.mouse = ""
 vim.o.showmode = false
+vim.o.smoothscroll = true
 
 vim.filetype.add({
   pattern = {
