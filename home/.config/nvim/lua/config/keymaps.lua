@@ -43,7 +43,6 @@ vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>', { noremap = true, silent = true 
 
 -- Command palette with Cmd+Shift+P
 vim.keymap.set('n', '<C-S-p>', '<cmd>Telescope commands<cr>', { silent = true })
-vim.keymap.set('n', '\x1b[80;6u', '<cmd>Telescope commands<cr>', { silent = true })
 
 -- Toggle comment with Ctrl+/
 vim.keymap.set({ 'n', 'i' }, '<C-_>', 'gcc', { remap = true, silent = true })
