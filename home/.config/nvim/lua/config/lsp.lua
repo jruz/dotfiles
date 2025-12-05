@@ -58,9 +58,8 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
 
-local function get_biome_cmd()
+local function get_biome_cmd(root_dir)
   local util = require('lspconfig.util')
-  local root_dir = util.root_pattern('biome.json', 'biome.jsonc', 'package.json', '.git')(vim.fn.getcwd())
 
   if root_dir then
     local local_biome = util.path.join(root_dir, 'node_modules', '.bin', 'biome')
@@ -76,17 +75,30 @@ local function get_biome_cmd()
   return nil
 end
 
-if get_biome_cmd() then
-  vim.lsp.config('biome', {
-    cmd = get_biome_cmd(),
-  })
-  vim.lsp.enable('biome')
-end
+vim.lsp.config('biome', {
+  root_dir = function(bufnr, on_dir)
+    local filename = vim.api.nvim_buf_get_name(bufnr)
+    local biome_root = vim.fs.root(bufnr, { 'biome.json', 'biome.jsonc' })
+    if biome_root then
+      on_dir(biome_root)
+    end
+  end,
+  on_new_config = function(new_config, root_dir)
+    local cmd = get_biome_cmd(root_dir)
+    if cmd then
+      new_config.cmd = cmd
+    end
+  end,
+  single_file_support = false,
+})
+vim.lsp.enable('biome')
 
 vim.lsp.config('denols', {
-  root_dir = function(fname)
-    local util = require('lspconfig.util')
-    return util.root_pattern('deno.json', 'deno.jsonc')(fname)
+  root_dir = function(bufnr, on_dir)
+    local deno_root = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc' })
+    if deno_root then
+      on_dir(deno_root)
+    end
   end,
   single_file_support = false,
 })
@@ -95,13 +107,15 @@ vim.lsp.config('ts_ls', {
   on_attach = function(client)
     client.server_capabilities.documentFormattingProvider = false
   end,
-  root_dir = function(fname)
-    local util = require('lspconfig.util')
-    local deno_root = util.root_pattern('deno.json', 'deno.jsonc')(fname)
+  root_dir = function(bufnr, on_dir)
+    local deno_root = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc' })
     if deno_root then
-      return nil
+      return
     end
-    return util.root_pattern('package.json')(fname)
+    local ts_root = vim.fs.root(bufnr, { 'package.json' })
+    if ts_root then
+      on_dir(ts_root)
+    end
   end,
   single_file_support = false,
 })
