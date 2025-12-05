@@ -1,3 +1,11 @@
+ssh-setup:
+  #!/usr/bin/env sh
+  if [ "$(uname)" = "Darwin" ]; then
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+  else
+    ssh-add ~/.ssh/id_ed25519
+  fi
+
 tmux:
   tmuxinator local
 

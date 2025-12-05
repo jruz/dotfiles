@@ -48,6 +48,16 @@ Generate new key
 
 Add key to https://github.com/settings/keys
 
+#### SSH Agent
+
+After stowing dotfiles, the SSH agent is configured automatically:
+
+    just ssh-setup
+
+**macOS**: Uses Keychain integration via `~/.ssh/config`. Passphrase persists across reboots.
+
+**Linux**: An ssh-agent starts automatically via `~/.config/zsh/ssh-agent.sh`. Run once per login.
+
 Install GPG Key
 
     gpg --import DELETE_ME.key
