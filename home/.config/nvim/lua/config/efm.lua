@@ -1,12 +1,9 @@
 local lspformat = require("lsp-format")
 
-local prettier = {
-  formatCommand = [[./node_modules/prettier/bin/prettier.cjs --format ${INPUT}]],
-  formatStdin = true,
-}
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/"
 
-local rustfmt = {
-  formatCommand = "[[rustfmt ${INPUT} --emit=stdout --edition=2021]]",
+local prettier = {
+  formatCommand = mason_bin .. "prettier --stdin-filepath ${INPUT}",
   formatStdin = true,
 }
 
@@ -20,14 +17,11 @@ vim.lsp.config('efm', {
   init_options = { documentFormatting = true },
   settings = {
     languages = {
-      css = { prettier },
       html = { prettier },
-      javascript = { prettier },
-      json = { prettier },
       markdown = { prettier },
       svelte = { prettier },
-      clojure = { clojure },
       yaml = { prettier },
+      clojure = { clojure },
     },
   },
 })
