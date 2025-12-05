@@ -7,6 +7,7 @@ require("mason-lspconfig").setup({
     "denols",
     "efm",
     "eslint",
+    "jsonls",
     "lua_ls",
     "pylyzer",
     "rescriptls",
@@ -20,8 +21,10 @@ require("mason-lspconfig").setup({
 
 require("mason-tool-installer").setup({
   ensure_installed = {
+    "biome",
     "clj-kondo",
     "joker",
+    "prettier",
     "shfmt",
     "tfsec",
   },
@@ -58,38 +61,50 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
 
-local function get_biome_cmd(root_dir)
+local global_biome_config = vim.fn.expand("~/.config/biome/biome.json")
+
+local function get_biome_cmd(root_dir, has_local_config)
   local util = require('lspconfig.util')
+  local cmd = nil
 
   if root_dir then
     local local_biome = util.path.join(root_dir, 'node_modules', '.bin', 'biome')
     if vim.fn.executable(local_biome) == 1 then
-      return { local_biome, 'lsp-proxy' }
+      cmd = { local_biome, 'lsp-proxy' }
     end
   end
 
-  if vim.fn.executable('biome') == 1 then
-    return { 'biome', 'lsp-proxy' }
+  if not cmd and vim.fn.executable('biome') == 1 then
+    cmd = { 'biome', 'lsp-proxy' }
   end
 
-  return nil
+  if cmd and not has_local_config and vim.fn.filereadable(global_biome_config) == 1 then
+    table.insert(cmd, '--config-path')
+    table.insert(cmd, global_biome_config)
+  end
+
+  return cmd
 end
 
 vim.lsp.config('biome', {
   root_dir = function(bufnr, on_dir)
-    local filename = vim.api.nvim_buf_get_name(bufnr)
     local biome_root = vim.fs.root(bufnr, { 'biome.json', 'biome.jsonc' })
     if biome_root then
       on_dir(biome_root)
+      return
     end
+    local fallback_root = vim.fs.root(bufnr, { 'package.json', '.git' }) or vim.fn.getcwd()
+    on_dir(fallback_root)
   end,
   on_new_config = function(new_config, root_dir)
-    local cmd = get_biome_cmd(root_dir)
+    local has_local_config = vim.fn.filereadable(root_dir .. '/biome.json') == 1
+      or vim.fn.filereadable(root_dir .. '/biome.jsonc') == 1
+    local cmd = get_biome_cmd(root_dir, has_local_config)
     if cmd then
       new_config.cmd = cmd
     end
   end,
-  single_file_support = false,
+  single_file_support = true,
 })
 vim.lsp.enable('biome')
 
@@ -126,6 +141,7 @@ vim.lsp.enable('ts_ls')
 vim.lsp.enable('terraformls')
 vim.lsp.enable('tflint')
 
+vim.lsp.enable('jsonls')
 vim.lsp.enable('rnix')
 vim.lsp.enable('sourcekit')
 vim.lsp.enable('rescriptls')
