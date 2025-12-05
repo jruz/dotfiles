@@ -72,6 +72,7 @@ export PATH="$PATH:$HOME/.config/emacs/bin"
 source <(just --completions=bash)
 
 # SCRIPTS & ALIAS (explicit order)
+source ~/.config/zsh/ssh-agent.sh
 source ~/.config/zsh/mise.sh
 source ~/.config/zsh/mise_completion.sh
 source ~/.config/zsh/alias.sh
