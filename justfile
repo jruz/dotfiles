@@ -75,3 +75,17 @@ nix-clean:
   nix-collect-garbage
 
 clean: nix-clean mise-clean
+
+router-ip:
+  #!/usr/bin/env nu
+  let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first
+  let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
+  if $ip == null { error make {msg: "Device not found"} }
+  print $"http://($ip)"
+
+repeater-ip:
+  #!/usr/bin/env nu
+  let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first
+  let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
+  if $ip == null { error make {msg: "Device not found"} }
+  print $"http://($ip)"
