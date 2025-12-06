@@ -62,7 +62,7 @@ eval "$(starship init zsh)"
 export PATH="$PATH:$HOME/.config/emacs/bin"
 
 # JUST
-source <(just --completions=bash)
+source <(just --completions zsh)
 
 # SCRIPTS & ALIAS (explicit order)
 source ~/.config/zsh/ssh-agent.sh
