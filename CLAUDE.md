@@ -41,17 +41,17 @@ The repository uses a three-tier package management approach:
 
 Stow dotfiles on macOS:
 ```bash
-make stow-mac
+just stow-mac
 ```
 
 Stow dotfiles on Linux:
 ```bash
-make stow-linux
+just stow-linux
 ```
 
 Just base home directory:
 ```bash
-make stow-home
+just stow-home
 ```
 
 ### Package Management
@@ -136,7 +136,7 @@ Key configuration locations:
 
 When modifying configurations:
 1. Edit files in the appropriate `home*/` directory within this repository
-2. Run the appropriate `make stow-*` or `just stow` command to symlink changes
+2. Run the appropriate `just stow-*` command to symlink changes
 3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `home-manager switch`
 4. For macOS system settings, edit `mac/nix-darwin/flake.nix` and use `just nix-darwin-switch`
 

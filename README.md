@@ -10,8 +10,8 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 - CLI  - Nix + Home Manager [home.nix](/home/.config/home-manager/home.nix)
 - GUI - Homebrew [Brewfile](/home-mac/Brewfile)
-- Languages - RTX [.tool-version](/home/.tool-versions)
-- .config -  with Stow [config](/Makefile)
+- Languages - mise [config.toml](/home/.config/mise/config.toml)
+- .config - with Stow [justfile](/justfile)
 
 ## CLI Editors:
 
@@ -22,95 +22,58 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 ## Terminal stuff:
 
-- Alacritty [alacritty.yml](/home-mac/.config/alacritty/alacritty.yml)
-- Tmux [.tmux.cof](/home/.tmux.conf)
+- Alacritty [alacritty.toml](/home/.config/alacritty/alacritty.toml)
+- Ghostty [config](/home/.config/ghostty/config)
+- Tmux [.tmux.conf](/home/.tmux.conf)
 - Zellij [config.kdl](/home/.config/zellij/config.kdl)
 - ZSH [.zshrc](/home/.zshrc)
 - Nushell [.config](/home/.config/nushell)
 
 ---
 
-This steps are for myself when I setup a new machine:
+## New Machine Setup
 
-### Shell
+### 1. Nix
+
+Install Nix: https://nixos.org/download.html
+
+### 2. Clone repo
+
+    mkdir -p ~/dev
+    cd ~/dev
+    git clone https://github.com/jruz/dotfiles.git
+
+### 3. Setup
+
+    nix-shell -p just gh stow
+    just ssh-keygen your@email.com
+    git remote set-url origin git@github.com:jruz/dotfiles.git
+    just bootstrap
+
+Bootstrap will detect OS, stow dotfiles, setup nix channels, install home-manager, configure ssh-agent, and install language runtimes.
+
+### 4. GPG Key
+
+    just gpg-import ~/path/to/key.file
+
+### 5. Git config
+
+    just git-config
+
+### 6. Neovim
+
+Open `nvim` and let Lazy.vim and TreeSitter install deps.
+
+---
+
+## Platform-specific
+
+### Linux
 
     sudo apt-get install -y zsh
     chsh -s $(which zsh)
-    
 
-### Github
-
-Generate new key
-
-    ssh-keygen -t ed25519 -C "--EMAIL--"
-    pbcopy < ~/.ssh/id_ed25519.pub
-    xclip -sel clip < ~/.ssh/id_ed25519.pub
-
-Add key to https://github.com/settings/keys
-
-#### SSH Agent
-
-After stowing dotfiles, the SSH agent is configured automatically:
-
-    just ssh-setup
-
-**macOS**: Uses Keychain integration via `~/.ssh/config`. Passphrase persists across reboots.
-
-**Linux**: An ssh-agent starts automatically via `~/.config/zsh/ssh-agent.sh`. Run once per login.
-
-Install GPG Key
-
-    gpg --import DELETE_ME.key
-    gpg --list-keys
-    gpg --edit-key CECD4EB5EC6AAF54
-    > trust
-    > ultimate
-
-Clone repo
-
-    mkdir -p ~/dev/personal
-    cd ~/dev
-    git clone git@github.com:jruz/dotfiles.git
-
-Link dotfiles
-
-    nix-shell -p just stow
-
-    just stow-linux
-    just stow-mac
-
-
-### Nix
-
-- https://nixos.org/download.html
-
-```
-    # check latest nix version number
-    just nix-channel-setup 24.11
-```
-
-### Home Manager
-
-- https://nix-community.github.io/home-manager/index.html#sec-install-standalone
-
-```
-    nix-shell '<home-manager>' -A install
-```
-
-Check git config
-
-    just git
-
-### Languages
-
-    mise install
-
-### Neovim
-
-Open `nvim` first time and let Lazy.vim and TreeSitter install all deps.  
-
-
-### Mac settings
+### macOS
 
 - Disable auto correct
 - Increase speed of keyboard repetition
@@ -119,7 +82,7 @@ Open `nvim` first time and let Lazy.vim and TreeSitter install all deps.
 
 Settings > Privacy & Security > Accessibility
 
-- Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app`  
+- Add `/Library/PrivilegedHelperTools/com.wacom.IOManager.app`
   https://support.wacom.com/hc/en-us/articles/9753655984663
 
 ### Windows
