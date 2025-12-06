@@ -62,6 +62,7 @@ in
       zellij
       tmux
       tmuxinator
+      starship
 
       # EDITORS --------------------
       helix
@@ -102,4 +103,5 @@ in
       mise
       rust-analyzer
     ]);
+
 }
