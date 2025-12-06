@@ -3,7 +3,3 @@ $env.config = {
 }
 
 source ~/.config/nushell/alias.nu
-
-
-# Theme
-# source ~/.cache/starship/init.nu

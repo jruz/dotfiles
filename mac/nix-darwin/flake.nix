@@ -12,6 +12,10 @@
       configuration = { pkgs, ... }: {
         environment.systemPackages = [ ];
 
+        environment.variables = {
+          XDG_CONFIG_HOME = "$HOME/.config";
+        };
+
         system.primaryUser = "jruz";
 
         homebrew = {
