@@ -128,7 +128,7 @@ Key configuration locations:
 - Helix: `home/.config/helix/`
 - Yazi: `home/.config/yazi/`
 - Ripgrep: `home/.config/rg/config`
-- Alacritty: `home-mac/.config/alacritty/`
+- Alacritty: `home/.config/alacritty/`
 - Ghostty: `home/.config/ghostty/`
 - Git UI tools: `home/.config/gitui/`, `home/.config/lazygit/`
 
@@ -147,3 +147,7 @@ When modifying configurations:
 **Linux/Ubuntu**: Primarily uses Nix for package management.
 
 **Configuration Deployment**: Files are symlinked using GNU Stow, not copied. Changes to dotfiles in the repository immediately affect the live configuration.
+
+## Working Directory
+
+Screenshots are stored in `./tmp/`.
