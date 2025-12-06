@@ -5,7 +5,10 @@
       "WebFetch(domain:docs.helix-editor.com)",
       "WebFetch(domain:www.lazyvim.org)",
       "WebFetch(domain:neovim.io)",
-      "WebFetch(domain:www.nushell.sh)"
+      "WebFetch(domain:www.nushell.sh)",
+      "WebFetch(domain:starship.rs)",
+      "Bash(starship preset:*)",
+      "Bash(starship config:*)"
     ],
     "deny": []
   }
