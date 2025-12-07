@@ -100,7 +100,15 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      indent = { char = "▏", highlight = "IblIndent" },
+      scope = { char = "▎", highlight = "IblScope" },
+    },
+    config = function(_, opts)
+      vim.api.nvim_set_hl(0, "IblIndent", { fg = "#585b70" })
+      vim.api.nvim_set_hl(0, "IblScope", { fg = "#6c7086" })
+      require("ibl").setup(opts)
+    end,
   },
   {
     "folke/noice.nvim",
