@@ -1,17 +1,14 @@
-# ZSH
-DISABLE_UPDATE_PROMPT=true
+# ZINIT
+source ~/.nix-profile/share/zinit/zinit.zsh
 
-# ZGEN
-source ~/.zgen/zgen.zsh
+zinit ice wait"0" lucid
+zinit light zsh-users/zsh-completions
 
-if ! zgen saved; then
-  zgen oh-my-zsh
-  zgen oh-my-zsh themes/robbyrussell
-  zgen oh-my-zsh plugins/fzf
-  zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zsh-users/zsh-completions
-  zgen save
-fi
+zinit ice wait"0" lucid atinit"zicompinit; zicdreplay"
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice wait"0" lucid
+zinit snippet OMZP::fzf
 
 setopt HIST_IGNORE_DUPS
 

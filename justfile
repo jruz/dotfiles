@@ -39,9 +39,6 @@ stow-linux: stow-home
 
 stow: stow-home
 
-zgen-install:
-  git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-
 git-config:
   git --no-pager config --global -l
 

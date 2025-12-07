@@ -9,11 +9,9 @@ function titler {
 
 source ~/.zshrc
 
-titler "Zgen"
-zgen selfupdate
-
-titler "Zgen plugins"
-zgen update
+titler "Zinit"
+zinit self-update
+zinit update --all
 
 titler "Vim"
 vim +PlugUpgrade +qa
