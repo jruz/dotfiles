@@ -22,3 +22,6 @@ enable = true
 C-s = ":w"
 C-r = ":reload"
 G = "goto_last_line"
+C-p = "file_picker"
+C-S-p = "command_palette"
+C-S-z = "redo"
