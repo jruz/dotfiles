@@ -6,6 +6,23 @@
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	dark = true
+	syntax-theme = Catppuccin Mocha
+	minus-style = syntax "#3b2c3b"
+	minus-emph-style = syntax "#5e3f53"
+	plus-style = syntax "#2b3b2e"
+	plus-emph-style = syntax "#3f5e47"
+	line-numbers-minus-style = "#f38ba8"
+	line-numbers-plus-style = "#a6e3a1"
+	line-numbers-zero-style = "#6c7086"
+[merge]
+	conflictstyle = zdiff3
 [init]
 	defaultBranch = main
 [commit]

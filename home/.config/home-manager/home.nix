@@ -51,6 +51,7 @@ in
       # GIT ------------------------
       git
       git-crypt
+      delta
       lazygit
       gitui
       gh
