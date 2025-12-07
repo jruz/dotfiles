@@ -148,6 +148,10 @@ When modifying configurations:
 
 **Configuration Deployment**: Files are symlinked using GNU Stow, not copied. Changes to dotfiles in the repository immediately affect the live configuration.
 
+## Commit Message Convention
+
+All commit messages must follow the format: `Tool: Description`
+
 ## Working Directory
 
 Screenshots are stored in `./tmp/`.
