@@ -8,7 +8,8 @@
       "WebFetch(domain:www.nushell.sh)",
       "WebFetch(domain:starship.rs)",
       "Bash(starship preset:*)",
-      "Bash(starship config:*)"
+      "Bash(starship config:*)",
+      "Bash(hx --health:*)"
     ],
     "deny": []
   }
