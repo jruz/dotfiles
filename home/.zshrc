@@ -55,6 +55,7 @@ stty -ixon
 
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
 
 # YARN
 # export PATH="$(yarn global bin):$PATH"

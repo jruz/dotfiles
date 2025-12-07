@@ -64,6 +64,7 @@ in
       tmuxinator
       starship
       atuin
+      zoxide
 
       # EDITORS --------------------
       helix
