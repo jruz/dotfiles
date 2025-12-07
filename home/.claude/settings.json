@@ -93,7 +93,10 @@
       "WebFetch(domain:search.nixos.org)",
       "WebFetch(domain:biomejs.dev)"
     ],
-    "deny": []
+    "deny": [
+      "Bash(grep:*)",
+      "Bash(find:*)"
+    ]
   },
   "hooks": {
     "Notification": [
