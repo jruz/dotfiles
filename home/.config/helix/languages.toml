@@ -1,0 +1,76 @@
+[[language]]
+name = "rust"
+auto-format = true
+
+[[language]]
+name = "nix"
+language-servers = ["nixd"]
+formatter = { command = "nixfmt" }
+auto-format = true
+
+[[language]]
+name = "lua"
+formatter = { command = "stylua", args = ["-"] }
+auto-format = true
+
+[[language]]
+name = "bash"
+auto-format = false
+
+[[language]]
+name = "typescript"
+language-servers = ["deno-lsp"]
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = ["deno-lsp"]
+auto-format = true
+
+[[language]]
+name = "tsx"
+language-servers = ["deno-lsp"]
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = ["deno-lsp"]
+auto-format = true
+
+[[language]]
+name = "json"
+language-servers = ["deno-lsp"]
+auto-format = true
+
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "--ext", "md", "-"] }
+
+[[language]]
+name = "python"
+auto-format = true
+
+[[language]]
+name = "go"
+auto-format = true
+
+[[language]]
+name = "toml"
+auto-format = true
+
+[[language]]
+name = "yaml"
+auto-format = true
+
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+
+[language-server.deno-lsp.config.deno]
+enable = true
+lint = true
+unstable = true
+
+[language-server.nixd]
+command = "nixd"
