@@ -32,8 +32,6 @@ require("mason-tool-installer").setup({
   run_on_start = true,
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {

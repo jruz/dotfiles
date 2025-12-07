@@ -5,8 +5,6 @@ local function word_count()
   return string.format('%d words', count)
 end
 
-local file_extension = vim.fn.expand('%:e')
-
 local markdown_sections = {
   lualine_a = { 'mode' },
   lualine_b = {},

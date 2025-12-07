@@ -5,7 +5,7 @@ local function hasExtension(extension)
 end
 
 
-function HandleEnter()
+local function handle_enter()
   local line = vim.api.nvim_get_current_line()
   if hasExtension('md') then
     if line:match("^- %[") then
@@ -22,9 +22,9 @@ function HandleEnter()
   end
 end
 
-vim.api.nvim_set_keymap('i', '<CR>', '<Cmd>lua HandleEnter()<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<CR>', handle_enter, { noremap = true, silent = true })
 
-function HandleO()
+local function handle_o()
   local line = vim.api.nvim_get_current_line()
   if hasExtension('md') then
     if line:match("^- %[") then
@@ -43,7 +43,7 @@ function HandleO()
   end
 end
 
-vim.api.nvim_set_keymap('n', 'o', '<Cmd>lua HandleO()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'o', handle_o, { noremap = true, silent = true })
 
 function ResetTodos()
   local bufnr = vim.api.nvim_get_current_buf()

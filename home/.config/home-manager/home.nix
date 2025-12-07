@@ -82,6 +82,7 @@ in
       tree-sitter
       shellcheck
       stylua
+      selene
       luajitPackages.jsregexp
 
       # Nix -------------------------

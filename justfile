@@ -1,4 +1,7 @@
-lint: lint-sh
+lint: lint-sh lint-lua
+
+lint-lua:
+  cd home/.config/nvim && selene .
 
 lint-sh:
   shellcheck \
