@@ -63,6 +63,7 @@ in
       tmux
       tmuxinator
       starship
+      atuin
 
       # EDITORS --------------------
       helix

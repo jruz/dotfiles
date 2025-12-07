@@ -54,6 +54,7 @@ stty -ixon
 #export AWS_REGION="eu-central-1"
 
 eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
 
 # YARN
 # export PATH="$(yarn global bin):$PATH"
