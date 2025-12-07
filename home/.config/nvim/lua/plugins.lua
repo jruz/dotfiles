@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  { "catppuccin/nvim",   name = "catppuccin" },
+  { "catppuccin/nvim",        name = "catppuccin" },
   {
     "windwp/nvim-autopairs",
     config = function()
@@ -65,13 +65,13 @@ local plugins = {
     },
   },
   "osyo-manga/vim-over",
-  { "folke/ts-comments.nvim", opts = {}, event = "VeryLazy" },
+  { "folke/ts-comments.nvim", opts = {},          event = "VeryLazy" },
   {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {},
     keys = {
-      { "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
+      { "s", function() require("flash").jump() end,       mode = { "n", "x", "o" }, desc = "Flash" },
       { "S", function() require("flash").treesitter() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
     },
   },
@@ -256,8 +256,8 @@ local plugins = {
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  { "j-hui/fidget.nvim", tag = "legacy" },
-  { "folke/lazydev.nvim", ft = "lua", opts = {} },
+  { "j-hui/fidget.nvim",  tag = "legacy" },
+  { "folke/lazydev.nvim", ft = "lua",    opts = {} },
   "mfussenegger/nvim-dap",
   "neovim/nvim-lspconfig",
   {

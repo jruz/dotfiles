@@ -130,7 +130,15 @@ vim.cmd([[augroup END]])
 vim.cmd([[highlight ColorColumn ctermbg=magenta]])
 vim.cmd([[call matchadd('ColorColumn', '\\%81v', 80)]])
 vim.cmd('highlight ExtraWhitespace guibg=#B4BEFE')
-vim.cmd('autocmd BufWinEnter * match ExtraWhitespace /\\s\\+$/')
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local ft = vim.bo.filetype
+    local bt = vim.bo.buftype
+    if ft ~= "neo-tree" and bt == "" then
+      vim.fn.matchadd('ExtraWhitespace', '\\s\\+$')
+    end
+  end,
+})
 
 -- Plugins Config
 require("config")
