@@ -12,6 +12,19 @@ local clojure = {
   formatStdin = true,
 }
 
+local selene = {
+  lintCommand = "selene --display-style quiet ${INPUT}",
+  lintStdin = false,
+  lintFormats = { "%f:%l:%c: %trror%m", "%f:%l:%c: %tarning%m" },
+  rootMarkers = { "selene.toml" },
+}
+
+local stylua = {
+  formatCommand = "stylua --search-parent-directories -",
+  formatStdin = true,
+  rootMarkers = { "stylua.toml", ".stylua.toml" },
+}
+
 vim.lsp.config('efm', {
   on_attach = lspformat.on_attach,
   init_options = { documentFormatting = true },
@@ -22,6 +35,7 @@ vim.lsp.config('efm', {
       svelte = { prettier },
       yaml = { prettier },
       clojure = { clojure },
+      lua = { selene, stylua },
     },
   },
 })

@@ -1,6 +1,5 @@
 require("config.brain")
 require("config.completion")
-require("config.files")
 require("config.keymaps")
 require("config.lsp")
 require("config.lualine")
