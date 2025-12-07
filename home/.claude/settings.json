@@ -79,6 +79,8 @@
       "Bash(fc-list)",
       "Bash(xxd:*)",
       "Bash(arp:*)",
+      "Bash(git-crypt status:*)",
+      "Bash(git-crypt version:*)",
       "WebSearch",
       "WebFetch(domain:code.claude.com)",
       "WebFetch(domain:github.com)",
@@ -91,7 +93,11 @@
       "WebFetch(domain:docs.python.org)",
       "WebFetch(domain:nixos.org)",
       "WebFetch(domain:search.nixos.org)",
-      "WebFetch(domain:biomejs.dev)"
+      "WebFetch(domain:biomejs.dev)",
+      "WebFetch(domain:pypi.org)",
+      "WebFetch(domain:readthedocs.io)",
+      "WebFetch(domain:python.org)",
+      "WebFetch(domain:peps.python.org)"
     ],
     "deny": [
       "Bash(find:*)",
