@@ -95,7 +95,8 @@
     ],
     "deny": [
       "Bash(grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git -C:*)"
     ]
   },
   "hooks": {
