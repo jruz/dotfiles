@@ -33,6 +33,7 @@ $docker_context\
 $aws\
 $gcloud\
 $cmd_duration\
+$shell\
 $line_break\
 $character"""
 
@@ -84,6 +85,9 @@ symbol = " "
 
 [conda]
 symbol = " "
+
+[cmd_duration]
+format = "[$duration]($style) "
 
 [crystal]
 symbol = " "
@@ -181,6 +185,7 @@ symbol = "󰆥 "
 
 [nix_shell]
 symbol = " "
+format = "[${symbol}nix]($style) "
 
 [nodejs]
 version_format = "${raw}"
@@ -288,3 +293,13 @@ symbol = " "
 
 [gradle]
 symbol = " "
+
+[shell]
+disabled = false
+bash_indicator = "bash"
+zsh_indicator = "zsh"
+fish_indicator = "fish"
+nu_indicator = "nu"
+powershell_indicator = "pwsh"
+style = "dimmed white"
+format = "[$indicator]($style) "
