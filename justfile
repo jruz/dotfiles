@@ -1,3 +1,12 @@
+lint: lint-sh
+
+lint-sh:
+  shellcheck \
+    --shell=bash \
+    -e SC1090 `# can't follow non-constant source` \
+    -e SC1091 `# can't follow source to external file` \
+    **/*.sh
+
 ssh-keygen EMAIL:
   #!/usr/bin/env sh
   ssh-keygen -t ed25519 -C "{{EMAIL}}"
