@@ -1,9 +1,9 @@
 def is_linux [] {
-    (uname) == "Linux"
+    (uname).kernel-name == "Linux"
 }
 
 def is_osx [] {
-    (uname) == "Darwin"
+    (uname).kernel-name == "Darwin"
 }
 
 def wr [] {
@@ -125,5 +125,28 @@ def yo [] {
         $in | pbcopy
     } else {
         $in | xclip -sel clip
+    }
+}
+
+def ip-info [] {
+    let info = (http get -H [Accept application/json] https://ipinfo.io)
+
+    let local_ip = if (is_osx) {
+        try { ^ipconfig getifaddr en0 | str trim } catch { try { ^ipconfig getifaddr en1 | str trim } catch { "not connected" } }
+    } else {
+        ^hostname -I | split row " " | first
+    }
+
+    let dns = if (is_osx) {
+        ^scutil --dns | lines | find "nameserver[0]" | first | split row ":" | last | str trim
+    } else {
+        open /etc/resolv.conf | lines | find nameserver | first | split row " " | last
+    }
+
+    {
+        "public ip": $info.ip
+        "local ip": $local_ip
+        dns: $dns
+        location: $"($info.city), ($info.region), ($info.country)"
     }
 }
