@@ -24,9 +24,9 @@ titler "RVM"
 rvm get stable
 
 titler "NVM"
-cd $NVM_DIR && git fetch origin && git checkout `git describe --abbrev=0 --tags`
-source $NVM_DIR/nvm.sh
-cd $OLDPWD
+cd "$NVM_DIR" && git fetch origin && git checkout "$(git describe --abbrev=0 --tags)"
+source "$NVM_DIR/nvm.sh"
+cd "$OLDPWD" || return
 
 #titler "Gems"
 #bundle install --gemfile=~/dev/dotfiles/Gemfile
