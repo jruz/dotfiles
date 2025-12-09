@@ -27,7 +27,6 @@ local plugins = {
   "nvim-lualine/lualine.nvim",
   "tpope/vim-fugitive",
   'NoahTheDuke/vim-just',
-  -- "github/copilot.vim",
   {
     'Exafunction/windsurf.vim',
     event = 'BufEnter'
@@ -183,23 +182,6 @@ local plugins = {
       require("telescope-tabs").setup({})
     end,
   },
-  --{
-  --"jackMort/ChatGPT.nvim",
-  --event = "VeryLazy",
-  --config = function()
-  --require("chatgpt").setup({
-  --openai_params = {
-  --model = "gpt-4",
-  --max_tokens = 8000,
-  --},
-  --})
-  --end,
-  --dependencies = {
-  --"MunifTanjim/nui.nvim",
-  --"nvim-lua/plenary.nvim",
-  --"nvim-telescope/telescope.nvim"
-  --}
-  --},
 
   -- Lua
   {
@@ -212,10 +194,6 @@ local plugins = {
 
   -- ReScript
   "rescript-lang/vim-rescript",
-  --{
-  --"nkrkv/nvim-treesitter-rescript",
-  --dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --},
 
   -- Rust
   {
@@ -231,22 +209,6 @@ local plugins = {
     version = "^5",
     lazy = false,
   },
-
-  -- Deno
-  --{
-  --"sigmasd/deno-nvim",
-  --config = function()
-  --require("deno-nvim").setup()
-  --end
-  --},
-
-  -- Clojure
-  --'Olical/conjure',
-  --'Olical/aniseed',
-  --{
-  --'eraserhd/parinfer-rust',
-  --build = 'cargo build --release',
-  --},
 
   -- Completion
   'hrsh7th/cmp-nvim-lsp',

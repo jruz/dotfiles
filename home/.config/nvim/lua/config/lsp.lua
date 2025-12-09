@@ -28,7 +28,7 @@ require("mason-tool-installer").setup({
     "shfmt",
     "tfsec",
   },
-  auto_update = true,
+  auto_update = false,
   run_on_start = true,
 })
 
@@ -156,7 +156,7 @@ vim.g.markdown_fenced_languages = {
 require("fidget").setup({})
 
 -- Format on save
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format({ timeout_ms = 2000 })]]
 
 -- Keybindings
 vim.keymap.set('n', '<space>le', vim.diagnostic.open_float)
