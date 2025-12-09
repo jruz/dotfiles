@@ -28,6 +28,7 @@ alias nu='nu --config ~/.config/nushell/config.nu'
 alias jt="just tmux"
 alias j="just"
 alias ze="zellij"
+alias zl="zellij list-sessions"
 
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
