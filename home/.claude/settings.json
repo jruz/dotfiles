@@ -83,6 +83,7 @@
       "Bash(git-crypt status:*)",
       "Bash(git-crypt version:*)",
       "Bash(zellij list-sessions:*)",
+      "Bash(zellij --version:*)",
       "WebSearch",
       "WebFetch(domain:code.claude.com)",
       "WebFetch(domain:github.com)",
