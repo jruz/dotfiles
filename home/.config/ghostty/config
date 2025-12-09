@@ -1,6 +1,8 @@
 font-size = 18
 font-family = "DejaVuSansM Nerd Font Mono"
 
+copy-on-select = clipboard
+
 window-padding-x = 0
 window-padding-y = 0
 
