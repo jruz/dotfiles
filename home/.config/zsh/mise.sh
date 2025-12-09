@@ -1,4 +1,4 @@
-export RTX_SHELL=zsh
+export MISE_SHELL=zsh
 
 mise() {
   local command
