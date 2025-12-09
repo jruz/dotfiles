@@ -105,7 +105,9 @@ in
       # Ubuntu ---------------------
     ] ++ (with unstable; [
       mise
+      usage
       rust-analyzer
+      vhs
     ]);
 
 }
