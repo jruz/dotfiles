@@ -1,33 +1,33 @@
 {
-	"permissions": {
-		"allow": [
-			"Bash(ghostty +help:*)",
-			"Bash(ghostty +list-actions:*)",
-			"Bash(ghostty +list-colors:*)",
-			"Bash(ghostty +list-fonts:*)",
-			"Bash(ghostty +list-keybinds:*)",
-			"Bash(ghostty +list-themes:*)",
-			"Bash(ghostty +show-config:*)",
-			"Bash(ghostty +validate-config:*)",
-			"Bash(ghostty +version:*)",
-			"Bash(hx --health:*)",
-			"Bash(hx --version:*)",
-			"Bash(mdfind:*)",
-			"Bash(mdls:*)",
-			"Bash(nvim --version:*)",
-			"Bash(starship config:*)",
-			"Bash(starship preset:*)",
-			"Bash(terminal-notifier:*)",
-			"Bash(vim --version:*)",
-			"WebFetch(domain:docs.helix-editor.com)",
-			"WebFetch(domain:ghostty.org)",
-			"WebFetch(domain:neovim.io)",
-			"WebFetch(domain:starship.rs)",
-			"WebFetch(domain:vi.stackexchange.com)",
-			"WebFetch(domain:www.lazyvim.org)",
-			"WebFetch(domain:www.nushell.sh)",
-			"WebFetch(domain:zellij.dev)"
-		],
-		"deny": []
-	}
+  "permissions": {
+    "allow": [
+      "Bash(ghostty +help:*)",
+      "Bash(ghostty +list-actions:*)",
+      "Bash(ghostty +list-colors:*)",
+      "Bash(ghostty +list-fonts:*)",
+      "Bash(ghostty +list-keybinds:*)",
+      "Bash(ghostty +list-themes:*)",
+      "Bash(ghostty +show-config:*)",
+      "Bash(ghostty +validate-config:*)",
+      "Bash(ghostty +version:*)",
+      "Bash(hx --health:*)",
+      "Bash(hx --version:*)",
+      "Bash(mdfind:*)",
+      "Bash(mdls:*)",
+      "Bash(nvim --version:*)",
+      "Bash(starship config:*)",
+      "Bash(starship preset:*)",
+      "Bash(terminal-notifier:*)",
+      "Bash(vim --version:*)",
+      "WebFetch(domain:docs.helix-editor.com)",
+      "WebFetch(domain:ghostty.org)",
+      "WebFetch(domain:neovim.io)",
+      "WebFetch(domain:starship.rs)",
+      "WebFetch(domain:vi.stackexchange.com)",
+      "WebFetch(domain:www.lazyvim.org)",
+      "WebFetch(domain:www.nushell.sh)",
+      "WebFetch(domain:zellij.dev)"
+    ],
+    "deny": []
+  }
 }
