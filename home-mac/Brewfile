@@ -17,6 +17,7 @@ cask "lulu"
 cask "megasync"
 cask "native-access"
 cask "obsidian"
+cask "orbstack"
 # cask "pgadmin4"
 cask "signal"
 cask "spotify"
@@ -24,7 +25,7 @@ cask "swiftformat-for-xcode"
 cask "tastytrade"
 cask "telegram"
 cask "the-unarchiver"
-cask "tor"
+cask "tor-browser"
 cask "transmission"
 cask "wacom-tablet"
 cask "zed"
@@ -37,4 +38,4 @@ mas "OneTab", id: 1540160809
 mas "SimplyJSON for Safari", id: 1495193038
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vimkey", id: 1585682577
-mas "Xcode", id: 497799835
+# mas "Xcode", id: 497799835

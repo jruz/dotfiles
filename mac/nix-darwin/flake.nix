@@ -37,7 +37,7 @@
             "/Applications/Zed.app"
             "/Applications/Xcode.app"
             "/Applications/Visual Studio Code.app"
-            "/Applications/Docker.app"
+            "/Applications/OrbStack.app"
             "/Users/jruz/Applications/IB Gateway 10.30/IB Gateway 10.30.app"
             "/Users/jruz/Applications/Trader Workstation/Trader Workstation.app"
             "/Applications/tastytrade.app"
