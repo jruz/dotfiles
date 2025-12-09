@@ -2,11 +2,11 @@
 input=$(cat)
 cwd=$(echo "$input" | jq -r '.cwd')
 project=$(basename "$cwd")
-session=$(echo "$input" | jq -r '.session_id' | cut -c1-8)
+message=$(echo "$input" | jq -r '.message')
 icon="$HOME/.claude/hooks/clawd-icon.png"
 
 terminal-notifier \
-  -message "Claude Code needs input" \
-  -title "$project ($session)" \
+  -message "$message" \
+  -title "$project" \
   -contentImage "$icon" \
   -sound default
