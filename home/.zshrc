@@ -1,13 +1,13 @@
 # ZINIT
 source ~/.nix-profile/share/zinit/zinit.zsh
 
-zinit ice wait"0" lucid
+zinit ice wait"1" lucid
 zinit light zsh-users/zsh-completions
 
-zinit ice wait"0" lucid atinit"zicompinit; zicdreplay"
+zinit ice wait"1" lucid atinit"zicompinit; zicdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-zinit ice wait"0" lucid
+zinit ice wait"1" lucid
 zinit snippet OMZP::fzf
 
 setopt HIST_IGNORE_DUPS
@@ -30,7 +30,7 @@ fi
 # VARS
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
-export DOTFILES='/home/jruz/dev/dotfiles'
+export DOTFILES="${HOME}/dev/dotfiles"
 export GPG_TTY=$(tty)
 
 # RG
