@@ -26,7 +26,8 @@
       "WebFetch(domain:vi.stackexchange.com)",
       "WebFetch(domain:www.lazyvim.org)",
       "WebFetch(domain:www.nushell.sh)",
-      "WebFetch(domain:zellij.dev)"
+      "WebFetch(domain:zellij.dev)",
+      "Bash(zellij setup:*)"
     ],
     "deny": []
   }

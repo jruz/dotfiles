@@ -198,3 +198,19 @@ ip-info() {
   echo "DNS:        $dns_servers"
   echo "Location:   $city, $region, $country"
 }
+
+zk() {
+  zellij delete-session -f "$1"
+}
+
+za() {
+  zellij attach "$1"
+}
+
+_zellij_sessions() {
+  local sessions
+  sessions=(${(f)"$(zellij list-sessions -s 2>/dev/null)"})
+  _describe 'session' sessions
+}
+
+compdef _zellij_sessions zk za

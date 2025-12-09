@@ -1,4 +1,58 @@
 layout {
+    swap_tiled_layout name="H-EVEN" {
+        tab {
+            pane split_direction="horizontal" { children; }
+        }
+    }
+
+    swap_tiled_layout name="V-EVEN" {
+        tab {
+            pane split_direction="vertical" { children; }
+        }
+    }
+
+    swap_tiled_layout name="H-MAIN" {
+        tab {
+            pane split_direction="horizontal" {
+                pane size="60%"
+                pane split_direction="vertical" { children; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="V-MAIN" {
+        tab {
+            pane split_direction="vertical" {
+                pane size="60%"
+                pane split_direction="horizontal" { children; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="TILED" {
+        tab max_panes=2 {
+            pane split_direction="vertical" { children; }
+        }
+        tab max_panes=4 {
+            pane split_direction="vertical" {
+                pane split_direction="horizontal" { pane; pane; }
+                pane split_direction="horizontal" { children; }
+            }
+        }
+        tab max_panes=6 {
+            pane split_direction="vertical" {
+                pane split_direction="horizontal" { pane; pane; pane; }
+                pane split_direction="horizontal" { children; }
+            }
+        }
+        tab {
+            pane split_direction="vertical" {
+                pane split_direction="horizontal" { pane; pane; pane; pane; }
+                pane split_direction="horizontal" { children; }
+            }
+        }
+    }
+
     default_tab_template {
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
