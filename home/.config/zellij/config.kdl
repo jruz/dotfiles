@@ -39,6 +39,7 @@ keybinds clear-defaults=true {
         bind "9" { GoToTab 9; SwitchToMode "normal"; }
         bind "space" { NextSwapLayout; }
         bind "Ctrl a" { Write 1; SwitchToMode "normal"; }
+        bind "Esc" { SwitchToMode "normal"; }
     }
 
     scroll {
@@ -72,7 +73,39 @@ keybinds clear-defaults=true {
     }
 }
 
-theme "catppuccin-mocha"
+themes {
+    catppuccin-mocha-custom {
+        fg "#cdd6f4"
+        bg "#1e1e2e"
+        black "#181825"
+        red "#f38ba8"
+        green "#a6e3a1"
+        yellow "#f9e2af"
+        blue "#89b4fa"
+        magenta "#f5c2e7"
+        cyan "#94e2d5"
+        white "#bac2de"
+        orange "#fab387"
+        frame_selected {
+            base 166 227 161
+            background 30 30 46
+            emphasis_0 166 227 161
+            emphasis_1 166 227 161
+            emphasis_2 166 227 161
+            emphasis_3 166 227 161
+        }
+        frame_unselected {
+            base 88 91 112
+            background 30 30 46
+            emphasis_0 88 91 112
+            emphasis_1 88 91 112
+            emphasis_2 88 91 112
+            emphasis_3 88 91 112
+        }
+    }
+}
+
+theme "catppuccin-mocha-custom"
 default_layout "default"
 pane_frames true
 copy_command "pbcopy"
@@ -80,3 +113,4 @@ copy_on_select true
 scrollback_editor "nvim"
 mouse_mode true
 show_startup_tips false
+advanced_mouse_actions false
