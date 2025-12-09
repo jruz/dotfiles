@@ -2,3 +2,4 @@
 - never use allow to bypass a lint failure, look for ways to solve the problem either refactoring or following the recommendations of the linter
 - use ripgrep (rg) instead of grep for searching
 - use fd instead of find for finding files
+- when editing settings.json, keep all allow and deny lists sorted alphabetically
