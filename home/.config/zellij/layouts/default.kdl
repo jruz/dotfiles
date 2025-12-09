@@ -2,7 +2,7 @@ layout {
     default_tab_template {
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-                format_left   "#[bg=#45475a,fg=#cdd6f4,bold] {session} #[bg=#b4befe,fg=#45475a]{tabs}"
+                format_left   "#[bg=#45475a,fg=#cdd6f4,bold] {session} #[bg=#1e1e2e,fg=#45475a]{tabs}"
                 format_center ""
                 format_right  "{mode}"
                 format_space  ""
@@ -15,10 +15,10 @@ layout {
                 mode_scroll       "#[fg=#89dceb,bold]#[bg=#89dceb,fg=#1e1e2e,bold] SCROLL "
                 mode_rename_tab   "#[fg=#fab387,bold]#[bg=#fab387,fg=#1e1e2e,bold] RENAME "
 
-                tab_normal              "#[bg=#b4befe,fg=#1e1e2e] {index} {name} #[bg=default,fg=#b4befe]"
-                tab_normal_fullscreen   "#[bg=#b4befe,fg=#1e1e2e] {index} {name} [] #[bg=default,fg=#b4befe]"
-                tab_active              "#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} #[bg=default,fg=#b4befe]"
-                tab_active_fullscreen   "#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} [] #[bg=default,fg=#b4befe]"
+                tab_normal              "#[bg=#45475a,fg=#1e1e2e]#[bg=#45475a,fg=#cdd6f4] {index} {name} #[bg=#1e1e2e,fg=#45475a]"
+                tab_normal_fullscreen   "#[bg=#45475a,fg=#1e1e2e]#[bg=#45475a,fg=#cdd6f4] {index} {name} [] #[bg=#1e1e2e,fg=#45475a]"
+                tab_active              "#[bg=#b4befe,fg=#1e1e2e]#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} #[bg=#1e1e2e,fg=#b4befe]"
+                tab_active_fullscreen   "#[bg=#b4befe,fg=#1e1e2e]#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} [] #[bg=#1e1e2e,fg=#b4befe]"
                 tab_separator           ""
             }
         }
@@ -40,7 +40,7 @@ layout {
                 command_user_format    "#[bg=#45475a,fg=#cdd6f4,bold] {stdout} #[bg=default,fg=#45475a]"
                 command_user_interval  "0"
 
-                tab_normal              "#[bg=#b4befe,fg=#1e1e2e] {name} "
+                tab_normal              ""
                 tab_active              "#[bg=#b4befe,fg=#1e1e2e,bold] {name} "
                 tab_separator           ""
 
