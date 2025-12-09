@@ -117,7 +117,8 @@
       "WebFetch(domain:pypi.org)",
       "WebFetch(domain:readthedocs.io)",
       "WebFetch(domain:python.org)",
-      "WebFetch(domain:peps.python.org)"
+      "WebFetch(domain:peps.python.org)",
+      "WebFetch(domain:gist.github.com)"
     ],
     "deny": [
       "Bash(find:*)",
