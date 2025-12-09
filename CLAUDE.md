@@ -155,3 +155,34 @@ All commit messages must follow the format: `Tool: Description`
 ## Working Directory
 
 Screenshots are stored in `./tmp/`.
+
+## Testing CLI Tool Configurations
+
+Before telling the user a CLI tool configuration is working, use VHS to take a screenshot and verify it yourself:
+
+```bash
+# Create a tape file in tmp/
+cat > tmp/test.tape << 'EOF'
+Output tmp/preview.png
+Set Shell zsh
+Set FontSize 14
+Set Width 1200
+Set Height 600
+Set Theme "Catppuccin Mocha"
+
+Type "zellij"  # or whatever CLI tool
+Enter
+Sleep 2s
+Screenshot tmp/preview.png
+Type "exit"
+Enter
+Sleep 500ms
+EOF
+
+# Run VHS to capture screenshot
+vhs tmp/test.tape
+
+# Then read the screenshot to verify
+```
+
+This prevents wasting the user's time with trial-and-error iterations.
