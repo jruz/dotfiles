@@ -19,6 +19,8 @@ The repository is organized into platform-specific directories with a shared bas
 
 Configuration deployment uses GNU Stow to symlink files from these directories to the home directory.
 
+**IMPORTANT**: When editing configuration files, ALWAYS edit the source files in this repository (e.g., `home/.config/...`), NOT the symlinked files in `~/`. The files in `~/.config/` are symlinks pointing back to this repo. Editing directly in `~/.claude/` or `~/.config/` would work but defeats the purpose of version control. Always make changes here in the dotfiles repo.
+
 ## Package Management Strategy
 
 The repository uses a three-tier package management approach:
