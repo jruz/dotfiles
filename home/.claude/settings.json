@@ -23,6 +23,7 @@
       "Bash(git remote:*)",
       "Bash(git tag:*)",
       "Bash(git blame:*)",
+      "Bash(git cherry:*)",
       "Bash(git cherry-pick:*)",
       "Bash(gh pr:*)",
       "Bash(gh issue:*)",
