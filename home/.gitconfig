@@ -25,5 +25,10 @@
 	conflictstyle = zdiff3
 [init]
 	defaultBranch = main
+[diff]
+	algorithm = histogram
+	colorMoved = default
+[rerere]
+	enabled = true
 [commit]
 	gpgsign = true
