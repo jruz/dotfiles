@@ -1,8 +1,8 @@
-Output tmp/zellij-template.png
+Output tmp/zellij-layout.png
 Set Shell zsh
-Set FontSize 14
-Set Width 1200
-Set Height 600
+Set FontSize 28
+Set Width 2400
+Set Height 1200
 Set Theme "Catppuccin Mocha"
 
 Type "zellij -s zellij-test"
@@ -25,7 +25,7 @@ Type "zellij action go-to-tab 2"
 Enter
 Sleep 500ms
 
-Screenshot tmp/zellij-template.png
+Screenshot tmp/zellij-layout.png
 
 Type "exit"
 Enter

@@ -112,7 +112,7 @@ themes {
 }
 
 theme "catppuccin-mocha-custom"
-default_layout "default"
+default_layout "layout"
 pane_frames true
 copy_command "pbcopy"
 copy_on_select true

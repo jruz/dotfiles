@@ -56,7 +56,7 @@ layout {
     default_tab_template {
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-                format_left   "#[bg=#b4befe,fg=#1e1e2e,bold] {session} #[bg=#1e1e2e,fg=#b4befe]{tabs}"
+                format_left   "#[bg=#b4befe,fg=#1e1e2e,bold] {session} #[bg=#1e1e2e,fg=#b4befe]{{PL_RIGHT}}{tabs}"
                 format_center ""
                 format_right  "{command_user}{command_host}"
                 format_space  ""
@@ -68,13 +68,13 @@ layout {
                 command_host_interval  "0"
 
                 command_user_command   "whoami"
-                command_user_format    "#[fg=#45475a]#[bg=#45475a,fg=#cdd6f4] {stdout} #[fg=#b4befe,bg=#45475a]"
+                command_user_format    "#[fg=#45475a]{{PL_LEFT}}#[bg=#45475a,fg=#cdd6f4] {stdout} #[fg=#b4befe,bg=#45475a]{{PL_LEFT}}"
                 command_user_interval  "0"
 
-                tab_normal              "#[bg=#45475a,fg=#1e1e2e]#[bg=#45475a,fg=#cdd6f4] {index} {name} #[bg=#1e1e2e,fg=#45475a]"
-                tab_normal_fullscreen   "#[bg=#45475a,fg=#1e1e2e]#[bg=#45475a,fg=#cdd6f4] {index} {name} [] #[bg=#1e1e2e,fg=#45475a]"
-                tab_active              "#[bg=#b4befe,fg=#1e1e2e]#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} #[bg=#1e1e2e,fg=#b4befe]"
-                tab_active_fullscreen   "#[bg=#b4befe,fg=#1e1e2e]#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} [] #[bg=#1e1e2e,fg=#b4befe]"
+                tab_normal              "#[bg=#45475a,fg=#1e1e2e]{{PL_RIGHT}}#[bg=#45475a,fg=#cdd6f4] {index} {name} #[bg=#1e1e2e,fg=#45475a]{{PL_RIGHT}}"
+                tab_normal_fullscreen   "#[bg=#45475a,fg=#1e1e2e]{{PL_RIGHT}}#[bg=#45475a,fg=#cdd6f4] {index} {name} [] #[bg=#1e1e2e,fg=#45475a]{{PL_RIGHT}}"
+                tab_active              "#[bg=#b4befe,fg=#1e1e2e]{{PL_RIGHT}}#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} #[bg=#1e1e2e,fg=#b4befe]{{PL_RIGHT}}"
+                tab_active_fullscreen   "#[bg=#b4befe,fg=#1e1e2e]{{PL_RIGHT}}#[bg=#b4befe,fg=#1e1e2e,bold] {index} {name} [] #[bg=#1e1e2e,fg=#b4befe]{{PL_RIGHT}}"
                 tab_separator           ""
             }
         }
@@ -88,17 +88,17 @@ layout {
 
                 border_enabled  "false"
 
-                mode_normal       "#[bg=#b4befe,fg=#1e1e2e,bold] NORMAL #[bg=#1e1e2e,fg=#b4befe]"
-                mode_tmux         "#[bg=#fab387,fg=#1e1e2e,bold] TMUX #[bg=#1e1e2e,fg=#fab387]"
-                mode_locked       "#[bg=#f38ba8,fg=#1e1e2e,bold] LOCKED #[bg=#1e1e2e,fg=#f38ba8]"
-                mode_scroll       "#[bg=#89dceb,fg=#1e1e2e,bold] SCROLL #[bg=#1e1e2e,fg=#89dceb]"
-                mode_rename_tab   "#[bg=#fab387,fg=#1e1e2e,bold] RENAME #[bg=#1e1e2e,fg=#fab387]"
+                mode_normal       "#[bg=#b4befe,fg=#1e1e2e,bold] NORMAL #[bg=#1e1e2e,fg=#b4befe]{{PL_RIGHT}}"
+                mode_tmux         "#[bg=#fab387,fg=#1e1e2e,bold] TMUX #[bg=#1e1e2e,fg=#fab387]{{PL_RIGHT}}"
+                mode_locked       "#[bg=#f38ba8,fg=#1e1e2e,bold] LOCKED #[bg=#1e1e2e,fg=#f38ba8]{{PL_RIGHT}}"
+                mode_scroll       "#[bg=#89dceb,fg=#1e1e2e,bold] SCROLL #[bg=#1e1e2e,fg=#89dceb]{{PL_RIGHT}}"
+                mode_rename_tab   "#[bg=#fab387,fg=#1e1e2e,bold] RENAME #[bg=#1e1e2e,fg=#fab387]{{PL_RIGHT}}"
 
                 tab_normal              ""
                 tab_active              "#[bg=#b4befe,fg=#1e1e2e,bold] {name} "
                 tab_separator           ""
 
-                datetime          "#[fg=#45475a]#[bg=#45475a,fg=#cdd6f4] Spain #[fg=#b4befe,bg=#45475a]#[bg=#b4befe,fg=#1e1e2e,bold] {format} "
+                datetime          "#[fg=#45475a]{{PL_LEFT}}#[bg=#45475a,fg=#cdd6f4] Spain #[fg=#b4befe,bg=#45475a]{{PL_LEFT}}#[bg=#b4befe,fg=#1e1e2e,bold] {format} "
                 datetime_format   "%H:%M"
                 datetime_timezone "Europe/Madrid"
             }
