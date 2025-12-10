@@ -119,6 +119,7 @@
       "WebFetch(domain:peps.python.org)",
       "WebFetch(domain:pypi.org)",
       "WebFetch(domain:python.org)",
+      "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:readthedocs.io)",
       "WebFetch(domain:search.nixos.org)",
       "WebSearch"
