@@ -110,6 +110,12 @@ local plugins = {
     end,
   },
   {
+    "rcarriga/nvim-notify",
+    opts = {
+      top_down = false,
+    },
+  },
+  {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = {
