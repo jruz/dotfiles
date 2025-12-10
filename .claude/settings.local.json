@@ -21,6 +21,7 @@
       "Bash(vhs ~/.claude/skills/zellij-layout/layout.tape)",
       "Bash(vim --version:*)",
       "Bash(zellij delete-session:*)",
+      "Bash(zellij options:*)",
       "Bash(zellij setup:*)",
       "Bash(~/.claude/skills/zellij-layout/convert-layout:*)",
       "WebFetch(domain:docs.helix-editor.com)",
