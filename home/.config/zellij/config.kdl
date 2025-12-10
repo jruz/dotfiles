@@ -36,6 +36,7 @@ keybinds clear-defaults=true {
         bind "7" { GoToTab 7; SwitchToMode "normal"; }
         bind "8" { GoToTab 8; SwitchToMode "normal"; }
         bind "9" { GoToTab 9; SwitchToMode "normal"; }
+        bind "s" { NewPane "stacked"; SwitchToMode "normal"; }
         bind "space" { NextSwapLayout; }
         bind "Ctrl a" { Write 1; SwitchToMode "normal"; }
         bind "Enter" { SwitchToMode "normal"; }

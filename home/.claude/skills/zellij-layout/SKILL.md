@@ -1,6 +1,6 @@
 ---
 name: zellij-layout
-description: Use when editing zellij layout or zjstatus plugin configuration. Provides rules for powerline characters, VHS testing, and verification.
+description: Use when editing ANY zellij configuration including layouts, swap layouts, keybindings, or zjstatus plugin. Provides rules for powerline characters, VHS testing, and verification.
 ---
 
 # Zellij Layout Skill
@@ -30,15 +30,19 @@ This reads `layout.kdl` from the skill folder, replaces placeholders with actual
 
 **CRITICAL: NEVER run zellij commands in the user's active session. VHS creates its own isolated terminal.**
 
+**CRITICAL: ALWAYS use the tapes in this skill folder. NEVER create ad-hoc tape files with different output names.**
+
 Use VHS to verify visual changes:
 
 1. Delete any existing test session: `zellij delete-session zellij-test`
-2. Run the tape at `~/.claude/skills/zellij-layout/layout.tape`
-3. Output screenshot goes to `tmp/zellij-layout.png` (always same name, no versioning)
+2. Run the appropriate tape from `~/.claude/skills/zellij-layout/`:
+   - `layout.tape` - Tests tabs and zjstatus bar appearance
+   - `swap-layout.tape` - Tests swap layouts with multiple panes (creates 3 panes, cycles through layouts)
+3. Output screenshot ALWAYS goes to `tmp/zellij-layout.png` (same name, no versioning)
 4. Read the screenshot to verify before telling user the fix is complete
 5. Clean up the test session: `zellij delete-session zellij-test`
 
-The tape creates a dedicated `zellij-test` session. Never use `zellij action` commands directly - they affect the user's current session.
+The tapes create a dedicated `zellij-test` session. Never use `zellij action` commands directly - they affect the user's current session.
 
 ## Color Scheme
 
