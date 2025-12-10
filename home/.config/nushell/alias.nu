@@ -31,8 +31,11 @@ alias zl = zellij list-sessions
 alias rconf = sudo vim /boot/efi/EFI/refind/refind.conf
 alias ngconf = sudo vim /etc/nginx/nginx.conf
 
-alias hms = home-manager switch
-alias hme = nvim ~/.config/home-manager/home.nix
+alias hms = just --justfile ~/dev/dotfiles/justfile nix-hm-switch
+alias hme = just --justfile ~/dev/dotfiles/justfile nix-hm-edit
+
+alias nds = just --justfile ~/dev/dotfiles/justfile nix-darwin-switch
+alias nde = just --justfile ~/dev/dotfiles/justfile nix-darwin-edit
 
 alias off = shutdown -h now
 alias x = exit

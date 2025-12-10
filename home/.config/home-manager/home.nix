@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, zjstatus, system, ... }:
 
 let
-  unstable = import <nixpkgs-unstable> { };
   isDarwin = pkgs.stdenv.isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
+  zjstatusPackage = zjstatus.packages.${system}.default;
 
 in
 {
@@ -24,7 +24,6 @@ in
       curl
       fd
       fontconfig
-      frawk
       fzf
       aria2
       util-linux
@@ -53,7 +52,6 @@ in
       git-crypt
       delta
       lazygit
-      gitui
       gh
 
       # SHELLS ---------------------
@@ -103,11 +101,15 @@ in
       babashka
 
       # Ubuntu ---------------------
-    ] ++ (with unstable; [
+
+      # Unstable --------------------
       mise
       usage
       rust-analyzer
       vhs
-    ]);
+
+    ];
+
+  home.file.".config/zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
 
 }
