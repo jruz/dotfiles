@@ -11,8 +11,10 @@ keybinds clear-defaults=true {
         bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
         bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
         bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
-        bind "{" { MovePane "left"; SwitchToMode "normal"; }
-        bind "}" { MovePane "right"; SwitchToMode "normal"; }
+        bind "Left" { MovePane "left"; SwitchToMode "normal"; }
+        bind "Right" { MovePane "right"; SwitchToMode "normal"; }
+        bind "Up" { MovePane "up"; SwitchToMode "normal"; }
+        bind "Down" { MovePane "down"; SwitchToMode "normal"; }
         bind "H" { Resize "Increase left"; }
         bind "J" { Resize "Increase down"; }
         bind "K" { Resize "Increase up"; }
@@ -23,10 +25,7 @@ keybinds clear-defaults=true {
         bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "c" { NewTab; SwitchToMode "normal"; }
         bind "," { SwitchToMode "renametab"; TabNameInput 0; }
-        bind "n" { GoToNextTab; SwitchToMode "normal"; }
-        bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
         bind "d" { Detach; }
-        bind "q" { Quit; }
         bind "[" { SwitchToMode "scroll"; }
         bind "1" { GoToTab 1; SwitchToMode "normal"; }
         bind "2" { GoToTab 2; SwitchToMode "normal"; }
@@ -39,26 +38,25 @@ keybinds clear-defaults=true {
         bind "9" { GoToTab 9; SwitchToMode "normal"; }
         bind "space" { NextSwapLayout; }
         bind "Ctrl a" { Write 1; SwitchToMode "normal"; }
+        bind "Enter" { SwitchToMode "normal"; }
         bind "Esc" { SwitchToMode "normal"; }
     }
 
     scroll {
         bind "j" { ScrollDown; }
         bind "k" { ScrollUp; }
-        bind "d" { HalfPageScrollDown; }
-        bind "u" { HalfPageScrollUp; }
-        bind "Ctrl f" { PageScrollDown; }
-        bind "Ctrl b" { PageScrollUp; }
+        bind "J" { PageScrollDown; }
+        bind "K" { PageScrollUp; }
         bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
         bind "v" { EditScrollback; SwitchToMode "normal"; }
-        bind "q" { SwitchToMode "normal"; }
+        bind "Enter" { SwitchToMode "normal"; }
         bind "Esc" { SwitchToMode "normal"; }
     }
 
     search {
         bind "n" { Search "down"; }
         bind "N" { Search "up"; }
-        bind "q" { SwitchToMode "normal"; }
+        bind "Enter" { SwitchToMode "normal"; }
         bind "Esc" { SwitchToMode "normal"; }
     }
 
@@ -120,5 +118,6 @@ copy_command "pbcopy"
 copy_on_select true
 scrollback_editor "nvim"
 mouse_mode true
+pane_frames_highlight_on_hover false
 show_startup_tips false
-advanced_mouse_actions false
+advanced_mouse_actions true
