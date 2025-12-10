@@ -1,0 +1,13 @@
+#!/usr/bin/env nu
+
+def main [] {
+    let skill_dir = $"($env.HOME)/.claude/skills/zellij-layout"
+    let target = $"($env.HOME)/.config/zellij/layouts/layout.kdl"
+
+    let content = (open $"($skill_dir)/layout.kdl")
+        | str replace --all "{{PL_RIGHT}}" "\u{e0b0}"
+        | str replace --all "{{PL_LEFT}}" "\u{e0b2}"
+
+    $content | save -f $target
+    print $"Wrote ($content | str length) bytes to ($target)"
+}

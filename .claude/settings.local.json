@@ -18,7 +18,11 @@
       "Bash(starship config:*)",
       "Bash(starship preset:*)",
       "Bash(terminal-notifier:*)",
+      "Bash(vhs ~/.claude/skills/zellij-layout/layout.tape)",
       "Bash(vim --version:*)",
+      "Bash(zellij delete-session:*)",
+      "Bash(zellij setup:*)",
+      "Bash(~/.claude/skills/zellij-layout/convert-layout:*)",
       "WebFetch(domain:docs.helix-editor.com)",
       "WebFetch(domain:ghostty.org)",
       "WebFetch(domain:neovim.io)",
@@ -26,9 +30,10 @@
       "WebFetch(domain:vi.stackexchange.com)",
       "WebFetch(domain:www.lazyvim.org)",
       "WebFetch(domain:www.nushell.sh)",
-      "WebFetch(domain:zellij.dev)",
-      "Bash(zellij setup:*)"
+      "WebFetch(domain:zellij.dev)"
     ],
-    "deny": []
+    "deny": [
+      "Bash(stow:*)"
+    ]
   }
 }
