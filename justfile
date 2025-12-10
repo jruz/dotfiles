@@ -30,6 +30,7 @@ tmux:
 stow-home:
   rm -rf ~/.config/home-manager
   stow -t ~ -v home
+  cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
 
 stow-mac: stow-home
   stow -t ~ -v home-mac
@@ -76,46 +77,54 @@ ubuntu-update:
 nix-list:
   nix-channel --list
 
-nix-update:
-  nix-channel --update
-  home-manager switch
-
 nix-latest:
   gh api repos/NixOS/nixpkgs/branches --paginate -q '.[].name' | grep -E '^nixos-[0-9]+\.[0-9]+$' | sort -V | tail -1 | cut -d- -f2
 
-nix-upgrade VERSION:
-  nix-channel --list
+nix-channel-upgrade VERSION:
   nix-channel --add https://nixos.org/channels/nixos-{{VERSION}} nixpkgs
-  nix-channel --add https://github.com/nix-community/home-manager/archive/release-{{VERSION}}.tar.gz home-manager
+  nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
   nix-channel --update
   nix-channel --list
 
-nix-setup VERSION:
-  just nix-upgrade {{VERSION}}
-  nix-shell '<home-manager>' -A install
+nix-core-upgrade:
+  nix upgrade-nix
+
+nix-full-upgrade: nix-core-upgrade nix-hm-update nix-darwin-update
+
+nix-hm-edit:
+  cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
+  nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
+
+nix-hm-config:
+  rm -rf ~/.config/home-manager
+  cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
+
+nix-hm-update: nix-hm-config
+  nix flake update --flake ~/.config/home-manager
+  home-manager switch --flake ~/.config/home-manager
+
+nix-hm-switch: nix-hm-config
+  home-manager switch --flake ~/.config/home-manager
 
 bootstrap:
   #!/usr/bin/env sh
-  VERSION=$(just nix-latest)
-  echo "🚀 Starting bootstrap with NixOS $VERSION"
-  echo ""
-  echo "📁 Stowing dotfiles..."
+  echo "Stowing dotfiles..."
   if [ "$(uname)" = "Darwin" ]; then
     just stow-mac
   else
     just stow-linux
   fi
   echo ""
-  echo "❄️  Setting up Nix channels and Home Manager..."
-  just nix-setup $VERSION
+  echo "Setting up Home Manager..."
+  home-manager switch --flake ~/.config/home-manager
   echo ""
-  echo "🔑 Configuring SSH agent..."
+  echo "Configuring SSH agent..."
   just ssh-setup
   echo ""
-  echo "🛠️  Installing language runtimes with mise..."
+  echo "Installing language runtimes with mise..."
   mise install
   echo ""
-  echo "✅ Bootstrap complete!"
+  echo "Bootstrap complete!"
 
 nix-darwin-diff:
 	vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix

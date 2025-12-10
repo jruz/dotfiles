@@ -50,7 +50,7 @@ Install Nix: https://nixos.org/download.html
     git remote set-url origin git@github.com:jruz/dotfiles.git
     just bootstrap
 
-Bootstrap will detect OS, stow dotfiles, setup nix channels, install home-manager, configure ssh-agent, and install language runtimes.
+Bootstrap will detect OS, stow dotfiles, install home-manager packages, configure ssh-agent, and install language runtimes.
 
 ### 4. GPG Key
 
