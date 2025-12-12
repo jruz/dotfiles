@@ -50,6 +50,7 @@ in
       # GIT ------------------------
       git
       git-crypt
+      git-filter-repo
       delta
       lazygit
       gh
