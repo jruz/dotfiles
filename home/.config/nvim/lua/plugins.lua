@@ -57,9 +57,9 @@ local plugins = {
           ["<LeftRelease>"] = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" then
-              require("neo-tree.sources.filesystem.commands").toggle_node(state)
+              state.commands.toggle_node(state)
             else
-              require("neo-tree.sources.filesystem.commands").open(state)
+              state.commands.open(state)
             end
           end,
         },
