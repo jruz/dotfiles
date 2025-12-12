@@ -146,6 +146,7 @@ vim.lsp.enable('rescriptls')
 
 vim.lsp.enable('pylyzer')
 
+vim.lsp.enable('nushell')
 
 -- Markdown
 vim.g.markdown_fenced_languages = {
@@ -196,4 +197,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.cmd([[command LSPConfig :edit ~/.config/nvim/lua/config/lsp.lua]])
+vim.cmd([[command! LSPConfig :edit ~/.config/nvim/lua/config/lsp.lua]])
