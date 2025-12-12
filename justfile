@@ -28,9 +28,7 @@ tmux:
   tmuxinator local
 
 stow-home:
-  rm -rf ~/.config/home-manager
-  stow -t ~ -v home
-  cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
+  stow -t ~ -v --ignore='home-manager' home
 
 stow-mac: stow-home
   stow -t ~ -v home-mac
@@ -62,6 +60,20 @@ mise-outdated:
 
 mise-clean:
   mise prune
+
+mise-remove TOOL:
+  #!/usr/bin/env nu
+  let tool = "{{TOOL}}"
+  let config_path = $"($env.HOME)/.config/mise/config.toml"
+  let content = open $config_path
+  if ($tool in ($content.tools | columns)) {
+    let updated = $content | update tools { reject $tool }
+    $updated | to toml | save -f $config_path
+    ^mise uninstall $tool --all
+    print $"Removed ($tool) from config and system"
+  } else {
+    print $"($tool) not found in mise config"
+  }
 
 mac-outdated:
   brew outdated
@@ -116,8 +128,13 @@ bootstrap:
   fi
   echo ""
   echo "Setting up Home Manager..."
-  home-manager switch --flake ~/.config/home-manager
+  just nix-hm-switch
   echo ""
+  if [ "$(uname)" = "Darwin" ]; then
+    echo "Setting up nix-darwin..."
+    just nix-darwin-switch
+    echo ""
+  fi
   echo "Configuring SSH agent..."
   just ssh-setup
   echo ""
