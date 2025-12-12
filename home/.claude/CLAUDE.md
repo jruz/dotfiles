@@ -3,3 +3,4 @@
 - use ripgrep (rg) instead of grep for searching
 - use fd instead of find for finding files
 - when editing settings.json, keep all allow and deny lists sorted alphabetically
+- never run multiple Bash commands in parallel, execute them one at a time so each can be reviewed
