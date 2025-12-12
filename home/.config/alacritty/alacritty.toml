@@ -68,4 +68,5 @@ bindings = [
   { key = "/", mods = "Command", chars = "\u001f" },
   { key = "Up", mods = "Command", chars = "\u001b[1;5A" },
   { key = "Down", mods = "Command", chars = "\u001b[1;5B" },
+  { key = "Return", mods = "Shift", chars = "\u001b\r" },
 ]
