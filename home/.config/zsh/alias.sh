@@ -59,10 +59,12 @@ alias sxe='startx ~/dev/dotfiles/X/home/.xinitrc'
 alias ag='rg -S --hidden'
 alias cat='bat'
 alias awk='gawk'
+alias grep='rg'
+alias find='fd'
 
 # DHCP
 alias dhcr='sudo systemctl restart dhcpcd.service'
-alias dhcs='sudo systemctl status dhcpcd.service -l | grep -e "ens9\|enp0s02u1"'
+alias dhcs='sudo systemctl status dhcpcd.service -l | rg "ens9|enp0s02u1"'
 
 # ETHERNET
 alias eon='sudo ip link set dev ens9 up'
@@ -78,7 +80,7 @@ alias wl='nmcli device wifi list ifname wlp0s20u1'
 alias wm='sudo wifi-menu enp0s20u1'
 alias wi='curl ipinfo.io'
 alias wip='wifi_ip'
-alias wp='curl https://www.privateinternetaccess.com --silent | grep -Eo "<strong style=\"font-weight:bold;\">(.*)</strong>" | sed "s/<[^>]*>//g"'
+alias wp='curl https://www.privateinternetaccess.com --silent | rg -o "<strong style=\"font-weight:bold;\">(.*)</strong>" -r "\$1"'
 
 # LS
 alias ls='lsd'
