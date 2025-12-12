@@ -1,0 +1,46 @@
+#!/usr/bin/env nu
+# vim: ft=nu
+
+def is_osx [] {
+    (uname).kernel-name == "Darwin"
+}
+
+def main [] {
+    let resolved_ip = try {
+        ^dig +short ipinfo.io @8.8.8.8 | lines | first
+    } catch {
+        "34.117.59.81"
+    }
+
+    let info = (^curl -s --max-time 10 --resolve $"ipinfo.io:443:($resolved_ip)" https://ipinfo.io | from json)
+
+    let local_ip = if (is_osx) {
+        try { ^ipconfig getifaddr en0 | str trim } catch { try { ^ipconfig getifaddr en1 | str trim } catch { "not connected" } }
+    } else {
+        ^hostname -I | split row " " | first
+    }
+
+    let dns = if (is_osx) {
+        ^scutil --dns | lines | find "nameserver[0]" | first | split row ":" | last | str trim
+    } else {
+        open /etc/resolv.conf | lines | find nameserver | first | split row " " | last
+    }
+
+    let nextdns = try {
+        let resp = (^curl -sL --max-time 5 https://test.nextdns.io | from json)
+        if $resp.status == "ok" {
+            $"($resp.protocol) \(($resp.server)\) 🔒"
+        } else {
+            $"($resp.status) ⚠️"
+        }
+    } catch {
+        "not configured ⚠️"
+    }
+
+    {
+        "public ip": $info.ip
+        "local ip": $local_ip
+        location: $"($info.city), ($info.region), ($info.country)"
+        dns: $"($dns) → ($nextdns)"
+    }
+}

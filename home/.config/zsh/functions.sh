@@ -176,29 +176,6 @@ colors() {
   }'
 }
 
-ip-info() {
-  local info public_ip local_ip dns_servers city region country
-
-  info=$(curl -s https://ipinfo.io)
-  public_ip=$(echo "$info" | jq -r '.ip')
-  city=$(echo "$info" | jq -r '.city')
-  region=$(echo "$info" | jq -r '.region')
-  country=$(echo "$info" | jq -r '.country')
-
-  if is_osx; then
-    local_ip=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo "not connected")
-    dns_servers=$(scutil --dns | grep 'nameserver\[0\]' | head -1 | awk '{print $3}')
-  else
-    local_ip=$(hostname -I 2>/dev/null | awk '{print $1}')
-    dns_servers=$(grep '^nameserver' /etc/resolv.conf 2>/dev/null | head -1 | awk '{print $2}')
-  fi
-
-  echo "Public IP:  $public_ip"
-  echo "Local IP:   $local_ip"
-  echo "DNS:        $dns_servers"
-  echo "Location:   $city, $region, $country"
-}
-
 zk() {
   zellij delete-session -f "$1"
 }
