@@ -37,3 +37,4 @@ keybind = cmd+u=text:\x15
 keybind = cmd+shift+c=copy_to_clipboard
 keybind = cmd+shift+t=new_tab
 keybind = cmd+shift+p=text:\x1b[80;6u
+keybind = shift+enter=text:\x1b\r
