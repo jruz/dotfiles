@@ -4,7 +4,7 @@ vim.o.encoding = "utf-8"
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.o.clipboard = "unnamedplus"
 vim.wo.number = true
 vim.o.signcolumn = "yes"
@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "FocusGained", "BufEn
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.syntax = "on"
-vim.o.mouse = ""
+vim.o.mouse = "a"
 vim.o.showmode = false
 vim.o.smoothscroll = true
 
@@ -111,10 +111,10 @@ require("plugins")
 vim.cmd.colorscheme("catppuccin-mocha")
 
 -- Commands
-vim.cmd([[command Config :edit ~/.config/nvim/init.lua]])
-vim.cmd([[command -bang Wq :wq<bang>]])
-vim.cmd([[command -bang Wqa :wqa<bang>]])
-vim.cmd([[command -bang Qa :qa<bang>]])
+vim.cmd([[command! Config :edit ~/.config/nvim/init.lua]])
+vim.cmd([[command! -bang Wq :wq<bang>]])
+vim.cmd([[command! -bang Wqa :wqa<bang>]])
+vim.cmd([[command! -bang Qa :qa<bang>]])
 
 -- Auto Save
 --vim.api.nvim_command('autocmd FocusLost * :wa')
