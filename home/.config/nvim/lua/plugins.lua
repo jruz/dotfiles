@@ -46,9 +46,34 @@ local plugins = {
           hide_gitignored = false,
         },
         follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
       },
-      window = { position = "left", width = 35 },
+      window = {
+        position = "left",
+        width = 35,
+        mappings = {
+          ["<cr>"] = "open",
+          ["<2-LeftMouse>"] = "open",
+          ["<LeftRelease>"] = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+              require("neo-tree.sources.filesystem.commands").toggle_node(state)
+            else
+              require("neo-tree.sources.filesystem.commands").open(state)
+            end
+          end,
+        },
+      },
     },
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+          local events = require("neo-tree.events")
+          events.fire_event(events.GIT_EVENT)
+        end,
+      })
+    end,
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -156,14 +181,6 @@ local plugins = {
   "nvim-treesitter/nvim-treesitter",
   "nvim-tree/nvim-web-devicons",
   "stevearc/oil.nvim",
-  {
-    "LhKipp/nvim-nu",
-    config = function()
-      require("nu").setup({
-        use_lsp_features = true,
-      })
-    end,
-  },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -291,4 +308,4 @@ local opts = {
 
 require("lazy").setup(plugins, opts)
 
-vim.cmd([[command PluginsConfig :edit ~/.config/nvim/lua/plugins.lua]])
+vim.cmd([[command! PluginsConfig :edit ~/.config/nvim/lua/plugins.lua]])
