@@ -81,8 +81,7 @@ wk.add({
 })
 
 wk.add({
-  { "<space>o", group = "Oil" },
-  { "<space>oo", "<cmd>Oil<cr>", desc = "Open Oil" },
+  { "<space>o", "<cmd>Oil<cr>", desc = "Oil" },
 })
 
 wk.add({
@@ -96,6 +95,22 @@ wk.add({
 wk.add({
   { "<space>m", group = "Markdown" },
   { "<space>mt", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Render" },
+})
+
+wk.add({
+  {
+    "<space>r",
+    function()
+      for name, _ in pairs(package.loaded) do
+        if name:match("^config") and not name:match("which%-key") then
+          package.loaded[name] = nil
+        end
+      end
+      dofile(vim.env.MYVIMRC)
+      vim.notify("Config reloaded")
+    end,
+    desc = "Reload Config"
+  },
 })
 
 wk.add({
