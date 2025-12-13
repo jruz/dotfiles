@@ -78,7 +78,6 @@ in
       #pkg-config
 
       # VIM ------------------------
-      neovim
       vim
       tree-sitter
       shellcheck
@@ -104,6 +103,7 @@ in
       mise
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.lekton
+      neovim
       rust-analyzer
       usage
       vhs

@@ -27,14 +27,19 @@
       "Bash(starship preset:*)",
       "Bash(terminal-notifier:*)",
       "Bash(vhs .claude/skills/neovim/neovim.tape)",
+      "Bash(vhs .claude/skills/starship/starship.tape)",
       "Bash(vhs .claude/skills/zellij/layout.tape)",
       "Bash(vim --version:*)",
       "Bash(zellij delete-session:*)",
       "Bash(zellij options:*)",
       "Bash(zellij setup:*)",
+      "Bash(.claude/skills/starship/convert-config:*)",
       "Bash(.claude/skills/zellij/convert-layout:*)",
       "Skill(dotfiles-config)",
+      "Skill(just)",
       "Skill(neovim)",
+      "Skill(starship)",
+      "Skill(zellij)",
       "WebFetch(domain:docs.helix-editor.com)",
       "WebFetch(domain:ghostty.org)",
       "WebFetch(domain:mise.jdx.dev)",
@@ -46,6 +51,15 @@
       "WebFetch(domain:zellij.dev)"
     ],
     "deny": [
+      "Bash(brew bundle:*)",
+      "Bash(darwin-rebuild switch:*)",
+      "Bash(home-manager switch:*)",
+      "Bash(mise upgrade:*)",
+      "Bash(nix flake update:*)",
+      "Bash(nix upgrade-nix:*)",
+      "Bash(nix-channel --add:*)",
+      "Bash(nix-channel --update:*)",
+      "Bash(nix-collect-garbage:*)",
       "Bash(stow:*)"
     ]
   }
