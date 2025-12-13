@@ -1,4 +1,4 @@
-{ config, pkgs, zjstatus, system, ... }:
+{ config, pkgs, unstable, zjstatus, system, ... }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
@@ -17,8 +17,6 @@ in
 
   home.packages = with pkgs;
     [
-      nerd-fonts.dejavu-sans-mono
-      nerd-fonts.lekton
       bat
       watch
       curl
@@ -48,12 +46,13 @@ in
       yazi
 
       # GIT ------------------------
+      delta
+      gh
       git
       git-crypt
       git-filter-repo
-      delta
+      gitui
       lazygit
-      gh
 
       # SHELLS ---------------------
       zsh
@@ -100,16 +99,15 @@ in
 
       # CLOJURE --------------------
       babashka
-
-      # Ubuntu ---------------------
-
-      # Unstable --------------------
+    ]
+    ++ (with unstable; [
       mise
-      usage
+      nerd-fonts.dejavu-sans-mono
+      nerd-fonts.lekton
       rust-analyzer
+      usage
       vhs
-
-    ];
+    ]);
 
   home.file.".config/zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
 

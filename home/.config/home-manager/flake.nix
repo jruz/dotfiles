@@ -1,19 +1,24 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     zjstatus.url = "github:dj95/zjstatus";
   };
 
-  outputs = { nixpkgs, home-manager, zjstatus, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, zjstatus, ... }:
     let
-      forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      mkHome = system: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit zjstatus system; };
-        modules = [ ./home.nix ];
-      };
+      mkHome = system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          unstable = nixpkgs-unstable.legacyPackages.${system};
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit unstable zjstatus system; };
+          modules = [ ./home.nix ];
+        };
     in
     {
       homeConfigurations = {
