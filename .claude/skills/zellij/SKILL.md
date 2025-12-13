@@ -1,9 +1,9 @@
 ---
-name: zellij-layout
+name: zellij
 description: Use when editing ANY zellij configuration including layouts, swap layouts, keybindings, or zjstatus plugin. Provides rules for powerline characters, VHS testing, and verification.
 ---
 
-# Zellij Layout Skill
+# Zellij Skill
 
 ## Configuration Locations
 
@@ -21,7 +21,7 @@ Claude Code strips unicode characters. Use placeholders in the layout file (`lay
 After editing the layout, run the converter:
 
 ```bash
-~/.claude/skills/zellij-layout/convert-layout
+.claude/skills/zellij/convert-layout
 ```
 
 This reads `layout.kdl` from the skill folder, replaces placeholders with actual powerline chars, and writes to `~/.config/zellij/layouts/layout.kdl`.
@@ -35,10 +35,10 @@ This reads `layout.kdl` from the skill folder, replaces placeholders with actual
 Use VHS to verify visual changes:
 
 1. Delete any existing test session: `zellij delete-session zellij-test`
-2. Run the appropriate tape from `~/.claude/skills/zellij-layout/`:
+2. Run the appropriate tape from `.claude/skills/zellij/`:
    - `layout.tape` - Tests tabs and zjstatus bar appearance
    - `swap-layout.tape` - Tests swap layouts with multiple panes (creates 3 panes, cycles through layouts)
-3. Output screenshot ALWAYS goes to `tmp/zellij-layout.png` (same name, no versioning)
+3. Output screenshot ALWAYS goes to `tmp/zellij.png` (same name, no versioning)
 4. Read the screenshot to verify before telling user the fix is complete
 5. Clean up the test session: `zellij delete-session zellij-test`
 
