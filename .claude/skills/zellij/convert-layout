@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 def main [] {
-    let skill_dir = $"($env.HOME)/.claude/skills/zellij-layout"
+    let skill_dir = $"($env.HOME)/dev/dotfiles/.claude/skills/zellij"
     let target = $"($env.HOME)/.config/zellij/layouts/layout.kdl"
 
     let content = (open $"($skill_dir)/layout.kdl")

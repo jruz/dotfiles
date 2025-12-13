@@ -1,4 +1,4 @@
-Output tmp/zellij-layout.png
+Output tmp/zellij.png
 Set Shell zsh
 Set FontSize 28
 Set Width 2400
@@ -9,27 +9,40 @@ Type "zellij -s zellij-test"
 Enter
 Sleep 2s
 
-Type "zellij action new-tab"
-Enter
+Ctrl+a
+Type "%"
 Sleep 500ms
 
-Type "zellij action new-tab"
-Enter
+Ctrl+a
+Type "%"
 Sleep 500ms
 
-Type "zellij action new-tab"
-Enter
+Ctrl+a
+Type " "
 Sleep 500ms
 
-Type "zellij action go-to-tab 2"
-Enter
+Ctrl+a
+Type " "
 Sleep 500ms
 
-Screenshot tmp/zellij-layout.png
+Ctrl+a
+Type " "
+Sleep 500ms
 
-Type "exit"
-Enter
-Sleep 300ms
+Ctrl+a
+Type " "
+Sleep 500ms
+
+Ctrl+a
+Type " "
+Sleep 500ms
+
+Ctrl+a
+Type " "
+Sleep 500ms
+
+Screenshot tmp/zellij.png
+
 Type "exit"
 Enter
 Sleep 300ms
