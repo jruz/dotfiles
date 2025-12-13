@@ -7,3 +7,4 @@ error.log
 *.bkp
 home/.config/zellij/plugins/zjstatus.wasm
 tmp/
+.claude/settings.local.json
