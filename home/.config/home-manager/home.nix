@@ -4,6 +4,7 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
   zjstatusPackage = zjstatus.packages.${system}.default;
+  mcp-language-server = pkgs.callPackage ./packages/mcp-language-server.nix { };
 
 in
 {
@@ -14,6 +15,17 @@ in
   home.stateVersion = "23.11";
 
   programs.home-manager.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
+
+  programs.nushell = {
+    enable = true;
+    extraConfig = ''
+      $env.config = {
+        show_banner: false
+      }
+    '';
+  };
 
   home.packages = with pkgs;
     [
@@ -58,11 +70,9 @@ in
       zsh
       zinit
       nushell
-      zellij
       tmux
       tmuxinator
       starship
-      atuin
       zoxide
 
       # EDITORS --------------------
@@ -87,7 +97,7 @@ in
 
       # Nix -------------------------
       nixd
-      nixfmt
+      nixfmt-classic
 
       # RUST -----------------------
       cargo-watch
@@ -98,15 +108,23 @@ in
 
       # CLOJURE --------------------
       babashka
+
+      # MCP SERVERS ----------------
+      mcp-language-server
     ]
     ++ (with unstable; [
+      atuin
       mise
+      neovim
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.lekton
-      neovim
       rust-analyzer
       usage
       vhs
+      zellij
+    ])
+    ++ (pkgs.lib.optionals (!isDarwin) [
+      masterpdfeditor4
     ]);
 
   home.file.".config/zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
