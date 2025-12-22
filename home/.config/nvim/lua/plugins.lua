@@ -28,10 +28,6 @@ local plugins = {
   "tpope/vim-fugitive",
   'NoahTheDuke/vim-just',
   {
-    'Exafunction/windsurf.vim',
-    event = 'BufEnter'
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
@@ -242,6 +238,13 @@ local plugins = {
     "mrcjkb/rustaceanvim",
     version = "^5",
     lazy = false,
+  },
+
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({})
+    end,
   },
 
   -- Completion
