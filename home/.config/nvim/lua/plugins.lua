@@ -100,6 +100,17 @@ local plugins = {
     },
   },
   {
+    "mg979/vim-visual-multi",
+    event = "VeryLazy",
+    init = function()
+      vim.g.VM_maps = {
+        ["Find Under"] = "<C-d>",
+        ["Find Subword Under"] = "<C-d>",
+      }
+      vim.g.VM_mouse_mappings = 1
+    end,
+  },
+  {
     "echasnovski/mini.surround",
     event = "VeryLazy",
     opts = {
