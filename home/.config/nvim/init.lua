@@ -36,10 +36,12 @@ vim.filetype.add({
 vim.treesitter.language.register('bash', 'dotenv')
 
 -- Folding
-vim.wo.foldmethod = "indent"
-vim.wo.foldnestmax = 4
-vim.wo.foldenable = false
-vim.wo.foldlevel = 1
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldtext = ""
+vim.wo.foldenable = true
+vim.wo.foldnestmax = 1
+vim.o.foldlevelstart = 0
 
 -- Rustaceanvim config must be set before plugin loads
 vim.g.rustaceanvim = {
@@ -109,6 +111,8 @@ require("plugins")
 
 -- Active Theme
 vim.cmd.colorscheme("catppuccin-mocha")
+
+vim.api.nvim_set_hl(0, "Folded", { bg = "#262636", fg = "#6c7086" })
 
 -- Commands
 vim.cmd([[command! Config :edit ~/.config/nvim/init.lua]])
