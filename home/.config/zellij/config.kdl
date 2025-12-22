@@ -22,6 +22,7 @@ keybinds clear-defaults=true {
         bind "\"" { NewPane "down"; SwitchToMode "normal"; }
         bind "%" { NewPane "right"; SwitchToMode "normal"; }
         bind "x" { CloseFocus; SwitchToMode "normal"; }
+        bind "X" { CloseTab; SwitchToMode "normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "c" { NewTab; SwitchToMode "normal"; }
         bind "," { SwitchToMode "renametab"; TabNameInput 0; }
