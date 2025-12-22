@@ -26,6 +26,7 @@ keybinds clear-defaults=true {
         bind "z" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "c" { NewTab; SwitchToMode "normal"; }
         bind "," { SwitchToMode "renametab"; TabNameInput 0; }
+        bind "w" { LaunchOrFocusPlugin "session-manager" { floating true; move_to_focused_tab true; }; SwitchToMode "normal"; }
         bind "d" { Detach; }
         bind "[" { SwitchToMode "scroll"; }
         bind "1" { GoToTab 1; SwitchToMode "normal"; }
