@@ -146,6 +146,7 @@ vim.lsp.enable('rescriptls')
 
 vim.lsp.enable('pylyzer')
 
+vim.lsp.enable('gleam')
 vim.lsp.enable('nushell')
 
 -- Markdown
