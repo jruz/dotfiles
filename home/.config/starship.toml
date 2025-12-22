@@ -14,7 +14,6 @@ $lua\
 $java\
 $kotlin\
 $c\
-$cpp\
 $zig\
 $ruby\
 $php\
@@ -68,17 +67,13 @@ symbol = " "
 
 [bun]
 symbol = " "
+style = "white"
 format = "[$symbol]($style)"
 
 [c]
 version_format = "${raw}"
 symbol = " "
 style = "blue"
-format = "[$symbol]($style)"
-
-[cpp]
-version_format = "${raw}"
-symbol = " "
 format = "[$symbol]($style)"
 
 [cmake]
@@ -117,6 +112,7 @@ repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($re
 
 [docker_context]
 symbol = " "
+format = "[$symbol]($style)"
 
 [elixir]
 version_format = "${raw}"
@@ -138,7 +134,7 @@ symbol = "  "
 
 
 [git_commit]
-tag_symbol = '  '
+tag_symbol = '  '
 
 [golang]
 version_format = "${raw}"
@@ -199,7 +195,7 @@ format = "[${symbol}nix]($style) "
 
 [nodejs]
 version_format = "${raw}"
-symbol = " "
+symbol = " "
 style = "green"
 format = "[$symbol]($style)"
 
@@ -208,51 +204,51 @@ symbol = " "
 format = "[$symbol]($style)"
 
 [os.symbols]
-Alpaquita = " "
+Alpaquita = " "
 Alpine = " "
 AlmaLinux = " "
 Amazon = " "
-Android = " "
+Android = " "
 Arch = " "
 Artix = " "
-CachyOS = " "
+CachyOS = " "
 CentOS = " "
 Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
 Fedora = " "
 FreeBSD = " "
-Garuda = "󰛓 "
+Garuda = " "
 Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
+HardenedBSD = " "
+Illumos = " "
 Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
+Linux = " "
+Mabox = " "
+Macos = " "
 Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
+Mariner = " "
+MidnightBSD = " "
 Mint = " "
-NetBSD = " "
+NetBSD = " "
 NixOS = " "
-Nobara = " "
-OpenBSD = "󰈺 "
+Nobara = " "
+OpenBSD = " "
 openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
+OracleLinux = " "
+Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
 RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
+Redox = " "
+Solus = " "
 SUSE = " "
 Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
+Unknown = " "
+Void = " "
+Windows = " "
 
 [package]
 symbol = "󰏗 "
@@ -270,9 +266,6 @@ format = "[$symbol]($style)"
 
 [pijul_channel]
 symbol = " "
-
-[pixi]
-symbol = "󰏗 "
 
 [python]
 version_format = "${raw}"
@@ -313,8 +306,8 @@ symbol = " "
 
 [shell]
 disabled = false
-bash_indicator = " bash"
-zsh_indicator = " zsh"
+bash_indicator = " bash"
+zsh_indicator = " zsh"
 fish_indicator = "󰔁 fish"
 nu_indicator = "> nu"
 powershell_indicator = "󰨊 pwsh"

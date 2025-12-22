@@ -1,0 +1,315 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$cmd_duration\
+$bun\
+$nodejs\
+$deno\
+$rust\
+$golang\
+$python\
+$lua\
+$java\
+$kotlin\
+$c\
+$zig\
+$ruby\
+$php\
+$perl\
+$elixir\
+$haskell\
+$scala\
+$swift\
+$julia\
+$nim\
+$ocaml\
+$crystal\
+$dart\
+$elm\
+$nix_shell\
+$docker_context\
+$aws\
+$gcloud\
+$shell\
+$line_break\
+$character"""
+
+[fill]
+symbol = " "
+
+[git_branch]
+symbol = "{{ICON_GIT_BRANCH}}"
+style = "purple"
+format = "[\\($symbol $branch]($style)"
+
+[git_status]
+style = "red"
+format = "[$ahead_behind$modified$untracked$staged$deleted](red)[\\)](purple) "
+ahead = " {{ARROW_UP}}${count}"
+behind = " {{ARROW_DOWN}}${count}"
+diverged = " {{ARROW_UPDOWN}}{{ARROW_UP}}${ahead_count}{{ARROW_DOWN}}${behind_count}"
+stashed = ""
+modified = " +${count}"
+untracked = " ?${count}"
+staged = " ++${count}"
+deleted = " -${count}"
+conflicted = "=${count} "
+renamed = "»${count} "
+up_to_date = ""
+
+[aws]
+symbol = "{{ICON_AWS}}  "
+
+[buf]
+symbol = "{{ICON_BUF}} "
+
+[bun]
+symbol = "{{ICON_BUN}} "
+style = "white"
+format = "[$symbol]($style)"
+
+[c]
+version_format = "${raw}"
+symbol = "{{ICON_C}} "
+style = "blue"
+format = "[$symbol]($style)"
+
+[cmake]
+symbol = "{{ICON_CMAKE}} "
+
+[conda]
+symbol = "{{ICON_CONDA}} "
+
+[cmd_duration]
+style = "yellow"
+format = "[\\($duration\\)]($style) "
+
+[crystal]
+symbol = "{{ICON_CRYSTAL}} "
+format = "[$symbol]($style)"
+
+[dart]
+symbol = "{{ICON_DART}} "
+format = "[$symbol]($style)"
+
+[deno]
+version_format = "${raw}"
+symbol = "{{ICON_DENO}} "
+style = "green"
+format = "[$symbol]($style)"
+
+[directory]
+read_only = " {{ICON_READONLY}}"
+truncation_length = 0
+truncate_to_repo = false
+style = "blue"
+repo_root_style = "bold cyan"
+before_repo_root_style = "dimmed blue"
+format = "[$path]($style) "
+repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style) "
+
+[docker_context]
+symbol = "{{ICON_DOCKER}} "
+format = "[$symbol]($style)"
+
+[elixir]
+version_format = "${raw}"
+symbol = "{{ICON_ELIXIR}} "
+format = "[$symbol]($style)"
+
+[elm]
+symbol = "{{ICON_ELM}} "
+format = "[$symbol]($style)"
+
+[fennel]
+symbol = "{{ICON_FENNEL}} "
+
+[fossil_branch]
+symbol = "{{ICON_FOSSIL}} "
+
+[gcloud]
+symbol = "{{ICON_GCLOUD}}  "
+
+
+[git_commit]
+tag_symbol = '{{ICON_TAG}}  '
+
+[golang]
+version_format = "${raw}"
+symbol = "{{ICON_GOLANG}} "
+style = "cyan"
+format = "[$symbol]($style)"
+
+[guix_shell]
+symbol = "{{ICON_GUIX}} "
+
+[haskell]
+symbol = "{{ICON_HASKELL}} "
+format = "[$symbol]($style)"
+
+[haxe]
+symbol = "{{ICON_HAXE}} "
+
+[hg_branch]
+symbol = "{{ICON_HG}} "
+
+[hostname]
+ssh_symbol = "{{ICON_SSH}} "
+
+[java]
+version_format = "${raw}"
+symbol = "{{ICON_JAVA}} "
+style = "red"
+format = "[$symbol]($style)"
+
+[julia]
+symbol = "{{ICON_JULIA}} "
+format = "[$symbol]($style)"
+
+[kotlin]
+version_format = "${raw}"
+symbol = "{{ICON_KOTLIN}} "
+format = "[$symbol]($style)"
+
+[lua]
+version_format = "${raw}"
+symbol = "{{ICON_LUA}} "
+style = "blue"
+format = "[$symbol]($style)"
+
+[memory_usage]
+symbol = "{{ICON_MEMORY}} "
+
+[meson]
+symbol = "{{ICON_MESON}} "
+
+[nim]
+symbol = "{{ICON_NIM}} "
+format = "[$symbol]($style)"
+
+[nix_shell]
+symbol = "{{ICON_NIX}} "
+format = "[${symbol}nix]($style) "
+
+[nodejs]
+version_format = "${raw}"
+symbol = "{{ICON_NODEJS}} "
+style = "green"
+format = "[$symbol]($style)"
+
+[ocaml]
+symbol = "{{ICON_OCAML}} "
+format = "[$symbol]($style)"
+
+[os.symbols]
+Alpaquita = "{{ICON_OS_ALPAQUITA}} "
+Alpine = "{{ICON_OS_ALPINE}} "
+AlmaLinux = "{{ICON_OS_ALMALINUX}} "
+Amazon = "{{ICON_OS_AMAZON}} "
+Android = "{{ICON_OS_ANDROID}} "
+Arch = "{{ICON_OS_ARCH}} "
+Artix = "{{ICON_OS_ARTIX}} "
+CachyOS = "{{ICON_OS_CACHYOS}} "
+CentOS = "{{ICON_OS_CENTOS}} "
+Debian = "{{ICON_OS_DEBIAN}} "
+DragonFly = "{{ICON_OS_DRAGONFLY}} "
+Emscripten = "{{ICON_OS_EMSCRIPTEN}} "
+EndeavourOS = "{{ICON_OS_ENDEAVOUROS}} "
+Fedora = "{{ICON_OS_FEDORA}} "
+FreeBSD = "{{ICON_OS_FREEBSD}} "
+Garuda = "{{ICON_OS_GARUDA}} "
+Gentoo = "{{ICON_OS_GENTOO}} "
+HardenedBSD = "{{ICON_OS_HARDENEDBSD}} "
+Illumos = "{{ICON_OS_ILLUMOS}} "
+Kali = "{{ICON_OS_KALI}} "
+Linux = "{{ICON_OS_LINUX}} "
+Mabox = "{{ICON_OS_MABOX}} "
+Macos = "{{ICON_OS_MACOS}} "
+Manjaro = "{{ICON_OS_MANJARO}} "
+Mariner = "{{ICON_OS_MARINER}} "
+MidnightBSD = "{{ICON_OS_MIDNIGHTBSD}} "
+Mint = "{{ICON_OS_MINT}} "
+NetBSD = "{{ICON_OS_NETBSD}} "
+NixOS = "{{ICON_OS_NIXOS}} "
+Nobara = "{{ICON_OS_NOBARA}} "
+OpenBSD = "{{ICON_OS_OPENBSD}} "
+openSUSE = "{{ICON_OS_OPENSUSE}} "
+OracleLinux = "{{ICON_OS_ORACLELINUX}} "
+Pop = "{{ICON_OS_POP}} "
+Raspbian = "{{ICON_OS_RASPBIAN}} "
+Redhat = "{{ICON_OS_REDHAT}} "
+RedHatEnterprise = "{{ICON_OS_REDHATENTERPRISE}} "
+RockyLinux = "{{ICON_OS_ROCKYLINUX}} "
+Redox = "{{ICON_OS_REDOX}} "
+Solus = "{{ICON_OS_SOLUS}} "
+SUSE = "{{ICON_OS_SUSE}} "
+Ubuntu = "{{ICON_OS_UBUNTU}} "
+Unknown = "{{ICON_OS_UNKNOWN}} "
+Void = "{{ICON_OS_VOID}} "
+Windows = "{{ICON_OS_WINDOWS}} "
+
+[package]
+symbol = "{{ICON_PACKAGE}} "
+style = "208"
+format = "[$symbol$version ]($style)"
+
+[perl]
+symbol = "{{ICON_PERL}} "
+format = "[$symbol]($style)"
+
+[php]
+version_format = "${raw}"
+symbol = "{{ICON_PHP}} "
+format = "[$symbol]($style)"
+
+[pijul_channel]
+symbol = "{{ICON_PIJUL}} "
+
+[python]
+version_format = "${raw}"
+symbol = "{{ICON_PYTHON}} "
+style = "yellow"
+format = "[$symbol]($style)"
+
+[rlang]
+symbol = "{{ICON_RLANG}} "
+
+[ruby]
+version_format = "${raw}"
+symbol = "{{ICON_RUBY}} "
+format = "[$symbol]($style)"
+
+[rust]
+version_format = "${raw}"
+symbol = "{{ICON_RUST}} "
+style = "red"
+format = "[$symbol]($style)"
+
+[scala]
+symbol = "{{ICON_SCALA}} "
+format = "[$symbol]($style)"
+
+[swift]
+version_format = "${raw}"
+symbol = "{{ICON_SWIFT}} "
+format = "[$symbol]($style)"
+
+[zig]
+version_format = "${raw}"
+symbol = "{{ICON_ZIG}} "
+format = "[$symbol]($style)"
+
+[gradle]
+symbol = "{{ICON_GRADLE}} "
+
+[shell]
+disabled = false
+bash_indicator = " bash"
+zsh_indicator = " zsh"
+fish_indicator = "󰔁 fish"
+nu_indicator = "> nu"
+powershell_indicator = "󰨊 pwsh"
+style = "green"
+format = "[$indicator]($style) "
