@@ -40,7 +40,7 @@ vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo.foldtext = ""
 vim.wo.foldenable = true
-vim.wo.foldnestmax = 1
+vim.wo.foldnestmax = 5
 vim.o.foldlevelstart = 0
 
 -- Rustaceanvim config must be set before plugin loads
