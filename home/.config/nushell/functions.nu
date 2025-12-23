@@ -128,3 +128,13 @@ def yo [] {
     }
 }
 
+def wh [command: string] {
+    let which_result = (which $command)
+
+    if ($which_result | any { |row| $row.type == "alias" }) {
+        scope aliases | where name == $command
+    } else {
+        $which_result
+    }
+}
+
