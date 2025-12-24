@@ -184,7 +184,7 @@ local plugins = {
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     opts = {
-      heading = { position = "inline", backgrounds = {} },
+      heading = { position = "inline", backgrounds = {}, icons = {} },
       bullet = { icons = { "•" } },
     },
   },
