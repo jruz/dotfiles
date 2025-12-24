@@ -104,6 +104,9 @@ local plugins = {
         ["Find Subword Under"] = "<C-d>",
       }
       vim.g.VM_mouse_mappings = 1
+      vim.g.VM_silent_exit = 1
+      vim.g.VM_show_warnings = 0
+      vim.g.VM_set_statusline = 0
     end,
   },
   {
