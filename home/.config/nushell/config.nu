@@ -7,12 +7,11 @@ source _functions.nu
 source _gemini.nu
 source _keybindings.nu
 
-if (which atuin | length) > 0 {
-  source _atuin.nu
-}
+source _atuin.nu
+source _just-completions.nu
 
-if (which just | length) > 0 {
-  use _just-completions.nu *
+if "__zoxide_hooked" in $env and ($env.__zoxide_hooked | describe) == "string" {
+  hide-env __zoxide_hooked
 }
 
 source ~/.cache/zoxide-init.nu
