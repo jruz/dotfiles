@@ -18,15 +18,6 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.nushell = {
-    enable = true;
-    extraConfig = ''
-      $env.config = {
-        show_banner: false
-      }
-    '';
-  };
-
   home.packages = with pkgs;
     [
       bat
@@ -69,7 +60,6 @@ in
       # SHELLS ---------------------
       zsh
       zinit
-      nushell
       tmux
       tmuxinator
       starship
@@ -118,6 +108,7 @@ in
       neovim
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.lekton
+      nushell
       rust-analyzer
       usage
       vhs
@@ -127,6 +118,10 @@ in
       masterpdfeditor4
     ]);
 
-  home.file.".config/zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
+  home.file = {
+    ".config/zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
+  } // pkgs.lib.optionalAttrs isDarwin {
+    "Library/Application Support/nushell".source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/nushell";
+  };
 
 }

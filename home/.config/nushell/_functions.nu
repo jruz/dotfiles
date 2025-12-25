@@ -138,3 +138,11 @@ def wh [command: string] {
     }
 }
 
+def zk [session: string] {
+    zellij delete-session -f $session
+}
+
+def za [session: string] {
+    zellij attach $session
+}
+
