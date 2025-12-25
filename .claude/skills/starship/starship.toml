@@ -306,10 +306,10 @@ symbol = "{{ICON_GRADLE}} "
 
 [shell]
 disabled = false
-bash_indicator = " bash"
-zsh_indicator = " zsh"
-fish_indicator = "󰔁 fish"
-nu_indicator = "> nu"
-powershell_indicator = "󰨊 pwsh"
+bash_indicator = "{{ICON_BASH}} bash"
+zsh_indicator = "{{ICON_ZSH}} zsh"
+fish_indicator = "fish"
+nu_indicator = "{{ICON_NUSHELL}} nu"
+powershell_indicator = "{{ICON_POWERSHELL}} pwsh"
 style = "green"
 format = "[$indicator]($style) "

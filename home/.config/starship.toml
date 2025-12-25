@@ -306,9 +306,9 @@ symbol = " "
 
 [shell]
 disabled = false
-bash_indicator = " bash"
-zsh_indicator = " zsh"
-fish_indicator = "󰔁 fish"
+bash_indicator = " bash"
+zsh_indicator = " zsh"
+fish_indicator = "fish"
 nu_indicator = "> nu"
 powershell_indicator = "󰨊 pwsh"
 style = "green"

@@ -60,10 +60,11 @@ let replacements = [
   ["{{ICON_PIXI}}" (make_icon 0xF03D7)]
   ["{{ICON_BUF}}" (make_icon 0xF49D)]
 
-  ["{{ICON_BASH}}" (make_icon 0xE795)]
-  ["{{ICON_ZSH}}" (make_icon 0xE795)]
-  ["{{ICON_FISH}}" (make_icon 0xF501)]
-  ["{{ICON_POWERSHELL}}" (make_icon 0xF620)]
+  ["{{ICON_BASH}}" (make_icon 0xF489)]
+  ["{{ICON_ZSH}}" (make_icon 0xF489)]
+  ["{{ICON_FISH}}" (make_icon 0xF0501)]
+  ["{{ICON_NUSHELL}}" (make_icon 0x003E)]
+  ["{{ICON_POWERSHELL}}" (make_icon 0xF0A0A)]
 
   ["{{ICON_READONLY}}" (make_icon 0xF033E)]
   ["{{ICON_SSH}}" (make_icon 0xEB01)]
