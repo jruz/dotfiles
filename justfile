@@ -1,4 +1,4 @@
-lint: lint-sh lint-lua
+lint: lint-sh lint-lua nushell-lint
 
 lint-lua:
   cd home/.config/nvim && selene .
@@ -9,6 +9,17 @@ lint-sh:
     -e SC1090 `# can't follow non-constant source` \
     -e SC1091 `# can't follow source to external file` \
     **/*.sh
+
+nushell-lint:
+  #!/usr/bin/env nu
+  fd -e nu . home/.config/nushell | lines | each { |file|
+    print $"Checking ($file)..."
+    nu -c $"source ($file)"
+  }
+  print "\n✓ All Nushell files are valid"
+
+nushell-test:
+  test-runner.nu
 
 ssh-keygen EMAIL:
   #!/usr/bin/env sh
