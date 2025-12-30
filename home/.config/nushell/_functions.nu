@@ -138,11 +138,20 @@ def wh [command: string] {
     }
 }
 
-def zk [session: string] {
+def "nu-complete zellij-sessions" [] {
+    ^zellij list-sessions
+        | lines
+        | each { |line|
+            $line | ansi strip | split row " " | get 0
+        }
+        | where { |session| not ($session | is-empty) }
+}
+
+def zk [session: string@"nu-complete zellij-sessions"] {
     zellij delete-session -f $session
 }
 
-def za [session: string] {
+def za [session: string@"nu-complete zellij-sessions"] {
     zellij attach $session
 }
 
