@@ -148,6 +148,8 @@ def "nu-complete zellij-sessions" [] {
 }
 
 def zk [session: string@"nu-complete zellij-sessions"] {
+    ^procs $session --no-header --only pid | lines | each { |id| ^kill -9 $id }
+
     zellij delete-session -f $session
 }
 
