@@ -112,11 +112,11 @@ def mp [] {
     cd $"(brain_path)/🌞 Morning Pages"
 }
 
-def yf [file: string] {
+def yf [file: path] {
     if (is_osx) {
-        open $file | pbcopy
+        open --raw $file | pbcopy
     } else {
-        open $file | xclip -sel clip
+        open --raw $file | xclip -sel clip
     }
 }
 
