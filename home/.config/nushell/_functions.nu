@@ -157,3 +157,8 @@ def za [session: string@"nu-complete zellij-sessions"] {
     zellij attach $session
 }
 
+def zel [] {
+    let session_name = ($env.PWD | path basename | str upcase)
+    zellij attach --create $session_name
+}
+
