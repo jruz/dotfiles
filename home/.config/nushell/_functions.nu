@@ -162,3 +162,11 @@ def zel [] {
     zellij attach --create $session_name
 }
 
+def rm [...files: string] {
+    if (is_osx) {
+        ^trash ...$files
+    } else {
+        ^trash-put ...$files
+    }
+}
+
