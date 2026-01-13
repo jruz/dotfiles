@@ -104,11 +104,11 @@ def brain_path [] {
     }
 }
 
-def brain [] {
+def --env brain [] {
     cd (brain_path)
 }
 
-def mp [] {
+def --env mp [] {
     cd $"(brain_path)/🌞 Morning Pages"
 }
 
