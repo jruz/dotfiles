@@ -86,6 +86,9 @@ mise-remove TOOL:
     print $"($tool) not found in mise config"
   }
 
+mac-install:
+  cd home-mac && brew bundle
+
 mac-outdated:
   brew outdated
   mas outdated
