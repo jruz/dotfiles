@@ -6,6 +6,7 @@ copy-on-select = clipboard
 window-padding-x = 0
 window-padding-y = 0
 
+keybind = ctrl+z=unbind
 keybind = cmd+a=text:\x01
 keybind = cmd+b=text:\x02
 keybind = cmd+c=text:\x03
@@ -22,7 +23,7 @@ keybind = cmd+x=text:\x18
 keybind = cmd+l=text:\x0c
 keybind = cmd+v=text:\x16
 keybind = cmd+shift+v=paste_from_clipboard
-keybind = cmd+z=text:\x1a
+keybind = cmd+z=unbind
 keybind = cmd+y=text:\x19
 keybind = cmd+shift+z=text:\x1b[122;6u
 keybind = cmd+up=text:\x1b[1;5A
