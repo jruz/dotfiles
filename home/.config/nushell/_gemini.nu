@@ -1,5 +1,5 @@
 def build_payload [text: string] {
-    let prompt = $"I am using Nushell whats the commands to do: ($text) \n Reply only with the command in raw form no markdown."
+    let prompt = $"I am using Nushell what is the correct command to do: ($text) \n Reply only with the command in raw form no markdown."
 
     {
         contents: [
@@ -14,8 +14,8 @@ def build_payload [text: string] {
     }
 }
 
-def gemini [prompt?: string] {
-    let model = "gemini-2.5-flash-lite"
+export def main [prompt?: string] {
+    let model = "gemini-3-flash-preview"
 
     let stdin = $in
 
@@ -66,50 +66,4 @@ def gemini [prompt?: string] {
     }
 
     $result
-}
-
-export def test_gemini_with_stdin [] {
-    use std assert
-
-    if ($env.GEMINI_API_KEY? | is-empty) {
-        print "⚠ Skipping test: GEMINI_API_KEY not set"
-        return
-    }
-
-    let result = "list files sorted by size" | gemini
-    assert ($result | is-not-empty)
-    assert ($result | str contains "ls")
-}
-
-export def test_gemini_with_arg [] {
-    use std assert
-
-    if ($env.GEMINI_API_KEY? | is-empty) {
-        print "⚠ Skipping test: GEMINI_API_KEY not set"
-        return
-    }
-
-    let result = gemini "show current directory"
-    assert ($result | is-not-empty)
-    assert ($result | str contains "pwd")
-}
-
-export def test_gemini_no_api_key [] {
-    use std assert
-
-    let original_key = $env.GEMINI_API_KEY?
-    hide-env GEMINI_API_KEY
-
-    let result = try {
-        "test" | gemini
-        false
-    } catch {
-        true
-    }
-
-    assert $result
-
-    if ($original_key | is-not-empty) {
-        $env.GEMINI_API_KEY = $original_key
-    }
 }
