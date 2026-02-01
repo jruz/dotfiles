@@ -5,7 +5,6 @@ $env.config = ($env.config? | default {} | merge {
 source _alias.nu
 source _functions.nu
 source _keybindings.nu
-source _atuin.nu
 source _just-completions.nu
 
 if "__zoxide_hooked" in $env and ($env.__zoxide_hooked | describe) == "string" {
