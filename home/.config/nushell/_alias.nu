@@ -1,8 +1,9 @@
 alias e = nvim
+alias plan = nvim PLAN.md
 
 alias dotfiles = cd ~/dev/dotfiles
 alias dot = cd ~/dev/dotfiles
-alias dev = cd ~/dev/personal
+alias dev = cd ~/dev/projects
 alias dl = cd ~/Downloads
 alias conf = cd ~/.config
 
@@ -27,6 +28,8 @@ alias jt = just tmux
 alias j = just
 alias ze = zellij
 alias zl = zellij list-sessions
+alias zml = zellij action move-tab left
+alias zmr = zellij action move-tab right
 
 alias rconf = sudo vim /boot/efi/EFI/refind/refind.conf
 alias ngconf = sudo vim /etc/nginx/nginx.conf
@@ -69,10 +72,9 @@ alias wl = nmcli device wifi list ifname wlp0s20u1
 alias wm = sudo wifi-menu enp0s20u1
 alias wi = curl ipinfo.io
 
-alias ls = lsd
 alias la = lsd --almost-all --group-dirs=first --human-readable --long
 alias las = lsd --almost-all --group-dirs=first --human-readable --long --dereference
-alias lad = lsd --almost-all --group-dirs=first --human-readable --long --sort=time --reverse
+alias lad = lsd --almost-all --group-dirs=first --human-readable --long --sort=time
 
 alias hosts = sudo nvim /etc/hosts
 alias cls = clear
