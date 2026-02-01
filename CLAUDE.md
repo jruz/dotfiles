@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a dotfiles repository that manages configuration files and application installations across multiple platforms (macOS, Linux/Ubuntu, Windows/WSL2) using a multi-layered approach.
 
+## Personal Projects
+
+Personal projects are located at `~/dev/projects/`.
+
 ## Architecture
 
 The repository is organized into platform-specific directories with a shared base:
@@ -37,6 +41,8 @@ The repository uses a three-tier package management approach:
 3. **Language Runtimes**: Managed via mise (`home/.config/mise/config.toml`)
    - Node.js, Python, Rust, Go, Deno versions
 
+**IMPORTANT**: Always use `just` recipes instead of running raw commands like `brew bundle`, `home-manager switch`, or `darwin-rebuild switch`. The justfile wraps these commands with additional setup steps. Run `just --list` to see available recipes.
+
 ## Common Commands
 
 ### Initial Setup
@@ -60,7 +66,7 @@ just stow-home
 
 Install GUI applications on macOS:
 ```bash
-cd home-mac && brew bundle
+just mac-install
 ```
 
 Update Homebrew packages on macOS:
@@ -139,7 +145,7 @@ Key configuration locations:
 When modifying configurations:
 1. Edit files in the appropriate `home*/` directory within this repository
 2. Run the appropriate `just stow-*` command to symlink changes
-3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `home-manager switch`
+3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `just nix-hm-switch`
 4. For macOS system settings, edit `mac/nix-darwin/flake.nix` and use `just nix-darwin-switch`
 
 ## Platform-Specific Notes
@@ -149,10 +155,6 @@ When modifying configurations:
 **Linux/Ubuntu**: Primarily uses Nix for package management.
 
 **Configuration Deployment**: Files are symlinked using GNU Stow, not copied. Changes to dotfiles in the repository immediately affect the live configuration.
-
-## Commit Message Convention
-
-All commit messages must follow the format: `Tool: Description`
 
 ## Working Directory
 

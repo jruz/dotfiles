@@ -99,9 +99,13 @@
         # Necessary for using flakes on this system.
         nix.settings.experimental-features = "nix-command flakes";
 
-        # Create /etc/zshrc that loads the nix-darwin environment.
-        programs.zsh.enable = true; # default shell on catalina
-        # programs.fish.enable = true;
+        programs.zsh.enable = true;
+
+        environment.shells = [ pkgs.nushell ];
+
+        users.users.jruz = {
+          shell = pkgs.nushell;
+        };
 
         # Set Git commit hash for darwin-version.
         system.configurationRevision = self.rev or self.dirtyRev or null;

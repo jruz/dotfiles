@@ -1,10 +1,18 @@
-{ config, pkgs, unstable, zjstatus, system, ... }:
+{
+  config,
+  pkgs,
+  unstable,
+  zjstatus,
+  system,
+  ...
+}:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
   zjstatusPackage = zjstatus.packages.${system}.default;
   mcp-language-server = pkgs.callPackage ./packages/mcp-language-server.nix { };
+  zellijinator = pkgs.callPackage ./packages/zellijinator.nix { };
 
 in
 {
@@ -18,14 +26,15 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     [
-      bat
       watch
       curl
       fd
       fontconfig
       fzf
+      age
       aria2
       util-linux
       ffmpeg
@@ -39,6 +48,7 @@ in
       procs
       zenith
       ripgrep
+      sd
       bottom
       rlwrap
       stow
@@ -47,6 +57,7 @@ in
       xclip
       zip
       yazi
+      signal-cli
 
       # GIT ------------------------
       delta
@@ -56,12 +67,14 @@ in
       git-filter-repo
       gitui
       lazygit
+      tea
 
       # SHELLS ---------------------
       zsh
       zinit
       tmux
       tmuxinator
+      zellijinator
       starship
       zoxide
 
@@ -89,6 +102,8 @@ in
       nixd
       nixfmt-classic
 
+      # Nushell --------------------
+
       # RUST -----------------------
       cargo-watch
       cargo-nextest
@@ -104,6 +119,7 @@ in
     ]
     ++ (with unstable; [
       atuin
+      bat
       mise
       neovim
       nerd-fonts.dejavu-sans-mono
@@ -112,17 +128,23 @@ in
       rust-analyzer
       usage
       vhs
+      woodpecker-cli
       zellij
+    ])
+    ++ (pkgs.lib.optionals isDarwin [
+      darwin.trash
     ])
     ++ (pkgs.lib.optionals (!isDarwin) [
       masterpdfeditor4
+      trash-cli
     ]);
 
   home.file = pkgs.lib.optionalAttrs isDarwin {
-    "Library/Application Support/nushell".source = config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/nushell";
+    "Library/Application Support/nushell".source =
+      config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/nushell";
   };
 
-  home.activation.copyZjstatus = config.lib.dag.entryAfter ["writeBoundary"] ''
+  home.activation.copyZjstatus = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     pluginDir="${homeDirectory}/.config/zellij/plugins"
     pluginFile="$pluginDir/zjstatus.wasm"
     mkdir -p "$pluginDir"

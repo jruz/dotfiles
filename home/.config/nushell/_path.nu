@@ -1,4 +1,5 @@
 let base_paths = [
+  "/opt/homebrew/bin"
   $"($env.HOME)/.nix-profile/bin"
   "/nix/var/nix/profiles/default/bin"
   "/run/current-system/sw/bin"
@@ -22,5 +23,6 @@ $env.PATH = (
   $existing_path
   | append $base_paths
   | prepend $"($env.HOME)/.orbstack/bin"
+  | prepend $"($env.HOME)/.amp/bin"
   | uniq
 )
