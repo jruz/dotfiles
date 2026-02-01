@@ -132,7 +132,7 @@ def wh [command: string] {
     let which_result = (which $command)
 
     if ($which_result | any { |row| $row.type == "alias" }) {
-        scope aliases | where name == $command
+        scope aliases | where name == $command | get expansion | first
     } else {
         $which_result
     }
@@ -162,11 +162,13 @@ def zel [] {
     zellij attach --create $session_name
 }
 
-def rm [...files: string] {
+def rm [...files: glob] {
+    let expanded = $files | flatten
     if (is_osx) {
-        ^trash ...$files
+        ^trash ...$expanded
     } else {
-        ^trash-put ...$files
+        ^trash-put ...$expanded
     }
 }
+
 
