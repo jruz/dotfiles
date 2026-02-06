@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nu-lint = {
-      url = "git+https://codeberg.org/wvhulle/nu-lint";
+      url = "git+https://codeberg.org/wvhulle/nu-lint?tag=v0.0.129";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -26,7 +26,6 @@
               pkgs.biome
               pkgs.fd
               pkgs.nixfmt
-              pkgs.nushell
               pkgs.selene
               pkgs.shellcheck
               pkgs.taplo

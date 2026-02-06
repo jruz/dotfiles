@@ -56,7 +56,18 @@ cmp.setup.cmdline({ '/', '?' }, {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = {
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'c' }),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'c' }),
+    ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), { 'c' }),
+    ['<CR>'] = cmp.mapping(function(fallback)
+      if cmp.visible() and cmp.get_selected_entry() then
+        cmp.confirm({ select = false })
+      else
+        fallback()
+      end
+    end, { 'c' }),
+  },
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
