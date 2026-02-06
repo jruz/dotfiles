@@ -77,6 +77,7 @@ in
       zellijinator
       starship
       zoxide
+      direnv
 
       # EDITORS --------------------
       helix

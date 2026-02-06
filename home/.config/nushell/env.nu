@@ -10,6 +10,9 @@ if (which mise | length) > 0 {
   source _mise.nu
 }
 
+if (which direnv | length) > 0 {
+  source _direnv.nu
+}
 if (which starship | length) > 0 {
   source _starship.nu
 }

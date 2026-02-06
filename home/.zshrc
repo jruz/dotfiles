@@ -53,6 +53,8 @@ stty -ixon
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
+export DIRENV_LOG_FORMAT=""
+eval "$(direnv hook zsh)"
 
 # YARN
 # export PATH="$(yarn global bin):$PATH"
