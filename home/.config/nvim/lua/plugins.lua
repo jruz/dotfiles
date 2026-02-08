@@ -48,6 +48,7 @@ local plugins = {
         position = "left",
         width = 35,
         mappings = {
+          ["<C-r>"] = "refresh",
           ["<cr>"] = "open",
           ["<2-LeftMouse>"] = "open",
           ["<LeftRelease>"] = function(state)
