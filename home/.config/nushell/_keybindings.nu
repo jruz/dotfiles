@@ -1,7 +1,7 @@
 use _gemini.nu
 
-$env.config = ($env.config | upsert keybindings {
-    $env.config.keybindings? | default [] | append {
+$env.config = ($env.config? | default {} | upsert keybindings {
+    ($env.config? | default {} | get keybindings? | default []) | append {
         name: gemini_prompt
         modifier: control
         keycode: char_g
