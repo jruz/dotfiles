@@ -7,8 +7,8 @@ alias dev = cd ~/dev/projects
 alias dl = cd ~/Downloads
 alias conf = cd ~/.config
 
-alias al = nvim ~/.config/nushell/alias.nu
-alias fu = nvim ~/.config/nushell/functions.nu
+alias al = nvim ~/.config/nushell/_alias.nu
+alias fu = nvim ~/.config/nushell/_functions.nu
 
 alias i3conf = nvim ~/.config/i3/config
 alias i3sconf = nvim ~/.config/i3status/config
@@ -93,12 +93,13 @@ alias dps = docker ps
 alias dpsa = docker ps -a
 alias ds = docker start
 alias dr = docker run
-alias da = docker attach
+alias da = direnv allow
 alias k = kubectl
 
 alias n = npm
 alias tags = ctags -R --exclude=.git --exclude=node_modules
 alias tf = terraform
+alias cl = claude --dangerously-skip-permissions --no-ui-decorations
 
 alias g = ^git
 alias ga = ^git add
@@ -130,7 +131,7 @@ alias gr = ^git reset
 alias grd = ^git rebase dev
 alias grh = ^git reset HEAD~
 alias grs = ^git rebase --skip
-alias gs = ^git status
+alias gs = ^git status --short
 alias gst = ^git stash --include-untracked
 alias gstp = ^git stash pop
 alias gwip = ^git commit -m "WIP"

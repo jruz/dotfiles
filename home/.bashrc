@@ -14,3 +14,4 @@ alias awk='gawk'
 alias cat='bat'
 alias find='fd'
 alias grep='rg'
+eval "$(direnv hook bash)"

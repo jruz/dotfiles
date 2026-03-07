@@ -116,7 +116,11 @@ work_resolution() {
 }
 
 encrypt() {
-  gpgtar -c --gpg-args --cipher-algo=AES256 -o "$1.gpg" "$1"
+  age -R ~/.ssh/jruz.pub -o "$1.age" "$1"
+}
+
+decrypt() {
+  age -d -i ~/.ssh/jruz -o "${1%.age}" "$1"
 }
 
 replace() {
@@ -177,11 +181,17 @@ colors() {
 }
 
 zk() {
-  zellij delete-session -f "$1"
+  procs "$1" | rg "\-\-server" | awk '{print $1}' | xargs -r kill -9
+  zellij delete-session "$1"
 }
 
 za() {
   zellij attach "$1"
+}
+
+zel() {
+  local session_name=$(basename "$(pwd)" | tr '[:lower:]' '[:upper:]')
+  zellij attach --create "$session_name"
 }
 
 _zellij_sessions() {
@@ -191,3 +201,11 @@ _zellij_sessions() {
 }
 
 compdef _zellij_sessions zk za
+
+rm() {
+  if is_osx; then
+    trash "$@"
+  elif is_linux; then
+    trash-put "$@"
+  fi
+}

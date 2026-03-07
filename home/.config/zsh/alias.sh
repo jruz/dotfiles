@@ -1,9 +1,10 @@
 alias e='$EDITOR'
+alias plan='nvim PLAN.md'
 
 # Config files
 alias dotfiles='cd ~/dev/dotfiles'
 alias dot='dotfiles'
-alias dev='cd ~/dev/personal'
+alias dev='cd ~/dev/projects'
 alias dl='cd ~/Downloads'
 alias conf='cd ~/.config'
 
@@ -29,6 +30,8 @@ alias jt="just tmux"
 alias j="just"
 alias ze="zellij"
 alias zl="zellij list-sessions"
+alias zml="zellij action move-tab left"
+alias zmr="zellij action move-tab right"
 
 alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
@@ -109,7 +112,7 @@ alias dps='d ps'
 alias dpsa='d ps -a'
 alias ds='d start'
 alias dr='d run'
-alias da='d attach'
+alias da='direnv allow'
 alias dip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" ${CID}'
 alias k='kubectl'
 

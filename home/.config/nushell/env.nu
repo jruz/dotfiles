@@ -13,6 +13,7 @@ if (which mise | length) > 0 {
 if (which direnv | length) > 0 {
   source _direnv.nu
 }
+
 if (which starship | length) > 0 {
   source _starship.nu
 }
@@ -27,3 +28,5 @@ if (which zoxide | length) > 0 {
     "" | save -f $zoxide_cache
   }
 }
+
+source _ssh.nu

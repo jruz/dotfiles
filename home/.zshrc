@@ -31,7 +31,12 @@ fi
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 export DOTFILES="${HOME}/dev/dotfiles"
-export GPG_TTY=$(tty)
+
+if [ -f ~/.env ]; then
+  set -a
+  source ~/.env
+  set +a
+fi
 
 # RG
 export RIPGREP_CONFIG_PATH=~/.config/rg/config
