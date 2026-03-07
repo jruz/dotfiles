@@ -1,3 +1,0 @@
-if command -v devenv &> /dev/null; then
-  eval "$(devenv direnvrc)"
-fi

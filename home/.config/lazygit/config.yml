@@ -1,4 +1,5 @@
 gui:
+  skipDiscardChangeWarning: true
   theme:
     activeBorderColor:
       - "#f9e2af"

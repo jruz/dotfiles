@@ -149,6 +149,9 @@ filter_mode_shell_up_key_binding = "directory"
 # This applies for new installs. Old installs will keep the old behaviour unless configured otherwise.
 enter_accept = true
 
+## Disable mouse capture so scrolling works normally in terminal
+mouse = false
+
 ## Defaults to "emacs".  This specifies the keymap on the startup of `atuin
 ## search`.  If this is set to "auto", the startup keymap mode in the Atuin
 ## search is automatically selected based on the shell's keymap where the
