@@ -57,6 +57,9 @@
       "WebFetch(domain:zellij.dev)"
     ],
     "deny": [
+      "Read(home/.config/git/allowed_signers)",
+      "Read(home/.config/nix/nix.conf)",
+      "Read(home/.ssh/config)",
       "Bash(brew bundle:*)",
       "Bash(darwin-rebuild switch:*)",
       "Bash(docker run:*)",

@@ -1,7 +1,0 @@
-- never write comments instead make sure code is easy to follow
-- never use allow to bypass a lint failure, look for ways to solve the problem either refactoring or following the recommendations of the linter
-- use ripgrep (rg) instead of grep for searching
-- use fd instead of find for finding files
-- when editing settings.json, keep all allow and deny lists sorted alphabetically
-- never run multiple Bash commands in parallel, execute them one at a time so each can be reviewed
-- when creating a skill, add permissions to `.claude/settings.json`
