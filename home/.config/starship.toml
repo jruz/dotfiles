@@ -1,7 +1,6 @@
 format = """
 $directory\
 $git_branch\
-$git_status\
 $fill\
 $cmd_duration\
 $bun\
@@ -42,22 +41,10 @@ symbol = " "
 [git_branch]
 symbol = ""
 style = "purple"
-format = "[\\($symbol $branch]($style)"
+format = "[\\($symbol $branch\\)]($style) "
 
 [git_status]
-style = "red"
-format = "[$ahead_behind$modified$untracked$staged$deleted](red)[\\)](purple) "
-ahead = " ⇡${count}"
-behind = " ⇣${count}"
-diverged = " ⇕⇡${ahead_count}⇣${behind_count}"
-stashed = ""
-modified = " +${count}"
-untracked = " ?${count}"
-staged = " ++${count}"
-deleted = " -${count}"
-conflicted = "=${count} "
-renamed = "»${count} "
-up_to_date = ""
+disabled = true
 
 [aws]
 symbol = "  "
