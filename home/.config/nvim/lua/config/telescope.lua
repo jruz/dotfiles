@@ -1,7 +1,7 @@
-local telescope = require('telescope.builtin')
-local tabs      = require('telescope-tabs')
+local telescope = require("telescope.builtin")
+local tabs = require("telescope-tabs")
 
-local command   = {
+local command = {
   ":Telescope find_files find_command=rg",
   "--no-ignore-vcs",
   "--no-ignore-dot",
@@ -9,9 +9,47 @@ local command   = {
   "-g",
   "!.git/*",
   "-g",
+  "!home/.claude/debug/*",
+  "-g",
+  "!home/.claude/file-history/*",
+  "-g",
+  "!home/.claude/history.jsonl",
+  "-g",
+  "!home/.claude/plans/*",
+  "-g",
+  "!home/.claude/plugins/*",
+  "-g",
+  "!home/.claude/projects/*",
+  "-g",
+  "!home/.claude/session-env/*",
+  "-g",
+  "!home/.claude/shell-snapshots/*",
+  "-g",
+  "!home/.claude/stats-cache.json",
+  "-g",
+  "!home/.claude/statsig/*",
+  "-g",
+  "!home/.claude/telemetry/*",
+  "-g",
+  "!home/.claude/todos/*",
+  "-g",
   "!node_modules/*",
   "-g",
+  "!tmp/*",
+  "-g",
+  "!build/*",
+  "-g",
+  "!.sqlx/*",
+  "-g",
   "!*/node_modules/*",
+  "-g",
+  "!*/.terraform/*",
+  "-g",
+  "!*/build/*",
+  "-g",
+  "!*/*.tfstate.*",
+  "-g",
+  "!*/*.DS_Store",
   "-g",
   "!target/*",
   "-g",
@@ -20,11 +58,11 @@ local command   = {
   "!.cpcache",
   "-g",
   "!.lsp",
-  "--files<Enter>"
+  "--files<Enter>",
 }
 
 vim.api.nvim_set_keymap("n", "<C-P>", table.concat(command, ","), { noremap = true, silent = true })
 
-vim.keymap.set('n', '<C-B>', telescope.buffers, {})
-vim.keymap.set('n', '<C-F>', telescope.live_grep, {})
-vim.keymap.set('n', '<C-D>', tabs.list_tabs, {})
+vim.keymap.set("n", "<C-B>", telescope.buffers, {})
+vim.keymap.set("n", "<C-F>", telescope.live_grep, {})
+vim.keymap.set("n", "<C-D>", tabs.list_tabs, {})

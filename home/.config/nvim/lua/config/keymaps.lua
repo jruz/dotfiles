@@ -1,8 +1,12 @@
 -- Remove arrow keys
-vim.api.nvim_set_keymap("n", "<Up>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Down>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Left>", "<NOP>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Right>", "<NOP>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Up>", "<C-b>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Down>", "<C-f>", { noremap = true })
+vim.keymap.set("n", "<Left>", function()
+  require('gitsigns').prev_hunk()
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<Right>", function()
+  require('gitsigns').next_hunk()
+end, { noremap = true, silent = true })
 
 -- Split navigation with ctrl
 vim.api.nvim_set_keymap("n", "<C-J>", "<C-W><C-J>", { noremap = true })
@@ -56,10 +60,45 @@ vim.api.nvim_set_keymap('n', 'D', '"+D', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'dd', '"+dd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true, silent = true })
 
+local function set_fold_level(level, nestmax)
+  local bufnr = vim.api.nvim_get_current_buf()
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+  local buftype = vim.bo[bufnr].buftype
+  if buftype ~= "" then
+    return
+  end
+  vim.wo.foldlevel = level
+  vim.wo.foldnestmax = nestmax
+end
+
 vim.keymap.set('n', 'zz', 'za', { noremap = true, silent = true })
 vim.keymap.set('n', 'z0', 'zR', { noremap = true, silent = true })
-vim.keymap.set('n', 'z1', function() vim.wo.foldlevel = 0; vim.wo.foldnestmax = 1 end, { noremap = true, silent = true })
-vim.keymap.set('n', 'z2', function() vim.wo.foldlevel = 1; vim.wo.foldnestmax = 2 end, { noremap = true, silent = true })
-vim.keymap.set('n', 'z3', function() vim.wo.foldlevel = 2; vim.wo.foldnestmax = 3 end, { noremap = true, silent = true })
-vim.keymap.set('n', 'z4', function() vim.wo.foldlevel = 3; vim.wo.foldnestmax = 4 end, { noremap = true, silent = true })
-vim.keymap.set('n', 'z5', function() vim.wo.foldlevel = 4; vim.wo.foldnestmax = 5 end, { noremap = true, silent = true })
+vim.keymap.set('n', 'z1', function()
+  set_fold_level(0, 1)
+end, { noremap = true, silent = true })
+vim.keymap.set('n', 'z2', function()
+  set_fold_level(1, 2)
+end, { noremap = true, silent = true })
+vim.keymap.set('n', 'z3', function()
+  set_fold_level(2, 3)
+end, { noremap = true, silent = true })
+vim.keymap.set('n', 'z4', function()
+  set_fold_level(3, 4)
+end, { noremap = true, silent = true })
+vim.keymap.set('n', 'z5', function()
+  set_fold_level(4, 5)
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>th', function()
+  vim.opt.list = not vim.opt.list:get()
+end, { noremap = true, silent = true, desc = "Toggle hidden characters" })
+
+vim.keymap.set({ 'n', 'v' }, 'c', '"_c', { noremap = true, silent = true })
+vim.keymap.set('n', 'C', '"_C', { noremap = true, silent = true })
+vim.keymap.set('n', 'cc', '"_cc', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, 's', '"_s', { noremap = true, silent = true })
+vim.keymap.set('n', 'S', '"_S', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, 'x', '"_x', { noremap = true, silent = true })
+vim.keymap.set('n', 'X', '"_X', { noremap = true, silent = true })

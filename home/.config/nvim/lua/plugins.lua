@@ -104,7 +104,7 @@ local plugins = {
         ["Find Under"] = "<C-d>",
         ["Find Subword Under"] = "<C-d>",
       }
-      vim.g.VM_mouse_mappings = 1
+      vim.g.VM_mouse_mappings = 0
       vim.g.VM_silent_exit = 1
       vim.g.VM_show_warnings = 0
       vim.g.VM_set_statusline = 0
@@ -163,7 +163,7 @@ local plugins = {
         view = "cmdline",
       },
       messages = {
-        view_search = "virtualtext",
+        view_search = false,
       },
       lsp = {
         progress = { enabled = false },
@@ -184,10 +184,28 @@ local plugins = {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    opts = {
-      heading = { position = "inline", backgrounds = {}, icons = {} },
-      bullet = { icons = { "•" } },
-    },
+    config = function()
+      require('render-markdown').setup({
+      heading = { sign = false, position = "inline", backgrounds = {}, icons = {} },
+      code = {
+        enabled = true,
+        style = 'full',
+        left_pad = 0,
+        right_pad = 0,
+        inline = false,
+      },
+      bullet = {
+        enabled = false,
+      },
+      checkbox = {
+        enabled = false,
+      },
+      quote = {
+        enabled = false,
+      },
+      })
+      vim.opt.conceallevel = 0
+    end,
   },
   "nvim-treesitter/nvim-treesitter",
   "nvim-tree/nvim-web-devicons",
@@ -228,6 +246,10 @@ local plugins = {
 
   -- ReScript
   "rescript-lang/vim-rescript",
+  {
+    "aspeddro/rescript-tools.nvim",
+    ft = "rescript",
+  },
 
   -- Rust
   {
@@ -247,7 +269,21 @@ local plugins = {
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
-      require("supermaven-nvim").setup({})
+      require("supermaven-nvim").setup({
+        ignore_filetypes = {
+          sh = true,
+          dotenv = true,
+        },
+      })
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          vim.g.SUPERMAVEN_DISABLED = 0
+          local api = require("supermaven-nvim.api")
+          if not api.is_running() then
+            api.start()
+          end
+        end,
+      })
     end,
   },
 
@@ -316,7 +352,11 @@ local plugins = {
     config = function()
       require('lsp-format').setup({})
     end,
-  }
+  },
+  {
+    "jannis-baum/vivify.vim",
+    ft = { "markdown" },
+  },
 }
 
 local opts = {

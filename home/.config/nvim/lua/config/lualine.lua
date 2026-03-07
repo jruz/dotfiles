@@ -18,10 +18,27 @@ local function filename_with_parent()
   return parent .. '/' .. filename
 end
 
+local filename_component = {
+  filename_with_parent,
+  separator = '',
+}
+
+local modified_indicator = {
+  function()
+    if vim.bo.modified then
+      return '•'
+    end
+    return ''
+  end,
+  color = { fg = 'red' },
+  padding = { left = 1, right = 0 },
+  separator = '',
+}
+
 local markdown_sections = {
   lualine_a = { 'mode' },
   lualine_b = {},
-  lualine_c = { filename_with_parent },
+  lualine_c = { filename_component, modified_indicator },
   lualine_x = {},
   lualine_y = {},
   lualine_z = { word_count }
@@ -34,7 +51,7 @@ lualine.setup({
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { filename_with_parent },
+    lualine_c = { filename_component, modified_indicator },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }

@@ -139,6 +139,14 @@ vim.lsp.enable('ts_ls')
 vim.lsp.enable('terraformls')
 vim.lsp.enable('tflint')
 
+vim.lsp.config('jsonls', {
+  init_options = {
+    provideFormatter = false
+  },
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})
 vim.lsp.enable('jsonls')
 vim.lsp.enable('rnix')
 vim.lsp.enable('sourcekit')
