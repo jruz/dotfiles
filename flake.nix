@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nu-lint = {
-      url = "git+https://codeberg.org/wvhulle/nu-lint?tag=v0.0.129";
+      url = "git+https://codeberg.org/wvhulle/nu-lint?ref=refs/tags/v0.0.129";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

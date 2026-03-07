@@ -1,16 +1,16 @@
-{
-  config,
-  pkgs,
-  unstable,
-  zjstatus,
-  system,
-  ...
+{ config
+, pkgs
+, unstable
+, zjstatus
+, system
+, ...
 }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
   zjstatusPackage = zjstatus.packages.${system}.default;
+  deff = import ./packages/deff.nix { inherit unstable; };
   mcp-language-server = pkgs.callPackage ./packages/mcp-language-server.nix { };
   zellijinator = pkgs.callPackage ./packages/zellijinator.nix { };
 
@@ -20,7 +20,7 @@ in
 
   home.homeDirectory = homeDirectory;
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;
 
@@ -43,7 +43,7 @@ in
       gnused
       tree
       jq
-      just
+      yq-go
       lsd
       procs
       zenith
@@ -58,18 +58,21 @@ in
       zip
       yazi
       signal-cli
+      mermaid-cli
+      sshpass
 
       # GIT ------------------------
+      deff
       delta
       gh
       git
-      git-crypt
       git-filter-repo
       gitui
       lazygit
       tea
 
       # SHELLS ---------------------
+      nushell
       zsh
       zinit
       tmux
@@ -85,11 +88,6 @@ in
 
       # BUILD ----------------------
       openssl
-      #llvm
-      #clang
-      #mold
-      #cmake
-      #pkg-config
 
       # VIM ------------------------
       vim
@@ -101,32 +99,21 @@ in
 
       # Nix -------------------------
       nixd
-      nixfmt-classic
+      nixfmt
 
       # Nushell --------------------
 
-      # RUST -----------------------
-      cargo-watch
-      cargo-nextest
-      bacon
-      # cargo-generate
-      # cargo-lambda
-
       # CLOJURE --------------------
       babashka
-
-      # MCP SERVERS ----------------
-      mcp-language-server
     ]
     ++ (with unstable; [
       atuin
       bat
+      just
       mise
       neovim
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.lekton
-      nushell
-      rust-analyzer
       usage
       vhs
       woodpecker-cli
