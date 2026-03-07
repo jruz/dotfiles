@@ -57,44 +57,99 @@ layout {
         }
     }
 
-    tab name="DOT" cwd="/Users/jruz/dev/dotfiles" focus=true {
+    tab name="dotfiles" cwd="~/dev/dotfiles" focus=true {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
             pane
         }
     }
-
-    tab name="Brain" cwd="/Users/jruz/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain" {
+    tab name="brain" cwd="/Users/jruz/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain" {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
             pane
         }
     }
-
-    tab name=".claude" cwd="/Users/jruz/.claude" {
+    tab name="claude" cwd="~/dev/.claude" {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
             pane
         }
     }
-
-    tab name="conductor" cwd="/Users/jruz/dev/projects/conductor" {
+    tab name="hetzner" cwd="~/dev/projects/hetzner" {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
             pane
         }
     }
-
-    tab name="hetzner" cwd="/Users/jruz/dev/projects/hetzner" {
+    tab name="conductor" cwd="~/dev/projects/conductor" {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
             pane
         }
     }
-
-    tab name="server-admin" cwd="/Users/jruz/dev/projects/server-admin/main" {
+    tab name="slop" cwd="~/dev/projects/slop-detector" {
         pane split_direction="vertical" {
-            pane command="claude" { args "--dangerously-skip-permissions"; }
+            pane
+            pane
+        }
+    }
+    tab name="money" cwd="~/dev/projects/money" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="trader" cwd="~/dev/projects/trader" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="compose" cwd="~/dev/projects/compose" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="notifier" cwd="~/dev/projects/woodpecker-notifier" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="msg" cwd="~/dev/projects/msg" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="manager" cwd="~/dev/projects/manager" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="admin" cwd="~/dev/projects/server-admin" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="zellij" cwd="~/dev/projects/zellij-plugins" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="chrome" cwd="~/dev/projects/chrome-cli" {
+        pane split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab name="mini" cwd="~/dev/projects/mac-mini" {
+        pane split_direction="vertical" {
+            pane
             pane
         }
     }

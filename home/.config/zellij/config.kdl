@@ -11,10 +11,10 @@ keybinds clear-defaults=true {
         bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
         bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
         bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
-        bind "Left" { MovePane "left"; SwitchToMode "normal"; }
-        bind "Right" { MovePane "right"; SwitchToMode "normal"; }
-        bind "Up" { MovePane "up"; SwitchToMode "normal"; }
-        bind "Down" { MovePane "down"; SwitchToMode "normal"; }
+        bind "Left" { MoveFocus "left"; SwitchToMode "normal"; }
+        bind "Right" { MoveFocus "right"; SwitchToMode "normal"; }
+        bind "Up" { MoveFocus "up"; SwitchToMode "normal"; }
+        bind "Down" { MoveFocus "down"; SwitchToMode "normal"; }
         bind "H" { Resize "Increase left"; }
         bind "J" { Resize "Increase down"; }
         bind "K" { Resize "Increase up"; }
@@ -116,11 +116,20 @@ themes {
 
 theme "catppuccin-mocha-custom"
 default_layout "layout"
+default_shell "nu"
 pane_frames true
-copy_command "pbcopy"
 copy_on_select true
 scrollback_editor "nvim"
 mouse_mode true
 pane_frames_highlight_on_hover false
 show_startup_tips false
 advanced_mouse_actions false
+
+plugins {
+    tab-renamer location="file:/Users/jruz/.config/zellij/plugins/tab-renamer.wasm"
+    worktrees location="file:/Users/jruz/.config/zellij/plugins/worktrees.wasm"
+}
+
+load_plugins {
+    "file:/Users/jruz/.config/zellij/plugins/tab-renamer.wasm"
+}
