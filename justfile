@@ -1,18 +1,26 @@
-lint: lint-sh lint-lua nushell-lint
+set dotenv-load
+
+check:
+  just lint-sh
+  just lint-lua
+  just nushell-lint
+
+clean:
+  just nix-clean
+  just mise-clean
 
 lint-lua:
   cd home/.config/nvim && selene .
 
 lint-sh:
-  shellcheck \
+  fd -e sh --exclude tmp -x shellcheck \
     --shell=bash \
-    -e SC1090 `# can't follow non-constant source` \
-    -e SC1091 `# can't follow source to external file` \
-    **/*.sh
+    -e SC1090 \
+    -e SC1091
 
 nushell-lint:
   #!/usr/bin/env nu
-  fd -e nu . home/.config/nushell | lines | each { |file|
+  ^fd -e nu . home/.config/nushell | lines | each { |file|
     print $"Checking ($file)..."
     nu -c $"source ($file)"
   }
@@ -22,42 +30,40 @@ nushell-test:
   test-runner.nu
 
 ssh-keygen EMAIL:
-  #!/usr/bin/env sh
   ssh-keygen -t ed25519 -C "{{EMAIL}}"
-  gh auth login
-  gh ssh-key add ~/.ssh/id_ed25519.pub --title "$(hostname)"
+
+github-auth:
+  #!/usr/bin/env nu
+  ^gh auth login
+  ^gh ssh-key add ~/.ssh/jruz.pub
 
 ssh-setup:
-  #!/usr/bin/env sh
-  if [ "$(uname)" = "Darwin" ]; then
-    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-  else
-    ssh-add ~/.ssh/id_ed25519
-  fi
-
-tmux:
-  tmuxinator local
+  #!/usr/bin/env nu
+  if (^uname) == "Darwin" {
+    ^ssh-add --apple-use-keychain ~/.ssh/jruz
+  } else {
+    ^ssh-add ~/.ssh/jruz
+  }
 
 stow-home:
   stow -t ~ -v --ignore='home-manager' home
 
-stow-mac: stow-home
+stow-mac:
+  just stow-home
   stow -t ~ -v home-mac
 
-stow-linux: stow-home
+stow-linux:
+  just stow-home
   stow -t ~ -v home-linux
 
-stow: stow-home
+stow:
+  just stow-home
 
 git-config:
   git --no-pager config --global -l
 
-gpg-import KEYFILE:
-  #!/usr/bin/env sh
-  gpg --import "{{KEYFILE}}"
-  KEY_ID=$(gpg --with-colons --import-options show-only --import "{{KEYFILE}}" | awk -F: '/^pub:/ {print $5}')
-  echo "$KEY_ID:6:" | gpg --import-ownertrust
-  echo "Imported and trusted key: $KEY_ID"
+github-signing:
+  gh ssh-key add ~/.ssh/jruz.pub --type signing
 
 tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -86,6 +92,12 @@ mise-remove TOOL:
     print $"($tool) not found in mise config"
   }
 
+mac-cleanup:
+  cd home-mac && brew bundle cleanup
+
+mac-cleanup-force:
+  cd home-mac && brew bundle cleanup --force
+
 mac-install:
   cd home-mac && brew bundle
 
@@ -104,7 +116,15 @@ nix-list:
   nix-channel --list
 
 nix-latest:
-  gh api repos/NixOS/nixpkgs/branches --paginate -q '.[].name' | grep -E '^nixos-[0-9]+\.[0-9]+$' | sort -V | tail -1 | cut -d- -f2
+  #!/usr/bin/env nu
+  (gh api repos/NixOS/nixpkgs/branches
+    --paginate -q '.[].name'
+    | lines
+    | where {|it| $it =~ '^nixos-\d+\.\d+$'}
+    | sort --natural
+    | last
+    | split row '-'
+    | last)
 
 nix-channel-upgrade VERSION:
   nix-channel --add https://nixos.org/channels/nixos-{{VERSION}} nixpkgs
@@ -113,9 +133,13 @@ nix-channel-upgrade VERSION:
   nix-channel --list
 
 nix-core-upgrade:
-  nix upgrade-nix
+  sudo nix upgrade-nix
 
-nix-full-upgrade: nix-core-upgrade nix-hm-update nix-darwin-update
+nix-full-upgrade:
+  just nix-channel-upgrade $(just nix-latest)
+  just nix-core-upgrade
+  just nix-hm-update
+  just nix-darwin-update
 
 nix-hm-edit:
   cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
@@ -125,37 +149,42 @@ nix-hm-config:
   rm -rf ~/.config/home-manager
   cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
 
-nix-hm-update: nix-hm-config
+nix-hm-update:
+  just nix-hm-config
   nix flake update --flake ~/.config/home-manager
   home-manager switch --flake ~/.config/home-manager
+  bat cache --build
 
-nix-hm-switch: nix-hm-config
+nix-hm-switch:
+  just nix-hm-config
   home-manager switch --flake ~/.config/home-manager
+  bat cache --build
 
 bootstrap:
-  #!/usr/bin/env sh
-  echo "Stowing dotfiles..."
-  if [ "$(uname)" = "Darwin" ]; then
-    just stow-mac
-  else
-    just stow-linux
-  fi
-  echo ""
-  echo "Setting up Home Manager..."
-  just nix-hm-switch
-  echo ""
-  if [ "$(uname)" = "Darwin" ]; then
-    echo "Setting up nix-darwin..."
-    just nix-darwin-switch
-    echo ""
-  fi
-  echo "Configuring SSH agent..."
-  just ssh-setup
-  echo ""
-  echo "Installing language runtimes with mise..."
-  mise install
-  echo ""
-  echo "Bootstrap complete!"
+  #!/usr/bin/env nu
+  print "Stowing dotfiles..."
+  if (^uname) == "Darwin" {
+    ^just stow-mac
+    print ""
+    print "Setting up Home Manager..."
+    ^just nix-hm-switch
+    print ""
+    print "Setting up nix-darwin..."
+    ^just nix-darwin-switch
+  } else {
+    ^just stow-linux
+    print ""
+    print "Setting up Home Manager..."
+    ^just nix-hm-switch
+  }
+  print ""
+  print "Configuring SSH agent..."
+  ^just ssh-setup
+  print ""
+  print "Installing language runtimes with mise..."
+  ^mise install
+  print ""
+  print "Bootstrap complete!"
 
 nix-darwin-diff:
 	vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
@@ -172,10 +201,25 @@ nix-darwin-update:
 	nix flake update --flake ~/.config/nix-darwin
 	sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
+set-shell:
+  #!/usr/bin/env nu
+  let shell_path = if (^uname) == "Darwin" {
+    "/run/current-system/sw/bin/nu"
+  } else {
+    $"($env.HOME)/.nix-profile/bin/nu"
+  }
+  let shells = open /etc/shells | lines
+  if not ($shell_path in $shells) {
+    print $"Adding ($shell_path) to /etc/shells..."
+    $"($shell_path)\n" | ^sudo tee --append /etc/shells
+  }
+  print $"Changing shell to ($shell_path)..."
+  print "You may be prompted for your password:"
+  ^chsh -s $shell_path
+  print "Shell changed! Restart your terminal for it to take effect."
+
 nix-clean:
   nix-collect-garbage
-
-clean: nix-clean mise-clean
 
 ip-router:
   #!/usr/bin/env nu
@@ -192,3 +236,16 @@ ip-repeater:
   let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
   if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
   print $"http://($ip)"
+
+sandbox-build:
+  docker build -t dotfiles-claude-sandbox .
+
+sandbox:
+  just sandbox-build
+  docker run -it --rm \
+    -e CLAUDE_CODE_OAUTH_TOKEN \
+    -v "$(pwd):/workspace" \
+    -v "$HOME/.claude:/home/claude/.claude" \
+    -v "$HOME/.claude.json:/home/claude/.claude.json" \
+    -w /workspace \
+    dotfiles-claude-sandbox
