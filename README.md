@@ -47,14 +47,17 @@ Install Nix: https://nixos.org/download.html
 
     nix-shell -p just gh stow
     just ssh-keygen your@email.com
+    just github-auth
     git remote set-url origin git@github.com:jruz/dotfiles.git
     just bootstrap
 
 Bootstrap will detect OS, stow dotfiles, install home-manager packages, configure ssh-agent, and install language runtimes.
 
-### 4. GPG Key
+### 4. SSH Signing Key (GitHub)
 
-    just gpg-import ~/path/to/key.file
+Add your SSH key to GitHub as a signing key for verified commits:
+
+    just github-signing
 
 ### 5. Git config
 
