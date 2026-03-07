@@ -9,18 +9,15 @@
 {
   "context_servers": {
     "mcp-server-github": {
-      "source": "extension",
       "enabled": true,
       "settings": {
         "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     }
   },
-  "features": {
-    "edit_prediction_provider": "copilot"
-  },
   "show_edit_predictions": false,
   "edit_predictions": {
+    "provider": "copilot",
     "mode": "eager",
     "copilot": {
       "proxy": null,
@@ -30,8 +27,8 @@
   },
   "agent": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "deepseek",
+      "model": "deepseek-reasoner"
     }
   },
   "telemetry": {
@@ -79,6 +76,9 @@
     }
   },
   "languages": {
+    "Markdown": {
+      "format_on_save": "on"
+    },
     "Rust": {
       "show_edit_predictions": true
     },

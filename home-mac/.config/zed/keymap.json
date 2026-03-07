@@ -11,46 +11,16 @@
     "bindings": {
       "cmd-esc": null,
       "cmd-t": "terminal_panel::ToggleFocus",
-      "cmd-a h": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
-      "cmd-w h": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
-      "cmd-w l": [
-        "workspace::ActivatePaneInDirection",
-        "Right"
-      ],
-      "cmd-a l": [
-        "workspace::ActivatePaneInDirection",
-        "Right"
-      ],
-      "cmd-a k": [
-        "workspace::ActivatePaneInDirection",
-        "Up"
-      ],
-      "cmd-a up": [
-        "workspace::ActivatePaneInDirection",
-        "Up"
-      ],
-      "cmd-a j": [
-        "workspace::ActivatePaneInDirection",
-        "Down"
-      ],
-      "cmd-a down": [
-        "workspace::ActivatePaneInDirection",
-        "Down"
-      ],
-      "cmd-a left": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
-      "cmd-a right": [
-        "workspace::ActivatePaneInDirection",
-        "Right"
-      ],
+      "cmd-a h": "workspace::ActivatePaneLeft",
+      "cmd-w h": "workspace::ActivatePaneLeft",
+      "cmd-w l": "workspace::ActivatePaneRight",
+      "cmd-a l": "workspace::ActivatePaneRight",
+      "cmd-a k": "workspace::ActivatePaneUp",
+      "cmd-a up": "workspace::ActivatePaneUp",
+      "cmd-a j": "workspace::ActivatePaneDown",
+      "cmd-a down": "workspace::ActivatePaneDown",
+      "cmd-a left": "workspace::ActivatePaneLeft",
+      "cmd-a right": "workspace::ActivatePaneRight",
       "alt-h": "workspace::ToggleLeftDock",
       "alt-l": "workspace::ToggleRightDock"
     }
@@ -83,7 +53,7 @@
       "z a": "editor::Fold",
       "z o": "editor::UnfoldLines",
       "alt-right": "editor::GoToDiagnostic",
-      "alt-left": "editor::GoToPrevDiagnostic",
+      "alt-left": "editor::GoToPreviousDiagnostic",
       "alt-h": "workspace::ToggleLeftDock"
     }
   },
@@ -92,22 +62,10 @@
     "bindings": {
       "cmd-a z": "workspace::ToggleZoom",
       "ctrl-a z": "workspace::ToggleZoom",
-      "cmd-a k": [
-        "workspace::ActivatePaneInDirection",
-        "Up"
-      ],
-      "cmd-a up": [
-        "workspace::ActivatePaneInDirection",
-        "Up"
-      ],
-      "cmd-a h": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
-      "cmd-a left": [
-        "workspace::ActivatePaneInDirection",
-        "Left"
-      ],
+      "cmd-a k": "workspace::ActivatePaneUp",
+      "cmd-a up": "workspace::ActivatePaneUp",
+      "cmd-a h": "workspace::ActivatePaneLeft",
+      "cmd-a left": "workspace::ActivatePaneLeft",
       "cmd-a": [
         "terminal::SendKeystroke",
         "ctrl-a"
