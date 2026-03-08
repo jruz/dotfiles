@@ -24,5 +24,6 @@ $env.PATH = (
   | append $base_paths
   | prepend $"($env.HOME)/.orbstack/bin"
   | prepend $"($env.HOME)/.amp/bin"
+  | prepend $"($env.HOME)/.cargo/bin"
   | uniq
 )

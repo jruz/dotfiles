@@ -5,3 +5,4 @@ fi
 export PATH="$HOME/.nix-profile/bin:$PATH"
 export PATH="$HOME/.orbstack/bin:$PATH"
 export PATH="$HOME/.amp/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
