@@ -123,8 +123,10 @@ in
       darwin.trash
     ])
     ++ (pkgs.lib.optionals (!isDarwin) [
-      masterpdfeditor4
       trash-cli
+    ])
+    ++ (pkgs.lib.optionals (system == "x86_64-linux") [
+      masterpdfeditor4
     ]);
 
   home.file = pkgs.lib.optionalAttrs isDarwin {
