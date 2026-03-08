@@ -25,5 +25,3 @@ if (which zoxide | length) > 0 {
     "" | save -f $zoxide_cache
   }
 }
-
-source _ssh.nu
