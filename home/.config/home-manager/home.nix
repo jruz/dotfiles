@@ -1,7 +1,6 @@
 { config
 , pkgs
 , unstable
-, zjstatus
 , system
 , ...
 }:
@@ -9,7 +8,6 @@
 let
   isDarwin = pkgs.stdenv.isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
-  zjstatusPackage = zjstatus.packages.${system}.default;
   deff = import ./packages/deff.nix { inherit unstable; };
   mcp-language-server = pkgs.callPackage ./packages/mcp-language-server.nix { };
   zellijinator = pkgs.callPackage ./packages/zellijinator.nix { };
@@ -134,14 +132,5 @@ in
       config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/nushell";
   };
 
-  home.activation.copyZjstatus = config.lib.dag.entryAfter [ "writeBoundary" ] ''
-    pluginDir="${homeDirectory}/.config/zellij/plugins"
-    pluginFile="$pluginDir/zjstatus.wasm"
-    mkdir -p "$pluginDir"
-    if [ -L "$pluginFile" ] || [ -f "$pluginFile" ]; then
-      $DRY_RUN_CMD rm -f "$pluginFile"
-    fi
-    $DRY_RUN_CMD cp -f ${zjstatusPackage}/bin/zjstatus.wasm "$pluginFile"
-  '';
 
 }

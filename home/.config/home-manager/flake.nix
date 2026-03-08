@@ -8,10 +8,9 @@
       url = "git+https://codeberg.org/wvhulle/nu-lint";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    zjstatus.url = "github:dj95/zjstatus";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nu-lint, zjstatus, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nu-lint, ... }:
     let
       mkHome = system:
         let
@@ -20,7 +19,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit unstable nu-lint zjstatus system; };
+          extraSpecialArgs = { inherit unstable nu-lint system; };
           modules = [ ./home.nix ];
         };
     in
