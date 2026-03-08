@@ -140,6 +140,7 @@ in
       darwin.trash
     ])
     ++ (pkgs.lib.optionals (!isDarwin) [
+      ghostty.terminfo
       trash-cli
     ])
     ++ (pkgs.lib.optionals (system == "x86_64-linux") [
