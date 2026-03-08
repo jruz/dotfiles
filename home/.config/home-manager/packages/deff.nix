@@ -11,7 +11,7 @@ unstable.rustPlatform.buildRustPackage rec {
     hash = "sha256-CZl9KDeBVo8qgYZNgQST8ThBwA7C6WjG3Dn1IE2nw7g=";
   };
 
-  cargoHash = "sha256-9HleEVGpp0KJ4A5cuDN7FK3rJbY+liqrmXLr+Ox4AIk=";
+  cargoHash = "sha256-rjt4513Cs3tDM3XJ+Qx4E2ECCowGBq6zAqaxRtvGNVg=";
 
   meta = {
     description = "Interactive side-by-side git diff reviewer";
