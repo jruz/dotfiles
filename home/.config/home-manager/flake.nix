@@ -25,7 +25,6 @@
     in
     {
       homeConfigurations = {
-        jruz = mkHome "aarch64-darwin";
         "jruz@x86_64-linux" = mkHome "x86_64-linux";
         "jruz@aarch64-linux" = mkHome "aarch64-linux";
         "jruz@x86_64-darwin" = mkHome "x86_64-darwin";

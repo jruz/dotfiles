@@ -126,15 +126,21 @@ nix-hm-config:
   cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
 
 nix-hm-update:
-  just nix-hm-config
-  nix flake update --flake ~/.config/home-manager
-  home-manager switch --flake ~/.config/home-manager
-  bat cache --build
+  #!/usr/bin/env nu
+  ^just nix-hm-config
+  ^nix flake update --flake ~/.config/home-manager
+  let system = (^nix eval --impure --raw --expr "builtins.currentSystem")
+  let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
+  ^home-manager switch --flake $flake
+  ^bat cache --build
 
 nix-hm-switch:
-  just nix-hm-config
-  home-manager switch --flake ~/.config/home-manager
-  bat cache --build
+  #!/usr/bin/env nu
+  ^just nix-hm-config
+  let system = (^nix eval --impure --raw --expr "builtins.currentSystem")
+  let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
+  ^home-manager switch --flake $flake
+  ^bat cache --build
 
 bootstrap:
   #!/usr/bin/env nu
