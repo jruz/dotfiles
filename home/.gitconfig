@@ -1,7 +1,7 @@
 [user]
 	email = javi@jruz.io
 	name = jruz
-	signingkey = ~/.ssh/jruz.pub
+	signingkey = ~/.ssh/codeberg.pub
 [gpg]
 	format = ssh
 [gpg "ssh"]
