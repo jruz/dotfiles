@@ -31,6 +31,7 @@ fi
 export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 export DOTFILES="${HOME}/dev/dotfiles"
+export COLORTERM=truecolor
 
 if [ -f ~/.env ]; then
   set -a
