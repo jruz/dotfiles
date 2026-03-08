@@ -9,7 +9,6 @@
 [push]
 	default = simple
 [core]
-	excludesfile = ~/.gitignore_global
 	pager = bat --style=plain --paging=always
 [merge]
 	conflictstyle = zdiff3
