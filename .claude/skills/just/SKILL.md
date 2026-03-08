@@ -1,6 +1,6 @@
 ---
 name: just
-description: Use when running brew bundle, darwin-rebuild, home-manager switch, mise upgrade, nix flake update, nix upgrade-nix, nix-channel, nix-collect-garbage, or stow commands. These commands are BANNED and must use justfile recipes instead.
+description: Use when running brew bundle, darwin-rebuild, home-manager switch, nix flake update, nix upgrade-nix, nix-channel, nix-collect-garbage, or stow commands. These commands are BANNED and must use justfile recipes instead.
 ---
 
 # Just Skill
@@ -20,7 +20,6 @@ The following commands are banned in `.claude/settings.json` and MUST be run via
 | `brew bundle` | `just mac-update` | Update macOS GUI applications |
 | `darwin-rebuild switch` | `just nix-darwin-switch` | Apply macOS system settings |
 | `home-manager switch` | `just nix-hm-switch` | Apply Home Manager configuration |
-| `mise upgrade` | `just mise-upgrade` | Upgrade language runtimes |
 | `nix flake update` | `just nix-hm-update` or `just nix-darwin-update` | Update flake dependencies |
 | `nix upgrade-nix` | `just nix-core-upgrade` | Upgrade Nix itself |
 | `nix-channel --add` | `just nix-channel-upgrade VERSION` | Add/update Nix channels |
@@ -36,10 +35,6 @@ The following commands are banned in `.claude/settings.json` and MUST be run via
 just mac-update              # Update Homebrew packages and casks
 just mac-outdated            # Check for outdated macOS packages
 
-just mise-upgrade            # Upgrade all mise tools
-just mise-outdated           # Check for outdated mise tools
-just mise-clean              # Prune unused mise versions
-just mise-remove TOOL        # Remove a mise tool from config
 ```
 
 ### Nix & Home Manager
@@ -75,8 +70,8 @@ just stow-home               # Deploy only base home/ directory
 ### Other Utilities
 
 ```bash
-just bootstrap               # Full system setup (stow + home-manager + nix-darwin + ssh + mise)
-just clean                   # Clean up Nix store and mise versions
+just bootstrap               # Full system setup (stow + home-manager + nix-darwin + ssh)
+just clean                   # Clean up Nix store
 just lint                    # Run all linters (shellcheck + selene)
 ```
 

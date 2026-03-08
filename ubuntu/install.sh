@@ -9,7 +9,6 @@ pip install -r requirements.txt
 # echo "blacklist nouveau" | sudo tee /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 # sudo update-initramfs -u
 # sudo apt remove nvidia-prime
-# mise install
 # dpkg -i motivewave_6.8.8_amd64.deb
 # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
 # nix-channel --update

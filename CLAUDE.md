@@ -27,7 +27,7 @@ Configuration deployment uses GNU Stow to symlink files from these directories t
 
 ## Package Management Strategy
 
-The repository uses a three-tier package management approach:
+The repository uses a two-tier package management approach:
 
 1. **CLI Tools**: Managed via Nix + Home Manager (`home/.config/home-manager/home.nix`)
    - Cross-platform CLI tools
@@ -37,9 +37,6 @@ The repository uses a three-tier package management approach:
 2. **GUI Applications (macOS)**: Managed via Homebrew (`home-mac/Brewfile`)
    - Desktop applications installed via Homebrew casks
    - Mac App Store apps installed via `mas`
-
-3. **Language Runtimes**: Managed via mise (`home/.config/mise/config.toml`)
-   - Node.js, Python, Rust, Go, Deno versions
 
 **IMPORTANT**: Always use `just` recipes instead of running raw commands like `brew bundle`, `home-manager switch`, or `darwin-rebuild switch`. The justfile wraps these commands with additional setup steps. Run `just --list` to see available recipes.
 
@@ -77,21 +74,6 @@ just mac-update
 Update Nix channels and apply Home Manager configuration:
 ```bash
 just nix-update
-```
-
-Check for outdated mise tools:
-```bash
-just mise-outdated
-```
-
-Upgrade mise tools:
-```bash
-just mise-upgrade
-```
-
-Install language runtimes:
-```bash
-mise install
 ```
 
 ### Nix Darwin (macOS System Configuration)

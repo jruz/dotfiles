@@ -72,8 +72,6 @@ source <(just --completions zsh)
 
 # SCRIPTS & ALIAS (explicit order)
 source ~/.config/zsh/ssh-agent.sh
-source ~/.config/zsh/mise.sh
-source ~/.config/zsh/mise_completion.sh
 source ~/.config/zsh/alias.sh
 source ~/.config/zsh/functions.sh
 source ~/.config/zsh/js.sh

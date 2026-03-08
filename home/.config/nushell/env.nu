@@ -6,9 +6,6 @@ if (which fzf | length) > 0 {
   source _fzf.nu
 }
 
-if (which mise | length) > 0 {
-  source _mise.nu
-}
 
 if (which direnv | length) > 0 {
   source _direnv.nu

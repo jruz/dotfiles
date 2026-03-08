@@ -10,7 +10,6 @@ Welcome to my dotfiles, here's where I try to find a sane way to sync apps and c
 
 - CLI  - Nix + Home Manager [home.nix](/home/.config/home-manager/home.nix)
 - GUI - Homebrew [Brewfile](/home-mac/Brewfile)
-- Languages - mise [config.toml](/home/.config/mise/config.toml)
 - .config - with Stow [justfile](/justfile)
 
 ## CLI Editors:
@@ -51,7 +50,7 @@ Install Nix: https://nixos.org/download.html
     git remote set-url origin git@github.com:jruz/dotfiles.git
     just bootstrap
 
-Bootstrap will detect OS, stow dotfiles, install home-manager packages, configure ssh-agent, and install language runtimes.
+Bootstrap will detect OS, stow dotfiles, install home-manager packages, and configure ssh-agent.
 
 ### 4. SSH Signing Key (GitHub)
 

@@ -27,10 +27,6 @@ just mac-update
 just nix-full-upgrade
 ```
 
-```bash
-just mise-upgrade
-```
-
 ### Ubuntu/Debian (WSL or native)
 
 ```bash
@@ -39,10 +35,6 @@ just ubuntu-update
 
 ```bash
 just nix-hm-update
-```
-
-```bash
-just mise-upgrade
 ```
 
 ### Fedora
@@ -55,10 +47,6 @@ sudo dnf upgrade --refresh -y && sudo dnf autoremove -y
 just nix-hm-update
 ```
 
-```bash
-just mise-upgrade
-```
-
 ### NixOS
 
 ```bash
@@ -69,16 +57,11 @@ sudo nixos-rebuild switch --upgrade
 just nix-hm-update
 ```
 
-```bash
-just mise-upgrade
-```
-
 ## Notes
 
 - `mac-update` updates Homebrew and upgrades GUI apps from `home-mac/Brewfile`
 - `nix-full-upgrade` combines: nix core upgrade, Home Manager update, and nix-darwin update
 - `nix-hm-update` updates the Home Manager flake and switches to it (CLI tools)
-- `mise-upgrade` upgrades language runtimes (Node, Python, Rust, Go, etc.)
 - `ubuntu-update` runs apt update, full-upgrade, and autoremove
 
 ## Optional Cleanup
@@ -89,4 +72,4 @@ After updates complete successfully, optionally run:
 just clean
 ```
 
-This runs `nix-collect-garbage` and `mise prune` to remove old versions.
+This runs `nix-collect-garbage` to remove old versions.

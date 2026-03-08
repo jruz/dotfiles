@@ -111,7 +111,6 @@ in
       atuin
       bat
       just
-      mise
       neovim
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.lekton

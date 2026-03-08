@@ -7,7 +7,6 @@ check:
 
 clean:
   just nix-clean
-  just mise-clean
 
 lint-lua:
   cd home/.config/nvim && selene .
@@ -68,29 +67,6 @@ github-signing:
 tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do Ctrl+a I to install the plugins
-
-mise-upgrade:
-  mise upgrade --bump
-
-mise-outdated:
-  mise outdated --bump
-
-mise-clean:
-  mise prune
-
-mise-remove TOOL:
-  #!/usr/bin/env nu
-  let tool = "{{TOOL}}"
-  let config_path = $"($env.HOME)/.config/mise/config.toml"
-  let content = open $config_path
-  if ($tool in ($content.tools | columns)) {
-    let updated = $content | update tools { reject $tool }
-    $updated | to toml | save -f $config_path
-    ^mise uninstall $tool --all
-    print $"Removed ($tool) from config and system"
-  } else {
-    print $"($tool) not found in mise config"
-  }
 
 mac-cleanup:
   cd home-mac && brew bundle cleanup
@@ -180,9 +156,6 @@ bootstrap:
   print ""
   print "Configuring SSH agent..."
   ^just ssh-setup
-  print ""
-  print "Installing language runtimes with mise..."
-  ^mise install
   print ""
   print "Bootstrap complete!"
 

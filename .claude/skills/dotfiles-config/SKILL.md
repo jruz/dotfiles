@@ -69,10 +69,6 @@ Apply: `home-manager switch`
 Edit: `home-mac/Brewfile`
 Apply: `cd home-mac && brew bundle`
 
-### Language Runtimes (mise)
-Edit: `home/.config/mise/config.toml`
-Apply: `mise install`
-
 ### macOS System Settings (nix-darwin)
 Edit: `mac/nix-darwin/flake.nix`
 Apply: `just nix-darwin-switch`
