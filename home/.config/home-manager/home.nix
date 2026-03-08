@@ -95,17 +95,33 @@ in
       selene
       luajitPackages.jsregexp
 
+      # LSP SERVERS ----------------
+      lua-language-server
+      bash-language-server
+      typescript-language-server
+      vscode-langservers-extracted # eslint, jsonls, html, css
+      efm-langserver
+      deno
+      terraform-ls
+      tflint
+      tfsec
+      pylyzer
+      biome
+      prettier
+      shfmt
+
       # Nix -------------------------
       nixd
       nixfmt
-
-      # Nushell --------------------
 
       # AI -------------------------
       claude-code
 
       # CLOJURE --------------------
       babashka
+      clojure-lsp
+      clj-kondo
+      joker
     ]
     ++ (with unstable; [
       atuin

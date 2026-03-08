@@ -207,7 +207,54 @@ local plugins = {
       vim.opt.conceallevel = 0
     end,
   },
-  "nvim-treesitter/nvim-treesitter",
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      local install_dir = vim.fn.expand("~/.local/share/nvim/treesitter")
+      require("nvim-treesitter").setup({
+        install_dir = install_dir,
+      })
+
+      -- Install parsers (async, runs in background)
+      local parsers = {
+        "bash", "c", "clojure", "css", "gleam", "glsl", "html",
+        "javascript", "json", "lua", "python", "query",
+        "rust", "toml", "typescript", "vim", "vimdoc", "yaml",
+      }
+      require("nvim-treesitter").install(parsers)
+
+      -- Auto-install parser and enable highlighting on file open
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local bufnr = args.buf
+          local ft = vim.bo[bufnr].filetype
+          local lang = vim.treesitter.language.get_lang(ft) or ft
+
+          local ts = require("nvim-treesitter")
+          local installed = ts.get_installed()
+          local is_installed = vim.tbl_contains(installed, lang)
+
+          if is_installed then
+            pcall(vim.treesitter.start, bufnr)
+          else
+            -- Check if parser is available, install and start after
+            local available = ts.get_available()
+            if vim.tbl_contains(available, lang) then
+              ts.install(lang):wait(60000) -- wait up to 60s
+              vim.schedule(function()
+                if vim.api.nvim_buf_is_valid(bufnr) then
+                  pcall(vim.treesitter.start, bufnr)
+                end
+              end)
+            end
+          end
+        end,
+      })
+    end,
+  },
   "nvim-tree/nvim-web-devicons",
   "stevearc/oil.nvim",
   {
@@ -300,9 +347,6 @@ local plugins = {
 
 
   -- LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-  "WhoIsSethDaniel/mason-tool-installer.nvim",
   { "j-hui/fidget.nvim",  tag = "legacy" },
   { "folke/lazydev.nvim", ft = "lua",    opts = {} },
   "mfussenegger/nvim-dap",

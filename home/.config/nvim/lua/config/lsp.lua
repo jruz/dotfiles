@@ -1,36 +1,4 @@
-require("mason").setup()
-
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "bashls",
-    "clojure_lsp",
-    "denols",
-    "efm",
-    "eslint",
-    "jsonls",
-    "lua_ls",
-    "pylyzer",
-    "rescriptls",
-    "rnix",
-    "terraformls",
-    "tflint",
-    "ts_ls",
-  },
-  automatic_installation = true,
-})
-
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "biome",
-    "clj-kondo",
-    "joker",
-    "prettier",
-    "shfmt",
-    "tfsec",
-  },
-  auto_update = false,
-  run_on_start = true,
-})
+-- LSP servers installed via Nix (home-manager)
 
 vim.lsp.config('lua_ls', {
   settings = {
@@ -148,9 +116,9 @@ vim.lsp.config('jsonls', {
   end,
 })
 vim.lsp.enable('jsonls')
-vim.lsp.enable('rnix')
+vim.lsp.enable('nixd')
 vim.lsp.enable('sourcekit')
-vim.lsp.enable('rescriptls')
+-- vim.lsp.enable('rescriptls') -- not in nixpkgs, install via npm if needed
 
 vim.lsp.enable('pylyzer')
 
