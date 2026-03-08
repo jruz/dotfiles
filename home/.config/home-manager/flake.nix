@@ -8,9 +8,13 @@
       url = "git+https://codeberg.org/wvhulle/nu-lint";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    claude-code = {
+      url = "github:sadjow/claude-code-nix?ref=v2.1.58";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nu-lint, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nu-lint, claude-code, ... }:
     let
       mkHome = system:
         let
@@ -19,7 +23,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit unstable nu-lint system; };
+          extraSpecialArgs = { inherit unstable nu-lint claude-code system; };
           modules = [ ./home.nix ];
         };
     in

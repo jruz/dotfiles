@@ -1,6 +1,7 @@
 { config
 , pkgs
 , unstable
+, claude-code
 , system
 , ...
 }:
@@ -115,7 +116,7 @@ in
       nixfmt
 
       # AI -------------------------
-      claude-code
+      claude-code.packages.${system}.default
 
       # CLOJURE --------------------
       babashka
