@@ -101,7 +101,7 @@ in
       typescript-language-server
       vscode-langservers-extracted # eslint, jsonls, html, css
       efm-langserver
-      deno
+      bun
       terraform-ls
       tflint
       tfsec
