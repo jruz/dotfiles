@@ -1,38 +1,36 @@
 {
-  description = "Dotfiles linting environment";
+  description = "DevShell";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nu-lint = {
-      url = "git+https://codeberg.org/wvhulle/nu-lint?ref=refs/tags/v0.0.129";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, nu-lint, ... }:
-    let
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-    in
-    {
-      devShells = forAllSystems (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          nu-lint-pkg = nu-lint.packages.${system}.default;
-        in
-        {
-          default = pkgs.mkShell {
-            buildInputs = [
-              pkgs.biome
-              pkgs.fd
-              pkgs.nixfmt
-              pkgs.selene
-              pkgs.shellcheck
-              pkgs.taplo
-              pkgs.yamllint
-              nu-lint-pkg
-            ];
-          };
-        });
-    };
+  outputs = { nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            biome
+            bun
+            fd
+            nixfmt
+            selene
+            shellcheck
+            taplo
+            yamllint
+          ];
+
+          shellHook = ''
+            echo ""
+            echo "  Dotfiles Development Shell"
+            echo "  ───────────────────────────"
+            echo "  Bun:         ${pkgs.bun.version}"
+            echo ""
+          '';
+        };
+      });
 }
