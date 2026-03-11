@@ -58,6 +58,7 @@ in
       yazi
       signal-cli
       mermaid-cli
+      lsof
       sshpass
 
       # GIT ------------------------
