@@ -1,0 +1,7 @@
+#!/usr/bin/env nu
+# vim: ft=nu
+
+def main [] {
+    ^git config core.hooksPath .githooks
+    print "Git hooks path set to .githooks"
+}
