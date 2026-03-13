@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
 
-import { homedir } from "os";
 import { parseArgs } from "util";
 import { write } from "bun";
 import { log } from "./log.ts";
@@ -111,15 +110,16 @@ const { values, positionals } = parseArgs({
 });
 
 if (positionals.length === 0) {
-  log.error('No tabs provided. Usage: zellij-generate-dev-layout.ts \'{"path":"/dir","name":"label"}\' ...');
+  log.error('No tabs provided. Usage: zellij-generate-dev-layout.ts --output <path> \'{"path":"/dir","name":"label"}\' ...');
   process.exit(1);
 }
 
 const tabs = positionals.map(parseTab);
 
-const output =
-  values.output ??
-  `${homedir()}/dev/dotfiles/home/.config/zellij/layouts/dev.kdl`;
+if (!values.output) {
+  log.error("Missing --output flag");
+  process.exit(1);
+}
 
-await write(output, generateLayout(tabs));
+await write(values.output, generateLayout(tabs));
 log.info(`Layout saved to ${output}`);
