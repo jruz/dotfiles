@@ -216,6 +216,9 @@ ip-repeater:
   if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
   print $"http://($ip)"
 
+claude-check-update:
+  bun run scripts/claude-code-check-update.ts
+
 sandbox-build:
   docker build -t dotfiles-claude-sandbox .
 

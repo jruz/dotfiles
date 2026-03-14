@@ -1,0 +1,40 @@
+import { log } from "./log";
+import { readFile } from "fs/promises";
+import { homedir } from "os";
+
+const FLAKE_PATH = `${homedir()}/dev/dotfiles/home/.config/home-manager/flake.nix`;
+const NPM_REGISTRY = "https://registry.npmjs.org/@anthropic-ai/claude-code";
+
+const fetchStableVersion = async (): Promise<string> => {
+  const response = await fetch(NPM_REGISTRY);
+  if (!response.ok) {
+    throw new Error(`npm registry returned ${response.status}`);
+  }
+  const data = (await response.json()) as { "dist-tags": Record<string, string> };
+  const stable = data["dist-tags"].stable;
+  if (!stable) {
+    throw new Error("no stable dist-tag found");
+  }
+  return stable;
+};
+
+const readCurrentVersion = async (): Promise<string> => {
+  const content = await readFile(FLAKE_PATH, "utf-8");
+  const match = content.match(/claude-code-nix\?ref=v([\d.]+)/);
+  if (!match) {
+    throw new Error("could not find claude-code version in flake.nix");
+  }
+  return match[1];
+};
+
+const current = await readCurrentVersion();
+const stable = await fetchStableVersion();
+
+log.info(`current: ${current}`);
+log.info(`stable:  ${stable}`);
+
+if (current === stable) {
+  log.ok("up to date");
+} else {
+  log.warn(`update available: ${current} → ${stable}`);
+}
