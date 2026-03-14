@@ -48,6 +48,7 @@
             "/System/Applications/Calendar.app"
             "/Applications/Transmission.app"
             "/Applications/MEGAVPN.app"
+            "/Applications/NextDNS.app"
             "/System/Applications/Calculator.app"
             "/System/Applications/Home.app"
             "/Applications/1Password.app"
