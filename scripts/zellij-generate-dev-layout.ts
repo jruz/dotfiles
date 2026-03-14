@@ -2,6 +2,7 @@
 
 import { parseArgs } from "util";
 import { write } from "bun";
+import { homedir } from "os";
 import { log } from "./log.ts";
 
 const LAYOUT_HEADER = `layout {
@@ -100,26 +101,20 @@ const generateLayout = (tabs: ReadonlyArray<Tab>): string => {
   return replacePowerline(`${LAYOUT_HEADER}${tabsKdl}${LAYOUT_FOOTER}`);
 };
 
-const { values, positionals } = parseArgs({
+const OUTPUT = `${homedir()}/dev/dotfiles/home/.config/zellij/layouts/dev.kdl`;
+
+const { positionals } = parseArgs({
   args: Bun.argv.slice(2),
-  options: {
-    output: { type: "string", short: "o" },
-  },
   allowPositionals: true,
   strict: true,
 });
 
 if (positionals.length === 0) {
-  log.error('No tabs provided. Usage: zellij-generate-dev-layout.ts --output <path> \'{"path":"/dir","name":"label"}\' ...');
+  log.error('No tabs provided. Usage: zellij-generate-dev-layout.ts \'{"path":"/dir","name":"label"}\' ...');
   process.exit(1);
 }
 
 const tabs = positionals.map(parseTab);
 
-if (!values.output) {
-  log.error("Missing --output flag");
-  process.exit(1);
-}
-
-await write(values.output, generateLayout(tabs));
-log.info(`Layout saved to ${output}`);
+await write(OUTPUT, generateLayout(tabs));
+log.info(`Layout saved to ${OUTPUT}`);
