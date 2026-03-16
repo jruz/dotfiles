@@ -141,6 +141,7 @@ in
       darwin.trash
     ])
     ++ (pkgs.lib.optionals (!isDarwin) [
+      chromium
       ghostty.terminfo
       trash-cli
     ])
