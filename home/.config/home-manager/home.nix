@@ -143,6 +143,7 @@ in
     ++ (pkgs.lib.optionals (!isDarwin) [
       chromium
       ghostty.terminfo
+      podman
       trash-cli
     ])
     ++ (pkgs.lib.optionals (system == "x86_64-linux") [
