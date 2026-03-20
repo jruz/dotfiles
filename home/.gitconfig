@@ -8,15 +8,25 @@
 	allowedSignersFile = ~/.config/git/allowed_signers
 [push]
 	default = simple
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[pull]
+	rebase = true
 [core]
 	pager = bat --style=plain --paging=always
 [merge]
 	conflictstyle = zdiff3
 [init]
 	defaultBranch = main
+[rebase]
+	autoStash = true
+	autoSquash = true
+	updateRefs = true
 [diff]
 	algorithm = histogram
 	colorMoved = default
+	compactionHeuristic = true
 [rerere]
 	enabled = true
 [commit]
