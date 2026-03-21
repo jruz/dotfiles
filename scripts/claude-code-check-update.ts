@@ -36,5 +36,5 @@ log.info(`stable:  ${stable}`);
 if (current === stable) {
   log.ok("up to date");
 } else {
-  log.warn(`update available: ${current} → ${stable}`);
+  log.warn(`new version available: ${stable}`);
 }
