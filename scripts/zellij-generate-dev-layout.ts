@@ -3,6 +3,7 @@
 import { parseArgs } from "util";
 import { write } from "bun";
 import { homedir } from "os";
+import { z } from "zod/v4";
 import { log } from "./log.ts";
 
 const LAYOUT_HEADER = `layout {
@@ -68,14 +69,19 @@ const LAYOUT_HEADER = `layout {
 
 const LAYOUT_FOOTER = "}";
 
-type Tab = Readonly<{
-  path: string;
-  name: string;
-}>;
+const TabSchema = z
+  .object({
+    path: z.string(),
+    name: z.string(),
+  })
+  .readonly();
+
+type Tab = z.infer<typeof TabSchema>;
 
 const parseTab = (raw: string): Tab => {
   try {
-    return JSON.parse(raw) as Tab;
+    const parsed: unknown = JSON.parse(raw);
+    return TabSchema.parse(parsed);
   } catch (e) {
     log.error(`invalid tab JSON: ${raw}`);
     throw e;
@@ -96,7 +102,7 @@ const generateTab = (tab: Tab, idx: number): string => {
 const replacePowerline = (content: string): string =>
   content.replaceAll("{{RIGHT}}", "\ue0b0").replaceAll("{{LEFT}}", "\ue0b2");
 
-const generateLayout = (tabs: ReadonlyArray<Tab>): string => {
+const generateLayout = (tabs: readonly Tab[]): string => {
   const tabsKdl = tabs.map((tab, idx) => generateTab(tab, idx)).join("");
   return replacePowerline(`${LAYOUT_HEADER}${tabsKdl}${LAYOUT_FOOTER}`);
 };
@@ -110,7 +116,9 @@ const { positionals } = parseArgs({
 });
 
 if (positionals.length === 0) {
-  log.error('No tabs provided. Usage: zellij-generate-dev-layout.ts \'{"path":"/dir","name":"label"}\' ...');
+  log.error(
+    'No tabs provided. Usage: zellij-generate-dev-layout.ts \'{"path":"/dir","name":"label"}\' ...',
+  );
   process.exit(1);
 }
 
