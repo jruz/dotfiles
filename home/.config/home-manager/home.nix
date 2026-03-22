@@ -12,7 +12,6 @@ let
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
   deff = import ./packages/deff.nix { inherit unstable; };
   mcp-language-server = pkgs.callPackage ./packages/mcp-language-server.nix { };
-  zellijinator = pkgs.callPackage ./packages/zellijinator.nix { };
 
 in
 {
@@ -78,7 +77,6 @@ in
       zinit
       tmux
       tmuxinator
-      zellijinator
       starship
       zoxide
       direnv
