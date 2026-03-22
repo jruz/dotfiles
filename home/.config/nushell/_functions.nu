@@ -1,3 +1,5 @@
+use log.nu
+
 def is_linux [] {
     (uname).kernel-name == "Linux"
 }
@@ -179,6 +181,18 @@ def rm [...files: glob] {
     } else {
         ^trash-put ...$expanded
     }
+}
+
+def kill-port [port: int] {
+    let pids = (^lsof -ti $":($port)" | lines | where { |line| not ($line | is-empty) })
+
+    if ($pids | is-empty) {
+        log warn $"No process found on port ($port)"
+        return
+    }
+
+    $pids | each { |pid| ^kill -9 $pid }
+    log ok $"Killed processes on port ($port)"
 }
 
 
