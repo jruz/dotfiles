@@ -44,6 +44,19 @@ ssh-setup:
     ^ssh-add ~/.ssh/jruz
   }
 
+ssh-list:
+  ssh-add -L
+
+ssh-remove-all:
+  ssh-add -D
+
+ssh-add-all:
+  just ssh-remove-all
+  ssh-add ~/.ssh/ovh
+  ssh-add ~/.ssh/mini
+  ssh-add ~/.ssh/codeberg
+  ssh-add ~/.ssh/github
+
 stow-home:
   stow -t ~ -v --ignore='home-manager' home
 
