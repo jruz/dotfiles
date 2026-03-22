@@ -4,6 +4,16 @@ check:
   just lint-sh
   just lint-lua
   just nushell-lint
+  just ts-check
+
+ts-check:
+  bun run prettier --check .
+  bun run tsc --noEmit
+  bun run eslint .
+
+ts-fix:
+  bun run prettier --write .
+  bun run eslint . --fix
 
 clean:
   just nix-clean

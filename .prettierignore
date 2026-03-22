@@ -1,0 +1,13 @@
+.claude/
+.clj-kondo/
+home/
+home-mac/
+home-linux/
+mac/
+ubuntu/
+windows/
+tmp/
+node_modules/
+bun.lock
+package-lock.json
+*.md
