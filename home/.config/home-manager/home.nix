@@ -2,6 +2,7 @@
 , pkgs
 , unstable
 , claude-code
+, codex-cli
 , system
 , ...
 }:
@@ -118,6 +119,7 @@ in
 
       # AI -------------------------
       claude-code.packages.${system}.default
+      codex-cli.packages.${system}.default
 
       # CLOJURE --------------------
       babashka

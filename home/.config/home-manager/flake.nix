@@ -12,18 +12,40 @@
       url = "github:sadjow/claude-code-nix?ref=v2.1.62";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-cli = {
+      url = "github:sadjow/codex-cli-nix?ref=v0.116.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nu-lint, claude-code, ... }:
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nu-lint,
+      claude-code,
+      codex-cli,
+      ...
+    }:
     let
-      mkHome = system:
+      mkHome =
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           unstable = nixpkgs-unstable.legacyPackages.${system};
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit unstable nu-lint claude-code system; };
+          extraSpecialArgs = {
+            inherit
+              unstable
+              nu-lint
+              claude-code
+              codex-cli
+              system
+              ;
+          };
           modules = [ ./home.nix ];
         };
     in
