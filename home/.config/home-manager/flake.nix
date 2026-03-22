@@ -4,11 +4,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nu-lint = {
-      url = "git+https://codeberg.org/wvhulle/nu-lint";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    claude-code = {
+claude-code = {
       url = "github:sadjow/claude-code-nix?ref=v2.1.62";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -23,7 +19,6 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      nu-lint,
       claude-code,
       codex-cli,
       ...
@@ -40,7 +35,6 @@
           extraSpecialArgs = {
             inherit
               unstable
-              nu-lint
               claude-code
               codex-cli
               system
