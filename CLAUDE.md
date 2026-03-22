@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Terminal Environment
+
+- Shell: Nushell
+- Terminal: Ghostty
+- Multiplexer: Zellij
+
 ## Repository Overview
 
 This is a dotfiles repository that manages configuration files and application installations across multiple platforms (macOS, Linux/Ubuntu, Windows/WSL2) using a multi-layered approach.
