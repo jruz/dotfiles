@@ -1,4 +1,0 @@
-home/.config/git/allowed_signers
-home/.config/nix/nix.conf
-home/.ssh/config
-home/.env
