@@ -203,9 +203,16 @@ _zellij_sessions() {
 compdef _zellij_sessions zk za
 
 rm() {
+  local args=()
+  for arg in "$@"; do
+    case "$arg" in
+      -r|-f|-rf|-fr|-R) ;;
+      *) args+=("$arg") ;;
+    esac
+  done
   if is_osx; then
-    trash "$@"
+    trash "${args[@]}"
   elif is_linux; then
-    trash-put "$@"
+    trash-put "${args[@]}"
   fi
 }

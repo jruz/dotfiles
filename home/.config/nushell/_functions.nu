@@ -174,7 +174,11 @@ def zel [] {
     zellij attach --create $session_name
 }
 
-def rm [...files: glob] {
+def rm [
+    --recursive (-r)
+    --force (-f)
+    ...files: glob
+] {
     let expanded = $files | flatten
     if (is_osx) {
         ^trash ...$expanded
