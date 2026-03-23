@@ -91,10 +91,10 @@ tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do Ctrl+a I to install the plugins
 
-mac-cleanup:
+mac-uninstall-dry-run:
   cd home-mac && brew bundle cleanup
 
-mac-cleanup-force:
+mac-uninstall:
   cd home-mac && brew bundle cleanup --force
 
 mac-install:

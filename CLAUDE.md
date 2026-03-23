@@ -77,6 +77,16 @@ Update Homebrew packages on macOS:
 just mac-update
 ```
 
+Preview which Homebrew packages would be uninstalled (dry run):
+```bash
+just mac-uninstall-dry-run
+```
+
+Uninstall Homebrew packages not in Brewfile:
+```bash
+just mac-uninstall
+```
+
 Update Nix channels and apply Home Manager configuration:
 ```bash
 just nix-update
