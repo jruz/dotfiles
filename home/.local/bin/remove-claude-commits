@@ -1,0 +1,55 @@
+#!/usr/bin/env bun
+
+import { $ } from "bun";
+
+const log = {
+  info: (msg: string) => console.log(`[\x1b[34mINFO\x1b[0m] ${msg}`),
+  ok: (msg: string) => console.log(`[\x1b[32mOK\x1b[0m] ${msg}`),
+  error: (msg: string) => console.error(`[\x1b[31mERROR\x1b[0m] ${msg}`),
+};
+
+const args = process.argv.slice(2);
+const dryRun = args.includes("--dry-run") || args.includes("-n");
+
+const isGit = await $`git rev-parse --is-inside-work-tree`.quiet().nothrow();
+if (isGit.exitCode !== 0) {
+  log.error("not a git repository");
+  process.exit(1);
+}
+
+const dirty = (await $`git status --porcelain`.quiet().text()).trim();
+if (dirty.length > 0) {
+  log.error("working tree is dirty, commit or stash changes first");
+  process.exit(1);
+}
+
+const messages = await $`git log --format=%B---SEP--- --all`.quiet().text();
+const count = messages
+  .split("\n")
+  .filter((l) => l.includes("Co-Authored-By")).length;
+
+log.info(`Found ${count} commit messages containing 'Co-Authored-By'`);
+
+if (count === 0) {
+  log.ok("Nothing to clean");
+  process.exit(0);
+}
+
+if (dryRun) {
+  log.info("Affected commits:");
+  const fmt = "%h %s";
+  await $`git log --all --format=${fmt} --grep=Co-Authored-By`;
+  log.info("--dry-run: no changes made");
+  process.exit(0);
+}
+
+log.info("Rewriting history...");
+
+const callback = `return re.sub(rb'\\n*Co-Authored-By[^\\n]*\\n*', b'\\n', message).strip() + b'\\n'`;
+await $`git-filter-repo --message-callback ${callback} --force`;
+
+const remaining = (await $`git log --format=%B---SEP--- --all`.quiet().text())
+  .split("\n")
+  .filter((l) => l.includes("Co-Authored-By")).length;
+
+log.ok(`Removed ${count - remaining} Co-Authored-By lines`);
