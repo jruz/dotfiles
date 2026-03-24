@@ -20,6 +20,10 @@
       url = "git+https://codeberg.org/jruz/codeberg-settings?ref=refs/tags/v0.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-hooks = {
+      url = "git+https://codeberg.org/jruz/claude-hooks?ref=refs/tags/v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +35,7 @@
       codex-cli,
       woodpecker-settings,
       codeberg-settings,
+      claude-hooks,
       ...
     }:
     let
@@ -49,6 +54,7 @@
               codex-cli
               woodpecker-settings
               codeberg-settings
+              claude-hooks
               system
               ;
           };
