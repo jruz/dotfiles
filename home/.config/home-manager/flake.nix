@@ -12,6 +12,10 @@
       url = "github:sadjow/codex-cli-nix?ref=v0.116.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    woodpecker-settings = {
+      url = "git+https://codeberg.org/jruz/woodpecker-settings?ref=refs/tags/v0.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -21,6 +25,7 @@
       home-manager,
       claude-code,
       codex-cli,
+      woodpecker-settings,
       ...
     }:
     let
@@ -37,6 +42,7 @@
               unstable
               claude-code
               codex-cli
+              woodpecker-settings
               system
               ;
           };

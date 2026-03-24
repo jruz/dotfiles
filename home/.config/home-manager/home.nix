@@ -3,6 +3,7 @@
 , unstable
 , claude-code
 , codex-cli
+, woodpecker-settings
 , system
 , ...
 }:
@@ -117,6 +118,7 @@ in
       # AI -------------------------
       claude-code.packages.${system}.default
       codex-cli.packages.${system}.default
+      woodpecker-settings.packages.${system}.default
 
       # CLOJURE --------------------
       babashka
