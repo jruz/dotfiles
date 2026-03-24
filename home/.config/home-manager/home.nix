@@ -7,6 +7,7 @@
 , codeberg-settings
 , claude-hooks
 , claude-statusline
+, ager
 , system
 , ...
 }:
@@ -125,6 +126,7 @@ in
       codeberg-settings.packages.${system}.default
       claude-hooks.packages.${system}.default
       claude-statusline.packages.${system}.default
+      ager.packages.${system}.default
 
       # CLOJURE --------------------
       babashka

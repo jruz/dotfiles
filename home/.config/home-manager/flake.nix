@@ -28,6 +28,10 @@
       url = "git+https://codeberg.org/jruz/claude-statusline?ref=refs/tags/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ager = {
+      url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -41,6 +45,7 @@
       codeberg-settings,
       claude-hooks,
       claude-statusline,
+      ager,
       ...
     }:
     let
@@ -61,6 +66,7 @@
               codeberg-settings
               claude-hooks
               claude-statusline
+              ager
               system
               ;
           };
