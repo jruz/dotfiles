@@ -6,6 +6,7 @@
 , woodpecker-settings
 , codeberg-settings
 , claude-hooks
+, claude-statusline
 , system
 , ...
 }:
@@ -123,6 +124,7 @@ in
       woodpecker-settings.packages.${system}.default
       codeberg-settings.packages.${system}.default
       claude-hooks.packages.${system}.default
+      claude-statusline.packages.${system}.default
 
       # CLOJURE --------------------
       babashka

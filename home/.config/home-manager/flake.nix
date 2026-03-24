@@ -24,6 +24,10 @@
       url = "git+https://codeberg.org/jruz/claude-hooks?ref=refs/tags/v0.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-statusline = {
+      url = "git+https://codeberg.org/jruz/claude-statusline?ref=refs/tags/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -36,6 +40,7 @@
       woodpecker-settings,
       codeberg-settings,
       claude-hooks,
+      claude-statusline,
       ...
     }:
     let
@@ -55,6 +60,7 @@
               woodpecker-settings
               codeberg-settings
               claude-hooks
+              claude-statusline
               system
               ;
           };
