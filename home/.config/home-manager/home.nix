@@ -4,6 +4,7 @@
 , claude-code
 , codex-cli
 , woodpecker-settings
+, codeberg-settings
 , system
 , ...
 }:
@@ -119,6 +120,7 @@ in
       claude-code.packages.${system}.default
       codex-cli.packages.${system}.default
       woodpecker-settings.packages.${system}.default
+      codeberg-settings.packages.${system}.default
 
       # CLOJURE --------------------
       babashka

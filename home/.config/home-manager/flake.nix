@@ -16,6 +16,10 @@
       url = "git+https://codeberg.org/jruz/woodpecker-settings?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codeberg-settings = {
+      url = "git+https://codeberg.org/jruz/codeberg-settings?ref=refs/tags/v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@
       claude-code,
       codex-cli,
       woodpecker-settings,
+      codeberg-settings,
       ...
     }:
     let
@@ -43,6 +48,7 @@
               claude-code
               codex-cli
               woodpecker-settings
+              codeberg-settings
               system
               ;
           };
