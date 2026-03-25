@@ -1,7 +1,7 @@
 entries:
   home/.config/git/allowed_signers:
-    age_hash: 1d887d10db877193e0148c9f0fe0da0ef083532ed0cb5ef93071f53cd2572545
-    plain_hash: cb43a028b884e6599dc3d2c251cc8510e0af577d2cd8bc37bc99db8ff1a47d30
+    age_hash: 559b3ff8788f49cfd560ccef47e433cb526211a052ba04a1b21dce9a9bdd55a4
+    plain_hash: 70b43213a67304426cf57698050d0a5d847cfb4849d60fa69c57d384890b2dd5
   home/.config/nix/nix.conf:
     age_hash: ced1b08fee572e5f5aeb8372e49a969c98727270858177f3b8baa490fd651fe1
     plain_hash: 69da28411afb8e20d03a55e14b20fb91a091674e90c26693c468ec4c097f0ef2
