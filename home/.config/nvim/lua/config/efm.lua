@@ -1,9 +1,16 @@
 local lspformat = require("lsp-format")
 
-local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/"
+local function prettier_cmd()
+  local root = vim.fn.getcwd()
+  local local_prettier = root .. "/node_modules/.bin/prettier"
+  if vim.fn.executable(local_prettier) == 1 then
+    return local_prettier
+  end
+  return "prettier"
+end
 
 local prettier = {
-  formatCommand = mason_bin .. "prettier --stdin-filepath ${INPUT}",
+  formatCommand = prettier_cmd() .. " --stdin-filepath ${INPUT}",
   formatStdin = true,
 }
 
@@ -30,9 +37,15 @@ vim.lsp.config('efm', {
   init_options = { documentFormatting = true },
   settings = {
     languages = {
+      css = { prettier },
       html = { prettier },
+      javascript = { prettier },
+      javascriptreact = { prettier },
+      json = { prettier },
       markdown = { prettier },
       svelte = { prettier },
+      typescript = { prettier },
+      typescriptreact = { prettier },
       yaml = { prettier },
       clojure = { clojure },
       lua = { selene, stylua },
