@@ -126,10 +126,10 @@ show_startup_tips false
 advanced_mouse_actions false
 
 plugins {
-    tab-renamer location="file:/Users/jruz/.config/zellij/plugins/tab-renamer.wasm"
-    worktrees location="file:/Users/jruz/.config/zellij/plugins/worktrees.wasm"
+    tab-renamer location="file:~/.config/zellij/plugins/tab-renamer.wasm"
+    worktrees location="file:~/.config/zellij/plugins/worktrees.wasm"
 }
 
 load_plugins {
-    "file:/Users/jruz/.config/zellij/plugins/tab-renamer.wasm"
+    "file:~/.config/zellij/plugins/tab-renamer.wasm"
 }
