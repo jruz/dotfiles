@@ -254,6 +254,14 @@ ip-repeater:
 claude-check-update:
   bun run scripts/claude-code-check-update.ts
 
+# ---------------- ZELLIJ
+zellij-generate-mac:
+  just docker-run bun run scripts/zellij-generate-layout.ts --name mac
+
+zellij-generate-mini:
+  just docker-run bun run scripts/zellij-generate-layout.ts --name mini \
+
+
 sandbox-build:
   docker build -t dotfiles-claude-sandbox .
 

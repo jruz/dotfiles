@@ -199,4 +199,18 @@ def kill-port [port: int] {
     log ok $"Killed processes on port ($port)"
 }
 
+def zellij-mac [] {
+    (just
+        --justfile ~/dev/dotfiles/justfile
+        --working-directory ~/dev/dotfiles
+        zellij-generate-mac)
+    zellij --new-session-with-layout mac --session MAC
+}
 
+def zellij-mini [] {
+    (just
+        --justfile ~/dev/dotfiles/justfile
+        --working-directory ~/dev/dotfiles
+        zellij-generate-mini)
+    zellij --new-session-with-layout mini --session MINI
+}

@@ -1,0 +1,2 @@
+[ignore.by-rule]
+no-long-lines = ["justfile"]
