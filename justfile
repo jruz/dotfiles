@@ -1,6 +1,7 @@
 set dotenv-load
 
 check:
+  just nix-check
   just lint-sh
   just lint-lua
   just nushell-lint
@@ -29,6 +30,20 @@ docker-run *ARGS:
 
 clean:
   just nix-clean
+
+nix-check:
+  fd \
+    --extension nix \
+    --exec nixfmt --check
+  statix check .
+  deadnix --fail .
+
+nix-fix:
+  fd \
+    --extension nix \
+    --exec nixfmt
+  statix fix .
+  deadnix --edit .
 
 lint-lua:
   cd home/.config/nvim && selene .

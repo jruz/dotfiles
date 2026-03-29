@@ -16,10 +16,12 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            deadnix
             fd
             nixfmt
             selene
             shellcheck
+            statix
             taplo
             yamllint
           ];
