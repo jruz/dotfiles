@@ -7,13 +7,25 @@ check:
   just ts-check
 
 ts-check:
-  bun run prettier --check .
-  bun run tsc --noEmit
-  bun run eslint .
+  just docker-run bun run prettier --check .
+  just docker-run bun run tsc --noEmit
+  just docker-run bun run eslint .
 
 ts-fix:
-  bun run prettier --write .
-  bun run eslint . --fix
+  just docker-run bun run prettier --write .
+  just docker-run bun run eslint . --fix
+
+# ---------------- DOCKER
+docker-run *ARGS:
+  #!/usr/bin/env nu
+  let args = ("{{ARGS}}" | split row ' ' | where { |it| $it != "" })
+  (^docker run
+    --rm
+    --volume $"(pwd):/app"
+    --volume bun-modules:/app/node_modules
+    --workdir /app
+    "registry.jruz.io/bun:1.3.11-1"
+    ...$args)
 
 clean:
   just nix-clean
