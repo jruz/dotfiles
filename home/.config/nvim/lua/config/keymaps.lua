@@ -52,13 +52,6 @@ vim.keymap.set('n', '<C-S-p>', '<cmd>Telescope commands<cr>', { silent = true })
 vim.keymap.set({ 'n', 'i' }, '<C-_>', 'gcc', { remap = true, silent = true })
 vim.keymap.set('v', '<C-_>', 'gc', { remap = true, silent = true })
 
--- Copy and paste to system clipboard
-vim.api.nvim_set_keymap('n', 'yy', '"+yy', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'p', '"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'D', '"+D', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'dd', '"+dd', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true, silent = true })
 
 local function set_fold_level(level, nestmax)
   local bufnr = vim.api.nvim_get_current_buf()

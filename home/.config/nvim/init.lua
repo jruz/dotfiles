@@ -1,4 +1,6 @@
 -- Base Config
+require("env")
+require("clipboard")
 vim.o.compatible = false
 vim.o.encoding = "utf-8"
 vim.o.tabstop = 2
