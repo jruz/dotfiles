@@ -2,6 +2,7 @@ set dotenv-load
 
 check:
   just nix-check
+  just nix-check-version-sync
   just lint-sh
   just lint-lua
   just nushell-lint
@@ -44,6 +45,9 @@ nix-fix:
     --exec nixfmt
   statix fix .
   deadnix --edit .
+
+nix-check-version-sync:
+  just docker-run bun run scripts/nix-check-version-sync.ts
 
 lint-lua:
   cd home/.config/nvim && selene .
@@ -252,7 +256,7 @@ nix-clean:
 
 ip-router:
   #!/usr/bin/env nu
-  let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first?
+  let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first
   if $match == null { error make {msg: "Router not found in ARP table"} }
   let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
   if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
@@ -260,7 +264,7 @@ ip-router:
 
 ip-repeater:
   #!/usr/bin/env nu
-  let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first?
+  let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first
   if $match == null { error make {msg: "Repeater not found in ARP table"} }
   let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
   if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
