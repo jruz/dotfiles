@@ -270,8 +270,14 @@ ip-repeater:
   if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
   print $"http://($ip)"
 
+check-agent-update AGENT:
+  just docker-run bun run scripts/check-agent-update.ts {{AGENT}}
+
 claude-check-update:
-  bun run scripts/claude-code-check-update.ts
+  just check-agent-update claude
+
+codex-check-update:
+  just check-agent-update codex
 
 # ---------------- ZELLIJ
 zellij-generate-mac:
