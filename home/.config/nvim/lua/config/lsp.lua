@@ -109,8 +109,12 @@ vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format({ timeout_ms = 2000 })]]
 
 -- Keybindings
 vim.keymap.set('n', '<space>le', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = -1 })
+end)
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = 1 })
+end)
 vim.keymap.set('n', '<space>lq', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -125,9 +129,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', '<space>lD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<space>li', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<space>lh', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>lwa', vim.lsp.buf.add_workspace_folder, opts)

@@ -114,11 +114,15 @@ wk.add({
 })
 
 wk.add({
-  { "gd", vim.lsp.buf.definition, desc = "Go to Definition" },
-  { "gD", vim.lsp.buf.declaration, desc = "Go to Declaration" },
-  { "gr", vim.lsp.buf.references, desc = "References" },
-  { "gi", vim.lsp.buf.implementation, desc = "Implementation" },
-  { "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
+  { "gd", desc = "Go to Definition" },
+  { "gD", desc = "Go to Declaration" },
+  { "grr", desc = "References" },
+  { "gri", desc = "Implementation" },
+  { "gra", desc = "Code Action" },
+  { "grn", desc = "Rename" },
+  { "grt", desc = "Type Definition" },
+  { "grx", desc = "Codelens Run" },
+  { "K", desc = "Hover Documentation" },
   { "gc", group = "Comment" },
   { "gcc", desc = "Toggle Line" },
   { "gco", desc = "Add Below" },
