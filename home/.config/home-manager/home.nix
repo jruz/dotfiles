@@ -1,15 +1,16 @@
-{ config
-, pkgs
-, unstable
-, claude-code
-, codex-cli
-, woodpecker-settings
-, codeberg-settings
-, claude-hooks
-, claude-statusline
-, ager
-, system
-, ...
+{
+  config,
+  pkgs,
+  unstable,
+  claude-code,
+  codex-cli,
+  woodpecker-settings,
+  codeberg-settings,
+  claude-hooks,
+  claude-statusline,
+  ager,
+  system,
+  ...
 }:
 
 let
@@ -94,29 +95,27 @@ in
         stylua
         selene
         luajitPackages.jsregexp
-
-        # LSP SERVERS ----------------
         lua-language-server
         bash-language-server
         typescript-language-server
         vscode-langservers-extracted # eslint, jsonls, html, css
         efm-langserver
-        bun
         terraform-ls
         tflint
         tfsec
         pylyzer
-        biome
         prettier
         shfmt
 
-        # Nix -------------------------
+        # Nix -----------------------
         nixd
         nixfmt
 
         # AI -------------------------
         claude-code.packages.${system}.default
         codex-cli.packages.${system}.default
+
+        # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default
         codeberg-settings.packages.${system}.default
         claude-hooks.packages.${system}.default
