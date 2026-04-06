@@ -122,6 +122,7 @@ copy_on_select true
 scrollback_editor "nvim"
 mouse_mode true
 pane_frames_highlight_on_hover false
+mouse_hover_effects false
 show_startup_tips false
 advanced_mouse_actions false
 
@@ -132,4 +133,5 @@ plugins {
 
 load_plugins {
     "file:~/.config/zellij/plugins/tab-renamer.wasm"
+    "https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm"
 }
