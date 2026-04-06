@@ -33,9 +33,11 @@ const FLAKE_PATH = resolve(
   "flake.nix",
 );
 
+const StringSchema = z.string();
+
 const NpmRegistrySchema = z
   .object({
-    "dist-tags": z.record(z.string(), z.string()),
+    "dist-tags": z.record(StringSchema, StringSchema),
   })
   .readonly();
 
@@ -61,7 +63,8 @@ const fetchLatestVersion = async (
     throw new Error(`npm registry returned ${response.status}`);
   }
 
-  const data = NpmRegistrySchema.parse(await response.json());
+  const json = await response.json();
+  const data = NpmRegistrySchema.parse(json);
   const version = data["dist-tags"][distTag];
   if (!version) {
     throw new Error(`no ${distTag} dist-tag found for ${packageName}`);

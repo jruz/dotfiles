@@ -64,7 +64,8 @@ const checkFlake = async (check: FlakeCheck): Promise<Mismatch | null> => {
 };
 
 const main = async () => {
-  const results = await Promise.all(FLAKE_CHECKS.map(checkFlake));
+  const checks = FLAKE_CHECKS.map(checkFlake);
+  const results = await Promise.all(checks);
   const mismatches = results.filter((r): r is Mismatch => r !== null);
 
   if (mismatches.length === 0) {

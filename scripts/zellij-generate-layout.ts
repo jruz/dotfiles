@@ -10,9 +10,12 @@ import { log } from "./log.ts";
 const RIGHT = "\ue0b0";
 const LEFT = "\ue0b2";
 
+const StringSchema = z.string();
+const StringArraySchema = z.array(StringSchema);
+
 const ConfigSchema = z
   .object({
-    layouts: z.record(z.string(), z.array(z.string())),
+    layouts: z.record(StringSchema, StringArraySchema),
   })
   .readonly();
 
@@ -47,7 +50,8 @@ const quotedProp = (key: string, value: string | number | boolean): Entry =>
 
 const val = (name: string, value: string | number | boolean): Node => {
   const n = Node.create(name);
-  n.entries.push(quotedArg(value));
+  const arg = quotedArg(value);
+  n.entries.push(arg);
   return n;
 };
 
@@ -59,9 +63,10 @@ const kdlNode = (
   children?: Node[],
 ): Node => {
   const n = Node.create(name);
-  Object.entries(props).forEach(([key, value]) =>
-    n.entries.push(quotedProp(key, value)),
-  );
+  Object.entries(props).forEach(([key, value]) => {
+    const prop = quotedProp(key, value);
+    n.entries.push(prop);
+  });
   if (children) {
     n.children = new Document(children);
   }
@@ -199,7 +204,8 @@ const toKdlV1 = (kdlV2: string): string =>
 const generateLayout = (tabs: readonly Tab[]): string => {
   const tabNodes = tabs.map((tab, idx) => generateTab(tab, idx));
   const layout = kdlNode("layout", {}, [defaultTabTemplate(), ...tabNodes]);
-  return toKdlV1(format(new Document([layout])));
+  const formatted = format(new Document([layout]));
+  return toKdlV1(formatted);
 };
 
 const { values } = parseArgs({
@@ -218,7 +224,8 @@ if (!values.name) {
 const configPath = new URL("zellij-generate-layout.yaml", import.meta.url)
   .pathname;
 const raw = await file(configPath).text();
-const config = ConfigSchema.parse(parseYaml(raw));
+const parsed: unknown = parseYaml(raw);
+const config = ConfigSchema.parse(parsed);
 
 const paths = config.layouts[values.name];
 if (!paths) {
@@ -229,5 +236,6 @@ if (!paths) {
 const tabs = paths.map(toTab);
 const output = `home/.config/zellij/layouts/${values.name}.kdl`;
 
-await write(output, generateLayout(tabs));
+const content = generateLayout(tabs);
+await write(output, content);
 log.info(`Layout saved to ${output}`);
