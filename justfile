@@ -17,6 +17,10 @@ ts-fix:
   just docker-run bun run prettier --write .
   just docker-run bun run eslint . --fix
 
+fix:
+  just nix-fix
+  just ts-fix
+
 # ---------------- DOCKER
 docker-run *ARGS:
   #!/usr/bin/env nu
