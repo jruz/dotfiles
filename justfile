@@ -173,6 +173,7 @@ nix-full-upgrade:
   just nix-channel-upgrade $(just nix-latest)
   just nix-core-upgrade
   just nix-hm-update
+  just nix-hm-switch
   just nix-darwin-update
 
 nix-hm-edit:
@@ -184,13 +185,8 @@ nix-hm-config:
   cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
 
 nix-hm-update:
-  #!/usr/bin/env nu
-  ^just nix-hm-config
-  ^nix flake update --flake ~/.config/home-manager
-  let system = (^nix eval --impure --raw --expr "builtins.currentSystem")
-  let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
-  ^home-manager switch --flake $flake
-  ^bat cache --build
+  nix flake update --flake ./home/.config/home-manager/
+  just nix-hm-switch
 
 nix-hm-switch:
   #!/usr/bin/env nu
