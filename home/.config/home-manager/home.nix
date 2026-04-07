@@ -47,6 +47,7 @@ in
         procs
         zenith
         ripgrep
+        bat
         sd
         bottom
         rlwrap
@@ -58,6 +59,7 @@ in
         yazi
         signal-cli
         mermaid-cli
+        vhs
         lsof
         sshpass
 
@@ -72,6 +74,8 @@ in
         tea
 
         # SHELLS ---------------------
+        atuin
+        zellij
         nushell
         zsh
         zinit
@@ -82,6 +86,7 @@ in
         direnv
 
         # EDITORS --------------------
+        neovim
         helix
         # emacs-nox
 
@@ -129,16 +134,11 @@ in
         joker
       ]
       ++ (with unstable; [
-        atuin
-        bat
         just
-        neovim
         nerd-fonts.dejavu-sans-mono
         nerd-fonts.lekton
         usage
-        vhs
         woodpecker-cli
-        zellij
       ])
       ++ (pkgs.lib.optionals isDarwin [
         darwin.trash
