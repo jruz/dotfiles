@@ -86,7 +86,6 @@ in
         direnv
 
         # EDITORS --------------------
-        neovim
         helix
         # emacs-nox
 
@@ -135,6 +134,7 @@ in
       ]
       ++ (with unstable; [
         just
+        neovim
         nerd-fonts.dejavu-sans-mono
         nerd-fonts.lekton
         usage
