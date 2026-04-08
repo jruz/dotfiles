@@ -5,7 +5,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     claude-code = {
-      url = "github:sadjow/claude-code-nix?ref=v2.1.85";
+      url = "github:sadjow/claude-code-nix?ref=v2.1.87";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     codex-cli = {
