@@ -105,7 +105,6 @@ in
         bash-language-server
         typescript-language-server
         vscode-langservers-extracted # eslint, jsonls, html, css
-        efm-langserver
         terraform-ls
         tflint
         tfsec

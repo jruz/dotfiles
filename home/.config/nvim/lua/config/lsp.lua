@@ -104,9 +104,6 @@ vim.g.markdown_fenced_languages = {
 
 require("fidget").setup({})
 
--- Format on save
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format({ timeout_ms = 2000 })]]
-
 -- Keybindings
 vim.keymap.set('n', '<space>le', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', function()
@@ -142,7 +139,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set({ 'n', 'v' }, '<space>la', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<space>ln', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>lf', function()
-      vim.lsp.buf.format { async = true }
+      require("conform").format({ async = true, lsp_format = "fallback" })
     end, opts)
   end,
 })

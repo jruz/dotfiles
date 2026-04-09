@@ -79,6 +79,7 @@ vim.pack.add({
   'https://github.com/folke/lazydev.nvim',
   'https://github.com/mfussenegger/nvim-dap',
   'https://github.com/folke/trouble.nvim',
+  'https://github.com/stevearc/conform.nvim',
 
   'https://github.com/supermaven-inc/supermaven-nvim',
 
