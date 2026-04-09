@@ -1,5 +1,3 @@
-local lspformat = require("lsp-format")
-
 local function prettier_cmd()
   local root = vim.fn.getcwd()
   local local_prettier = root .. "/node_modules/.bin/prettier"
@@ -33,7 +31,6 @@ local stylua = {
 }
 
 vim.lsp.config('efm', {
-  on_attach = lspformat.on_attach,
   init_options = { documentFormatting = true },
   settings = {
     languages = {

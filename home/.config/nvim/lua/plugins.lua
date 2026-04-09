@@ -79,7 +79,6 @@ vim.pack.add({
   'https://github.com/folke/lazydev.nvim',
   'https://github.com/mfussenegger/nvim-dap',
   'https://github.com/folke/trouble.nvim',
-  'https://github.com/lukas-reineke/lsp-format.nvim',
 
   'https://github.com/supermaven-inc/supermaven-nvim',
 
@@ -249,7 +248,6 @@ require("luasnip/loaders/from_vscode").load()
 
 require("crates").setup()
 require("lazydev").setup({})
-require("lsp-format").setup({})
 
 require("trouble").setup({
   auto_close = true,
