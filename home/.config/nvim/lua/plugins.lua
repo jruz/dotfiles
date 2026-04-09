@@ -293,3 +293,23 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 vim.cmd([[command! PluginsConfig :edit ~/.config/nvim/lua/plugins.lua]])
+vim.api.nvim_create_user_command('PluginsUpdate', function(opts)
+  vim.notify("Fetching plugin updates...")
+  local updated = {}
+  local au_id = vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+      if ev.data.kind == 'update' then
+        table.insert(updated, ev.data.spec.name)
+      end
+    end,
+  })
+  vim.schedule(function()
+    vim.pack.update(nil, { force = opts.bang })
+    vim.api.nvim_del_autocmd(au_id)
+    if #updated == 0 then
+      vim.notify("All plugins up to date")
+    else
+      vim.notify("Updated: " .. table.concat(updated, ", "))
+    end
+  end)
+end, { bang = true })
