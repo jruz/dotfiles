@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-zellij.url = "github:NixOS/nixpkgs/8777c98512d0f9fd40955686a4c759fa1eb2ebad";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     claude-code = {
@@ -42,6 +43,7 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-zellij,
       home-manager,
       claude-code,
       codex-cli,
@@ -63,6 +65,7 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
+            nixpkgs-zellij = nixpkgs-zellij.legacyPackages.${system};
             inherit
               unstable
               claude-code

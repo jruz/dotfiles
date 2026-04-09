@@ -118,16 +118,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1773944613,
-        "narHash": "sha256-YPgI5DAfcwcWOjHGERsTha/SuuRt7l+oOTGT94G643s=",
+        "lastModified": 1774977969,
+        "narHash": "sha256-MbCh0ayUhnP8Z/83tTPR9iTzNxQkfleedmlcgsHh1LA=",
         "owner": "sadjow",
         "repo": "codex-cli-nix",
-        "rev": "7937d799ae69e7ded828b8aef5d26e89fbbc817f",
+        "rev": "8be597476146c75f440708f9a7ad50ae489641c4",
         "type": "github"
       },
       "original": {
         "owner": "sadjow",
-        "ref": "v0.116.0",
+        "ref": "v0.118.0",
         "repo": "codex-cli-nix",
         "type": "github"
       }
@@ -221,6 +221,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-zellij": {
+      "locked": {
+        "lastModified": 1775576191,
+        "narHash": "sha256-4nNEti+RMAk8ZQHd84FtqZ40yJKS2keub6e6Qc78IPs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8777c98512d0f9fd40955686a4c759fa1eb2ebad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8777c98512d0f9fd40955686a4c759fa1eb2ebad",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "ager": "ager",
@@ -232,6 +248,7 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-zellij": "nixpkgs-zellij",
         "tree-sitter": "tree-sitter",
         "woodpecker-settings": "woodpecker-settings"
       }

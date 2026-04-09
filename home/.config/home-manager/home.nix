@@ -2,6 +2,7 @@
   config,
   pkgs,
   unstable,
+  nixpkgs-zellij,
   claude-code,
   codex-cli,
   woodpecker-settings,
@@ -76,7 +77,7 @@ in
 
         # SHELLS ---------------------
         atuin
-        zellij
+        nixpkgs-zellij.zellij
         nushell
         zsh
         zinit
