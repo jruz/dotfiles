@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 -- Base Config
 require("env")
 require("clipboard")
