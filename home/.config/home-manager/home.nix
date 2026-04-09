@@ -9,6 +9,7 @@
   claude-hooks,
   claude-statusline,
   ager,
+  tree-sitter,
   system,
   ...
 }:
@@ -94,7 +95,7 @@ in
 
         # VIM ------------------------
         vim
-        tree-sitter
+        tree-sitter.packages.${system}.cli
         shellcheck
         stylua
         selene
