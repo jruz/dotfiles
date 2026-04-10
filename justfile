@@ -194,6 +194,7 @@ nix-hm-switch:
   let system = (^nix eval --impure --raw --expr "builtins.currentSystem")
   let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
   ^home-manager switch --flake $flake
+  ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
   ^bat cache --build
 
 bootstrap:
