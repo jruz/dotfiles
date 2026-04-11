@@ -1,10 +1,9 @@
 # ZINIT
 source ~/.nix-profile/share/zinit/zinit.zsh
 
-zinit ice wait"1" lucid
 zinit light zsh-users/zsh-completions
 
-zinit ice wait"1" lucid atinit"zicompinit; zicdreplay"
+zinit ice wait"1" lucid atinit"zicdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait"1" lucid
@@ -67,6 +66,9 @@ eval "$(direnv hook zsh)"
 
 # EMACS DOOM
 export PATH="$PATH:$HOME/.config/emacs/bin"
+
+# COMPLETION
+autoload -Uz compinit && compinit
 
 # JUST
 source <(just --completions zsh)
