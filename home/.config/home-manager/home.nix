@@ -61,6 +61,7 @@ in
         yazi
         signal-cli
         mermaid-cli
+        ntfy
         vhs
         lsof
         sshpass
