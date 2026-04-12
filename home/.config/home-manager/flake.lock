@@ -8,16 +8,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1774302293,
-        "narHash": "sha256-CU9vEJ0MuP8CdSbts16fLd3gMddSIXS30dVjTZL6QRg=",
-        "ref": "refs/tags/v0.1.0",
-        "rev": "d900586de836f0cfa6627d30274abcf4e7f1329e",
-        "revCount": 70,
+        "lastModified": 1776000971,
+        "narHash": "sha256-pThMhb3PImWBSUY0YwNWkfhUEpvv3xhl0iQ+USkWWNU=",
+        "ref": "refs/tags/v0.1.1",
+        "rev": "ec94810810eab8bfba578a0f4e6e5b15368cebb2",
+        "revCount": 80,
         "type": "git",
         "url": "https://codeberg.org/jruz/ager"
       },
       "original": {
-        "ref": "refs/tags/v0.1.0",
+        "ref": "refs/tags/v0.1.1",
         "type": "git",
         "url": "https://codeberg.org/jruz/ager"
       }

@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ager = {
-      url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.0";
+      url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tree-sitter = {
