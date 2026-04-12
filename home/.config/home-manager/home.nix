@@ -66,6 +66,10 @@ in
         lsof
         sshpass
 
+        # LANGUAGES ------------------
+        babashka
+        bun
+
         # GIT ------------------------
         deff
         delta
@@ -129,7 +133,6 @@ in
         ager.packages.${system}.default
 
         # CLOJURE --------------------
-        babashka
         clojure-lsp
         clj-kondo
         joker
