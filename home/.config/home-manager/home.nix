@@ -90,7 +90,7 @@ in
         tmuxinator
         starship
         zoxide
-        direnv
+        unstable.direnv
 
         # EDITORS --------------------
         helix
