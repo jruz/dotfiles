@@ -6,6 +6,16 @@ is_osx() {
   [[ $('uname') == 'Darwin' ]]
 }
 
+is_ssh() {
+  [[ -n "$SSH_TTY" ]]
+}
+
+osc52_copy() {
+  local data
+  data=$(base64 | tr -d '\n')
+  printf '\033]52;c;%s\033\\' "$data"
+}
+
 vpn() {
   region=$2
   if [[ $2 == "" ]]; then
@@ -137,6 +147,8 @@ replace() {
 yf() {
   if is_osx; then
     cat "$1" | pbcopy
+  elif is_ssh; then
+    cat "$1" | osc52_copy
   elif is_linux; then
     xclip -sel clip <"$1"
   fi
@@ -145,6 +157,8 @@ yf() {
 yo() {
   if is_osx; then
     pbcopy
+  elif is_ssh; then
+    osc52_copy
   elif is_linux; then
     xclip -sel clip
   fi

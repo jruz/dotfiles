@@ -8,6 +8,15 @@ def is_osx [] {
     (uname).kernel-name == "Darwin"
 }
 
+def is_ssh [] {
+    ($env | get --optional SSH_TTY) != null
+}
+
+def osc52_copy [] {
+    let data = ($in | encode base64)
+    print --no-newline $"\e]52;c;($data)\e\\"
+}
+
 def wr [] {
     nmcli radio wifi off
     sleep 5sec
@@ -127,6 +136,8 @@ def --env mp [] {
 def yf [file: path] {
     if (is_osx) {
         open --raw $file | pbcopy
+    } else if (is_ssh) {
+        open --raw $file | osc52_copy
     } else {
         open --raw $file | xclip -sel clip
     }
@@ -135,6 +146,8 @@ def yf [file: path] {
 def yo [] {
     if (is_osx) {
         $in | pbcopy
+    } else if (is_ssh) {
+        $in | osc52_copy
     } else {
         $in | xclip -sel clip
     }
