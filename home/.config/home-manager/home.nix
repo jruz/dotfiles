@@ -124,6 +124,7 @@ in
         # AI -------------------------
         claude-code.packages.${system}.default
         codex-cli.packages.${system}.default
+        gemini-cli
 
         # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default
