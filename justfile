@@ -8,12 +8,17 @@ check:
   just nushell-lint
   just ts-check
 
+ts-install:
+  just docker-run bun install
+
 ts-check:
+  just ts-install
   just docker-run bun run prettier --check .
   just docker-run bun run tsc --noEmit
   just docker-run bun run eslint .
 
 ts-fix:
+  just ts-install
   just docker-run bun run prettier --write .
   just docker-run bun run eslint . --fix
 
