@@ -85,6 +85,20 @@ wk.add({
 })
 
 wk.add({
+  { "<space>a", group = "AI" },
+  {
+    "<space>at",
+    function()
+      local api = require("supermaven-nvim.api")
+      api.toggle()
+      local status = api.is_running() and "enabled" or "disabled"
+      vim.notify("Supermaven " .. status)
+    end,
+    desc = "Toggle Supermaven",
+  },
+})
+
+wk.add({
   { "<space>c", group = "Code" },
   { "<space>ca", vim.lsp.buf.code_action, desc = "Code Action" },
   { "<space>cc", "gcc", desc = "Toggle Comment", remap = true },
