@@ -191,7 +191,10 @@ nix-hm-update:
 nix-hm-switch:
   #!/usr/bin/env nu
   ^just nix-hm-config
-  let system = (^nix eval --impure --raw --expr "builtins.currentSystem")
+  let system = (^nix eval
+    --impure
+    --raw
+    --expr "builtins.currentSystem")
   let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
   ^home-manager switch --flake $flake
   ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
