@@ -125,6 +125,7 @@ pane_frames_highlight_on_hover false
 mouse_hover_effects false
 show_startup_tips false
 advanced_mouse_actions false
+auto_accept_permissions true
 
 plugins {
     tab-renamer location="file:~/.config/zellij/plugins/tab-renamer.wasm"
