@@ -291,6 +291,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = ".env.*.yaml",
+  callback = function()
+    local api = require("supermaven-nvim.api")
+    if api.is_running() then
+      api.stop()
+    end
+  end,
+})
 
 vim.cmd([[command! PluginsConfig :edit ~/.config/nvim/lua/plugins.lua]])
 vim.api.nvim_create_user_command('PluginsUpdate', function(opts)
