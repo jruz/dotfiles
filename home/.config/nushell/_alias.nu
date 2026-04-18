@@ -135,5 +135,6 @@ alias gs = ^git status
 alias gst = ^git stash --include-untracked
 alias gstp = ^git stash pop
 alias gwip = ^git commit -m "WIP"
+alias lg = ^lazygit
 
 alias ubuntu = lsb_release -a
