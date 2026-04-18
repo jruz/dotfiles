@@ -1,4 +1,3 @@
-alias e = nvim
 alias plan = nvim PLAN.md
 
 alias dotfiles = cd ~/dev/dotfiles
@@ -53,11 +52,11 @@ alias disks = lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
 alias errors = journalctl -xe
 alias sx = startx
 alias sxe = startx ~/dev/dotfiles/X/home/.xinitrc
-alias ag = rg -S --hidden
-alias awk = gawk
-alias cat = bat
-alias find = fd
-alias grep = rg
+def --wrapped ag [...args] { ^rg -S --hidden ...$args }
+def --wrapped awk [...args] { ^gawk ...$args }
+def --wrapped cat [...args] { ^bat ...$args }
+def --wrapped find [...args] { ^fd ...$args }
+def --wrapped grep [...args] { ^rg ...$args }
 
 alias dhcr = sudo systemctl restart dhcpcd.service
 
@@ -72,9 +71,9 @@ alias wl = nmcli device wifi list ifname wlp0s20u1
 alias wm = sudo wifi-menu enp0s20u1
 alias wi = curl ipinfo.io
 
-alias la = lsd --almost-all --group-dirs=first --human-readable --long
-alias las = lsd --almost-all --group-dirs=first --human-readable --long --dereference
-alias lad = lsd --almost-all --group-dirs=first --human-readable --long --sort=time
+def --wrapped la [...args] { ^lsd --almost-all --group-dirs=first --human-readable --long ...$args }
+def --wrapped las [...args] { ^lsd --almost-all --group-dirs=first --human-readable --long --dereference ...$args }
+def --wrapped lad [...args] { ^lsd --almost-all --group-dirs=first --human-readable --long --sort=time ...$args }
 
 alias hosts = sudo nvim /etc/hosts
 alias cls = clear
