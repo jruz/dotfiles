@@ -75,16 +75,16 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1776528203,
-        "narHash": "sha256-YzeCfTvMsve5PZ3fPcPLSw1+NkhWUMUB6wyJkwbROP8=",
-        "ref": "refs/tags/v0.4.0",
-        "rev": "b6222fdcafa0aba8b9853b1a960946b8b9a9648c",
-        "revCount": 72,
+        "lastModified": 1776533093,
+        "narHash": "sha256-dlxPlk5bWJaVIYdngb/SmOtjPuOTEn4F98MfH600oC4=",
+        "ref": "refs/tags/v0.4.1",
+        "rev": "f1dae2611028948749a1ec1339890bb5fcecef65",
+        "revCount": 76,
         "type": "git",
         "url": "https://codeberg.org/jruz/claude-statusline"
       },
       "original": {
-        "ref": "refs/tags/v0.4.0",
+        "ref": "refs/tags/v0.4.1",
         "type": "git",
         "url": "https://codeberg.org/jruz/claude-statusline"
       }
