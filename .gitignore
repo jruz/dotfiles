@@ -22,3 +22,5 @@ home/.config/zellij/layouts/mini.kdl
 home/.config/home-manager/result
 home/.local/bin/woodpecker-channel
 nvim.log
+home/.local/bin/server-channel
+home/.local/bin/server-client

@@ -98,7 +98,7 @@ alias k = kubectl
 alias n = npm
 alias tags = ctags -R --exclude=.git --exclude=node_modules
 alias tf = terraform
-alias cl = claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel
+alias cl = claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel server:server-channel
 alias co = codex --dangerously-bypass-approvals-and-sandbox
 
 alias g = ^git
