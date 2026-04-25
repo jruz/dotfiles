@@ -134,7 +134,7 @@ const bottomBarPlugin = (): Node =>
     [
       val("format_left", "{mode}"),
       val("format_center", "{tabs}"),
-      val("format_right", "{datetime}"),
+      val("format_right", "{command_sys}{datetime}"),
       val("format_space", ""),
 
       val("border_enabled", "false"),
@@ -164,9 +164,16 @@ const bottomBarPlugin = (): Node =>
       val("tab_active", `#[bg=#b4befe,fg=#1e1e2e,bold] {name} `),
       val("tab_separator", ""),
 
+      val("command_sys_command", "zjstatus-sysinfo"),
+      val(
+        "command_sys_format",
+        `#[fg=#45475a]${LEFT}#[bg=#45475a,fg=#cdd6f4] {stdout} `,
+      ),
+      val("command_sys_interval", "3"),
+
       val(
         "datetime",
-        `#[fg=#45475a]${LEFT}#[bg=#45475a,fg=#cdd6f4] Spain #[fg=#b4befe,bg=#45475a]${LEFT}#[bg=#b4befe,fg=#1e1e2e,bold] {format} `,
+        `#[fg=#b4befe,bg=#45475a]${LEFT}#[bg=#b4befe,fg=#1e1e2e,bold] {format} `,
       ),
       val("datetime_format", "%H:%M"),
       val("datetime_timezone", "Europe/Madrid"),

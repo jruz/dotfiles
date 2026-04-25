@@ -1,0 +1,9 @@
+#!/usr/bin/env nu
+# vim: ft=nu
+
+def main [] {
+    let m = (sys mem)
+    let mem = (($m.total - $m.available) * 100 / $m.total | math round)
+    let cpu = (sys cpu --long | get cpu_usage | math avg | math round)
+    print -n $"\u{f4bc} ($cpu)% \u{efc5} ($mem)%"
+}

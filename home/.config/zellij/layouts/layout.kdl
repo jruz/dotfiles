@@ -85,7 +85,7 @@ layout {
             plugin location="https://github.com/dj95/zjstatus/releases/download/v0.23.0/zjstatus.wasm" {
                 format_left   "{mode}"
                 format_center "{tabs}"
-                format_right  "{datetime}"
+                format_right  "{command_sys}{datetime}"
                 format_space  ""
 
                 border_enabled  "false"
@@ -100,7 +100,11 @@ layout {
                 tab_active              "#[bg=#b4befe,fg=#1e1e2e,bold] {name} "
                 tab_separator           ""
 
-                datetime          "#[fg=#45475a]#[bg=#45475a,fg=#cdd6f4] Spain #[fg=#b4befe,bg=#45475a]#[bg=#b4befe,fg=#1e1e2e,bold] {format} "
+                command_sys_command   "zjstatus-sysinfo"
+                command_sys_format    "#[fg=#45475a]#[bg=#45475a,fg=#cdd6f4] {stdout} "
+                command_sys_interval  "3"
+
+                datetime          "#[fg=#b4befe,bg=#45475a]#[bg=#b4befe,fg=#1e1e2e,bold] {format} "
                 datetime_format   "%H:%M"
                 datetime_timezone "Europe/Madrid"
             }
