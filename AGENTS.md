@@ -8,6 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Terminal: Ghostty
 - Multiplexer: Zellij
 
+## Tool Usage
+
+- Use `bat --style=numbers --line-range <start>:<end> <file>` to inspect a bounded file slice with line numbers.
+- Do not use `sed --lines`; `sed` has no `--lines` flag.
+
 ## Repository Overview
 
 This is a dotfiles repository that manages configuration files and application installations across multiple platforms (macOS, Linux/Ubuntu, Windows/WSL2) using a multi-layered approach.
