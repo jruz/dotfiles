@@ -1,5 +1,5 @@
 import { log } from "./log";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import { z } from "zod";
 
@@ -73,8 +73,7 @@ const fetchLatestVersion = async (
   return version;
 };
 
-const readCurrentVersion = async (flakePattern: RegExp): Promise<string> => {
-  const content = await readFile(FLAKE_PATH, "utf-8");
+const readCurrentVersion = (content: string, flakePattern: RegExp): string => {
   const match = flakePattern.exec(content);
   if (!match) {
     throw new Error(`could not find version in ${FLAKE_PATH}`);
@@ -90,7 +89,8 @@ const readCurrentVersion = async (flakePattern: RegExp): Promise<string> => {
 
 const agent = parseAgentName();
 const config = AGENTS[agent];
-const current = await readCurrentVersion(config.flakePattern);
+const content = await readFile(FLAKE_PATH, "utf-8");
+const current = readCurrentVersion(content, config.flakePattern);
 const latest = await fetchLatestVersion(config.packageName, config.distTag);
 
 log.info(`${agent}: current: ${current}`);
@@ -98,6 +98,12 @@ log.info(`${agent}: latest:  ${latest}`);
 
 if (current === latest) {
   log.ok(`${agent} is up to date`);
-} else {
-  log.warn(`${agent}: new version available: ${latest}`);
+  process.exit(2);
 }
+
+log.warn(`${agent}: ${current} -> ${latest}`);
+const updated = content.replace(config.flakePattern, (match) =>
+  match.replace(current, latest),
+);
+await writeFile(FLAKE_PATH, updated);
+log.ok("flake.nix updated");

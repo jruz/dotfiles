@@ -123,21 +123,14 @@ just nix-darwin-diff
 
 The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied via `darwin-rebuild`.
 
-### Agent Update Checks
+### Agent Updates
 
 Claude Code and Codex are installed via Nix flake inputs in `home/.config/home-manager/flake.nix`.
 
-1. Check for updates:
+Check npm for the latest version, update flake.nix, and run nix-hm-switch:
 ```bash
-just claude-check-update
-just codex-check-update
-```
-
-2. Update the version ref in `home/.config/home-manager/flake.nix`
-
-3. Apply:
-```bash
-just nix-hm-switch
+just claude-update
+just codex-update
 ```
 
 ### System Updates
