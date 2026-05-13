@@ -41,6 +41,8 @@ local command = {
   "-g",
   "!.sqlx/*",
   "-g",
+  "!.next/*",
+  "-g",
   "!*/node_modules/*",
   "-g",
   "!*/.terraform/*",
