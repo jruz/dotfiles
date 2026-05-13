@@ -87,6 +87,8 @@ vim.lsp.config('jsonls', {
   end,
 })
 vim.lsp.enable('jsonls')
+vim.lsp.enable('cssls')
+vim.lsp.enable('html')
 vim.lsp.enable('nixd')
 vim.lsp.enable('sourcekit')
 -- vim.lsp.enable('rescriptls') -- not in nixpkgs, install via npm if needed
