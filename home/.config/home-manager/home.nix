@@ -18,7 +18,6 @@
 let
   inherit (pkgs.stdenv) isDarwin;
   homeDirectory = if isDarwin then "/Users/jruz" else "/home/jruz";
-  deff = import ./packages/deff.nix { inherit unstable; };
 
 in
 {
@@ -71,7 +70,6 @@ in
         bun
 
         # GIT ------------------------
-        deff
         delta
         gh
         git
