@@ -9,5 +9,4 @@ windows/
 tmp/
 node_modules/
 bun.lock
-package-lock.json
 *.md

@@ -27,16 +27,15 @@ fix:
   just ts-fix
 
 # ---------------- DOCKER
+[private]
 docker-run *ARGS:
-  #!/usr/bin/env nu
-  let args = ("{{ARGS}}" | split row ' ' | where { |it| $it != "" })
-  (^docker run
-    --rm
-    --volume $"(pwd):/app"
-    --volume bun-modules:/app/node_modules
-    --workdir /app
-    "registry.jruz.io/bun:1.3.11-1"
-    ...$args)
+  docker run \
+    --rm \
+    --volume $(pwd):/app \
+    --volume bun-modules:/app/node_modules \
+    --workdir /app \
+    registry.jruz.io/bun:1.3.11-1 \
+    {{ ARGS }}
 
 clean:
   just nix-clean
