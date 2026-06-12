@@ -1,7 +1,7 @@
 import { log } from "./log";
 import { readFile } from "fs/promises";
 
-const EXPECTED_VERSION = "25.11";
+const EXPECTED_VERSION = "26.05";
 
 type FlakeCheck = {
   file: string;
