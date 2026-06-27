@@ -3,7 +3,7 @@ source _env-load.nu
 source _env-vars.nu
 
 if (which fzf | length) > 0 {
-  source _fzf.nu
+  use _fzf.nu
 }
 
 
