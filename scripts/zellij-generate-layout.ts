@@ -78,7 +78,7 @@ const topBarPlugin = (): Node =>
     "plugin",
     {
       location:
-        "https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm",
+        "https://github.com/dj95/zjstatus/releases/download/v0.23.0/zjstatus.wasm",
     },
     [
       val(
@@ -129,7 +129,7 @@ const bottomBarPlugin = (): Node =>
     "plugin",
     {
       location:
-        "https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm",
+        "https://github.com/dj95/zjstatus/releases/download/v0.23.0/zjstatus.wasm",
     },
     [
       val("format_left", "{mode}"),

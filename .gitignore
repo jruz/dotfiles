@@ -19,6 +19,7 @@ home/.env
 home/.local/bin/chrome-cli
 scripts/zellij-generate-layout.yaml
 home/.config/zellij/layouts/mini.kdl
+home/.config/zellij/layouts/mac.kdl
 home/.config/home-manager/result
 home/.local/bin/woodpecker-channel
 nvim.log
