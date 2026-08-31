@@ -84,7 +84,7 @@ in
         nushell
         zsh
         zinit
-        tmux
+        unstable.tmux
         tmuxinator
         starship
         zoxide
