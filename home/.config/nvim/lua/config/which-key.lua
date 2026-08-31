@@ -27,7 +27,13 @@ wk.add({
   { "<space>lw", group = "Workspace" },
   { "<space>lwa", vim.lsp.buf.add_workspace_folder, desc = "Add Folder" },
   { "<space>lwr", vim.lsp.buf.remove_workspace_folder, desc = "Remove Folder" },
-  { "<space>lwl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "List Folders" },
+  {
+    "<space>lwl",
+    function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,
+    desc = "List Folders",
+  },
 })
 
 wk.add({
@@ -85,20 +91,6 @@ wk.add({
 })
 
 wk.add({
-  { "<space>a", group = "AI" },
-  {
-    "<space>at",
-    function()
-      local api = require("supermaven-nvim.api")
-      api.toggle()
-      local status = api.is_running() and "enabled" or "disabled"
-      vim.notify("Supermaven " .. status)
-    end,
-    desc = "Toggle Supermaven",
-  },
-})
-
-wk.add({
   { "<space>c", group = "Code" },
   { "<space>ca", vim.lsp.buf.code_action, desc = "Code Action" },
   { "<space>cc", "gcc", desc = "Toggle Comment", remap = true },
@@ -123,7 +115,7 @@ wk.add({
       dofile(vim.env.MYVIMRC)
       vim.notify("Config reloaded")
     end,
-    desc = "Reload Config"
+    desc = "Reload Config",
   },
 })
 

@@ -1,44 +1,13 @@
 {
   "plugins": {
-    "LuaSnip": {
-      "rev": "a62e1083a3cfe8b6b206e7d3d33a51091df25357",
-      "src": "https://github.com/L3MON4D3/LuaSnip"
+    "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
     },
     "catppuccin": {
       "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",
       "src": "https://github.com/catppuccin/nvim"
-    },
-    "cmp-buffer": {
-      "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
-      "src": "https://github.com/hrsh7th/cmp-buffer"
-    },
-    "cmp-cmdline": {
-      "rev": "d126061b624e0af6c3a556428712dd4d4194ec6d",
-      "src": "https://github.com/hrsh7th/cmp-cmdline"
-    },
-    "cmp-nvim-lsp": {
-      "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
-    },
-    "cmp-nvim-lsp-document-symbol": {
-      "rev": "f94f7ba948e32cd302caba1c2ca3f7c697fb4fcf",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol"
-    },
-    "cmp-nvim-lsp-signature-help": {
-      "rev": "fd3e882e56956675c620898bf1ffcf4fcbe7ec84",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
-    },
-    "cmp-nvim-lua": {
-      "rev": "e3a22cb071eb9d6508a156306b102c45cd2d573d",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lua"
-    },
-    "cmp-omni": {
-      "rev": "4ef610bbd85a5ee4e97e09450c0daecbdc60de86",
-      "src": "https://github.com/hrsh7th/cmp-omni"
-    },
-    "cmp-path": {
-      "rev": "c642487086dbd9a93160e1679a1327be111cbc25",
-      "src": "https://github.com/hrsh7th/cmp-path"
     },
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
@@ -106,10 +75,6 @@
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
-    "nvim-cmp": {
-      "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
-      "src": "https://github.com/hrsh7th/nvim-cmp"
-    },
     "nvim-dap": {
       "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
       "src": "https://github.com/mfussenegger/nvim-dap"
@@ -151,10 +116,6 @@
       "rev": "e9c5aaba16fead831379d5f44617547a90b913c7",
       "src": "https://github.com/mrcjkb/rustaceanvim",
       "version": "5.0.0 - 6.0.0"
-    },
-    "supermaven-nvim": {
-      "rev": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
-      "src": "https://github.com/supermaven-inc/supermaven-nvim"
     },
     "telescope-tabs": {
       "rev": "62c127346c04c698c0cbd1c1ba945609a0ad10db",

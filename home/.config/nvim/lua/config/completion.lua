@@ -1,82 +1,44 @@
-local cmp = require 'cmp'
+local blink = require("blink.cmp")
 
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
+blink.setup({
+  keymap = {
+    preset = "enter",
+    ["<C-j>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-k>"] = { "scroll_documentation_down", "fallback" },
   },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+  snippets = {
+    preset = "default",
   },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-j>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-k>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping(function(fallback)
-      if cmp.visible() and cmp.get_selected_entry() then
-        cmp.confirm({ select = false })
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = "crates" },
-    { name = 'path' },
-    --{ name = 'buffer' },
-    { name = 'luasnip' },
-    { name = 'nvim_lsp_document_symbol' },
-    { name = 'nvim_lsp_signature_help' },
-    {
-      name = 'omni',
-      option = {
-        disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }
-      }
-    }
-  }, {
-    --{ name = 'buffer' },
-  })
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    --{ name = 'cmp_git' },   -- You can specify the `cmp_git` source if you were installed it.
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
+  completion = {
+    list = {
+      selection = {
+        preselect = false,
+        auto_insert = false,
+      },
+    },
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 300,
+    },
+  },
   sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = {
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'c' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'c' }),
-    ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), { 'c' }),
-    ['<CR>'] = cmp.mapping(function(fallback)
-      if cmp.visible() and cmp.get_selected_entry() then
-        cmp.confirm({ select = false })
-      else
-        fallback()
-      end
-    end, { 'c' }),
+    default = { "lsp", "path", "snippets", "buffer", "omni" },
   },
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
+  cmdline = {
+    keymap = {
+      preset = "cmdline",
+      ["<CR>"] = { "accept_and_enter", "fallback" },
+    },
+    completion = {
+      menu = {
+        auto_show = true,
+      },
+    },
+  },
+  signature = {
+    enabled = true,
+  },
+  fuzzy = {
+    implementation = "prefer_rust_with_warning",
+  },
 })
