@@ -123,6 +123,7 @@ in
         claude-code.packages.${system}.default
         codex-cli.packages.${system}.default
         gemini-cli
+        unstable.pi-coding-agent
 
         # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default
