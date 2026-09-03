@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     codex-cli = {
-      url = "github:sadjow/codex-cli-nix?ref=v0.152.1";
+      url = "github:sadjow/codex-cli-nix?ref=v0.153.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     woodpecker-settings = {
