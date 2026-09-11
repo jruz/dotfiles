@@ -38,6 +38,7 @@
                 persistent-apps = [
                   "/Applications/Safari.app"
                   "/Applications/Firefox.app"
+                  "/Applications/Brave Browser.app"
                   "/Applications/Google Chrome.app"
                   "/Applications/Alacritty.app"
                   "/Applications/Ghostty.app"
