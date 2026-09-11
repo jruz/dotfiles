@@ -37,6 +37,7 @@ in
         age
         aria2
         util-linux
+        coreutils
         ffmpeg
         gawk
         gnupg
