@@ -4,6 +4,7 @@ alias dotfiles = cd ~/dev/dotfiles
 alias dot = cd ~/dev/dotfiles
 alias dev = cd ~/dev/projects
 alias dl = cd ~/Downloads
+alias mega = cd ~/Mega
 alias conf = cd ~/.config
 
 alias al = nvim ~/.config/nushell/_alias.nu
