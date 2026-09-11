@@ -45,7 +45,7 @@
                   "/Applications/Zed.app"
                   "/Applications/Xcode.app"
                   "/Applications/OrbStack.app"
-                  "/Users/jruz/Applications/IB Gateway 10.30/IB Gateway 10.30.app"
+                  "/Users/jruz/Applications/IB Gateway 10.48/IB Gateway 10.48.app"
                   "/Users/jruz/Applications/Trader Workstation/Trader Workstation.app"
                   "/Applications/Signal.app"
                   "/Applications/Telegram.app"
