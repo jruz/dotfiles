@@ -11,6 +11,7 @@
     {
       self,
       nix-darwin,
+      ...
     }:
     let
       configuration =
@@ -126,12 +127,12 @@
     in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#00000
-      darwinConfigurations."00000" = nix-darwin.lib.darwinSystem {
+      # $ darwin-rebuild build --flake .#macbook
+      darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
         modules = [ configuration ];
       };
 
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."00000".pkgs;
+      darwinPackages = self.darwinConfigurations.macbook.pkgs;
     };
 }
