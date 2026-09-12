@@ -1,0 +1,44 @@
+name: MAC
+windows:
+  - dotfiles:
+      root: ~/dev/dotfiles
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - brain:
+      root: /Users/jruz/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - agent-config:
+      root: ~/dev/projects/agent-config
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - agent-hooks:
+      root: ~/dev/projects/agent-hooks
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - minisforum:
+      root: ~/dev/projects/minisforum
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - watchlists:
+      root: ~/dev/projects/watchlists
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - downloads:
+      root: ~/Downloads
+      layout: even-horizontal
+      panes:
+        -
+        -

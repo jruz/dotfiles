@@ -187,6 +187,11 @@ def zel [] {
     zellij attach --create $session_name
 }
 
+def tmux-dev [] {
+    let layout = if (is_osx) { "mac" } else { "mini" }
+    ^tmuxinator start $layout
+}
+
 def rm [
     --recursive (-r)
     --force (-f)

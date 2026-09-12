@@ -1,0 +1,80 @@
+name: MINI
+windows:
+  - dotfiles:
+      root: ~/dev/dotfiles
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - claude:
+      root: ~/dev/.claude
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - slop-detector:
+      root: ~/dev/projects/slop-detector
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - claude-trees:
+      root: ~/dev/projects/claude-trees
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - claude-statusline:
+      root: ~/dev/projects/claude-statusline
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - server:
+      root: ~/dev/projects/server
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - server-admin:
+      root: ~/dev/projects/server-admin
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - mini-admin:
+      root: ~/dev/projects/mini-admin
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - ager:
+      root: ~/dev/projects/ager
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - trader:
+      root: ~/dev/projects/trader
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - woodpecker-channel:
+      root: ~/dev/projects/woodpecker-channel
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - jruz.io:
+      root: ~/dev/projects/jruz.io
+      layout: even-horizontal
+      panes:
+        -
+        -
+  - cv:
+      root: ~/dev/projects/cv
+      layout: even-horizontal
+      panes:
+        -
+        -
