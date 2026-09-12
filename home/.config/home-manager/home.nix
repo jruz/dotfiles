@@ -86,7 +86,7 @@ in
         zsh
         zinit
         unstable.tmux
-        tmuxinator
+        unstable.tmuxinator
         starship
         zoxide
         unstable.direnv
