@@ -83,7 +83,6 @@ alias ... = cd ../..
 alias vimstall = vim +PluginInstall +qall
 
 alias tma = tmux a -t
-alias tmk = tmux kill-session -t
 alias tms = tmuxinator start
 alias tml = tmux ls
 

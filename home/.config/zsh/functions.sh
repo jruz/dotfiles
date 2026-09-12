@@ -214,7 +214,18 @@ _zellij_sessions() {
   _describe 'session' sessions
 }
 
+_tmux_sessions() {
+  local sessions
+  sessions=(${(f)"$(tmux list-sessions -F '#{session_name}' 2>/dev/null)"})
+  _describe 'session' sessions
+}
+
+tmk() {
+  tmux kill-session -t "$1"
+}
+
 compdef _zellij_sessions zk za
+compdef _tmux_sessions tmk
 
 rm() {
   local args=()

@@ -172,6 +172,16 @@ def "nu-complete zellij-sessions" [] {
         | where { |session| not ($session | is-empty) }
 }
 
+def "nu-complete tmux-sessions" [] {
+    ^tmux list-sessions -F "#{session_name}"
+        | lines
+        | where { |session| not ($session | is-empty) }
+}
+
+def tmk [session: string@"nu-complete tmux-sessions"] {
+    ^tmux kill-session -t $session
+}
+
 def zk [session: string@"nu-complete zellij-sessions"] {
     ^procs $session --no-header --only pid | lines | each { |id| ^kill -9 $id }
 
