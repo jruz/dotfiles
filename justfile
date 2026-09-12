@@ -138,6 +138,9 @@ tmux-plugins:
 nvim-plugins-clean:
   nvim --headless '+PluginsClean' '+qa'
 
+nvim-plugins-update:
+  nvim --headless '+PluginsUpdate!' '+qa'
+
 mac-uninstall-dry-run:
   cd home-mac && brew bundle cleanup
 
