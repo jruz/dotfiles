@@ -289,6 +289,22 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 })
 
 vim.cmd([[command! PluginsConfig :edit ~/.config/nvim/lua/plugins.lua]])
+local function clean_inactive_plugins()
+  local names = vim.iter(vim.pack.get())
+    :filter(function(plugin)
+      return not plugin.active
+    end)
+    :map(function(plugin)
+      return plugin.spec.name
+    end)
+    :totable()
+  if #names == 0 then
+    return
+  end
+  vim.pack.del(names)
+  vim.notify("Removed inactive plugins: " .. table.concat(names, ", "))
+end
+vim.api.nvim_create_user_command("PluginsClean", clean_inactive_plugins, {})
 vim.api.nvim_create_user_command("PluginsUpdate", function(opts)
   vim.notify("Fetching plugin updates...")
   local updated = {}

@@ -135,6 +135,9 @@ tmux-plugins:
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   # do Ctrl+a I to install the plugins
 
+nvim-plugins-clean:
+  nvim --headless '+PluginsClean' '+qa'
+
 mac-uninstall-dry-run:
   cd home-mac && brew bundle cleanup
 

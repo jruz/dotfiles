@@ -11,3 +11,7 @@ let changed_files = ^git diff-tree -r --name-only ORIG_HEAD HEAD | lines
 if ($changed_files | any {|file| $file | str starts-with "home/.config/home-manager/"}) {
   warn "Home Manager files changed — run: just nix-hm-switch"
 }
+
+if ($changed_files | any {|file| $file | str starts-with "home/.config/nvim/"}) {
+  warn "Neovim files changed — run: just nvim-plugins-clean"
+}
