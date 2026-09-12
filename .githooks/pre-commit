@@ -1,0 +1,4 @@
+#!/usr/bin/env nu
+
+^ager encrypt
+^ager status

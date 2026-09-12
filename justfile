@@ -120,6 +120,11 @@ stow-linux:
 stow:
   just stow-home
 
+git-hooks-setup:
+  #!/usr/bin/env nu
+  ^git config --local core.hooksPath .githooks
+  print "Git hooks path set to .githooks"
+
 git-config:
   git --no-pager config --global -l
 
@@ -206,6 +211,7 @@ nix-hm-switch:
 
 bootstrap:
   #!/usr/bin/env nu
+  ^just git-hooks-setup
   print "Stowing dotfiles..."
   if (^uname) == "Darwin" {
     ^just stow-mac
