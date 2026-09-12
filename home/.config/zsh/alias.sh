@@ -99,7 +99,6 @@ alias ...='cd ../..'
 alias vimstall='vim +PluginInstall +qall'
 
 # Tmux
-alias tma='tmux a -t'
 alias tms='tmuxinator start'
 alias tml='tmux ls'
 

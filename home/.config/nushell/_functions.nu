@@ -178,6 +178,10 @@ def "nu-complete tmux-sessions" [] {
         | where { |session| not ($session | is-empty) }
 }
 
+def tma [session: string@"nu-complete tmux-sessions"] {
+    ^tmux a -t $session
+}
+
 def tmk [session: string@"nu-complete tmux-sessions"] {
     ^tmux kill-session -t $session
 }

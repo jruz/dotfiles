@@ -220,12 +220,16 @@ _tmux_sessions() {
   _describe 'session' sessions
 }
 
+tma() {
+  tmux a -t "$1"
+}
+
 tmk() {
   tmux kill-session -t "$1"
 }
 
 compdef _zellij_sessions zk za
-compdef _tmux_sessions tmk
+compdef _tmux_sessions tma tmk
 
 rm() {
   local args=()
