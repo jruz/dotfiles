@@ -1,5 +1,9 @@
 --hidden
---no-ignore
+
+--glob=!**/.bash_history
+--glob=!**/.zsh_history
+--glob=!**/nushell/history.*
+--glob=!**/atuin/history.db*
 
 --glob=!.git/*
 --glob=!node_modules/*
