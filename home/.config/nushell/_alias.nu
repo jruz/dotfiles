@@ -58,6 +58,7 @@ alias awk = gawk
 alias cat = bat
 alias find = fd
 alias grep = rg
+alias fd = fd -HI
 
 alias dhcr = sudo systemctl restart dhcpcd.service
 
