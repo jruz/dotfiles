@@ -6,23 +6,22 @@ end
 
 
 local function handle_enter()
-  local line = vim.api.nvim_get_current_line()
-  if hasExtension('md') then
-    if line:match("^- %[") then
-      vim.cmd 'normal! o'
-      vim.api.nvim_input('- [ ] ')
-    elseif line:match("^- ") then
-      vim.cmd 'normal! o'
-      vim.api.nvim_input('- ')
-    else
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
-    end
-  else
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
+  if not hasExtension('md') then
+    return '<CR>'
   end
+
+  local line = vim.api.nvim_get_current_line()
+  if line:match("^- %[") then
+    return '<CR>- [ ] '
+  end
+  if line:match("^- ") then
+    return '<CR>- '
+  end
+
+  return '<CR>'
 end
 
-vim.keymap.set('i', '<CR>', handle_enter, { noremap = true, silent = true })
+vim.keymap.set('i', '<CR>', handle_enter, { expr = true, noremap = true, silent = true })
 
 local function handle_o()
   local line = vim.api.nvim_get_current_line()
