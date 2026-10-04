@@ -26,6 +26,22 @@ fix:
   just nix-fix
   just ts-fix
 
+# ---------------- NTFY
+ntfy-subscribe:
+  #!/usr/bin/env nu
+  let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
+  let notifier = (which terminal-notifier | first | get path)
+  (^launchctl submit
+    -l io.jruz.ntfy-subscribe
+    -o $log_path
+    -e $log_path
+    -- (which ntfy | first | get path) subscribe
+    $env.NTFY_CHANNEL
+    $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
+
+ntfy-stop:
+  launchctl remove io.jruz.ntfy-subscribe
+
 # ---------------- DOCKER
 [private]
 docker-run *ARGS:
