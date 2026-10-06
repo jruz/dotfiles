@@ -7,20 +7,24 @@ check:
   just lint-lua
   just nushell-lint
   just ts-check
+  just sandbox-check
+
+setup:
+  just ts-install
 
 ts-install:
-  just docker-run bun install
+  sandbox bun install --frozen-lockfile
 
 ts-check:
   just ts-install
-  just docker-run bun run prettier --check .
-  just docker-run bun run tsc --noEmit
-  just docker-run bun run eslint .
+  sandbox bun run prettier --check .
+  sandbox bun run tsc --noEmit
+  sandbox bun run eslint .
 
 ts-fix:
   just ts-install
-  just docker-run bun run prettier --write .
-  just docker-run bun run eslint . --fix
+  sandbox bun run prettier --write .
+  sandbox bun run eslint . --fix
 
 fix:
   just nix-fix
@@ -42,16 +46,8 @@ ntfy-subscribe:
 ntfy-stop:
   launchctl remove io.jruz.ntfy-subscribe
 
-# ---------------- DOCKER
-[private]
-docker-run *ARGS:
-  docker run \
-    --rm \
-    --volume $(pwd):/app \
-    --volume bun-modules:/app/node_modules \
-    --workdir /app \
-    registry.jruz.io/bun:1.3.11-1 \
-    {{ ARGS }}
+sandbox-check:
+  sandbox bun run scripts/sandbox-check.ts "{{justfile_directory()}}"
 
 clean:
   just nix-clean
@@ -71,7 +67,7 @@ nix-fix:
   deadnix --edit .
 
 nix-check-version-sync:
-  just docker-run bun run scripts/nix-check-version-sync.ts
+  sandbox bun run scripts/nix-check-version-sync.ts
 
 lint-lua:
   cd home/.config/nvim && selene .
@@ -308,7 +304,7 @@ ip-repeater:
 
 agent-update AGENT:
   #!/usr/bin/env nu
-  let result = (^just docker-run bun run scripts/check-agent-update.ts {{AGENT}} | complete)
+  let result = (^sandbox bun run scripts/check-agent-update.ts {{AGENT}} | complete)
   if $result.exit_code == 0 {
     print $result.stdout
     ^just nix-hm-switch
@@ -327,21 +323,7 @@ codex-update:
 
 # ---------------- ZELLIJ
 zellij-generate-mac:
-  just docker-run bun run scripts/zellij-generate-layout.ts --name mac
+  sandbox bun run scripts/zellij-generate-layout.ts --name mac
 
 zellij-generate-mini:
-  just docker-run bun run scripts/zellij-generate-layout.ts --name mini \
-
-
-sandbox-build:
-  docker build -t dotfiles-claude-sandbox .
-
-sandbox:
-  just sandbox-build
-  docker run -it --rm \
-    -e CLAUDE_CODE_OAUTH_TOKEN \
-    -v "$(pwd):/workspace" \
-    -v "$HOME/.claude:/home/claude/.claude" \
-    -v "$HOME/.claude.json:/home/claude/.claude.json" \
-    -w /workspace \
-    dotfiles-claude-sandbox
+  sandbox bun run scripts/zellij-generate-layout.ts --name mini

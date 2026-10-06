@@ -51,6 +51,16 @@ The repository uses a two-tier package management approach:
 
 **IMPORTANT**: Always use `just` recipes instead of running raw commands like `brew bundle`, `home-manager switch`, or `darwin-rebuild switch`. The justfile wraps these commands with additional setup steps. Run `just --list` to see available recipes.
 
+## Development Sandbox
+
+- The root `flake.nix` provides `sandbox` through the default development shell.
+- Run Bun and dependency tooling through `sandbox`, for example `sandbox bun install --frozen-lockfile`.
+- Docker uses its active context; no OrbStack-specific context is required.
+- Only this repository is mounted at `/app`; the container root filesystem is read-only.
+- Dependencies and Bun cache live in the `dotfiles-bun-modules` and `dotfiles-bun-cache` Docker volumes.
+- Files inside the repository remain accessible and writable, including live dotfiles.
+- Run `just sandbox-check` to verify isolation and writable cache directories.
+
 ## Common Commands
 
 ### Initial Setup
