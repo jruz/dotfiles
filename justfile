@@ -1,5 +1,3 @@
-set dotenv-load
-
 check:
   just nix-check
   just nix-check-version-sync
