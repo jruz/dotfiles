@@ -101,6 +101,16 @@
             enable = true;
           };
 
+          services.openssh = {
+            enable = true;
+            extraConfig = ''
+              PubkeyAuthentication yes
+              AuthenticationMethods publickey
+              PasswordAuthentication no
+              KbdInteractiveAuthentication no
+            '';
+          };
+
           security.pam.services.sudo_local.touchIdAuth = true;
 
           nix = {
