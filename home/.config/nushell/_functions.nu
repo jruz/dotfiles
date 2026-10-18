@@ -100,6 +100,17 @@ def untar [file: string] {
     tar -xzvf $file
 }
 
+def encrypt [file: path] {
+    let identity = $"($env.HOME)/.config/sops/age/keys.txt"
+    ^age --encrypt --identity $identity --output $"($file).age" $file
+}
+
+def decrypt [file: path] {
+    let identity = $"($env.HOME)/.config/sops/age/keys.txt"
+    let output = ($file | str replace --regex '\.age$' '')
+    ^age --decrypt --identity $identity --output $output $file
+}
+
 def get_ip [interface: string] {
     ip -4 a show $interface | lines | find inet | first | split row " " | get 1 | split row "/" | first
 }
