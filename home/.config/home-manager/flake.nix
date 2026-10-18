@@ -13,6 +13,10 @@
       url = "github:sadjow/codex-cli-nix?ref=v0.153.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pi = {
+      url = "github:earendil-works/pi?ref=v1.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     woodpecker-settings = {
       url = "git+https://codeberg.org/jruz/woodpecker-settings?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,6 +51,7 @@
       home-manager,
       claude-code,
       codex-cli,
+      pi,
       woodpecker-settings,
       codeberg-settings,
       claude-hooks,
@@ -70,6 +75,7 @@
               unstable
               claude-code
               codex-cli
+              pi
               woodpecker-settings
               codeberg-settings
               claude-hooks

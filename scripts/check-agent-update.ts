@@ -3,7 +3,7 @@ import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import { z } from "zod";
 
-type AgentName = "claude" | "codex";
+type AgentName = "claude" | "codex" | "pi";
 
 type AgentConfig = {
   packageName: string;
@@ -21,6 +21,11 @@ const AGENTS: Record<AgentName, AgentConfig> = {
     packageName: "@openai/codex",
     distTag: "latest",
     flakePattern: /codex-cli-nix\?ref=v([0-9A-Za-z.-]+)/,
+  },
+  pi: {
+    packageName: "@earendil-works/pi-coding-agent",
+    distTag: "latest",
+    flakePattern: /earendil-works\/pi\?ref=v([0-9A-Za-z.-]+)/,
   },
 };
 
@@ -43,12 +48,12 @@ const NpmRegistrySchema = z
 
 const parseAgentName = (): AgentName => {
   const value = process.argv[2]?.toLowerCase();
-  if (value === "claude" || value === "codex") {
+  if (value === "claude" || value === "codex" || value === "pi") {
     return value;
   }
 
   throw new Error(
-    "usage: bun run scripts/check-agent-update.ts <claude|codex>",
+    "usage: bun run scripts/check-agent-update.ts <claude|codex|pi>",
   );
 };
 

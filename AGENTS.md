@@ -135,12 +135,13 @@ The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied v
 
 ### Agent Updates
 
-Claude Code and Codex are installed via Nix flake inputs in `home/.config/home-manager/flake.nix`.
+Claude Code, Codex and Pi are installed via Nix flake inputs in `home/.config/home-manager/flake.nix`.
 
 Check npm for the latest version, update flake.nix, and run nix-hm-switch:
 ```bash
 just claude-update
 just codex-update
+just pi-update
 ```
 
 ### System Updates

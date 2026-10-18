@@ -5,6 +5,7 @@
   nixpkgs-zellij,
   claude-code,
   codex-cli,
+  pi,
   woodpecker-settings,
   codeberg-settings,
   claude-hooks,
@@ -124,7 +125,7 @@ in
         claude-code.packages.${system}.default
         codex-cli.packages.${system}.default
         gemini-cli
-        unstable.pi-coding-agent
+        pi.packages.${system}.default
 
         # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default

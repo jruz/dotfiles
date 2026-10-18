@@ -319,6 +319,9 @@ claude-update:
 codex-update:
   just agent-update codex
 
+pi-update:
+  just agent-update pi
+
 # ---------------- ZELLIJ
 zellij-generate-mac:
   sandbox bun run scripts/zellij-generate-layout.ts --name mac
