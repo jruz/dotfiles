@@ -117,6 +117,8 @@ alias k='kubectl'
 alias n='npm'
 alias tags='ctags -R --exclude=.git --exclude=node_modules'
 alias tf='terraform'
+alias pi-debug='pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts'
+alias pi-no-hooks='pi --no-extensions --extension ~/dev/projects/pi-extensions/extensions/status-line.ts'
 
 # Git
 alias g='git'

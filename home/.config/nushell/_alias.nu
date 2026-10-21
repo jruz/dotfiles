@@ -101,6 +101,9 @@ alias tf = terraform
 alias cl = claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel server:server-channel
 alias co = codex --dangerously-bypass-approvals-and-sandbox
 
+alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
+alias pi-no-hooks = ^pi --no-extensions --extension ~/dev/projects/pi-extensions/extensions/status-line.ts
+
 alias g = ^git
 alias ga = ^git add
 alias gaa = ^git add -A
