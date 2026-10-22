@@ -153,8 +153,10 @@ in
         darwin.trash
       ])
       ++ (pkgs.lib.optionals (!isDarwin) [
+        bubblewrap
         chromium
         ghostty.terminfo
+        openssh
         podman
         trash-cli
       ])
