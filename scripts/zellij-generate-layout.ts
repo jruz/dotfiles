@@ -25,7 +25,10 @@ type Tab = {
 };
 
 const tabNameFromPath = (path: string): string => {
-  const basename = path.split("/").at(-1) ?? path;
+  const basename = path.split("/").at(-1);
+  if (basename === undefined) {
+    throw new Error(`no basename: ${path}`);
+  }
   return basename.replace(/^\./, "").toLowerCase();
 };
 
