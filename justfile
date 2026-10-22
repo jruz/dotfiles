@@ -5,6 +5,7 @@ check:
   just lint-lua
   just nushell-lint
   just ts-check
+  just test
   just sandbox-check
 
 setup:
@@ -55,6 +56,14 @@ ts-check-knip:
 
 ts-check-knip-production:
   sandbox pnpm exec knip --production
+
+bun-test:
+  just ts-install
+  sandbox bun test
+
+test:
+  just bun-test
+
 ts-outdated:
   sandbox pnpm outdated
 

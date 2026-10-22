@@ -1,2 +1,3 @@
 [ignore.by-rule]
 no-long-lines = ["justfile"]
+no-console = ["scripts/lib/output.ts"]
