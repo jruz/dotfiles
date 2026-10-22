@@ -92,23 +92,32 @@ const readCurrentVersion = (content: string, flakePattern: RegExp): string => {
   return version;
 };
 
-const agent = parseAgentName();
-const config = AGENTS[agent];
-const content = await readFile(FLAKE_PATH, "utf-8");
-const current = readCurrentVersion(content, config.flakePattern);
-const latest = await fetchLatestVersion(config.packageName, config.distTag);
+const main = async (): Promise<void> => {
+  const agent = parseAgentName();
+  const config = AGENTS[agent];
+  const content = await readFile(FLAKE_PATH, "utf-8");
+  const current = readCurrentVersion(content, config.flakePattern);
+  const latest = await fetchLatestVersion(config.packageName, config.distTag);
 
-log.info(`${agent}: current: ${current}`);
-log.info(`${agent}: latest:  ${latest}`);
+  log.info(`${agent}: current: ${current}`);
+  log.info(`${agent}: latest:  ${latest}`);
 
-if (current === latest) {
-  log.ok(`${agent} is up to date`);
-  process.exit(2);
+  if (current === latest) {
+    log.ok(`${agent} is up to date`);
+    process.exit(2);
+  }
+
+  log.warn(`${agent}: ${current} -> ${latest}`);
+  const updated = content.replace(config.flakePattern, (match) =>
+    match.replace(current, latest),
+  );
+  await writeFile(FLAKE_PATH, updated);
+  log.ok("flake.nix updated");
+};
+
+try {
+  await main();
+} catch (error: unknown) {
+  log.error(`agent update: ${String(error)}`);
+  process.exit(1);
 }
-
-log.warn(`${agent}: ${current} -> ${latest}`);
-const updated = content.replace(config.flakePattern, (match) =>
-  match.replace(current, latest),
-);
-await writeFile(FLAKE_PATH, updated);
-log.ok("flake.nix updated");

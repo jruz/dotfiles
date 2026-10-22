@@ -38,10 +38,12 @@ const checkSandbox = (): void => {
   const visiblePaths = ["/app/flake.nix", "/app/package.json"];
 
   blockedPaths.forEach((path) => {
-    assert(!existsSync(path), `unexpected access: ${path}`);
+    const exists = existsSync(path);
+    assert(!exists, `unexpected access: ${path}`);
   });
   visiblePaths.forEach((path) => {
-    assert(existsSync(path), `missing project file: ${path}`);
+    const exists = existsSync(path);
+    assert(exists, `missing project file: ${path}`);
   });
   const uid = process.getuid?.();
   assert.notEqual(uid, 0, "sandbox runs as root");
@@ -55,6 +57,7 @@ const checkSandbox = (): void => {
 try {
   checkSandbox();
 } catch (error: unknown) {
-  log.error(String(error));
+  const message = String(error);
+  log.error(message);
   process.exit(1);
 }
