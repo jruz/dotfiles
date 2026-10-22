@@ -354,13 +354,10 @@ ip-repeater:
 agent-update AGENT:
   #!/usr/bin/env nu
   let result = (^sandbox bun run scripts/check-agent-update.ts {{AGENT}} | complete)
+  print $result.stderr
   if $result.exit_code == 0 {
-    print $result.stdout
     ^just nix-hm-switch
-  } else if $result.exit_code == 2 {
-    print $result.stdout
-  } else {
-    print $result.stderr
+  } else if $result.exit_code != 2 {
     exit 1
   }
 
