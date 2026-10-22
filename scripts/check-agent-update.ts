@@ -1,4 +1,4 @@
-import { log } from "./log";
+import { log } from "./lib/log.ts";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import { z } from "zod";

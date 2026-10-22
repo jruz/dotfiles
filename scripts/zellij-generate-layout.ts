@@ -5,7 +5,7 @@ import { write, file } from "bun";
 import { z } from "zod/v4";
 import { parse as parseYaml } from "yaml";
 import { Document, Node, Entry, Value, Identifier, format } from "@bgotink/kdl";
-import { log } from "./log.ts";
+import { log } from "./lib/log.ts";
 
 const RIGHT = "\ue0b0";
 const LEFT = "\ue0b2";

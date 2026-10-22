@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, mkdtempSync, rmSync } from "node:fs";
 
-import { log } from "./log";
+import { log } from "./lib/log.ts";
 
 const checkWritableDirectory = (directory: string): void => {
   try {

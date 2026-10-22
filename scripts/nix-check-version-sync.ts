@@ -1,4 +1,4 @@
-import { log } from "./log";
+import { log } from "./lib/log.ts";
 import { readFile } from "fs/promises";
 
 const EXPECTED_VERSION = "26.05";
