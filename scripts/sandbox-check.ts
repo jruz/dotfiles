@@ -43,8 +43,12 @@ const checkSandbox = (): void => {
   visiblePaths.forEach((path) => {
     assert(existsSync(path), `missing project file: ${path}`);
   });
+  const uid = process.getuid?.();
+  assert.notEqual(uid, 0, "sandbox runs as root");
   checkReadonlyFilesystem();
-  ["/tmp", "/app/node_modules", "/root/.bun"].forEach(checkWritableDirectory);
+  ["/tmp", "/app", "/app/node_modules", "/cache"].forEach(
+    checkWritableDirectory,
+  );
   log.ok("sandbox isolation: ok");
 };
 

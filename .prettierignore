@@ -8,5 +8,5 @@ ubuntu/
 windows/
 tmp/
 node_modules/
-bun.lock
+pnpm-lock.yaml
 *.md

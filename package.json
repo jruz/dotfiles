@@ -1,24 +1,26 @@
 {
   "name": "dotfiles",
-  "module": "index.ts",
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@tsconfig/strictest": "2.0.8",
-    "@types/bun": "1.3.11",
-    "eslint": "10.1.0",
-    "jiti": "2.6.1",
-    "prettier": "3.8.1",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.57.1"
+    "@types/bun": "1.3.13",
+    "eslint": "10.12.0",
+    "jiti": "2.7.0",
+    "knip": "6.40.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1"
   },
   "private": true,
   "type": "module",
   "engines": {
-    "bun": "1.3.13"
+    "bun": "1.3.13",
+    "node": "24.21.0",
+    "pnpm": "11.27.0"
   },
   "dependencies": {
     "@bgotink/kdl": "0.4.0",
-    "yaml": "2.8.3",
-    "zod": "4.3.6"
+    "yaml": "2.9.1",
+    "zod": "4.6.5"
   }
 }

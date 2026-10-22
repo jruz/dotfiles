@@ -11,18 +11,69 @@ setup:
   just ts-install
 
 ts-install:
-  sandbox bun install --frozen-lockfile
+  sandbox pnpm install --frozen-lockfile
+
+parallel +RECIPES:
+  #!/usr/bin/env nu
+  let runs = ([{{RECIPES}}] | par-each {|recipe|
+      ^just $recipe o+e>| complete | insert recipe $recipe })
+  for run in $runs {
+      if $run.exit_code == 0 {
+          print $"PASS ($run.recipe)"
+      } else {
+          print $"FAIL ($run.recipe)" $run.stdout
+      }
+  }
+  if ($runs | any {|run| $run.exit_code != 0 }) { exit 1 }
 
 ts-check:
   just ts-install
-  sandbox bun run prettier --check .
-  sandbox bun run tsc --noEmit
-  sandbox bun run eslint .
+  just parallel \
+    ts-check-prettier \
+    ts-check-tsc \
+    ts-check-eslint \
+    ts-check-knip \
+    ts-check-knip-production
+
+ts-check-prettier:
+  sandbox pnpm exec prettier --check --cache .
+
+ts-check-tsc:
+  sandbox pnpm exec tsc \
+    --noEmit \
+    --incremental \
+    --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo
+
+ts-check-eslint:
+  sandbox pnpm exec eslint \
+    --cache \
+    --cache-location node_modules/.cache/eslint/ \
+    .
+
+ts-check-knip:
+  sandbox pnpm exec knip
+
+ts-check-knip-production:
+  sandbox pnpm exec knip --production
+ts-outdated:
+  sandbox pnpm outdated
+
+ts-upgrade +PACKAGES:
+  sandbox pnpm \
+    --config.save-exact=true \
+    --config.strict-peer-dependencies=true \
+    update \
+    --latest \
+    {{PACKAGES}}
 
 ts-fix:
   just ts-install
-  sandbox bun run prettier --write .
-  sandbox bun run eslint . --fix
+  sandbox pnpm exec prettier --write --cache .
+  sandbox pnpm exec eslint \
+    --cache \
+    --cache-location node_modules/.cache/eslint/ \
+    --fix \
+    .
 
 fix:
   just nix-fix

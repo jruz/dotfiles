@@ -81,4 +81,9 @@ const main = async () => {
   process.exit(1);
 };
 
-void main();
+try {
+  await main();
+} catch (error: unknown) {
+  log.error(`version sync: ${String(error)}`);
+  process.exit(1);
+}
