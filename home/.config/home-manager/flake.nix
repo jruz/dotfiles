@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-statusline = {
-      url = "git+https://codeberg.org/jruz/claude-statusline?ref=refs/tags/v0.4.1";
+      url = "git+https://codeberg.org/jruz/claude-statusline?ref=refs/tags/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ager = {
