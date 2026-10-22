@@ -37,6 +37,10 @@
       url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    git-add-lines = {
+      url = "git+https://codeberg.org/jruz/git-add-lines?ref=refs/tags/v0.4.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tree-sitter = {
       url = "github:tree-sitter/tree-sitter?ref=v0.26.8";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,6 +61,7 @@
       claude-hooks,
       claude-statusline,
       ager,
+      git-add-lines,
       tree-sitter,
       ...
     }:
@@ -81,6 +86,7 @@
               claude-hooks
               claude-statusline
               ager
+              git-add-lines
               tree-sitter
               system
               ;

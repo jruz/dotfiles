@@ -11,6 +11,7 @@
   claude-hooks,
   claude-statusline,
   ager,
+  git-add-lines,
   tree-sitter,
   system,
   ...
@@ -133,6 +134,7 @@ in
         claude-hooks.packages.${system}.default
         claude-statusline.packages.${system}.default
         ager.packages.${system}.default
+        git-add-lines.packages.${system}.default
 
         # CLOJURE --------------------
         clojure-lsp
