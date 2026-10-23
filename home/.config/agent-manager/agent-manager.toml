@@ -1,0 +1,23 @@
+agent_command = "pi"
+worktree_base_branch = "main"
+worktree_post_create_command = "nix develop --command just setup"
+
+[scroll]
+mouse_lines = 3
+
+[theme.tab]
+bar_bg = "#282a36"
+corner_bg = "#6272a4"
+corner_fg = "#f8f8f2"
+inactive_bg = "#44475a"
+inactive_fg = "#f8f8f2"
+active_bg = "#6272a4"
+active_fg = "#f8f8f2"
+
+[theme.pane]
+focused_border = "#8be9fd"
+unfocused_border = "#6272a4"
+
+[theme.worktree]
+selection_bg = "#44475a"
+selection_fg = "#f8f8f2"
