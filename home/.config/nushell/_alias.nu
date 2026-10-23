@@ -1,4 +1,4 @@
-alias plan = nvim PLAN.md
+alias plan = ^nvim PLAN.md
 
 alias dotfiles = cd ~/dev/dotfiles
 alias dot = cd ~/dev/dotfiles
@@ -7,99 +7,99 @@ alias dl = cd ~/Downloads
 alias mega = cd ~/Mega
 alias conf = cd ~/.config
 
-alias al = nvim ~/.config/nushell/_alias.nu
-alias fu = nvim ~/.config/nushell/_functions.nu
+alias al = ^nvim ~/.config/nushell/_alias.nu
+alias fu = ^nvim ~/.config/nushell/_functions.nu
 
-alias i3conf = nvim ~/.config/i3/config
-alias i3sconf = nvim ~/.config/i3status/config
-alias gconf = nvim ~/.config/ghostty/config
-alias aconf = nvim ~/.config/alacritty/alacritty.toml
-alias kconf = nvim ~/.config/kitty/kitty.conf
-alias nvconf = nvim ~/.config/nvim/init.lua
-alias vconf = nvim ~/.vimrc
-alias tmconf = nvim ~/.tmux.conf
-alias zshconf = nvim ~/.zshrc
-alias econf = nvim ~/.config/doom
-alias hconf = hx ~/.config/helix/config.toml
-alias nuconf = nvim ~/.config/nushell
-alias rtxconf = nvim ~/.config/rtx/config.toml
-alias zeconf = nvim ~/.config/zellij/config.kdl
-alias jt = just tmux
-alias j = just
-alias ze = zellij
-alias zl = zellij list-sessions
-alias zml = zellij action move-tab left
-alias zmr = zellij action move-tab right
+alias i3conf = ^nvim ~/.config/i3/config
+alias i3sconf = ^nvim ~/.config/i3status/config
+alias gconf = ^nvim ~/.config/ghostty/config
+alias aconf = ^nvim ~/.config/alacritty/alacritty.toml
+alias kconf = ^nvim ~/.config/kitty/kitty.conf
+alias nvconf = ^nvim ~/.config/nvim/init.lua
+alias vconf = ^nvim ~/.vimrc
+alias tmconf = ^nvim ~/.tmux.conf
+alias zshconf = ^nvim ~/.zshrc
+alias econf = ^nvim ~/.config/doom
+alias hconf = ^hx ~/.config/helix/config.toml
+alias nuconf = ^nvim ~/.config/nushell
+alias rtxconf = ^nvim ~/.config/rtx/config.toml
+alias zeconf = ^nvim ~/.config/zellij/config.kdl
+alias jt = ^just tmux
+alias j = ^just
+alias ze = ^zellij
+alias zl = ^zellij list-sessions
+alias zml = ^zellij action move-tab left
+alias zmr = ^zellij action move-tab right
 
-alias rconf = sudo vim /boot/efi/EFI/refind/refind.conf
-alias ngconf = sudo vim /etc/nginx/nginx.conf
+alias rconf = ^sudo vim /boot/efi/EFI/refind/refind.conf
+alias ngconf = ^sudo vim /etc/nginx/nginx.conf
 
-alias hms = just --justfile ~/dev/dotfiles/justfile nix-hm-switch
-alias hme = just --justfile ~/dev/dotfiles/justfile nix-hm-edit
+alias hms = ^just --justfile ~/dev/dotfiles/justfile nix-hm-switch
+alias hme = ^just --justfile ~/dev/dotfiles/justfile nix-hm-edit
 
-alias nds = just --justfile ~/dev/dotfiles/justfile nix-darwin-switch
-alias nde = just --justfile ~/dev/dotfiles/justfile nix-darwin-edit
+alias nds = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-switch
+alias nde = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-edit
 
-alias off = shutdown -h now
+alias off = ^shutdown -h now
 alias x = exit
 alias q = exit
-alias p = sudo pacman -Sy
-alias a = yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --cleanafter
-alias upp = sudo pacman -Syu
-alias upa = pacaur -k
-alias logs = journalctl -ef
-alias dnsconf = sudo vim /etc/resolv.conf
-alias disks = lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
-alias errors = journalctl -xe
-alias sx = startx
-alias sxe = startx ~/dev/dotfiles/X/home/.xinitrc
-alias ag = rg -S --hidden
-alias awk = gawk
-alias cat = bat
-alias find = fd
-alias grep = rg
-alias fd = fd -HI
+alias p = ^sudo pacman -Sy
+alias a = ^yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --cleanafter
+alias upp = ^sudo pacman -Syu
+alias upa = ^pacaur -k
+alias logs = ^journalctl -ef
+alias dnsconf = ^sudo vim /etc/resolv.conf
+alias disks = ^lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
+alias errors = ^journalctl -xe
+alias sx = ^startx
+alias sxe = ^startx ~/dev/dotfiles/X/home/.xinitrc
+alias ag = ^rg -S --hidden
+alias awk = ^gawk
+alias cat = ^bat
+alias find = ^fd
+alias grep = ^rg
+alias fd = ^fd -HI
 
-alias dhcr = sudo systemctl restart dhcpcd.service
+alias dhcr = ^sudo systemctl restart dhcpcd.service
 
-alias eon = sudo ip link set dev ens9 up
-alias eoff = sudo ip link set dev ens9 down
+alias eon = ^sudo ip link set dev ens9 up
+alias eoff = ^sudo ip link set dev ens9 down
 
-alias woff = nmcli radio wifi off
-alias won = nmcli radio wifi on
-alias ws = nmcli connection show
-alias wa = netctl-auto current
-alias wl = nmcli device wifi list ifname wlp0s20u1
-alias wm = sudo wifi-menu enp0s20u1
-alias wi = curl ipinfo.io
+alias woff = ^nmcli radio wifi off
+alias won = ^nmcli radio wifi on
+alias ws = ^nmcli connection show
+alias wa = ^netctl-auto current
+alias wl = ^nmcli device wifi list ifname wlp0s20u1
+alias wm = ^sudo wifi-menu enp0s20u1
+alias wi = ^curl ipinfo.io
 
-alias la = lsd --almost-all --group-dirs=first --human-readable --long
-alias las = lsd --almost-all --group-dirs=first --human-readable --long --dereference
-alias lad = lsd --almost-all --group-dirs=first --human-readable --long --sort=time
+alias la = ^lsd --almost-all --group-dirs=first --human-readable --long
+alias las = ^lsd --almost-all --group-dirs=first --human-readable --long --dereference
+alias lad = ^lsd --almost-all --group-dirs=first --human-readable --long --sort=time
 
-alias hosts = sudo nvim /etc/hosts
+alias hosts = ^sudo nvim /etc/hosts
 alias cls = clear
 alias .. = cd ..
 alias ... = cd ../..
-alias vimstall = vim +PluginInstall +qall
+alias vimstall = ^vim +PluginInstall +qall
 
-alias tms = tmuxinator start
-alias tml = tmux ls
+alias tms = ^tmuxinator start
+alias tml = ^tmux ls
 
-alias d = docker
-alias dc = docker-compose
-alias dps = docker ps
-alias dpsa = docker ps -a
-alias ds = docker start
-alias dr = docker run
-alias da = direnv allow
-alias k = kubectl
+alias d = ^docker
+alias dc = ^docker-compose
+alias dps = ^docker ps
+alias dpsa = ^docker ps -a
+alias ds = ^docker start
+alias dr = ^docker run
+alias da = ^direnv allow
+alias k = ^kubectl
 
-alias n = npm
-alias tags = ctags -R --exclude=.git --exclude=node_modules
-alias tf = terraform
-alias cl = claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel server:server-channel
-alias co = codex --dangerously-bypass-approvals-and-sandbox
+alias n = ^npm
+alias tags = ^ctags -R --exclude=.git --exclude=node_modules
+alias tf = ^terraform
+alias cl = ^claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel server:server-channel
+alias co = ^codex --dangerously-bypass-approvals-and-sandbox
 
 alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
 alias pi-no-hooks = ^pi --no-extensions --extension ~/dev/projects/pi-extensions/extensions/status-line.ts
@@ -125,7 +125,7 @@ alias gdl = ^git diff HEAD^ HEAD
 alias gdm = ^git diff main
 alias gds = ^git diff --cached
 alias gf = ^git fetch
-alias gl = ^^git log --pretty=format:"%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)" --date="short"
+alias gl = ^git log --pretty=format:"%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)" --date="short"
 alias gmd = ^git merge dev
 alias gpl = ^git pull --rebase
 alias gps = ^git push
@@ -140,4 +140,4 @@ alias gstp = ^git stash pop
 alias gwip = ^git commit -m "WIP"
 alias lg = ^lazygit
 
-alias ubuntu = lsb_release -a
+alias ubuntu = ^lsb_release -a

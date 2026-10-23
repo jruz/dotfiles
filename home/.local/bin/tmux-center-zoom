@@ -5,19 +5,19 @@ const SELF = '~/.local/bin/tmux-center-zoom'
 const STATE_KEYS = [window pane left right]
 
 def window-option [window: string, name: string]: nothing -> string {
-    tmux show-options -w -v -q -t $window $name | str trim
+    ^tmux show-options -w -v -q -t $window $name | str trim
 }
 
 def pane-option [pane: string, name: string]: nothing -> string {
-    tmux show-options -p -v -q -t $pane $name | str trim
+    ^tmux show-options -p -v -q -t $pane $name | str trim
 }
 
 def pane-format [pane: string, format: string]: nothing -> string {
-    tmux display-message -p -t $pane $format | str trim
+    ^tmux display-message -p -t $pane $format | str trim
 }
 
 def ids [scope: string, format: string]: nothing -> list<string> {
-    tmux $scope -a -F $format | lines
+    ^tmux $scope -a -F $format | lines
 }
 
 def side-width [window: string]: nothing -> int {
@@ -25,11 +25,11 @@ def side-width [window: string]: nothing -> int {
 }
 
 def split-spacer [pane: string, side: int, placement: list<string>]: nothing -> string {
-    tmux split-window -h -d ...$placement -t $pane -l $side -P -F '#{pane_id}' ...$SPACER | str trim
+    ^tmux split-window -h -d ...$placement -t $pane -l $side -P -F '#{pane_id}' ...$SPACER | str trim
 }
 
 def save-state [placeholder: string, state: record] {
-    $state | items {|key, value| tmux set-option -p -t $placeholder $"@center-zoom-($key)" $value }
+    $state | items {|key, value| ^tmux set-option -p -t $placeholder $"@center-zoom-($key)" $value }
 }
 
 def load-state [placeholder: string]: nothing -> record {
@@ -49,41 +49,41 @@ def zoom-in [pane: string] {
     let name = pane-format $pane 'z:#{pane_current_command}'
     let side = side-width $pane
     let session = pane-format $pane '#{session_id}'
-    let created = tmux new-window -d -t $"($session):" -n $name -P -F '#{window_id} #{pane_id}' ...$SPACER | str trim | split row ' '
+    let created = ^tmux new-window -d -t $"($session):" -n $name -P -F '#{window_id} #{pane_id}' ...$SPACER | str trim | split row ' '
     let window = $created.0
     let placeholder = $created.1
-    tmux swap-pane -d -s $pane -t $placeholder
+    ^tmux swap-pane -d -s $pane -t $placeholder
     let left = split-spacer $pane $side [-b]
     let right = split-spacer $pane $side []
     save-state $placeholder {window: $window, pane: $pane, left: $left, right: $right}
-    tmux set-option -w -t $window @center-zoom-placeholder $placeholder
-    tmux set-hook -w -t $window window-resized $"run-shell '($SELF) resize ($placeholder)'"
-    tmux select-window -t $window
-    tmux select-pane -t $pane
+    ^tmux set-option -w -t $window @center-zoom-placeholder $placeholder
+    ^tmux set-hook -w -t $window window-resized $"run-shell '($SELF) resize ($placeholder)'"
+    ^tmux select-window -t $window
+    ^tmux select-pane -t $pane
 }
 
 def zoom-out [placeholder: string] {
     let state = load-state $placeholder
-    tmux swap-pane -d -s $state.pane -t $placeholder
-    tmux select-window -t (pane-format $state.pane '#{window_id}')
-    tmux select-pane -t $state.pane
-    tmux kill-window -t $state.window
+    ^tmux swap-pane -d -s $state.pane -t $placeholder
+    ^tmux select-window -t (pane-format $state.pane '#{window_id}')
+    ^tmux select-pane -t $state.pane
+    ^tmux kill-window -t $state.window
 }
 
 def release [placeholder: string] {
     let state = load-state $placeholder
     if ($state.window in (ids list-windows '#{window_id}')) {
-        tmux kill-window -t $state.window
+        ^tmux kill-window -t $state.window
     }
-    tmux select-window -t (pane-format $placeholder '#{window_id}')
-    tmux kill-pane -t $placeholder
+    ^tmux select-window -t (pane-format $placeholder '#{window_id}')
+    ^tmux kill-pane -t $placeholder
 }
 
 def "main resize" [placeholder: string] {
     let state = load-state $placeholder
     let side = side-width $state.window
-    tmux resize-pane -t $state.left -x $side
-    tmux resize-pane -t $state.right -x $side
+    ^tmux resize-pane -t $state.left -x $side
+    ^tmux resize-pane -t $state.right -x $side
 }
 
 def "main cleanup" [] {

@@ -18,18 +18,18 @@ def osc52_copy [] {
 }
 
 def wr [] {
-    nmcli radio wifi off
+    ^nmcli radio wifi off
     sleep 5sec
-    nmcli radio wifi on
+    ^nmcli radio wifi on
 }
 
 def this_branch [] {
-    git rev-parse --abbrev-ref HEAD
+    ^git rev-parse --abbrev-ref HEAD
 }
 
 def gdr [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
-    git diff $"origin/($branch)"
+    let branch = (^git rev-parse --abbrev-ref HEAD)
+    ^git diff $"origin/($branch)"
 }
 
 def gl [
@@ -44,60 +44,60 @@ def gl [
     ]
 
     if ($range | is-empty) {
-        git log ...$args
+        ^git log ...$args
     } else {
-        git log ...$args $range
+        ^git log ...$args $range
     }
 }
 
 def gld [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
+    let branch = (^git rev-parse --abbrev-ref HEAD)
     gl $"dev..($branch)"
 }
 
 def glm [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
+    let branch = (^git rev-parse --abbrev-ref HEAD)
     gl $"main..($branch)"
 }
 
 def grm [] {
-    git fetch
-    git rebase origin/main
+    ^git fetch
+    ^git rebase origin/main
 }
 
 def grc [] {
-    with-env { GIT_EDITOR: "true" } { git rebase --continue }
+    with-env { GIT_EDITOR: "true" } { ^git rebase --continue }
 }
 
 def grr [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
-    git reset --hard $"origin/($branch)"
+    let branch = (^git rev-parse --abbrev-ref HEAD)
+    ^git reset --hard $"origin/($branch)"
 }
 
 def gpsu [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
-    git push --set-upstream origin $branch
+    let branch = (^git rev-parse --abbrev-ref HEAD)
+    ^git push --set-upstream origin $branch
 }
 
 def gpsuf [] {
-    let branch = (git rev-parse --abbrev-ref HEAD)
-    git push --force --set-upstream origin $branch
+    let branch = (^git rev-parse --abbrev-ref HEAD)
+    ^git push --force --set-upstream origin $branch
 }
 
 def gri [count: int] {
-    git rebase -i $"HEAD~($count)"
+    ^git rebase -i $"HEAD~($count)"
 }
 
 def last_commit [] {
-    git --no-pager log -1 --pretty="format:%s"
+    ^git --no-pager log -1 --pretty="format:%s"
 }
 
 def tme [name: string] {
-    nvim $"($env.HOME)/dev/dotfiles/.tmuxinator/($name).yml"
+    ^nvim $"($env.HOME)/dev/dotfiles/.tmuxinator/($name).yml"
 }
 
 def untar [file: string] {
-    tar -xzvf $file
+    ^tar -xzvf $file
 }
 
 def encrypt [file: path] {
@@ -112,7 +112,7 @@ def decrypt [file: path] {
 }
 
 def get_ip [interface: string] {
-    ip -4 a show $interface | lines | find inet | first | split row " " | get 1 | split row "/" | first
+    ^ip -4 a show $interface | lines | find inet | first | split row " " | get 1 | split row "/" | first
 }
 
 def wifi_ip [] {
@@ -124,8 +124,8 @@ def cable_ip [] {
 }
 
 def eject [device: string] {
-    udisksctl unmount -b $device
-    udisksctl power-off -b $device
+    ^udisksctl unmount -b $device
+    ^udisksctl power-off -b $device
 }
 
 def brain_path [] {
@@ -146,21 +146,21 @@ def --env mp [] {
 
 def yf [file: path] {
     if (is_osx) {
-        open --raw $file | pbcopy
+        open --raw $file | ^pbcopy
     } else if (is_ssh) {
         open --raw $file | osc52_copy
     } else {
-        open --raw $file | xclip -sel clip
+        open --raw $file | ^xclip -sel clip
     }
 }
 
 def yo [] {
     if (is_osx) {
-        $in | pbcopy
+        $in | ^pbcopy
     } else if (is_ssh) {
         $in | osc52_copy
     } else {
-        $in | xclip -sel clip
+        $in | ^xclip -sel clip
     }
 }
 
@@ -200,16 +200,16 @@ def tmk [session: string@"nu-complete tmux-sessions"] {
 def zk [session: string@"nu-complete zellij-sessions"] {
     ^procs $session --no-header --only pid | lines | each { |id| ^kill -9 $id }
 
-    zellij delete-session -f $session
+    ^zellij delete-session -f $session
 }
 
 def za [session: string@"nu-complete zellij-sessions"] {
-    zellij attach $session
+    ^zellij attach $session
 }
 
 def zel [] {
     let session_name = ($env.PWD | path basename | str upcase)
-    zellij attach --create $session_name
+    ^zellij attach --create $session_name
 }
 
 def tmux-dev [] {
@@ -243,17 +243,17 @@ def kill-port [port: int] {
 }
 
 def zellij-mac [] {
-    (just
+    (^just
         --justfile ~/dev/dotfiles/justfile
         --working-directory ~/dev/dotfiles
         zellij-generate-mac)
-    zellij --new-session-with-layout mac --session MAC
+    ^zellij --new-session-with-layout mac --session MAC
 }
 
 def zellij-mini [] {
-    (just
+    (^just
         --justfile ~/dev/dotfiles/justfile
         --working-directory ~/dev/dotfiles
         zellij-generate-mini)
-    zellij --new-session-with-layout mini --session MINI
+    ^zellij --new-session-with-layout mini --session MINI
 }

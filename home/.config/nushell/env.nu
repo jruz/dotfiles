@@ -17,7 +17,7 @@ if (which starship | length) > 0 {
 
 let zoxide_cache = $"($env.HOME)/.cache/zoxide-init.nu"
 if (which zoxide | length) > 0 {
-  zoxide init nushell | save -f $zoxide_cache
+  ^zoxide init nushell | save -f $zoxide_cache
 } else {
   "" | save -f $zoxide_cache
 }

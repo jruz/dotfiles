@@ -29,7 +29,7 @@ def discover_all_tests [files: list<string>] {
 
 def run_test [file: string, test_name: string] {
     try {
-        nu -c $"source ($file); ($test_name)" | complete
+        ^nu -c $"source ($file); ($test_name)" | complete
         { passed: true, error: null }
     } catch { |err|
         { passed: false, error: $err.msg }
