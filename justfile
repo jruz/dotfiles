@@ -28,7 +28,6 @@ parallel +RECIPES:
   if ($runs | any {|run| $run.exit_code != 0 }) { exit 1 }
 
 ts-check:
-  just ts-install
   just parallel \
     ts-check-prettier \
     ts-check-tsc \
@@ -58,7 +57,6 @@ ts-check-knip-production:
   sandbox pnpm exec knip --production
 
 bun-test:
-  just ts-install
   sandbox bun test
 
 test:
@@ -76,7 +74,6 @@ ts-upgrade +PACKAGES:
     {{PACKAGES}}
 
 ts-fix:
-  just ts-install
   sandbox pnpm exec prettier --write --cache .
   sandbox pnpm exec eslint \
     --cache \
