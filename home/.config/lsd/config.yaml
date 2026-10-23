@@ -1,0 +1,10 @@
+color:
+  theme: custom
+blocks:
+  - permission
+  - user
+  - group
+  - size
+  - date
+  - git
+  - name
