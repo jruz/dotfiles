@@ -1,0 +1,132 @@
+#!/usr/bin/env nu
+
+use std/log
+
+const SEVERITY = {text: "DEBUG", number: 5}
+const SIDEBAR_MAX_WIDTH = 35
+
+def preview-width [width: int]: nothing -> int {
+    let percentage = ($width / 4 | math floor | into int)
+    let sidebar = ([$percentage $SIDEBAR_MAX_WIDTH] | math min)
+    $width - $sidebar - 1
+}
+
+def format-log [body: string, attributes: record]: nothing -> string {
+    {
+        SeverityText: $SEVERITY.text
+        SeverityNumber: $SEVERITY.number
+        Body: $body
+        Attributes: $attributes
+    } | to json --raw
+}
+
+def format-window [window: record]: nothing -> string {
+    let number = ($window.number | fill --alignment right --character ' ' --width 2)
+    $"($window.id)\t($window.active)($number) ($window.name)"
+}
+
+def format-windows [windows: table]: nothing -> string {
+    ($windows
+        | group-by session_id --to-table
+        | enumerate
+        | each {|session|
+            let spacing = if $session.index == 0 { "" } else { "\n" }
+            let name = ($session.item.items | first | get session)
+            let rows = ($session.item.items | each {|window| format-window $window })
+            [$"session\t($spacing)($name)" ...$rows]
+        }
+        | flatten
+        | str join (char nul))
+}
+
+def list-windows []: nothing -> table {
+    log debug (format-log "list-windows" {})
+    (do --capture-errors {
+        ^tmux list-windows -a -F "#{window_id}\t#{session_id}\t#{session_name}\t#{?window_active,●, }\t#{window_index}\t#{window_name}"
+    }
+        | lines
+        | parse "{id}\t{session_id}\t{session}\t{active}\t{number}\t{name}")
+}
+
+def "main open" [client: string, width: int] {
+    log debug (format-log "main open" {client: $client, width: $width})
+    try {
+        let maximum = (do --capture-errors { ^tmux show-options -gv @window-picker-max-width }
+            | str trim
+            | into int)
+        let percentage = ($width * 75 / 100 | math floor | into int)
+        let popup_width = ([$percentage $maximum] | math min)
+        let picker = ($env.HOME | path join .local bin tmux-window-picker)
+        let popup = (^tmux display-popup -c $client -EE -B -w $popup_width -h 75% $picker $popup_width | complete)
+        if $popup.exit_code == 0 { return }
+        if $popup.exit_code == 1 and ($popup.stderr | is-empty) { return }
+        error make $"popup exited with status ($popup.exit_code): ($popup.stderr)"
+    } catch {|err|
+        print --stderr $"[(ansi red)ERROR(ansi reset)] ($err.msg)"
+        exit 1
+    }
+}
+
+def "main preview" [target: string] {
+    log debug (format-log "main preview" {target: $target})
+    try {
+        let contents = (do --capture-errors { ^tmux capture-pane -ep -S -200 -t $target })
+        print --no-newline ($contents | str trim --right)
+    } catch {|err|
+        print --stderr $"[(ansi red)ERROR(ansi reset)] ($err.msg)"
+        exit 1
+    }
+}
+
+def "main search" [] {
+    log debug (format-log "main search" {})
+    try {
+        let rows = (list-windows
+            | each {|window| $"(format-window $window)  [($window.session)]" }
+            | str join (char nul))
+        print --no-newline $rows
+    } catch {|err|
+        print --stderr $"[(ansi red)ERROR(ansi reset)] ($err.msg)"
+        exit 1
+    }
+}
+
+def main [width: int] {
+    log debug (format-log "main" {width: $width})
+    try {
+        do --capture-errors {
+            let windows = (list-windows)
+            let selection = (format-windows $windows
+                | ^fzf
+                    --read0
+                    --delimiter='\t'
+                    --layout=reverse
+                    --no-sort
+                    --with-nth=2..
+                    --accept-nth=1
+                    --border=rounded
+                    --border-label=' Windows '
+                    --prompt='Search › '
+                    --header='j/k move · type search'
+                    --highlight-line
+                    --color='bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:#cba6f7,hl+:#cba6f7,border:#b4befe,label:#b4befe,prompt:#cba6f7,pointer:#b4befe,header:#9399b2,info:#9399b2'
+                    --with-shell='nu --no-config-file --commands'
+                    --preview='if {1} != "session" { ^~/.local/bin/tmux-window-picker preview {1} }'
+                    --preview-window=$"right,(preview-width $width),border-left,follow"
+                    --bind='start:down,j:down,k:up,ctrl-/:toggle-preview'
+                    --bind='focus:transform:if {1} == "session" { if $env.FZF_POS == "1" { print down } else if $env.FZF_ACTION =~ "up" { print up } else { print down } }'
+                    --bind='change:unbind(j,k,change,focus)+reload-sync(^~/.local/bin/tmux-window-picker search)+change-header(Enter · Esc · Ctrl-j/k)'
+                | complete)
+            if $selection.exit_code == 130 { return }
+            if $selection.exit_code != 0 {
+                error make $"fzf exited with status ($selection.exit_code): ($selection.stderr)"
+            }
+            let target = ($selection.stdout | str trim)
+            ^tmux select-window -t $target
+            ^tmux switch-client -t $target
+        }
+    } catch {|err|
+        print --stderr $"[(ansi red)ERROR(ansi reset)] ($err.msg)"
+        exit 1
+    }
+}
