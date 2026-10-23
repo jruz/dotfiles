@@ -29,6 +29,12 @@
 	compactionHeuristic = true
 [rerere]
 	enabled = true
+[hook "git-hook-post-rewrite"]
+	event = post-rewrite
+	command = ~/.local/bin/git-hook-post-rewrite
+[hook "git-hook-post-merge"]
+	event = post-merge
+	command = ~/.local/bin/git-hook-post-merge
 [commit]
 	gpgsign = true
 [alias]

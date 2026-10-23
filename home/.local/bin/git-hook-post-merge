@@ -1,0 +1,54 @@
+#!/usr/bin/env nu
+# vim: ft=nu
+
+const CHECKS = [
+    {
+        name: "Node dependencies"
+        basenames: [
+            "package.json"
+            "pnpm-lock.yaml"
+            "package-lock.json"
+            "yarn.lock"
+            "bun.lock"
+            "bun.lockb"
+        ]
+        paths: []
+        action: "just setup"
+    }
+    {
+        name: "Rust dependencies"
+        basenames: ["Cargo.toml" "Cargo.lock"]
+        paths: []
+        action: "just setup"
+    }
+    {
+        name: "Flake"
+        basenames: []
+        paths: ["flake.nix" "flake.lock"]
+        action: "direnv reload"
+    }
+]
+
+def changed-files []: nothing -> list<string> {
+    ^git diff-tree -r --name-only ORIG_HEAD HEAD | lines
+}
+
+def matching-files [check: record]: list<string> -> list<string> {
+    where (($it | path basename) in $check.basenames) or ($it in $check.paths)
+}
+
+def warn [check: record]: list<string> -> nothing {
+    let files = $in
+    print ""
+    print $"[(ansi yellow)WARN(ansi reset)] ($check.name) changed — run: ($check.action)"
+    for file in $files { print $"  ($file)" }
+    print ""
+}
+
+def main [_squash: string] {
+    let changed = changed-files
+    for check in $CHECKS {
+        let files = $changed | matching-files $check
+        if ($files | is-not-empty) { $files | warn $check }
+    }
+}
