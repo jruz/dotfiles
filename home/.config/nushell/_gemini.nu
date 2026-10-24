@@ -31,7 +31,7 @@ export def main [prompt?: string] {
         error make {msg: "GEMINI_API_KEY environment variable not set"}
     }
 
-    print -n " "
+    print --no-newline " "
 
     let payload = (build_payload $input_text) | to json
 

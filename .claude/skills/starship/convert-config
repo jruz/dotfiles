@@ -6,7 +6,7 @@ let target_file = ($repo_root | path join "home" ".config" "starship.toml")
 
 let template = open --raw ($skill_dir | path join "starship.toml")
 
-def make_icon [code: int] { char -i $code }
+def make_icon [code: int] { char --integer $code }
 
 let replacements = [
   ["{{ARROW_UP}}" (make_icon 0x21E1)]
@@ -135,10 +135,10 @@ def debug_icons [] {
   }
 }
 
-let result = $replacements | reduce -f $template {|row, acc|
-  $acc | str replace -a $row.0 $row.1
+let result = $replacements | reduce --fold $template {|row, acc|
+  $acc | str replace --all $row.0 $row.1
 }
 
-$result | save -f $target_file
+$result | save --force $target_file
 print $"✓ Wrote ($result | str length) bytes to ($target_file)"
 print "  Icons converted from unicode code points (using your original icon set)"

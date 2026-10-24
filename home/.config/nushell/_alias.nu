@@ -53,12 +53,12 @@ alias disks = ^lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
 alias errors = ^journalctl -xe
 alias sx = ^startx
 alias sxe = ^startx ~/dev/dotfiles/X/home/.xinitrc
-alias ag = ^rg -S --hidden
+alias ag = ^rg --smart-case --hidden
 alias awk = ^gawk
 alias cat = ^bat
 alias find = ^fd
 alias grep = ^rg
-alias fd = ^fd -HI
+alias fd = ^fd --hidden --no-ignore
 
 alias dhcr = ^sudo systemctl restart dhcpcd.service
 

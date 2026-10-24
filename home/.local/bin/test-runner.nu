@@ -11,7 +11,7 @@ def find_tests_in_file [file: string] {
     let tests = open $file
     | lines
     | where $it =~ '^(export )?def test_'
-    | parse -r '^(?:export )?def (?<test_name>test_\w+)'
+    | parse --regex '^(?:export )?def (?<test_name>test_\w+)'
     | get test_name
 
     if ($tests | is-not-empty) {
@@ -29,7 +29,7 @@ def discover_all_tests [files: list<string>] {
 
 def run_test [file: string, test_name: string] {
     try {
-        ^nu -c $"source ($file); ($test_name)" | complete
+        ^nu --commands $"source ($file); ($test_name)" | complete
         { passed: true, error: null }
     } catch { |err|
         { passed: false, error: $err.msg }

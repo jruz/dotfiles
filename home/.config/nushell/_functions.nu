@@ -40,7 +40,7 @@ def gl [
     let args = [
         --pretty=format:($format)
         --date=short
-        -n $"($limit)"
+        --max-count $"($limit)"
     ]
 
     if ($range | is-empty) {
@@ -85,11 +85,11 @@ def gpsuf [] {
 }
 
 def gri [count: int] {
-    ^git rebase -i $"HEAD~($count)"
+    ^git rebase --interactive $"HEAD~($count)"
 }
 
 def last_commit [] {
-    ^git --no-pager log -1 --pretty="format:%s"
+    ^git --no-pager log --max-count 1 --pretty="format:%s"
 }
 
 def tme [name: string] {
@@ -97,7 +97,7 @@ def tme [name: string] {
 }
 
 def untar [file: string] {
-    ^tar -xzvf $file
+    ^tar --extract --gzip --verbose --file $file
 }
 
 def encrypt [file: path] {
@@ -124,8 +124,8 @@ def cable_ip [] {
 }
 
 def eject [device: string] {
-    ^udisksctl unmount -b $device
-    ^udisksctl power-off -b $device
+    ^udisksctl unmount --block-device $device
+    ^udisksctl power-off --block-device $device
 }
 
 def brain_path [] {
@@ -150,7 +150,7 @@ def yf [file: path] {
     } else if (is_ssh) {
         open --raw $file | osc52_copy
     } else {
-        open --raw $file | ^xclip -sel clip
+        open --raw $file | ^xclip -selection clipboard
     }
 }
 
@@ -160,7 +160,7 @@ def yo [] {
     } else if (is_ssh) {
         $in | osc52_copy
     } else {
-        $in | ^xclip -sel clip
+        $in | ^xclip -selection clipboard
     }
 }
 
@@ -200,7 +200,7 @@ def tmk [session: string@"nu-complete tmux-sessions"] {
 def zk [session: string@"nu-complete zellij-sessions"] {
     ^procs $session --no-header --only pid | lines | each { |id| ^kill -9 $id }
 
-    ^zellij delete-session -f $session
+    ^zellij delete-session --force $session
 }
 
 def za [session: string@"nu-complete zellij-sessions"] {
