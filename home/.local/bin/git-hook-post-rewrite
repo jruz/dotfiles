@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
-def main [command: string] {
+def main [command: string]: nothing -> string {
     if $command != "rebase" { return }
     ^git hook run --ignore-missing post-merge -- 0
 }

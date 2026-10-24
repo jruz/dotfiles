@@ -48,7 +48,7 @@ def list-windows []: nothing -> table {
         | parse "{id}\t{session_id}\t{session}\t{active}\t{number}\t{name}")
 }
 
-def "main open" [client: string, width: int] {
+def "main open" [client: string, width: int]: nothing -> nothing {
     log debug (format-log "main open" {client: $client, width: $width})
     try {
         let maximum = (do --capture-errors { ^tmux show-options -gv @window-picker-max-width }
@@ -91,7 +91,7 @@ def "main search" [] {
     }
 }
 
-def main [width: int] {
+def main [width: int]: nothing -> nothing {
     log debug (format-log "main" {width: $width})
     try {
         do --capture-errors {
