@@ -1,55 +1,36 @@
-def build-payload [text: string] {
+def build-payload [text: string]: nothing -> record {
     let prompt = $"I am using Nushell what is the correct command to do: ($text) \n Reply only with the command in raw form no markdown."
-
     {
         contents: [
             {
                 parts: [
-                    {
-                        text: $prompt
-                    }
+                    {text: $prompt}
                 ]
             }
         ]
     }
 }
 
-export def main [prompt?: string] {
-    let model = "gemini-3-flash-preview"
-
-    let stdin = $in
-
-    let input_text = if ($prompt | is-not-empty) {
-        $prompt
-    } else {
-        $stdin
-    }
-
+def fetch-response [payload: record]: nothing -> record {
     let api_key = $env.GEMINI_API_KEY?
-
     if ($api_key | is-empty) {
         error make {msg: "GEMINI_API_KEY environment variable not set"}
     }
-
-    print --no-newline " "
-
-    let payload = (build-payload $input_text) | to json
-
-    let url = $"https://generativelanguage.googleapis.com/v1beta/models/($model):generateContent"
-
-    let response = try {
+    let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
+    try {
         http post --headers [
             "x-goog-api-key" $api_key
             "Content-Type" "application/json"
-        ] $url $payload
-    } catch { |err|
-        error make {msg: $"API request failed: ($err.msg)"}
+        ] $url ($payload | to json)
+    } catch {|failure|
+        error make {msg: $"API request failed: ($failure.msg)"}
     }
+}
 
+def response-text [response: record]: nothing -> string {
     if ($response.error? | is-not-empty) {
         error make {msg: $"API returned error: ($response.error.message)"}
     }
-
     if ($response.candidates? | is-empty) {
         let reason = if ($response.promptFeedback?.blockReason? | is-not-empty) {
             $"Content blocked: ($response.promptFeedback.blockReason)"
@@ -58,12 +39,26 @@ export def main [prompt?: string] {
         }
         error make {msg: $reason}
     }
-
-    let result = try {
+    try {
         $response.candidates.0.content.parts.0.text
     } catch {
         error make {msg: "Failed to extract text from response"}
     }
+}
 
-    $result
+export def main [prompt?: string]: [nothing -> string, string -> string] {
+    let stdin = $in
+    let input_text = match $prompt {
+        null => {
+            if $stdin == null {
+                error make {msg: "A prompt or pipeline input is required"}
+            }
+            $stdin
+        }
+        _ => $prompt
+    }
+    print --no-newline " "
+    let payload = (build-payload $input_text)
+    let response = (fetch-response $payload)
+    response-text $response
 }
