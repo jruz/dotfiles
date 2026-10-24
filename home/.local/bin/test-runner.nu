@@ -1,30 +1,30 @@
 #!/usr/bin/env nu
 
-def get-test-files [config_dir: string] {
+def get-test-files [config_dir: path]: nothing -> list<string> {
     ls $config_dir
     | where name ends-with ".nu"
     | where name !~ "test-runner.nu"
     | get name
 }
 
-def find-tests-in-file [file: string] {
-    let tests = open $file
-    | lines
-    | where $it =~ '^(export )?def test_'
-    | parse --regex '^(?:export )?def (?<test_name>test_\w+)'
-    | get test_name
-
-    if ($tests | is-not-empty) {
-        { file: $file, tests: $tests }
-    } else {
-        null
+def find-tests-in-file [file: path]: nothing -> list<record> {
+    let content = open --raw $file
+    let tests = ($content
+        | lines
+        | where $it =~ '^(export )?def test_'
+        | parse --regex '^(?:export )?def (?<test_name>test_\w+)'
+        | get test_name)
+    if ($tests | is-empty) {
+        return []
     }
+    [
+        {file: $file, tests: $tests}
+    ]
 }
 
-def discover-all-tests [files: list<string>] {
-    $files
-    | each { |file| find-tests-in-file $file }
-    | compact
+def discover-all-tests []: list<string> -> list<record> {
+    each {|file| find-tests-in-file $file }
+    | flatten
 }
 
 def run-test [file: path, test_name: string]: nothing -> record {
@@ -36,37 +36,36 @@ def run-test [file: path, test_name: string]: nothing -> record {
     }
 }
 
-def run-all-tests [test_items: list] {
-    $test_items
-    | each { |item|
-        $item.tests
-        | each { |test|
-            let result = run-test $item.file $test
-            {
-                file: $item.file
-                test: $test
-                passed: $result.passed
-                error: $result.error
-            }
+def run-file-tests []: record -> list<record> {
+    let item = $in
+    $item.tests
+    | each {|test|
+        let result = (run-test $item.file $test)
+        {
+            file: $item.file
+            test: $test
+            passed: $result.passed
+            error: $result.error
         }
     }
+}
+
+def run-all-tests []: list<record> -> list<record> {
+    each {|item| $item | run-file-tests }
     | flatten
 }
 
-def count-results [results: list] {
-    let passed = $results | where passed == true | length
-    let failed = $results | where passed == false | length
-    { passed: $passed, failed: $failed }
+def count-results [results: list<record>]: nothing -> record {
+    let passed = ($results | where passed | length)
+    let failed = ($results | where not $it.passed | length)
+    {passed: $passed, failed: $failed}
 }
 
-def print-results-by-file [results: list] {
-    $results
-    | group-by file
-    | transpose file_path tests
-    | each { |group|
-        let file_name = $group.file_path | path basename
-        print $"($file_name)"
-        $group.tests | each { |result|
+def print-results-by-file []: list<record> -> nothing {
+    let files = ($in | group-by file | items {|file_path, tests| {file: $file_path, tests: $tests} })
+    for file in $files {
+        print ($file.file | path basename)
+        for result in $file.tests {
             print $"  ▶ ($result.test)"
             if $result.passed {
                 print "    ✓ passed"
@@ -78,33 +77,21 @@ def print-results-by-file [results: list] {
     }
 }
 
-def main [] {
+def main []: nothing -> nothing {
     let config_dir = $"($env.HOME)/.config/nushell"
-
-    let nu_files = get-test-files $config_dir
+    let nu_files = (get-test-files $config_dir)
     print $"Scanning ($nu_files | length) Nushell files for tests...\n"
-
-    let all_tests = discover-all-tests $nu_files
-
-    let total_tests = if ($all_tests | is-empty) {
-        0
-    } else {
-        $all_tests | each { |item| $item.tests | length } | math sum
-    }
-
-    if $total_tests == 0 {
+    let all_tests = ($nu_files | discover-all-tests)
+    if ($all_tests | is-empty) {
         print "No tests found."
         return
     }
-
+    let total_tests = ($all_tests | each {|item| $item.tests | length } | math sum)
     print $"Found ($total_tests) tests in ($all_tests | length) files\n"
-
-    let results = run-all-tests $all_tests
-    print-results-by-file $results
-
-    let counts = count-results $results
+    let results = ($all_tests | run-all-tests)
+    $results | print-results-by-file
+    let counts = (count-results $results)
     print $"Results: ($counts.passed) passed, ($counts.failed) failed"
-
     if $counts.failed > 0 {
         exit 1
     }
