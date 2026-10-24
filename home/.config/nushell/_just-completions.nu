@@ -1,5 +1,9 @@
-def get-recipes [] {
-    let just_json = (^just --unstable --dump --dump-format json | from json)
+def get-recipes []: nothing -> list<record> {
+    let result = (^just --unstable --dump --dump-format json | complete)
+    if $result.exit_code != 0 {
+        error make {msg: $result.stderr}
+    }
+    let just_json = $result.stdout | from json
     [
         ...(
             $just_json.recipes
@@ -20,10 +24,10 @@ def get-recipes [] {
             | flatten
         )
     ]
-    | where {|recipe| not $recipe.private }
+    | where not $it.private
 }
 
-def "nu-complete just" [] {
+def "nu-complete just" []: nothing -> list<record> {
     get-recipes
         | select recipe doc parameters
         | each {|recipe|
@@ -36,46 +40,11 @@ def "nu-complete just" [] {
                   $desc += $" [(ansi blue)($p.name)='($p.default)'(ansi reset)]"
               }
             }
-            { value: $name description: ($desc | str trim) }
+            {value: $name description: ($desc | str trim)}
         }
 }
 
-def "nu-complete args" [context:string,offset:int] {
-    let r = ($context | split row ' ')
-    let name = $r.1
-    let position = ($r | length) - 3
-
-    get-just-arg $name $position
-}
-
-def get-just-arg [name:string,position:int] {
-    let recipes = (
-        get-recipes
-            | where {|r| $r.name == $name }
-            | get parameters
-            | flatten)
-    let len = $recipes | length
-    if $position > ($recipes | length) {
-        [[value description]; ["" "No more args"]]
-    } else {
-        $recipes
-            | get $position
-            | each {|recipe|
-                let name = $recipe.name
-                if not ($recipe.default | is-empty) {
-                    [[value description];
-                        [$recipe.default $"'($name)' (ansi green)\(default\)(ansi reset)"]
-                        ["" $name]]
-                } else {
-                    [[value description];
-                        [null $"'($name)'"]
-                        [' '  $"'($name)'"]]
-                }
-          }
-    }
-}
-
-def "nu-complete just assignments" [] {
+def "nu-complete just assignments" []: nothing -> list<record> {
     ^just --dump --dump-format json
     | from json
     | get assignments
@@ -143,22 +112,22 @@ export extern "just" [
     --working-directory(-d):glob
 ]
 
-def "nu-complete just al-st" [] {
+def "nu-complete just al-st" []: nothing -> list<string> {
     [ "left" "right" "separate" ]
 }
 
-def "nu-complete just format" [] {
+def "nu-complete just format" []: nothing -> list<string> {
     [ "just" "json" ]
 }
 
-def "nu-complete just shells" [] {
+def "nu-complete just shells" []: nothing -> list<string> {
     [ "zsh" "bash" "fish" "powershell" "elvish" "nushell" ]
 }
 
-def "nu-complete just color-when" [] {
+def "nu-complete just color-when" []: nothing -> list<string> {
     [ "auto" "always" "never" ]
 }
 
-def "nu-complete just color" [] {
+def "nu-complete just color" []: nothing -> list<string> {
     [ "black" "blue" "cyan" "green" "purple" "red" "yellow" ]
 }
