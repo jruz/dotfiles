@@ -1,12 +1,18 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
+const ADGUARD_SERVERS = ["10.0.0.1" "192.168.0.105"]
+
 def is-osx []: nothing -> bool {
     (uname).kernel-name == "Darwin"
 }
 
 def fetch-json [url: string]: nothing -> record {
     http get --max-time 10sec --headers [Accept application/json] $url
+}
+
+def dns-provider [server: string]: nothing -> string {
+    if $server in $ADGUARD_SERVERS { "AdGuard" } else { "not AdGuard" }
 }
 
 def main []: nothing -> record<"public ip": string, "local ip": string, location: string, dns: string> {
@@ -19,22 +25,15 @@ def main []: nothing -> record<"public ip": string, "local ip": string, location
     }
 
     let dns = if (is-osx) {
-        ^scutil --dns | lines | find "nameserver[0]" | first | split row ":" | last | str trim
+        ^scutil --dns | lines | str trim | parse "nameserver[0] : {server}" | first | get server
     } else {
-        open /etc/resolv.conf | lines | find nameserver | first | split row " " | last
-    }
-
-    let resp = (fetch-json https://test.nextdns.io)
-    let nextdns = if $resp.status == "ok" {
-        $"($resp.protocol) \(($resp.server)\) 🔒"
-    } else {
-        $"($resp.status) ⚠️"
+        open /etc/resolv.conf | lines | parse "nameserver {server}" | first | get server
     }
 
     {
         "public ip": $info.ip
         "local ip": $local_ip
         location: $"($info.city), ($info.region), ($info.country)"
-        dns: $"($dns) → ($nextdns)"
+        dns: $"($dns) → (dns-provider $dns)"
     }
 }
