@@ -15,7 +15,7 @@ let gemini_keybinding = {
 let fzf_path_keybinding = {
     name: fzf_path
     modifier: control
-    keycode: char_t
+    keycode: char_p
     mode: [emacs, vi_normal, vi_insert]
     event: {
         send: executehostcommand
