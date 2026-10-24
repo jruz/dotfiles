@@ -27,12 +27,12 @@ def discover-all-tests [files: list<string>] {
     | compact
 }
 
-def run-test [file: string, test_name: string] {
-    try {
-        ^nu --commands $"source ($file); ($test_name)" | complete
-        { passed: true, error: null }
-    } catch { |err|
-        { passed: false, error: $err.msg }
+def run-test [file: path, test_name: string]: nothing -> record {
+    let command = $"source '($file)'; ($test_name)"
+    let result = (^nu --no-config-file --commands $command | complete) # nu-lint-ignore: redundant_nu_subprocess
+    {
+        passed: ($result.exit_code == 0)
+        error: $result.stderr
     }
 }
 
