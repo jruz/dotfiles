@@ -5,14 +5,12 @@ def is-osx []: nothing -> bool {
     (uname).kernel-name == "Darwin"
 }
 
-def main []: nothing -> record<"public ip": string, "local ip": string, location: string, dns: string> {
-    let resolved_ip = try {
-        ^dig +short ipinfo.io @8.8.8.8 | lines | first
-    } catch {
-        "34.117.59.81"
-    }
+def fetch-json [url: string]: nothing -> record {
+    http get --max-time 10sec --headers [Accept application/json] $url
+}
 
-    let info = (^curl -s --max-time 10 --resolve $"ipinfo.io:443:($resolved_ip)" https://ipinfo.io | from json)
+def main []: nothing -> record<"public ip": string, "local ip": string, location: string, dns: string> {
+    let info = (fetch-json https://ipinfo.io)
 
     let local_ip = if (is-osx) {
         try { ^ipconfig getifaddr en0 | str trim } catch { try { ^ipconfig getifaddr en1 | str trim } catch { "not connected" } }
@@ -26,15 +24,11 @@ def main []: nothing -> record<"public ip": string, "local ip": string, location
         open /etc/resolv.conf | lines | find nameserver | first | split row " " | last
     }
 
-    let nextdns = try {
-        let resp = (^curl -sL --max-time 5 https://test.nextdns.io | from json)
-        if $resp.status == "ok" {
-            $"($resp.protocol) \(($resp.server)\) 🔒"
-        } else {
-            $"($resp.status) ⚠️"
-        }
-    } catch {
-        "not configured ⚠️"
+    let resp = (fetch-json https://test.nextdns.io)
+    let nextdns = if $resp.status == "ok" {
+        $"($resp.protocol) \(($resp.server)\) 🔒"
+    } else {
+        $"($resp.status) ⚠️"
     }
 
     {
