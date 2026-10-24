@@ -135,10 +135,10 @@ Claude Code strips unicode characters and nerd font icons. Use placeholders in t
 
 **Why This Works**:
 - Template: `symbol = "{{ICON_PYTHON}} "` (placeholder + space)
-- Converter: `["{{ICON_PYTHON}}" (make-icon 0xE235)]` (code point expression)
+- Converter: `["{{ICON_PYTHON}}" 0xE235]` (hex code point)
 - Output: `symbol = " "` (actual icon + space)
 
-The converter file stays safe because it uses expressions like `(make-icon 0xED0D)` instead of literal unicode characters that Claude Code would strip.
+The converter file stays safe because it stores hex code points like `0xED0D` instead of literal unicode characters that Claude Code would strip.
 
 ### Finding and Changing Icons
 
@@ -157,7 +157,7 @@ Search for your desired icon (e.g., "node", "python"), and note the unicode code
 1. Find the icon code point (e.g., U+ED0D for Node.js)
 2. Edit `convert-config` and update the code point:
    ```nushell
-   ["{{ICON_NODEJS}}" (make-icon 0xED0D)]
+   ["{{ICON_NODEJS}}" 0xED0D]
    ```
 3. Run the converter:
    ```bash
@@ -167,10 +167,10 @@ Search for your desired icon (e.g., "node", "python"), and note the unicode code
 **Example - Fixing Node.js icon:**
 ```nushell
 # Before (wrong icon):
-["{{ICON_NODEJS}}" (make-icon 0xE718)]
+["{{ICON_NODEJS}}" 0xE718]
 
 # After (correct icon):
-["{{ICON_NODEJS}}" (make-icon 0xED0D)]
+["{{ICON_NODEJS}}" 0xED0D]
 ```
 
 ### Identifying Wrong Icons
@@ -197,7 +197,7 @@ If you don't know which icon is wrong, temporarily show version numbers:
 Check if icons have actual values (not empty strings):
 
 ```bash
-nu -c 'source .claude/skills/starship/convert-config; debug-icons' | head -50
+.claude/skills/starship/convert-config debug-icons
 ```
 
 Each icon should show:
@@ -252,9 +252,9 @@ Always use this workflow:
 
 **Code Points**: All icon mappings are in `convert-config` using hex code points:
 ```nushell
-["{{ICON_PYTHON}}" (make-icon 0xE235)]
-["{{ICON_NODEJS}}" (make-icon 0xED0D)]
-["{{ICON_RUST}}" (make-icon 0xF1617)]
+["{{ICON_PYTHON}}" 0xE235]
+["{{ICON_NODEJS}}" 0xED0D]
+["{{ICON_RUST}}" 0xF1617]
 ```
 
 **High Code Points**: Supports extended unicode (> 0xFFFF) for all nerd font variants

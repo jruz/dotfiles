@@ -1,128 +1,126 @@
 #!/usr/bin/env nu
 
-let repo_root = $env.PWD
-let skill_dir = ($repo_root | path join ".claude" "skills" "starship")
-let target_file = ($repo_root | path join "home" ".config" "starship.toml")
+const ICON_CODES = [
+  ["{{ARROW_UP}}" 0x21E1]
+  ["{{ARROW_DOWN}}" 0x21E3]
+  ["{{ARROW_UPDOWN}}" 0x21D5]
 
-let template = open --raw ($skill_dir | path join "starship.toml")
+  ["{{ICON_GIT_BRANCH}}" 0xF418]
+  ["{{ICON_TAG}}" 0xF412]
+  ["{{ICON_FOSSIL}}" 0xF418]
+  ["{{ICON_HG}}" 0xF418]
+  ["{{ICON_PIJUL}}" 0xF418]
+
+  ["{{ICON_BUN}}" 0xE76F]
+  ["{{ICON_C}}" 0xE61E]
+  ["{{ICON_CPP}}" 0xE61D]
+  ["{{ICON_CRYSTAL}}" 0xE62F]
+  ["{{ICON_DART}}" 0xE798]
+  ["{{ICON_DENO}}" 0xE7C0]
+  ["{{ICON_ELIXIR}}" 0xE62D]
+  ["{{ICON_ELM}}" 0xE62C]
+  ["{{ICON_GOLANG}}" 0xE627]
+  ["{{ICON_HASKELL}}" 0xE777]
+  ["{{ICON_HAXE}}" 0xE666]
+  ["{{ICON_JAVA}}" 0xE256]
+  ["{{ICON_JULIA}}" 0xE624]
+  ["{{ICON_KOTLIN}}" 0xE634]
+  ["{{ICON_LUA}}" 0xE620]
+  ["{{ICON_NIM}}" 0xF01A5]
+  ["{{ICON_NODEJS}}" 0xED0D]
+  ["{{ICON_OCAML}}" 0xE67A]
+  ["{{ICON_PERL}}" 0xE67E]
+  ["{{ICON_PHP}}" 0xE608]
+  ["{{ICON_PYTHON}}" 0xE235]
+  ["{{ICON_RLANG}}" 0xF07D4]
+  ["{{ICON_RUBY}}" 0xE791]
+  ["{{ICON_RUST}}" 0xF1617]
+  ["{{ICON_SCALA}}" 0xE737]
+  ["{{ICON_SWIFT}}" 0xE755]
+  ["{{ICON_ZIG}}" 0xE6A9]
+
+  ["{{ICON_AWS}}" 0xE33D]
+  ["{{ICON_DOCKER}}" 0xF308]
+  ["{{ICON_GCLOUD}}" 0xE33D]
+  ["{{ICON_NIX}}" 0xF313]
+  ["{{ICON_CMAKE}}" 0xE794]
+  ["{{ICON_CONDA}}" 0xF10C]
+  ["{{ICON_GRADLE}}" 0xE660]
+  ["{{ICON_GUIX}}" 0xF325]
+  ["{{ICON_MESON}}" 0xF0537]
+  ["{{ICON_PACKAGE}}" 0xF03D7]
+  ["{{ICON_PIXI}}" 0xF03D7]
+  ["{{ICON_BUF}}" 0xF49D]
+
+  ["{{ICON_BASH}}" 0xF489]
+  ["{{ICON_ZSH}}" 0xF489]
+  ["{{ICON_FISH}}" 0xF0501]
+  ["{{ICON_NUSHELL}}" 0x003E]
+  ["{{ICON_POWERSHELL}}" 0xF0A0A]
+
+  ["{{ICON_READONLY}}" 0xF033E]
+  ["{{ICON_SSH}}" 0xEB01]
+  ["{{ICON_MEMORY}}" 0xF035B]
+  ["{{ICON_FENNEL}}" 0xE6AF]
+
+  ["{{ICON_OS_ALPAQUITA}}" 0xF31B]
+  ["{{ICON_OS_ALPINE}}" 0xF300]
+  ["{{ICON_OS_ALMALINUX}}" 0xF31D]
+  ["{{ICON_OS_AMAZON}}" 0xF270]
+  ["{{ICON_OS_ANDROID}}" 0xE70E]
+  ["{{ICON_OS_ARCH}}" 0xF303]
+  ["{{ICON_OS_ARTIX}}" 0xF31F]
+  ["{{ICON_OS_CACHYOS}}" 0xF8D5]
+  ["{{ICON_OS_CENTOS}}" 0xF304]
+  ["{{ICON_OS_DEBIAN}}" 0xF306]
+  ["{{ICON_OS_DRAGONFLY}}" 0xF307]
+  ["{{ICON_OS_EMSCRIPTEN}}" 0xE67E]
+  ["{{ICON_OS_ENDEAVOUROS}}" 0xF322]
+  ["{{ICON_OS_FEDORA}}" 0xF30A]
+  ["{{ICON_OS_FREEBSD}}" 0xF30C]
+  ["{{ICON_OS_GARUDA}}" 0xF6D3]
+  ["{{ICON_OS_GENTOO}}" 0xF30D]
+  ["{{ICON_OS_HARDENEDBSD}}" 0xF50C]
+  ["{{ICON_OS_ILLUMOS}}" 0xF238]
+  ["{{ICON_OS_KALI}}" 0xF327]
+  ["{{ICON_OS_LINUX}}" 0xF17C]
+  ["{{ICON_OS_MABOX}}" 0xF307]
+  ["{{ICON_OS_MACOS}}" 0xF179]
+  ["{{ICON_OS_MANJARO}}" 0xF312]
+  ["{{ICON_OS_MARINER}}" 0xF31D]
+  ["{{ICON_OS_MIDNIGHTBSD}}" 0xF307]
+  ["{{ICON_OS_MINT}}" 0xF30E]
+  ["{{ICON_OS_NETBSD}}" 0xF316]
+  ["{{ICON_OS_NIXOS}}" 0xF313]
+  ["{{ICON_OS_NOBARA}}" 0xF30A]
+  ["{{ICON_OS_OPENBSD}}" 0xF238]
+  ["{{ICON_OS_OPENSUSE}}" 0xF314]
+  ["{{ICON_OS_ORACLELINUX}}" 0xF327]
+  ["{{ICON_OS_POP}}" 0xF32C]
+  ["{{ICON_OS_RASPBIAN}}" 0xF315]
+  ["{{ICON_OS_REDHAT}}" 0xF316]
+  ["{{ICON_OS_REDHATENTERPRISE}}" 0xF316]
+  ["{{ICON_OS_ROCKYLINUX}}" 0xF32B]
+  ["{{ICON_OS_REDOX}}" 0xF018]
+  ["{{ICON_OS_SOLUS}}" 0xF833]
+  ["{{ICON_OS_SUSE}}" 0xF314]
+  ["{{ICON_OS_UBUNTU}}" 0xF31B]
+  ["{{ICON_OS_UNKNOWN}}" 0xF128]
+  ["{{ICON_OS_VOID}}" 0xF17C]
+  ["{{ICON_OS_WINDOWS}}" 0xF3B2]
+]
 
 def make-icon [code: int]: nothing -> string { char --integer $code }
 
-let replacements = [
-  ["{{ARROW_UP}}" (make-icon 0x21E1)]
-  ["{{ARROW_DOWN}}" (make-icon 0x21E3)]
-  ["{{ARROW_UPDOWN}}" (make-icon 0x21D5)]
+def replacements []: nothing -> list<list<string>> {
+  $ICON_CODES | each {|row| [$row.0 (make-icon $row.1)] }
+}
 
-  ["{{ICON_GIT_BRANCH}}" (make-icon 0xF418)]
-  ["{{ICON_TAG}}" (make-icon 0xF412)]
-  ["{{ICON_FOSSIL}}" (make-icon 0xF418)]
-  ["{{ICON_HG}}" (make-icon 0xF418)]
-  ["{{ICON_PIJUL}}" (make-icon 0xF418)]
-
-  ["{{ICON_BUN}}" (make-icon 0xE76F)]
-  ["{{ICON_C}}" (make-icon 0xE61E)]
-  ["{{ICON_CPP}}" (make-icon 0xE61D)]
-  ["{{ICON_CRYSTAL}}" (make-icon 0xE62F)]
-  ["{{ICON_DART}}" (make-icon 0xE798)]
-  ["{{ICON_DENO}}" (make-icon 0xE7C0)]
-  ["{{ICON_ELIXIR}}" (make-icon 0xE62D)]
-  ["{{ICON_ELM}}" (make-icon 0xE62C)]
-  ["{{ICON_GOLANG}}" (make-icon 0xE627)]
-  ["{{ICON_HASKELL}}" (make-icon 0xE777)]
-  ["{{ICON_HAXE}}" (make-icon 0xE666)]
-  ["{{ICON_JAVA}}" (make-icon 0xE256)]
-  ["{{ICON_JULIA}}" (make-icon 0xE624)]
-  ["{{ICON_KOTLIN}}" (make-icon 0xE634)]
-  ["{{ICON_LUA}}" (make-icon 0xE620)]
-  ["{{ICON_NIM}}" (make-icon 0xF01A5)]
-  ["{{ICON_NODEJS}}" (make-icon 0xED0D)]
-  ["{{ICON_OCAML}}" (make-icon 0xE67A)]
-  ["{{ICON_PERL}}" (make-icon 0xE67E)]
-  ["{{ICON_PHP}}" (make-icon 0xE608)]
-  ["{{ICON_PYTHON}}" (make-icon 0xE235)]
-  ["{{ICON_RLANG}}" (make-icon 0xF07D4)]
-  ["{{ICON_RUBY}}" (make-icon 0xE791)]
-  ["{{ICON_RUST}}" (make-icon 0xF1617)]
-  ["{{ICON_SCALA}}" (make-icon 0xE737)]
-  ["{{ICON_SWIFT}}" (make-icon 0xE755)]
-  ["{{ICON_ZIG}}" (make-icon 0xE6A9)]
-
-  ["{{ICON_AWS}}" (make-icon 0xE33D)]
-  ["{{ICON_DOCKER}}" (make-icon 0xF308)]
-  ["{{ICON_GCLOUD}}" (make-icon 0xE33D)]
-  ["{{ICON_NIX}}" (make-icon 0xF313)]
-  ["{{ICON_CMAKE}}" (make-icon 0xE794)]
-  ["{{ICON_CONDA}}" (make-icon 0xF10C)]
-  ["{{ICON_GRADLE}}" (make-icon 0xE660)]
-  ["{{ICON_GUIX}}" (make-icon 0xF325)]
-  ["{{ICON_MESON}}" (make-icon 0xF0537)]
-  ["{{ICON_PACKAGE}}" (make-icon 0xF03D7)]
-  ["{{ICON_PIXI}}" (make-icon 0xF03D7)]
-  ["{{ICON_BUF}}" (make-icon 0xF49D)]
-
-  ["{{ICON_BASH}}" (make-icon 0xF489)]
-  ["{{ICON_ZSH}}" (make-icon 0xF489)]
-  ["{{ICON_FISH}}" (make-icon 0xF0501)]
-  ["{{ICON_NUSHELL}}" (make-icon 0x003E)]
-  ["{{ICON_POWERSHELL}}" (make-icon 0xF0A0A)]
-
-  ["{{ICON_READONLY}}" (make-icon 0xF033E)]
-  ["{{ICON_SSH}}" (make-icon 0xEB01)]
-  ["{{ICON_MEMORY}}" (make-icon 0xF035B)]
-  ["{{ICON_FENNEL}}" (make-icon 0xE6AF)]
-
-  ["{{ICON_OS_ALPAQUITA}}" (make-icon 0xF31B)]
-  ["{{ICON_OS_ALPINE}}" (make-icon 0xF300)]
-  ["{{ICON_OS_ALMALINUX}}" (make-icon 0xF31D)]
-  ["{{ICON_OS_AMAZON}}" (make-icon 0xF270)]
-  ["{{ICON_OS_ANDROID}}" (make-icon 0xE70E)]
-  ["{{ICON_OS_ARCH}}" (make-icon 0xF303)]
-  ["{{ICON_OS_ARTIX}}" (make-icon 0xF31F)]
-  ["{{ICON_OS_CACHYOS}}" (make-icon 0xF8D5)]
-  ["{{ICON_OS_CENTOS}}" (make-icon 0xF304)]
-  ["{{ICON_OS_DEBIAN}}" (make-icon 0xF306)]
-  ["{{ICON_OS_DRAGONFLY}}" (make-icon 0xF307)]
-  ["{{ICON_OS_EMSCRIPTEN}}" (make-icon 0xE67E)]
-  ["{{ICON_OS_ENDEAVOUROS}}" (make-icon 0xF322)]
-  ["{{ICON_OS_FEDORA}}" (make-icon 0xF30A)]
-  ["{{ICON_OS_FREEBSD}}" (make-icon 0xF30C)]
-  ["{{ICON_OS_GARUDA}}" (make-icon 0xF6D3)]
-  ["{{ICON_OS_GENTOO}}" (make-icon 0xF30D)]
-  ["{{ICON_OS_HARDENEDBSD}}" (make-icon 0xF50C)]
-  ["{{ICON_OS_ILLUMOS}}" (make-icon 0xF238)]
-  ["{{ICON_OS_KALI}}" (make-icon 0xF327)]
-  ["{{ICON_OS_LINUX}}" (make-icon 0xF17C)]
-  ["{{ICON_OS_MABOX}}" (make-icon 0xF307)]
-  ["{{ICON_OS_MACOS}}" (make-icon 0xF179)]
-  ["{{ICON_OS_MANJARO}}" (make-icon 0xF312)]
-  ["{{ICON_OS_MARINER}}" (make-icon 0xF31D)]
-  ["{{ICON_OS_MIDNIGHTBSD}}" (make-icon 0xF307)]
-  ["{{ICON_OS_MINT}}" (make-icon 0xF30E)]
-  ["{{ICON_OS_NETBSD}}" (make-icon 0xF316)]
-  ["{{ICON_OS_NIXOS}}" (make-icon 0xF313)]
-  ["{{ICON_OS_NOBARA}}" (make-icon 0xF30A)]
-  ["{{ICON_OS_OPENBSD}}" (make-icon 0xF238)]
-  ["{{ICON_OS_OPENSUSE}}" (make-icon 0xF314)]
-  ["{{ICON_OS_ORACLELINUX}}" (make-icon 0xF327)]
-  ["{{ICON_OS_POP}}" (make-icon 0xF32C)]
-  ["{{ICON_OS_RASPBIAN}}" (make-icon 0xF315)]
-  ["{{ICON_OS_REDHAT}}" (make-icon 0xF316)]
-  ["{{ICON_OS_REDHATENTERPRISE}}" (make-icon 0xF316)]
-  ["{{ICON_OS_ROCKYLINUX}}" (make-icon 0xF32B)]
-  ["{{ICON_OS_REDOX}}" (make-icon 0xF018)]
-  ["{{ICON_OS_SOLUS}}" (make-icon 0xF833)]
-  ["{{ICON_OS_SUSE}}" (make-icon 0xF314)]
-  ["{{ICON_OS_UBUNTU}}" (make-icon 0xF31B)]
-  ["{{ICON_OS_UNKNOWN}}" (make-icon 0xF128)]
-  ["{{ICON_OS_VOID}}" (make-icon 0xF17C)]
-  ["{{ICON_OS_WINDOWS}}" (make-icon 0xF3B2)]
-]
-
-def debug-icons [] {
+def "main debug-icons" []: nothing -> nothing {
   print "\nIcon Debug Output:"
   print "=================="
 
-  for row in $replacements {
+  for row in (replacements) {
     let placeholder = $row.0
     let icon = $row.1
     let length = ($icon | str length)
@@ -135,10 +133,18 @@ def debug-icons [] {
   }
 }
 
-let result = $replacements | reduce --fold $template {|row, acc|
-  $acc | str replace --all $row.0 $row.1
-}
+def main []: nothing -> nothing {
+  let repo_root = $env.PWD
+  let skill_dir = ($repo_root | path join ".claude" "skills" "starship")
+  let target_file = ($repo_root | path join "home" ".config" "starship.toml")
 
-$result | save --force $target_file
-print $"✓ Wrote ($result | str length) bytes to ($target_file)"
-print "  Icons converted from unicode code points (using your original icon set)"
+  let template = open --raw ($skill_dir | path join "starship.toml")
+
+  let result = replacements | reduce --fold $template {|row, acc|
+    $acc | str replace --all $row.0 $row.1
+  }
+
+  $result | save --force $target_file
+  print $"✓ Wrote ($result | str length) bytes to ($target_file)"
+  print "  Icons converted from unicode code points (using your original icon set)"
+}
