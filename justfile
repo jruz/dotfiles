@@ -3,7 +3,7 @@ check:
   just nix-check-version-sync
   just lint-sh
   just lint-lua
-  just nushell-lint
+  just nushell-check
   just ts-check
   just test
   just sandbox-check
@@ -133,13 +133,37 @@ lint-sh:
     -e SC1090 \
     -e SC1091
 
-nushell-lint:
+nushell-check:
   #!/usr/bin/env nu
-  ^fd -e nu . home/.config/nushell | lines | each { |file|
-    print $"Checking ($file)..."
-    nu -c $"source ($file)"
+  use std/assert
+  let scripts = (
+    ^rg
+      --files-with-matches
+      --hidden
+      --glob '!.git'
+      --multiline
+      '\A#!/usr/bin/env nu'
+    | lines
+    | path expand
+  )
+  for file in [...(glob '**/*.nu' --exclude ['**/node_modules/**' '**/tmp/**' '**/.git/**']) ...$scripts] {
+    assert (nu-check --debug $file)
   }
-  print "\n✓ All Nushell files are valid"
+  ^nu-lint --config nu-lint.toml --format compact home/.config/nushell scripts ...$scripts
+
+nushell-fix:
+  #!/usr/bin/env nu
+  let scripts = (
+    ^rg
+      --files-with-matches
+      --hidden
+      --glob '!.git'
+      --multiline
+      '\A#!/usr/bin/env nu'
+    | lines
+    | path expand
+  )
+  ^nu-lint --config nu-lint.toml --fix home/.config/nushell scripts ...$scripts
 
 nushell-test:
   test-runner.nu
