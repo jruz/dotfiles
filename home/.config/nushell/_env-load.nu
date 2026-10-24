@@ -5,6 +5,6 @@ if ('~/.env' | path expand | path exists) {
       | where $it !~ '^#'
       | where $it != ''
       | split column '=' key value
-      | reduce --fold {} {|it, acc| $acc | insert $it.key $it.value}
+      | reduce --fold {} {|it, acc| $acc | insert $it.key $it.value }
   )
 }

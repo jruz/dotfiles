@@ -11,13 +11,12 @@ def get-recipes [] {
             | transpose "module" data
             | flatten
             | select "module" recipes
-            | each {|row|
-                $row.recipes | items {|k, v|
+            | each {|row| $row.recipes | items {|k, v|
                     {
                         recipe: ($"($row.module)::($k)" | str replace --regex '::default$' '')
                         ...$v
                     }
-            }}
+            } }
             | flatten
         )
     ]
@@ -78,13 +77,13 @@ def get-just-arg [name:string,position:int] {
 
 def "nu-complete just assignments" [] {
     ^just --dump --dump-format json
-        | from json
-        | get assignments
-        | transpose name value
-        | each {|x| {
-            value: $x.name,
-            description: $"Current value: '($x.value.value)'"
-        }}
+    | from json
+    | get assignments
+    | transpose name value
+    | each {|x| {
+        value: $x.name,
+        description: $"Current value: '($x.value.value)'"
+    } }
 }
 
 export extern "just" [
