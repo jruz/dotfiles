@@ -1,11 +1,11 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
-def is-osx [] {
+def is-osx []: nothing -> bool {
     (uname).kernel-name == "Darwin"
 }
 
-def main [] {
+def main []: nothing -> record<"public ip": string, "local ip": string, location: string, dns: string> {
     let resolved_ip = try {
         ^dig +short ipinfo.io @8.8.8.8 | lines | first
     } catch {
