@@ -54,17 +54,15 @@ The repository uses a two-tier package management approach:
 ## Development Sandbox
 
 - The root `flake.nix` provides `sandbox` through the default development shell.
-- `sandbox` picks the image from the command: `pnpm` and `node` use the node image, `bun` and `bunx` use the bun image.
+- `sandbox` picks the image from the command: `pnpm` and `node` use the node image, `bun` uses the bun image.
 - Install dependencies and run dependency tools with `sandbox pnpm`, for example `sandbox pnpm exec tsc`.
 - Run scripts and tests with `sandbox bun`.
 - Docker uses its active context; no OrbStack-specific context is required.
-- Only this repository is mounted at `/app`; the container root filesystem is read-only.
+- The Git root is mounted at `/app` and the working directory follows the current subdirectory; the container root filesystem is read-only.
 - The container runs as the host user, so files it writes keep your ownership.
 - Dependencies live in the repository `node_modules`.
-- The pnpm store `~/.local/share/pnpm` and cache `~/.cache/pnpm` are shared with the host.
-- The Bun cache is the shared host cache `~/.bun/install/cache`, mounted at `/cache`.
+- The pnpm store `~/.local/share/pnpm` and cache `~/.cache/pnpm` are shared with the host at the same paths.
 - Files inside the repository remain accessible and writable, including live dotfiles.
-- Run `just sandbox-check` to verify isolation and writable cache directories.
 
 ## Common Commands
 

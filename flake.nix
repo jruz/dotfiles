@@ -12,46 +12,46 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        bunVersion = "1.3.13";
-        nodeVersion = "24.21.0";
-        bunImage = "registry.jruz.io/bun:${bunVersion}";
-        pnpmVersion = "11.27.0";
-        nodeImage = "registry.jruz.io/node:${nodeVersion}-${pnpmVersion}";
+        inherit (builtins.fromJSON (builtins.readFile ./package.json)) engines;
+        nodeImage = "registry.jruz.io/node:${engines.node}-${engines.pnpm}";
+        bunImage = "registry.jruz.io/bun:${engines.bun}";
         sandbox = pkgs.writeShellScriptBin "sandbox" ''
           set -eu
+          project_root="$(${pkgs.git}/bin/git rev-parse --show-toplevel)"
+          relative_dir="$(${pkgs.coreutils}/bin/realpath --relative-to="$project_root" "$PWD")"
           runtime_args=()
           case "''${1-}" in
-            bun|bunx)
-              image=${pkgs.lib.escapeShellArg bunImage}
-              runtime_args+=(
-                --mount "type=bind,src=$HOME/.bun/install/cache,dst=/cache"
-                --env BUN_INSTALL_CACHE_DIR=/cache
-              )
-              ;;
             node|pnpm)
               image=${pkgs.lib.escapeShellArg nodeImage}
+              pnpm_store="$HOME/.local/share/pnpm"
+              pnpm_cache="$HOME/.cache/pnpm"
+              ${pkgs.coreutils}/bin/mkdir --parents "$pnpm_store" "$pnpm_cache"
               runtime_args+=(
-                --mount "type=bind,src=$HOME/.local/share/pnpm,dst=/pnpm-store"
-                --mount "type=bind,src=$HOME/.cache/pnpm,dst=/pnpm-cache"
-                --env pnpm_config_store_dir=/pnpm-store/store
-                --env pnpm_config_cache_dir=/pnpm-cache
+                --mount "type=bind,src=$pnpm_store,dst=$pnpm_store"
+                --mount "type=bind,src=$pnpm_cache,dst=$pnpm_cache"
+                --env "pnpm_config_store_dir=$pnpm_store/store"
+                --env "pnpm_config_cache_dir=$pnpm_cache"
               )
+              ;;
+            bun)
+              image=${pkgs.lib.escapeShellArg bunImage}
               ;;
             *)
               printf 'Unsupported sandbox command: %s\n' "''${1-}" >&2
               exit 1
               ;;
           esac
-          exec docker run \
+          exec ${pkgs.docker-client}/bin/docker run \
+            --interactive \
             --rm \
-            --user "$(id -u):$(id -g)" \
+            --user "$(${pkgs.coreutils}/bin/id --user):$(${pkgs.coreutils}/bin/id --group)" \
             --read-only \
             --cap-drop ALL \
             --security-opt no-new-privileges \
             --tmpfs /tmp \
-            --mount "type=bind,src=$PWD,dst=/app" \
             --env HOME=/tmp \
-            --workdir /app \
+            --mount "type=bind,src=$project_root,dst=/app" \
+            --workdir "/app/$relative_dir" \
             "''${runtime_args[@]}" \
             "$image" \
             "$@"
@@ -81,9 +81,9 @@
             echo "  pnpm Development Shell"
             echo "  ──────────────────────"
             echo "  nixpkgs      ${pkgs.lib.trivial.release}"
-            echo "  node         ${nodeVersion} (sandbox)"
-            echo "  pnpm         ${pnpmVersion} (sandbox)"
-            echo "  bun          ${bunVersion} (sandbox)"
+            echo "  node         ${engines.node} (docker sandbox)"
+            echo "  pnpm         ${engines.pnpm} (docker sandbox)"
+            echo "  bun          ${engines.bun} (docker sandbox)"
             echo ""
           '';
         };

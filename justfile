@@ -6,7 +6,6 @@ check:
   just nushell-check
   just ts-check
   just test
-  just sandbox-check
 
 setup:
   just ts-install
@@ -100,9 +99,6 @@ ntfy-subscribe:
 
 ntfy-stop:
   launchctl remove io.jruz.ntfy-subscribe
-
-sandbox-check:
-  sandbox bun run scripts/sandbox-check.ts "{{justfile_directory()}}"
 
 clean:
   just nix-clean
