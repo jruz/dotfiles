@@ -31,8 +31,8 @@ alias zl = ^zellij list-sessions
 alias zml = ^zellij action move-tab left
 alias zmr = ^zellij action move-tab right
 
-alias rconf = ^sudo vim /boot/efi/EFI/refind/refind.conf
-alias ngconf = ^sudo vim /etc/nginx/nginx.conf
+alias rconf = ^sudoedit /boot/efi/EFI/refind/refind.conf
+alias ngconf = ^sudoedit /etc/nginx/nginx.conf
 
 alias hms = ^just --justfile ~/dev/dotfiles/justfile nix-hm-switch
 alias hme = ^just --justfile ~/dev/dotfiles/justfile nix-hm-edit
@@ -48,7 +48,7 @@ alias a = ^yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --cle
 alias upp = ^sudo pacman -Syu
 alias upa = ^pacaur -k
 alias logs = ^journalctl -ef
-alias dnsconf = ^sudo vim /etc/resolv.conf
+alias dnsconf = ^sudoedit /etc/resolv.conf
 alias disks = ^lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
 alias errors = ^journalctl -xe
 alias sx = ^startx
@@ -71,13 +71,13 @@ alias ws = ^nmcli connection show
 alias wa = ^netctl-auto current
 alias wl = ^nmcli device wifi list ifname wlp0s20u1
 alias wm = ^sudo wifi-menu enp0s20u1
-alias wi = ^curl ipinfo.io
+alias wi = http get ipinfo.io
 
 alias la = ^lsd --almost-all --group-dirs=first --human-readable --long
 alias las = ^lsd --almost-all --group-dirs=first --human-readable --long --dereference
 alias lad = ^lsd --almost-all --group-dirs=first --human-readable --long --sort=time
 
-alias hosts = ^sudo nvim /etc/hosts
+alias hosts = ^sudoedit /etc/hosts
 alias cls = clear
 alias .. = cd ..
 alias ... = cd ../..
@@ -86,20 +86,16 @@ alias vimstall = ^vim +PluginInstall +qall
 alias tms = ^tmuxinator start
 alias tml = ^tmux ls
 
-alias d = ^docker
-alias dc = ^docker-compose
 alias dps = ^docker ps
 alias dpsa = ^docker ps -a
-alias ds = ^docker start
+
 alias da = ^direnv allow
-alias k = ^kubectl
 
 alias n = ^npm
 alias tags = ^ctags -R --exclude=.git --exclude=node_modules
 alias tf = ^terraform
-alias cl = ^claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel server:server-channel
+alias cl = ^claude --dangerously-skip-permissions
 alias co = ^codex --dangerously-bypass-approvals-and-sandbox
-
 alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
 alias pi-no-hooks = ^pi --no-extensions --extension ~/dev/projects/pi-extensions/extensions/status-line.ts
 
