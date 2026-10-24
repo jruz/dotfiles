@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
-def is_osx [] {
+def is-osx [] {
     (uname).kernel-name == "Darwin"
 }
 
@@ -14,13 +14,13 @@ def main [] {
 
     let info = (^curl -s --max-time 10 --resolve $"ipinfo.io:443:($resolved_ip)" https://ipinfo.io | from json)
 
-    let local_ip = if (is_osx) {
+    let local_ip = if (is-osx) {
         try { ^ipconfig getifaddr en0 | str trim } catch { try { ^ipconfig getifaddr en1 | str trim } catch { "not connected" } }
     } else {
         ^hostname -I | split row " " | first
     }
 
-    let dns = if (is_osx) {
+    let dns = if (is-osx) {
         ^scutil --dns | lines | find "nameserver[0]" | first | split row ":" | last | str trim
     } else {
         open /etc/resolv.conf | lines | find nameserver | first | split row " " | last

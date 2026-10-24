@@ -1,13 +1,13 @@
 #!/usr/bin/env nu
 
-def get_test_files [config_dir: string] {
+def get-test-files [config_dir: string] {
     ls $config_dir
     | where name ends-with ".nu"
     | where name !~ "test-runner.nu"
     | get name
 }
 
-def find_tests_in_file [file: string] {
+def find-tests-in-file [file: string] {
     let tests = open $file
     | lines
     | where $it =~ '^(export )?def test_'
@@ -21,13 +21,13 @@ def find_tests_in_file [file: string] {
     }
 }
 
-def discover_all_tests [files: list<string>] {
+def discover-all-tests [files: list<string>] {
     $files
-    | each { |file| find_tests_in_file $file }
+    | each { |file| find-tests-in-file $file }
     | compact
 }
 
-def run_test [file: string, test_name: string] {
+def run-test [file: string, test_name: string] {
     try {
         ^nu --commands $"source ($file); ($test_name)" | complete
         { passed: true, error: null }
@@ -36,12 +36,12 @@ def run_test [file: string, test_name: string] {
     }
 }
 
-def run_all_tests [test_items: list] {
+def run-all-tests [test_items: list] {
     $test_items
     | each { |item|
         $item.tests
         | each { |test|
-            let result = run_test $item.file $test
+            let result = run-test $item.file $test
             {
                 file: $item.file
                 test: $test
@@ -53,13 +53,13 @@ def run_all_tests [test_items: list] {
     | flatten
 }
 
-def count_results [results: list] {
+def count-results [results: list] {
     let passed = $results | where passed == true | length
     let failed = $results | where passed == false | length
     { passed: $passed, failed: $failed }
 }
 
-def print_results_by_file [results: list] {
+def print-results-by-file [results: list] {
     $results
     | group-by file
     | transpose file_path tests
@@ -81,10 +81,10 @@ def print_results_by_file [results: list] {
 def main [] {
     let config_dir = $"($env.HOME)/.config/nushell"
 
-    let nu_files = get_test_files $config_dir
+    let nu_files = get-test-files $config_dir
     print $"Scanning ($nu_files | length) Nushell files for tests...\n"
 
-    let all_tests = discover_all_tests $nu_files
+    let all_tests = discover-all-tests $nu_files
 
     let total_tests = if ($all_tests | is-empty) {
         0
@@ -99,10 +99,10 @@ def main [] {
 
     print $"Found ($total_tests) tests in ($all_tests | length) files\n"
 
-    let results = run_all_tests $all_tests
-    print_results_by_file $results
+    let results = run-all-tests $all_tests
+    print-results-by-file $results
 
-    let counts = count_results $results
+    let counts = count-results $results
     print $"Results: ($counts.passed) passed, ($counts.failed) failed"
 
     if $counts.failed > 0 {

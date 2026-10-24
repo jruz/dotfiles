@@ -1,18 +1,18 @@
 use log.nu
 
-def is_linux [] {
+def is-linux [] {
     (uname).kernel-name == "Linux"
 }
 
-def is_osx [] {
+def is-osx [] {
     (uname).kernel-name == "Darwin"
 }
 
-def is_ssh [] {
+def is-ssh [] {
     ($env | get --optional SSH_TTY) != null
 }
 
-def osc52_copy [] {
+def osc52-copy [] {
     let data = ($in | encode base64)
     print --no-newline $"\e]52;c;($data)\e\\"
 }
@@ -23,7 +23,7 @@ def wr [] {
     ^nmcli radio wifi on
 }
 
-def this_branch [] {
+def this-branch [] {
     ^git rev-parse --abbrev-ref HEAD
 }
 
@@ -88,7 +88,7 @@ def gri [count: int] {
     ^git rebase --interactive $"HEAD~($count)"
 }
 
-def last_commit [] {
+def last-commit [] {
     ^git --no-pager log --max-count 1 --pretty="format:%s"
 }
 
@@ -111,16 +111,16 @@ def decrypt [file: path] {
     ^age --decrypt --identity $identity --output $output $file
 }
 
-def get_ip [interface: string] {
+def get-ip [interface: string] {
     ^ip -4 a show $interface | lines | find inet | first | split row " " | get 1 | split row "/" | first
 }
 
-def wifi_ip [] {
-    get_ip enp0s20u1
+def wifi-ip [] {
+    get-ip enp0s20u1
 }
 
-def cable_ip [] {
-    get_ip ens9
+def cable-ip [] {
+    get-ip ens9
 }
 
 def eject [device: string] {
@@ -128,8 +128,8 @@ def eject [device: string] {
     ^udisksctl power-off --block-device $device
 }
 
-def brain_path [] {
-    if (is_osx) {
+def brain-path [] {
+    if (is-osx) {
         "/Users/jruz/Library/Mobile Documents/iCloud~md~obsidian/Documents/Brain"
     } else {
         "/mnt/c/Brain"
@@ -137,28 +137,28 @@ def brain_path [] {
 }
 
 def --env brain [] {
-    cd (brain_path)
+    cd (brain-path)
 }
 
 def --env mp [] {
-    cd $"(brain_path)/🌞 Morning Pages"
+    cd $"(brain-path)/🌞 Morning Pages"
 }
 
 def yf [file: path] {
-    if (is_osx) {
+    if (is-osx) {
         open --raw $file | ^pbcopy
-    } else if (is_ssh) {
-        open --raw $file | osc52_copy
+    } else if (is-ssh) {
+        open --raw $file | osc52-copy
     } else {
         open --raw $file | ^xclip -selection clipboard
     }
 }
 
 def yo [] {
-    if (is_osx) {
+    if (is-osx) {
         $in | ^pbcopy
-    } else if (is_ssh) {
-        $in | osc52_copy
+    } else if (is-ssh) {
+        $in | osc52-copy
     } else {
         $in | ^xclip -selection clipboard
     }
@@ -213,7 +213,7 @@ def zel [] {
 }
 
 def tmux-dev [] {
-    let layout = if (is_osx) { "mac" } else { "mini" }
+    let layout = if (is-osx) { "mac" } else { "mini" }
     ^tmuxinator start $layout
 }
 
@@ -223,7 +223,7 @@ def rm [
     ...files: glob
 ] {
     let expanded = $files | flatten
-    if (is_osx) {
+    if (is-osx) {
         ^trash ...$expanded
     } else {
         ^trash-put ...$expanded

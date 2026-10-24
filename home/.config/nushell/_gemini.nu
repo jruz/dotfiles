@@ -1,4 +1,4 @@
-def build_payload [text: string] {
+def build-payload [text: string] {
     let prompt = $"I am using Nushell what is the correct command to do: ($text) \n Reply only with the command in raw form no markdown."
 
     {
@@ -33,7 +33,7 @@ export def main [prompt?: string] {
 
     print --no-newline " "
 
-    let payload = (build_payload $input_text) | to json
+    let payload = (build-payload $input_text) | to json
 
     let url = $"https://generativelanguage.googleapis.com/v1beta/models/($model):generateContent"
 

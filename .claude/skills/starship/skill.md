@@ -135,10 +135,10 @@ Claude Code strips unicode characters and nerd font icons. Use placeholders in t
 
 **Why This Works**:
 - Template: `symbol = "{{ICON_PYTHON}} "` (placeholder + space)
-- Converter: `["{{ICON_PYTHON}}" (make_icon 0xE235)]` (code point expression)
+- Converter: `["{{ICON_PYTHON}}" (make-icon 0xE235)]` (code point expression)
 - Output: `symbol = " "` (actual icon + space)
 
-The converter file stays safe because it uses expressions like `(make_icon 0xED0D)` instead of literal unicode characters that Claude Code would strip.
+The converter file stays safe because it uses expressions like `(make-icon 0xED0D)` instead of literal unicode characters that Claude Code would strip.
 
 ### Finding and Changing Icons
 
@@ -157,7 +157,7 @@ Search for your desired icon (e.g., "node", "python"), and note the unicode code
 1. Find the icon code point (e.g., U+ED0D for Node.js)
 2. Edit `convert-config` and update the code point:
    ```nushell
-   ["{{ICON_NODEJS}}" (make_icon 0xED0D)]
+   ["{{ICON_NODEJS}}" (make-icon 0xED0D)]
    ```
 3. Run the converter:
    ```bash
@@ -167,10 +167,10 @@ Search for your desired icon (e.g., "node", "python"), and note the unicode code
 **Example - Fixing Node.js icon:**
 ```nushell
 # Before (wrong icon):
-["{{ICON_NODEJS}}" (make_icon 0xE718)]
+["{{ICON_NODEJS}}" (make-icon 0xE718)]
 
 # After (correct icon):
-["{{ICON_NODEJS}}" (make_icon 0xED0D)]
+["{{ICON_NODEJS}}" (make-icon 0xED0D)]
 ```
 
 ### Identifying Wrong Icons
@@ -197,7 +197,7 @@ If you don't know which icon is wrong, temporarily show version numbers:
 Check if icons have actual values (not empty strings):
 
 ```bash
-nu -c 'source .claude/skills/starship/convert-config; debug_icons' | head -50
+nu -c 'source .claude/skills/starship/convert-config; debug-icons' | head -50
 ```
 
 Each icon should show:
@@ -252,9 +252,9 @@ Always use this workflow:
 
 **Code Points**: All icon mappings are in `convert-config` using hex code points:
 ```nushell
-["{{ICON_PYTHON}}" (make_icon 0xE235)]
-["{{ICON_NODEJS}}" (make_icon 0xED0D)]
-["{{ICON_RUST}}" (make_icon 0xF1617)]
+["{{ICON_PYTHON}}" (make-icon 0xE235)]
+["{{ICON_NODEJS}}" (make-icon 0xED0D)]
+["{{ICON_RUST}}" (make-icon 0xF1617)]
 ```
 
 **High Code Points**: Supports extended unicode (> 0xFFFF) for all nerd font variants
@@ -277,7 +277,7 @@ Before declaring complete, verify:
 
 **Solution**:
 1. Use `show-nerd-icons --html` to find correct code
-2. Update converter: `["{{ICON_NAME}}" (make_icon 0xCODE)]`
+2. Update converter: `["{{ICON_NAME}}" (make-icon 0xCODE)]`
 3. Regenerate: `.claude/skills/starship/convert-config`
 
 ### Issue: Double spacing between icons
@@ -286,7 +286,7 @@ Before declaring complete, verify:
 
 **Solution**: Remove spaces from converter, keep only in template
 - Template: `symbol = "{{ICON_PYTHON}} "` ✓
-- Converter: `(make_icon 0xE235)` ✓ (no space)
+- Converter: `(make-icon 0xE235)` ✓ (no space)
 
 ### Issue: Can't identify which icon is wrong
 
@@ -303,16 +303,16 @@ Before declaring complete, verify:
 **Solution**: Use `char -i` (integer flag) not `char -u`:
 ```nushell
 # Correct:
-def make_icon [code: int] { char -i $code }
+def make-icon [code: int] { char -i $code }
 
 # Wrong:
-def make_icon [code: int] { char -u $code }
+def make-icon [code: int] { char -u $code }
 ```
 
 ## Key Learnings
 
 1. **Never edit the final config** (`home/.config/starship.toml`) - always edit the template
 2. **Template controls spacing** - converter only replaces placeholders
-3. **Use code points** - `(make_icon 0xED0D)` not literal characters
+3. **Use code points** - `(make-icon 0xED0D)` not literal characters
 4. **All icons extracted** from user's original config - preserves user's icon choices
 5. **Supports high code points** - works with extended nerd font ranges (> 0xFFFF)
