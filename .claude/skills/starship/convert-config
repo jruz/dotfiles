@@ -128,10 +128,10 @@ def debug-icons [] {
     let length = ($icon | str length)
     let bytes = ($icon | into binary | length)
 
-    print $"\n($placeholder):"
-    print $"  Value: '($icon)'"
-    print $"  Length: ($length) chars"
-    print $"  Bytes: ($bytes)"
+    print $"\n($placeholder):
+  Value: '($icon)'
+  Length: ($length) chars
+  Bytes: ($bytes)"
   }
 }
 
