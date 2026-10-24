@@ -1,5 +1,3 @@
-use log.nu
-
 def is-linux []: nothing -> bool {
     (uname).kernel-name == "Linux"
 }
@@ -230,9 +228,10 @@ def rm [...files: glob, --_force (-f), --_recursive (-r)]: nothing -> nothing {
 }
 
 def kill-port [port: int]: nothing -> nothing {
+    use lib/logger.nu
     let result = (^lsof -ti $":($port)" | complete)
     if $result.exit_code == 1 and ($result.stdout | is-empty) {
-        log warn $"No process found on port ($port)"
+        logger warn $"No process found on port ($port)"
         return
     }
     if $result.exit_code != 0 {
@@ -241,7 +240,7 @@ def kill-port [port: int]: nothing -> nothing {
     for pid in ($result.stdout | lines) {
         ^kill -9 $pid
     }
-    log ok $"Killed processes on port ($port)"
+    logger ok $"Killed processes on port ($port)"
 }
 
 def zellij-mac []: nothing -> string {
