@@ -7,9 +7,7 @@ if (which fzf | length) > 0 {
 }
 
 
-if (which direnv | length) > 0 {
-  source _direnv.nu
-}
+source _direnv.nu
 
 if (which starship | length) > 0 {
   source _starship.nu

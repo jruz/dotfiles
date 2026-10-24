@@ -91,7 +91,6 @@ alias dc = ^docker-compose
 alias dps = ^docker ps
 alias dpsa = ^docker ps -a
 alias ds = ^docker start
-alias dr = ^docker run
 alias da = ^direnv allow
 alias k = ^kubectl
 

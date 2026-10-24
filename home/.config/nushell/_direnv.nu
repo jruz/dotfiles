@@ -1,15 +1,15 @@
-$env.config = ($env.config? | default {} | merge {
-  hooks: {
-    pre_prompt: [
-      {||
-        if (which direnv | is-empty) {
-          return
-        }
-        ^direnv export json | from json | default {} | load-env
-        if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
-          $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
-        }
-      }
-    ]
-  }
-})
+use std/config *
+
+def --env direnv-load []: nothing -> nothing {
+  ^direnv export json
+  | from json
+  | default {}
+  | update cells --columns [PATH] { do (env-conversions).path.from_string $in }
+  | load-env
+}
+
+alias dr = direnv-load
+
+$env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD? | default []
+
+$env.config.hooks.env_change.PWD ++= [{|| direnv-load }]
