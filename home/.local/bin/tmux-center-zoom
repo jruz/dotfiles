@@ -24,12 +24,15 @@ def side-width [window: string]: nothing -> int {
     (pane-format $window '#{window_width}' | into int) // 4
 }
 
-def split-spacer [pane: string, side: int, placement: list<string>]: nothing -> string {
+def split-spacer [pane: string, side: int, --before]: nothing -> string {
+    let placement = if $before { [-b] } else { [] }
     ^tmux split-window -h -d ...$placement -t $pane -l $side -P -F '#{pane_id}' ...$SPACER | str trim
 }
 
-def save-state [placeholder: string, state: record] {
-    $state | items {|key, value| ^tmux set-option -p -t $placeholder $"@center-zoom-($key)" $value }
+def save-state [placeholder: string]: record -> nothing {
+    for entry in ($in | transpose key value) {
+        ^tmux set-option -p -t $placeholder $"@center-zoom-($entry.key)" $entry.value
+    }
 }
 
 def load-state [placeholder: string]: nothing -> record {
@@ -45,7 +48,7 @@ def placeholders []: nothing -> list<string> {
     | get placeholder
 }
 
-def zoom-in [pane: string] {
+def zoom-in [pane: string]: nothing -> nothing {
     let name = pane-format $pane 'z:#{pane_current_command}'
     let side = side-width $pane
     let session = pane-format $pane '#{session_id}'
@@ -53,16 +56,16 @@ def zoom-in [pane: string] {
     let window = $created.0
     let placeholder = $created.1
     ^tmux swap-pane -d -s $pane -t $placeholder
-    let left = split-spacer $pane $side [-b]
-    let right = split-spacer $pane $side []
-    save-state $placeholder {window: $window, pane: $pane, left: $left, right: $right}
+    let left = split-spacer $pane $side --before
+    let right = split-spacer $pane $side
+    {window: $window, pane: $pane, left: $left, right: $right} | save-state $placeholder
     ^tmux set-option -w -t $window @center-zoom-placeholder $placeholder
     ^tmux set-hook -w -t $window window-resized $"run-shell '($SELF) resize ($placeholder)'"
     ^tmux select-window -t $window
     ^tmux select-pane -t $pane
 }
 
-def zoom-out [placeholder: string] {
+def zoom-out [placeholder: string]: nothing -> nothing {
     let state = load-state $placeholder
     ^tmux swap-pane -d -s $state.pane -t $placeholder
     ^tmux select-window -t (pane-format $state.pane '#{window_id}')
@@ -70,7 +73,7 @@ def zoom-out [placeholder: string] {
     ^tmux kill-window -t $state.window
 }
 
-def release [placeholder: string] {
+def release [placeholder: string]: nothing -> nothing {
     let state = load-state $placeholder
     if ($state.window in (ids list-windows '#{window_id}')) {
         ^tmux kill-window -t $state.window
@@ -79,7 +82,7 @@ def release [placeholder: string] {
     ^tmux kill-pane -t $placeholder
 }
 
-def "main resize" [placeholder: string] {
+def "main resize" [placeholder: string]: nothing -> nothing {
     let state = load-state $placeholder
     let side = side-width $state.window
     ^tmux resize-pane -t $state.left -x $side
@@ -88,13 +91,11 @@ def "main resize" [placeholder: string] {
 
 def "main cleanup" [] {
     let panes = ids list-panes '#{pane_id}'
-    placeholders
-    | where {|placeholder| (pane-option $placeholder @center-zoom-pane) not-in $panes }
-    | each {|placeholder| release $placeholder }
-    | ignore
+    let orphans = placeholders | where (pane-option $it @center-zoom-pane) not-in $panes
+    for placeholder in $orphans { release $placeholder }
 }
 
-def main [pane: string] {
+def main [pane: string]: nothing -> nothing {
     let placeholder = window-option (pane-format $pane '#{window_id}') @center-zoom-placeholder
     if ($placeholder | is-empty) {
         zoom-in $pane
