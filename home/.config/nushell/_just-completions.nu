@@ -144,21 +144,21 @@ export extern "just" [
 ]
 
 def "nu-complete just al-st" [] {
-    [ "left", "right", "separate" ]
+    [ "left" "right" "separate" ]
 }
 
 def "nu-complete just format" [] {
-    [ "just", "json" ]
+    [ "just" "json" ]
 }
 
 def "nu-complete just shells" [] {
-    [ "zsh", "bash", "fish", "powershell", "elvish", "nushell" ]
+    [ "zsh" "bash" "fish" "powershell" "elvish" "nushell" ]
 }
 
 def "nu-complete just color-when" [] {
-    [ "auto", "always", "never" ]
+    [ "auto" "always" "never" ]
 }
 
 def "nu-complete just color" [] {
-    [ "black", "blue", "cyan", "green", "purple", "red", "yellow" ]
+    [ "black" "blue" "cyan" "green" "purple" "red" "yellow" ]
 }
