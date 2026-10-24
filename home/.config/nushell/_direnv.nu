@@ -8,7 +8,12 @@ def --env direnv-load []: nothing -> nothing {
   | load-env
 }
 
-alias dr = direnv-load
+def --env direnv-reload []: nothing -> nothing {
+  ^direnv reload
+  direnv-load
+}
+
+alias dr = direnv-reload
 
 $env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD? | default []
 
