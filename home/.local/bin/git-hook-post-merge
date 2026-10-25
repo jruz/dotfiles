@@ -47,6 +47,7 @@ def warn [check: record]: list<string> -> nothing {
 
 def main [_squash: string] {
     let changed = changed-files
+    if "ager-lock.yaml" in $changed { ^ager status }
     for check in $CHECKS {
         let files = $changed | matching-files $check
         if ($files | is-not-empty) { $files | warn $check }
