@@ -81,9 +81,9 @@
             echo "  pnpm Development Shell"
             echo "  ──────────────────────"
             echo "  nixpkgs      ${pkgs.lib.trivial.release}"
-            echo "  node         ${engines.node} (docker sandbox)"
-            echo "  pnpm         ${engines.pnpm} (docker sandbox)"
-            echo "  bun          ${engines.bun} (docker sandbox)"
+            echo "  node         ${engines.node} (docker)"
+            echo "  pnpm         ${engines.pnpm} (docker)"
+            echo "  bun          ${engines.bun} (docker)"
             echo ""
           '';
         };
