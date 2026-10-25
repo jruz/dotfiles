@@ -44,35 +44,13 @@
         "type": "github"
       }
     },
-    "claude-hooks": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1774291736,
-        "narHash": "sha256-tIQSEhyi6CRrUif8O90O1HZ+6QW8PALhazDSOG6ssc4=",
-        "ref": "refs/tags/v0.1.0",
-        "rev": "763a300cf6fd73e33226511634f8046820454574",
-        "revCount": 15,
-        "type": "git",
-        "url": "https://codeberg.org/jruz/claude-hooks"
-      },
-      "original": {
-        "ref": "refs/tags/v0.1.0",
-        "type": "git",
-        "url": "https://codeberg.org/jruz/claude-hooks"
-      }
-    },
     "claude-statusline": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_3"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1791455542,
@@ -94,7 +72,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_4"
+        "rust-overlay": "rust-overlay_3"
       },
       "locked": {
         "lastModified": 1774295263,
@@ -193,7 +171,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_5"
+        "rust-overlay": "rust-overlay_4"
       },
       "locked": {
         "lastModified": 1791452825,
@@ -321,7 +299,6 @@
       "inputs": {
         "ager": "ager",
         "claude-code": "claude-code",
-        "claude-hooks": "claude-hooks",
         "claude-statusline": "claude-statusline",
         "codeberg-settings": "codeberg-settings",
         "codex-cli": "codex-cli",
@@ -359,27 +336,6 @@
     "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
-          "claude-hooks",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1773115373,
-        "narHash": "sha256-bfK9FJFcQth6f3ydYggS5m0z2NRGF/PY6Y2XgZDJ6pg=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "1924b4672a2b8e4aee6e6652ec2e59a8d3c5648e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_3": {
-      "inputs": {
-        "nixpkgs": [
           "claude-statusline",
           "nixpkgs"
         ]
@@ -398,7 +354,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_4": {
+    "rust-overlay_3": {
       "inputs": {
         "nixpkgs": [
           "codeberg-settings",
@@ -419,7 +375,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_5": {
+    "rust-overlay_4": {
       "inputs": {
         "nixpkgs": [
           "git-add-lines",
@@ -440,7 +396,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_6": {
+    "rust-overlay_5": {
       "inputs": {
         "nixpkgs": [
           "woodpecker-settings",
@@ -547,7 +503,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_6"
+        "rust-overlay": "rust-overlay_5"
       },
       "locked": {
         "lastModified": 1774286744,

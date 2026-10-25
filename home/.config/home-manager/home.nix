@@ -8,7 +8,6 @@
   pi,
   woodpecker-settings,
   codeberg-settings,
-  claude-hooks,
   claude-statusline,
   ager,
   git-add-lines,
@@ -131,7 +130,6 @@ in
         # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default
         codeberg-settings.packages.${system}.default
-        claude-hooks.packages.${system}.default
         claude-statusline.packages.${system}.default
         ager.packages.${system}.default
         git-add-lines.packages.${system}.default

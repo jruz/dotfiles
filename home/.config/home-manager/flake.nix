@@ -25,10 +25,6 @@
       url = "git+https://codeberg.org/jruz/codeberg-settings?ref=refs/tags/v0.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-hooks = {
-      url = "git+https://codeberg.org/jruz/claude-hooks?ref=refs/tags/v0.1.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     claude-statusline = {
       url = "git+https://codeberg.org/jruz/claude-statusline?ref=refs/tags/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,7 +54,6 @@
       pi,
       woodpecker-settings,
       codeberg-settings,
-      claude-hooks,
       claude-statusline,
       ager,
       git-add-lines,
@@ -83,7 +78,6 @@
               pi
               woodpecker-settings
               codeberg-settings
-              claude-hooks
               claude-statusline
               ager
               git-add-lines
