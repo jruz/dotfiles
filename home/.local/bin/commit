@@ -8,8 +8,8 @@ Rules:
 - If nothing is staged, consider all modified files and stage accordingly
 "
 
-(^codex exec
-    --approve-for-me
-    --model gpt-5.6-luna
-    --config model_reasoning_effort=medium
+(^pi
+    --print
+    --model openai-codex/gpt-6-luna
+    --thinking high
     $prompt)
