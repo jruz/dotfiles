@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["npm"],
+  "rangeStrategy": "pin",
+  "semanticCommits": "disabled",
+  "commitMessagePrefix": "[deps] {{{depName}}}:",
+  "commitMessageTopic": "",
+  "commitMessageLowerCase": "never",
+  "minimumReleaseAge": "7 days",
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "automergeStrategy": "squash",
+  "packageRules": [
+    {
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "matchPackageNames": [
+        "eslint",
+        "@eslint/js",
+        "typescript-eslint",
+        "typescript",
+        "@typescript-eslint/*"
+      ],
+      "groupName": "ESLint + TypeScript",
+      "groupSlug": "typescript-tooling",
+      "separateMajorMinor": false,
+      "commitMessagePrefix": "[deps] ESLint + TypeScript:",
+      "commitMessageAction": "Update",
+      "commitMessageExtra": "",
+      "group": {
+        "commitMessageTopic": "dependencies"
+      }
+    }
+  ]
+}
