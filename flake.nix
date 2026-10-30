@@ -21,7 +21,7 @@
         unstable = import nixpkgs-unstable { inherit system; };
         inherit (builtins.fromJSON (builtins.readFile ./package.json)) engines;
         nodeImage = "registry.jruz.io/node:${engines.node}-${engines.pnpm}";
-        bunImage = "registry.jruz.io/bun:${engines.bun}";
+        bunImage = "oven/bun:${engines.bun}";
         sandbox = pkgs.writeShellScriptBin "sandbox" ''
           set -eu
           project_root="$(${pkgs.git}/bin/git rev-parse --show-toplevel)"
