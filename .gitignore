@@ -26,3 +26,4 @@ nvim.log
 home/.local/bin/server-channel
 home/.local/bin/server-client
 /result
+/ager-lock.yaml
