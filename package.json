@@ -6,7 +6,7 @@
     "@types/bun": "1.4.4",
     "eslint": "10.13.0",
     "jiti": "2.7.0",
-    "knip": "6.40.0",
+    "knip": "6.42.1",
     "prettier": "3.9.10",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.0"
