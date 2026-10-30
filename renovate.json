@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["npm"],
+  "rangeStrategy": "pin",
+  "semanticCommits": "disabled",
+  "commitMessagePrefix": "[deps] {{{depName}}}:",
+  "commitMessageTopic": "",
+  "commitMessageLowerCase": "never",
+  "minimumReleaseAge": "7 days",
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "automergeStrategy": "squash"
+}
