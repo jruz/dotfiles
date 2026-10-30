@@ -15,7 +15,9 @@ setup:
   just ts-install
 
 ts-install:
-  sandbox pnpm install --frozen-lockfile
+  sandbox pnpm install \
+    --frozen-lockfile \
+    --strict-peer-dependencies
 
 parallel +RECIPES:
   #!/usr/bin/env nu

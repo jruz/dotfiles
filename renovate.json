@@ -11,5 +11,23 @@
   "automerge": true,
   "automergeType": "pr",
   "platformAutomerge": true,
-  "automergeStrategy": "squash"
+  "automergeStrategy": "squash",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "eslint",
+        "@eslint/js",
+        "typescript-eslint",
+        "typescript",
+        "@typescript-eslint/*"
+      ],
+      "groupName": "ESLint + TypeScript",
+      "groupSlug": "typescript-tooling",
+      "separateMajorMinor": false,
+      "commitMessagePrefix": "[deps] ESLint + TypeScript:",
+      "commitMessageAction": "Update",
+      "commitMessageTopic": "dependencies",
+      "commitMessageExtra": ""
+    }
+  ]
 }
