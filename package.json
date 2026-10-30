@@ -19,7 +19,7 @@
     "pnpm": "11.27.0"
   },
   "dependencies": {
-    "@bgotink/kdl": "0.4.0",
+    "@bgotink/kdl": "0.4.1",
     "yaml": "2.9.1",
     "zod": "4.6.6"
   }
