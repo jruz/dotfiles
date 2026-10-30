@@ -3,15 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { nixpkgs, flake-utils, ... }:
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      flake-utils,
+      ...
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        unstable = import nixpkgs-unstable { inherit system; };
         inherit (builtins.fromJSON (builtins.readFile ./package.json)) engines;
         nodeImage = "registry.jruz.io/node:${engines.node}-${engines.pnpm}";
         bunImage = "registry.jruz.io/bun:${engines.bun}";
@@ -69,7 +76,9 @@
           shellcheck
           statix
           taplo
+          unstable.woodpecker-cli
           yamllint
+          zoxide
         ];
       in
       {

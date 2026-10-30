@@ -1,0 +1,13 @@
+when:
+  - event: push
+    branch: main
+  - event: manual
+  - event: pull_request
+
+steps:
+  - name: CHECK
+    image: bash
+    commands:
+      - nix develop --command nu -c 'mkdir ~/.cache; ^zoxide init nushell | save --force ~/.cache/zoxide-init.nu'
+      - nix develop --command just ts-install
+      - nix develop --command just check

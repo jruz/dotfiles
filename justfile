@@ -5,7 +5,11 @@ check:
   just lint-lua
   just nushell-check
   just ts-check
+  just woodpecker-check
   just test
+
+woodpecker-check:
+  woodpecker-cli lint --strict .woodpecker/
 
 setup:
   just ts-install
