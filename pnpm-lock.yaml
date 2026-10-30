@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@bgotink/kdl':
-        specifier: 0.4.0
-        version: 0.4.0
+        specifier: 0.4.1
+        version: 0.4.1
       yaml:
         specifier: 2.9.1
         version: 2.9.1
@@ -48,8 +48,8 @@ importers:
 
 packages:
 
-  '@bgotink/kdl@0.4.0':
-    resolution: {integrity: sha512-F0uJCjo5FQvFdcGF5QbYVNfcGiRWlocuzyIdQxottZF2+gu6L2xjMGEu9PIpse2hifAca/19vIospgaETCKxIg==}
+  '@bgotink/kdl@0.4.1':
+    resolution: {integrity: sha512-zuCVbRXGaY09Y9uc0LQ+PpAe4YnE7o2nT1ZEsRzrG/vnMrQlkqaFgYuaItHiUxK1nc7bd3uAYaiBW75g5u1kbw==}
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -794,7 +794,7 @@ packages:
 
 snapshots:
 
-  '@bgotink/kdl@0.4.0': {}
+  '@bgotink/kdl@0.4.1': {}
 
   '@cacheable/memory@2.2.0':
     dependencies:
