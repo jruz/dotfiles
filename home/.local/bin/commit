@@ -10,6 +10,6 @@ Rules:
 
 (^pi
     --print
-    --model openai-codex/gpt-6-luna
+    --model openai-codex/gpt-6.1-terra
     --thinking high
     $prompt)
