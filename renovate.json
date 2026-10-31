@@ -14,10 +14,6 @@
   "automergeStrategy": "squash",
   "packageRules": [
     {
-      "matchPackageNames": ["typescript"],
-      "allowedVersions": "<7"
-    },
-    {
       "matchPackageNames": [
         "eslint",
         "@eslint/js",
