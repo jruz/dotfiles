@@ -21,6 +21,21 @@ def wr []: nothing -> string {
     ^nmcli radio wifi on
 }
 
+def gcmsg [message: string, --feat, --bugs, --refa, --deps, --tool, ...args: string]: nothing -> string {
+    let types = ([
+        (if $feat { "feat" })
+        (if $bugs { "bugs" })
+        (if $refa { "refa" })
+        (if $deps { "deps" })
+        (if $tool { "tool" })
+    ] | compact)
+    if ($types | length) > 1 {
+        error make {msg: "gcmsg: specify only one commit type"}
+    }
+    let title = if ($types | is-empty) { $message } else { $"[($types | first)] ($message)" }
+    ^git commit --message $title ...$args
+}
+
 def this-branch []: nothing -> string {
     ^git rev-parse --abbrev-ref HEAD
 }

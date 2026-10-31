@@ -32,6 +32,23 @@ vpn() {
   sudo systemctl "$1" "openvpn-client@$region.service"
 }
 
+gcmsg() {
+  local type
+  case "$1" in
+    --feat|--bugs|--refa|--deps|--tool)
+      type="${1#--}"
+      shift
+      ;;
+  esac
+  if [[ -n "$type" ]]; then
+    local message="[$type] $1"
+    shift
+    git commit --message "$message" "$@"
+  else
+    git commit --message "$@"
+  fi
+}
+
 gri() {
   git rebase -i "HEAD~$1"
 }
