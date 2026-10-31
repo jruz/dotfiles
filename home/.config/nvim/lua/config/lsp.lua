@@ -30,6 +30,7 @@ vim.lsp.enable('lua_ls')
 
 vim.lsp.enable('clojure_lsp')
 vim.lsp.enable('bashls')
+vim.lsp.enable('just')
 
 vim.lsp.config('eslint', {
   root_dir = function(bufnr, on_dir)
@@ -144,9 +145,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>lr', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>la', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<space>ln', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>lf', function()
-      require("conform").format({ async = true, lsp_format = "fallback" })
-    end, opts)
   end,
 })
 

@@ -141,6 +141,7 @@ in
       ]
       ++ (with unstable; [
         just
+        just-lsp
         neovim
         oxfmt
         nerd-fonts.dejavu-sans-mono

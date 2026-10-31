@@ -1,3 +1,7 @@
+vim.keymap.set("n", "<space>lf", function()
+  require("conform").format({ async = true, lsp_format = "fallback" })
+end)
+
 require("conform").setup({
   formatters_by_ft = {
     css = { "oxfmt" },
@@ -5,6 +9,7 @@ require("conform").setup({
     javascript = { "oxfmt" },
     javascriptreact = { "oxfmt" },
     json = { "oxfmt" },
+    just = { "just" },
     markdown = { "oxfmt" },
     svelte = { "oxfmt" },
     typescript = { "oxfmt" },
