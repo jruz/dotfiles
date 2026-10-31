@@ -9,6 +9,7 @@ check:
       nushell-check \
       ts-check \
       woodpecker-check \
+      renovate-check \
       bun-check
 
 setup:
@@ -305,6 +306,9 @@ nushell-set:
 
 woodpecker-check:
     woodpecker-cli lint --strict .woodpecker/
+
+renovate-check:
+    sandbox pnpm run renovate-check
 
 # ─── ssh ──────────────────────────────────────────────────────────────────────
 

@@ -1,6 +1,10 @@
 minimumReleaseAge: 10080
 allowBuilds:
+  core-js-pure: false
+  dtrace-provider: false
   esbuild: false
+  protobufjs: false
+  re2: true
 minimumReleaseAgeExclude:
   # Renovate security update: zod@4.6.6
   - zod@4.6.6
