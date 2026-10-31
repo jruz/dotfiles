@@ -1,3 +1,5 @@
+# ─── main ─────────────────────────────────────────────────────────────────────
+
 check:
     just just-fmt-check
     just nix-check
@@ -9,16 +11,46 @@ check:
     just woodpecker-check
     just test
 
-woodpecker-check:
-    woodpecker-cli lint --strict .woodpecker/
-
 setup:
     just ts-install
 
-ts-install:
-    sandbox pnpm install \
-      --frozen-lockfile \
-      --strict-peer-dependencies
+test:
+    just bun-test
+
+fix:
+    just just-fmt-fix
+    just nix-fix
+    just ts-fix
+
+clean:
+    just nix-clean
+
+stow:
+    just stow-home
+
+bootstrap:
+    #!/usr/bin/env nu
+    ^just git-hooks-setup
+    print "Stowing dotfiles..."
+    if (^uname) == "Darwin" {
+      ^just stow-mac
+      print ""
+      print "Setting up Home Manager..."
+      ^just nix-hm-switch
+      print ""
+      print "Setting up nix-darwin..."
+      ^just nix-darwin-switch
+    } else {
+      ^just stow-linux
+      print ""
+      print "Setting up Home Manager..."
+      ^just nix-hm-switch
+    }
+    print ""
+    print "Configuring SSH agent..."
+    ^just ssh-setup
+    print ""
+    print "Bootstrap complete!"
 
 parallel +RECIPES:
     #!/usr/bin/env nu
@@ -32,6 +64,26 @@ parallel +RECIPES:
         }
     }
     if ($runs | any {|run| $run.exit_code != 0 }) { exit 1 }
+
+# ─── just ─────────────────────────────────────────────────────────────────────
+
+just-fmt-check:
+    just \
+      --fmt \
+      --check \
+      --unstable
+
+just-fmt-fix:
+    just \
+      --fmt \
+      --unstable
+
+# ─── typescript ───────────────────────────────────────────────────────────────
+
+ts-install:
+    sandbox pnpm install \
+      --frozen-lockfile \
+      --strict-peer-dependencies
 
 ts-check:
     just parallel \
@@ -65,12 +117,6 @@ ts-check-knip:
 ts-check-knip-production:
     sandbox pnpm exec knip --production
 
-bun-test:
-    sandbox bun test
-
-test:
-    just bun-test
-
 ts-outdated:
     sandbox pnpm outdated
 
@@ -90,40 +136,12 @@ ts-fix:
       --fix \
       .
 
-just-fmt-check:
-    just \
-      --fmt \
-      --check \
-      --unstable
+# ─── bun ──────────────────────────────────────────────────────────────────────
 
-just-fmt-fix:
-    just \
-      --fmt \
-      --unstable
+bun-test:
+    sandbox bun test
 
-fix:
-    just just-fmt-fix
-    just nix-fix
-    just ts-fix
-
-# ---------------- NTFY
-ntfy-subscribe:
-    #!/usr/bin/env nu
-    let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
-    let notifier = (which terminal-notifier | first | get path)
-    (^launchctl submit
-      -l io.jruz.ntfy-subscribe
-      -o $log_path
-      -e $log_path
-      -- (which ntfy | first | get path) subscribe
-      $env.NTFY_CHANNEL
-      $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
-
-ntfy-stop:
-    launchctl remove io.jruz.ntfy-subscribe
-
-clean:
-    just nix-clean
+# ─── nix ──────────────────────────────────────────────────────────────────────
 
 nix-check:
     fd \
@@ -142,14 +160,96 @@ nix-fix:
 nix-check-version-sync:
     sandbox bun run scripts/nix-check-version-sync.ts
 
+nix-list:
+    nix-channel --list
+
+nix-latest:
+    #!/usr/bin/env nu
+    (gh api repos/NixOS/nixpkgs/branches
+      --paginate -q '.[].name'
+      | lines
+      | where {|it| $it =~ '^nixos-\d+\.\d+$'}
+      | sort --natural
+      | last
+      | split row '-'
+      | last)
+
+nix-channel-upgrade VERSION:
+    nix-channel --add https://nixos.org/channels/nixos-{{ VERSION }} nixpkgs
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+    nix-channel --update
+    nix-channel --list
+
+nix-core-upgrade:
+    sudo nix upgrade-nix
+
+nix-full-upgrade:
+    just nix-channel-upgrade $(just nix-latest)
+    just nix-core-upgrade
+    just nix-hm-update
+    just nix-hm-switch
+    just nix-darwin-update
+
+nix-clean:
+    nix-collect-garbage
+
+# ─── home manager ─────────────────────────────────────────────────────────────
+
+nix-hm-edit:
+    cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
+    nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
+
+nix-hm-config:
+    rm -rf ~/.config/home-manager
+    cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
+
+nix-hm-update:
+    nix flake update --flake ./home/.config/home-manager/
+    just nix-hm-switch
+
+nix-hm-switch:
+    #!/usr/bin/env nu
+    ^just nix-hm-config
+    let system = (^nix eval
+      --impure
+      --raw
+      --expr "builtins.currentSystem")
+    let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
+    ^home-manager switch --flake $flake
+    ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
+    ^bat cache --build
+
+# ─── nix darwin ───────────────────────────────────────────────────────────────
+
+nix-darwin-diff:
+    vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
+
+nix-darwin-edit:
+    cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
+    nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
+
+nix-darwin-switch:
+    cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+
+nix-darwin-update:
+    nix flake update --flake ~/.config/nix-darwin
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+
+# ─── lua ──────────────────────────────────────────────────────────────────────
+
 lint-lua:
     cd home/.config/nvim && selene .
+
+# ─── shellcheck ───────────────────────────────────────────────────────────────
 
 lint-sh:
     fd -e sh --exclude tmp -x shellcheck \
       --shell=bash \
       -e SC1090 \
       -e SC1091
+
+# ─── nushell ──────────────────────────────────────────────────────────────────
 
 nushell-check:
     #!/usr/bin/env nu
@@ -186,13 +286,32 @@ nushell-fix:
 nushell-test:
     nu --no-config-file home/.local/bin/test-runner.nu
 
+set-shell:
+    #!/usr/bin/env nu
+    let shell_path = if (^uname) == "Darwin" {
+      "/run/current-system/sw/bin/nu"
+    } else {
+      $"($env.HOME)/.nix-profile/bin/nu"
+    }
+    let shells = open /etc/shells | lines
+    if not ($shell_path in $shells) {
+      print $"Adding ($shell_path) to /etc/shells..."
+      $"($shell_path)\n" | ^sudo tee --append /etc/shells
+    }
+    print $"Changing shell to ($shell_path)..."
+    print "You may be prompted for your password:"
+    ^chsh -s $shell_path
+    print "Shell changed! Restart your terminal for it to take effect."
+
+# ─── woodpecker ───────────────────────────────────────────────────────────────
+
+woodpecker-check:
+    woodpecker-cli lint --strict .woodpecker/
+
+# ─── ssh ──────────────────────────────────────────────────────────────────────
+
 ssh-keygen EMAIL:
     ssh-keygen -t ed25519 -C "{{ EMAIL }}"
-
-github-auth:
-    #!/usr/bin/env nu
-    ^gh auth login
-    ^gh ssh-key add ~/.ssh/jruz.pub
 
 ssh-setup:
     #!/usr/bin/env nu
@@ -215,6 +334,28 @@ ssh-add-all:
     ssh-add ~/.ssh/codeberg
     ssh-add ~/.ssh/github
 
+# ─── git ──────────────────────────────────────────────────────────────────────
+
+git-hooks-setup:
+    #!/usr/bin/env nu
+    ^git config --local core.hooksPath .githooks
+    print "Git hooks path set to .githooks"
+
+git-config:
+    git --no-pager config --global -l
+
+# ─── github ───────────────────────────────────────────────────────────────────
+
+github-auth:
+    #!/usr/bin/env nu
+    ^gh auth login
+    ^gh ssh-key add ~/.ssh/jruz.pub
+
+github-signing:
+    gh ssh-key add ~/.ssh/jruz.pub --type signing
+
+# ─── stow ─────────────────────────────────────────────────────────────────────
+
 stow-home:
     stow -t ~ -v --ignore='home-manager' home
 
@@ -226,29 +367,21 @@ stow-linux:
     just stow-home
     stow -t ~ -v home-linux
 
-stow:
-    just stow-home
-
-git-hooks-setup:
-    #!/usr/bin/env nu
-    ^git config --local core.hooksPath .githooks
-    print "Git hooks path set to .githooks"
-
-git-config:
-    git --no-pager config --global -l
-
-github-signing:
-    gh ssh-key add ~/.ssh/jruz.pub --type signing
+# ─── tmux ─────────────────────────────────────────────────────────────────────
 
 tmux-plugins:
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     # do Ctrl+a I to install the plugins
+
+# ─── neovim ───────────────────────────────────────────────────────────────────
 
 nvim-plugins-clean:
     nvim --headless '+PluginsClean' '+qa'
 
 nvim-plugins-update:
     nvim --headless '+PluginsUpdate!' '+qa'
+
+# ─── mac ──────────────────────────────────────────────────────────────────────
 
 mac-uninstall-dry-run:
     cd home-mac && brew bundle cleanup
@@ -267,121 +400,12 @@ mac-update:
     brew update
     cd home-mac && brew bundle upgrade
 
+# ─── ubuntu ───────────────────────────────────────────────────────────────────
+
 ubuntu-update:
     sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove
 
-nix-list:
-    nix-channel --list
-
-nix-latest:
-    #!/usr/bin/env nu
-    (gh api repos/NixOS/nixpkgs/branches
-      --paginate -q '.[].name'
-      | lines
-      | where {|it| $it =~ '^nixos-\d+\.\d+$'}
-      | sort --natural
-      | last
-      | split row '-'
-      | last)
-
-nix-channel-upgrade VERSION:
-    nix-channel --add https://nixos.org/channels/nixos-{{ VERSION }} nixpkgs
-    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
-    nix-channel --update
-    nix-channel --list
-
-nix-core-upgrade:
-    sudo nix upgrade-nix
-
-nix-full-upgrade:
-    just nix-channel-upgrade $(just nix-latest)
-    just nix-core-upgrade
-    just nix-hm-update
-    just nix-hm-switch
-    just nix-darwin-update
-
-nix-hm-edit:
-    cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
-    nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
-
-nix-hm-config:
-    rm -rf ~/.config/home-manager
-    cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
-
-nix-hm-update:
-    nix flake update --flake ./home/.config/home-manager/
-    just nix-hm-switch
-
-nix-hm-switch:
-    #!/usr/bin/env nu
-    ^just nix-hm-config
-    let system = (^nix eval
-      --impure
-      --raw
-      --expr "builtins.currentSystem")
-    let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
-    ^home-manager switch --flake $flake
-    ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
-    ^bat cache --build
-
-bootstrap:
-    #!/usr/bin/env nu
-    ^just git-hooks-setup
-    print "Stowing dotfiles..."
-    if (^uname) == "Darwin" {
-      ^just stow-mac
-      print ""
-      print "Setting up Home Manager..."
-      ^just nix-hm-switch
-      print ""
-      print "Setting up nix-darwin..."
-      ^just nix-darwin-switch
-    } else {
-      ^just stow-linux
-      print ""
-      print "Setting up Home Manager..."
-      ^just nix-hm-switch
-    }
-    print ""
-    print "Configuring SSH agent..."
-    ^just ssh-setup
-    print ""
-    print "Bootstrap complete!"
-
-nix-darwin-diff:
-    vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
-
-nix-darwin-edit:
-    cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
-    nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
-
-nix-darwin-switch:
-    cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
-    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
-
-nix-darwin-update:
-    nix flake update --flake ~/.config/nix-darwin
-    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
-
-set-shell:
-    #!/usr/bin/env nu
-    let shell_path = if (^uname) == "Darwin" {
-      "/run/current-system/sw/bin/nu"
-    } else {
-      $"($env.HOME)/.nix-profile/bin/nu"
-    }
-    let shells = open /etc/shells | lines
-    if not ($shell_path in $shells) {
-      print $"Adding ($shell_path) to /etc/shells..."
-      $"($shell_path)\n" | ^sudo tee --append /etc/shells
-    }
-    print $"Changing shell to ($shell_path)..."
-    print "You may be prompted for your password:"
-    ^chsh -s $shell_path
-    print "Shell changed! Restart your terminal for it to take effect."
-
-nix-clean:
-    nix-collect-garbage
+# ─── ip ───────────────────────────────────────────────────────────────────────
 
 ip-router:
     #!/usr/bin/env nu
@@ -398,6 +422,8 @@ ip-repeater:
     let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
     if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
     print $"http://($ip)"
+
+# ─── agents ───────────────────────────────────────────────────────────────────
 
 agent-update AGENT:
     #!/usr/bin/env nu
@@ -418,7 +444,25 @@ codex-update:
 pi-update:
     just agent-update pi
 
-# ---------------- ZELLIJ
+# ─── ntfy ─────────────────────────────────────────────────────────────────────
+
+ntfy-subscribe:
+    #!/usr/bin/env nu
+    let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
+    let notifier = (which terminal-notifier | first | get path)
+    (^launchctl submit
+      -l io.jruz.ntfy-subscribe
+      -o $log_path
+      -e $log_path
+      -- (which ntfy | first | get path) subscribe
+      $env.NTFY_CHANNEL
+      $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
+
+ntfy-stop:
+    launchctl remove io.jruz.ntfy-subscribe
+
+# ─── zellij ───────────────────────────────────────────────────────────────────
+
 zellij-generate-mac:
     sandbox bun run scripts/zellij-generate-layout.ts --name mac
 
