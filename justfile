@@ -1,15 +1,15 @@
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 check:
-    just just-fmt-check
-    just nix-check
-    just nix-version-sync-check
-    just shellcheck-check
-    just lua-check
-    just nushell-check
-    just ts-check
-    just woodpecker-check
-    just test
+    just parallel \
+      just-fmt-check \
+      nix-check \
+      shellcheck-check \
+      lua-check \
+      nushell-check \
+      ts-check \
+      woodpecker-check \
+      bun-check
 
 setup:
     just ts-install
@@ -86,36 +86,28 @@ ts-install:
       --strict-peer-dependencies
 
 ts-check:
-    just parallel \
-      ts-oxfmt-check \
-      ts-tsc-check \
-      ts-eslint-check \
-      ts-knip-check \
-      ts-knip-production-check
+    sandbox pnpm run \
+      --parallel \
+      --no-bail \
+      '/^ts-.*-check$/'
 
 ts-oxfmt-check:
-    sandbox pnpm exec oxfmt --check
+    sandbox pnpm run ts-oxfmt-check
 
 ts-oxfmt-fix:
     sandbox pnpm exec oxfmt
 
 ts-tsc-check:
-    sandbox pnpm exec tsc \
-      --noEmit \
-      --incremental \
-      --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo
+    sandbox pnpm run ts-tsc-check
 
 ts-eslint-check:
-    sandbox pnpm exec eslint \
-      --cache \
-      --cache-location node_modules/.cache/eslint/ \
-      .
+    sandbox pnpm run ts-eslint-check
 
 ts-knip-check:
-    sandbox pnpm exec knip
+    sandbox pnpm run ts-knip-check
 
 ts-knip-production-check:
-    sandbox pnpm exec knip --production
+    sandbox pnpm run ts-knip-production-check
 
 ts-outdated:
     sandbox pnpm outdated
@@ -137,6 +129,9 @@ ts-fix:
       .
 
 # ─── bun ──────────────────────────────────────────────────────────────────────
+
+bun-check:
+    sandbox bun run scripts/bun-check.ts
 
 bun-test:
     sandbox bun test

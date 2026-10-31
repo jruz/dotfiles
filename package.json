@@ -1,5 +1,12 @@
 {
   "name": "dotfiles",
+  "scripts": {
+    "ts-oxfmt-check": "oxfmt --check",
+    "ts-tsc-check": "tsc",
+    "ts-eslint-check": "eslint --cache --cache-location node_modules/.cache/eslint/ .",
+    "ts-knip-check": "knip",
+    "ts-knip-production-check": "knip --production"
+  },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@tsconfig/strictest": "2.0.8",
