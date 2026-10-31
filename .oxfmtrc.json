@@ -10,15 +10,10 @@
   "ignorePatterns": [
     ".claude/",
     ".clj-kondo/",
-    "home/",
-    "home-mac/",
-    "home-linux/",
-    "mac/",
-    "ubuntu/",
-    "windows/",
+    "home/.config/nvim/nvim-pack-lock.json",
+    "home-mac/Brewfile.lock.json",
     "tmp/",
     "node_modules/",
-    "pnpm-lock.yaml",
-    "*.md"
+    "pnpm-lock.yaml"
   ]
 }

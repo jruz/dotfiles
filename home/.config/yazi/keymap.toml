@@ -3,5 +3,5 @@
 [mgr]
 
 prepend_keymap = [
-  	{ on = "<Enter>", run = "enter", desc = "Open selected files" },
+  { on = "<Enter>", run = "enter", desc = "Open selected files" },
 ]

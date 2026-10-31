@@ -34,7 +34,7 @@
   {
     "context": "vim_mode == normal",
     "bindings": {
-      "shift-u": "editor::Redo",
+      "shift-u": "editor::Redo"
     }
   },
   {
@@ -66,28 +66,13 @@
       "cmd-a up": "workspace::ActivatePaneUp",
       "cmd-a h": "workspace::ActivatePaneLeft",
       "cmd-a left": "workspace::ActivatePaneLeft",
-      "cmd-a": [
-        "terminal::SendKeystroke",
-        "ctrl-a"
-      ],
+      "cmd-a": ["terminal::SendKeystroke", "ctrl-a"],
       "cmd-shift-c": "terminal::Copy",
       "cmd-shift-v": "terminal::Paste",
-      "cmd-e": [
-        "terminal::SendKeystroke",
-        "ctrl-e"
-      ],
-      "cmd-l": [
-        "terminal::SendKeystroke",
-        "ctrl-l"
-      ],
-      "cmd-w": [
-        "terminal::SendKeystroke",
-        "ctrl-w"
-      ],
-      "cmd-r": [
-        "terminal::SendKeystroke",
-        "ctrl-r"
-      ]
+      "cmd-e": ["terminal::SendKeystroke", "ctrl-e"],
+      "cmd-l": ["terminal::SendKeystroke", "ctrl-l"],
+      "cmd-w": ["terminal::SendKeystroke", "ctrl-w"],
+      "cmd-r": ["terminal::SendKeystroke", "ctrl-r"]
       // "cmd-c": ["terminal::SendKeystroke", "ctrl-c"],
       // "cmd-shift-,": "zed::OpenKeymap",
     }

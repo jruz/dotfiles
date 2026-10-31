@@ -69,16 +69,19 @@ The repository uses a two-tier package management approach:
 ### Initial Setup
 
 Stow dotfiles on macOS:
+
 ```bash
 just stow-mac
 ```
 
 Stow dotfiles on Linux:
+
 ```bash
 just stow-linux
 ```
 
 Just base home directory:
+
 ```bash
 just stow-home
 ```
@@ -86,26 +89,31 @@ just stow-home
 ### Package Management
 
 Install GUI applications on macOS:
+
 ```bash
 just mac-install
 ```
 
 Update Homebrew packages on macOS:
+
 ```bash
 just mac-update
 ```
 
 Preview which Homebrew packages would be uninstalled (dry run):
+
 ```bash
 just mac-uninstall-dry-run
 ```
 
 Uninstall Homebrew packages not in Brewfile:
+
 ```bash
 just mac-uninstall
 ```
 
 Update Nix channels and apply Home Manager configuration:
+
 ```bash
 just nix-update
 ```
@@ -115,21 +123,25 @@ just nix-update
 The nix-darwin configuration in `mac/nix-darwin/flake.nix` manages system-level macOS settings including dock preferences, finder settings, and system defaults.
 
 Edit nix-darwin configuration:
+
 ```bash
 just nix-darwin-edit
 ```
 
 Apply nix-darwin changes:
+
 ```bash
 just nix-darwin-switch
 ```
 
 Update nix-darwin flake:
+
 ```bash
 just nix-darwin-update
 ```
 
 View differences between active and dotfiles version:
+
 ```bash
 just nix-darwin-diff
 ```
@@ -141,6 +153,7 @@ The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied v
 Claude Code, Codex and Pi are installed via Nix flake inputs in `home/.config/home-manager/flake.nix`.
 
 Check npm for the latest version, update flake.nix, and run nix-hm-switch:
+
 ```bash
 just claude-update
 just codex-update
@@ -150,6 +163,7 @@ just pi-update
 ### System Updates
 
 Ubuntu full system upgrade:
+
 ```bash
 just ubuntu-update
 ```
@@ -157,6 +171,7 @@ just ubuntu-update
 ## Configuration Files
 
 Key configuration locations:
+
 - Neovim: `home/.config/nvim/`
 - Zsh: `home/.zshrc`, `home/.config/zsh/`
 - Tmux: `home/.tmux.conf`
@@ -170,6 +185,7 @@ Key configuration locations:
 ## Development Workflow
 
 When modifying configurations:
+
 1. Edit files in the appropriate `home*/` directory within this repository
 2. Run the appropriate `just stow-*` command to symlink changes
 3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `just nix-hm-switch`

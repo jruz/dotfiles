@@ -58,17 +58,9 @@
   },
   "soft_wrap": "editor_width",
   "file_types": {
-    "HTML": [
-      "htm",
-      "html",
-      "svelte"
-    ],
-    "Jinja2": [
-      "htmx"
-    ],
-    "JSON": [
-      "prettierrc"
-    ]
+    "HTML": ["htm", "html", "svelte"],
+    "Jinja2": ["htmx"],
+    "JSON": ["prettierrc"]
   },
   "formatter": {
     "language_server": {
@@ -87,9 +79,7 @@
       "formatter": {
         "external": {
           "command": "nixfmt",
-          "arguments": [
-            "-"
-          ]
+          "arguments": ["-"]
         }
       }
     },
@@ -120,20 +110,14 @@
       "formatter": {
         "external": {
           "command": "black",
-          "arguments": [
-            "-"
-          ]
+          "arguments": ["-"]
         }
       }
     },
     "TypeScript": {
-      "language_servers": [
-        "biome",
-        "typescript-language-server",
-        "!eslint"
-      ],
+      "language_servers": ["biome", "typescript-language-server", "!eslint"],
       "format_on_save": "on",
-      "formatter": { "language_server": { "name": "biome" }}
+      "formatter": { "language_server": { "name": "biome" } }
     },
     "Svelte": {
       "tab_size": 2
