@@ -3,20 +3,20 @@
   "scripts": {
     "ts-oxfmt-check": "oxfmt --check",
     "ts-tsc-check": "tsc",
-    "ts-eslint-check": "eslint --cache --cache-location node_modules/.cache/eslint/ .",
+    "ts-oxlint-check": "oxlint --deny-warnings --report-unused-disable-directives-severity error .",
+    "ts-oxlint-rules-check": "node --test .oxlint/*.test.ts",
     "ts-knip-check": "knip",
     "ts-knip-production-check": "knip --production"
   },
   "devDependencies": {
-    "@eslint/js": "10.0.1",
+    "@oxlint/plugins": "1.89.0",
     "@tsconfig/strictest": "2.0.8",
     "@types/bun": "1.4.4",
-    "eslint": "10.13.0",
-    "jiti": "2.7.0",
     "knip": "6.43.0",
     "oxfmt": "0.74.0",
-    "typescript": "6.0.3",
-    "typescript-eslint": "8.72.0"
+    "oxlint": "1.89.0",
+    "oxlint-tsgolint": "7.0.2005",
+    "typescript": "6.0.3"
   },
   "private": true,
   "type": "module",

@@ -16,6 +16,7 @@ setup:
 
 test:
     just bun-test
+    just ts-oxlint-rules-check
 
 fix:
     just just-fmt-fix
@@ -100,8 +101,14 @@ ts-oxfmt-fix:
 ts-tsc-check:
     sandbox pnpm run ts-tsc-check
 
-ts-eslint-check:
-    sandbox pnpm run ts-eslint-check
+ts-oxlint-check:
+    sandbox pnpm run ts-oxlint-check
+
+ts-oxlint-rules-check:
+    sandbox pnpm run ts-oxlint-rules-check
+
+ts-oxlint-fix:
+    sandbox pnpm exec oxlint --fix .
 
 ts-knip-check:
     sandbox pnpm run ts-knip-check
@@ -121,12 +128,8 @@ ts-upgrade +PACKAGES:
       {{ PACKAGES }}
 
 ts-fix:
+    just ts-oxlint-fix
     just ts-oxfmt-fix
-    sandbox pnpm exec eslint \
-      --cache \
-      --cache-location node_modules/.cache/eslint/ \
-      --fix \
-      .
 
 # ─── bun ──────────────────────────────────────────────────────────────────────
 
@@ -134,7 +137,7 @@ bun-check:
     sandbox bun run scripts/bun-check.ts
 
 bun-test:
-    sandbox bun test
+    sandbox bun test ./scripts
 
 # ─── nix ──────────────────────────────────────────────────────────────────────
 
