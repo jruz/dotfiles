@@ -260,3 +260,13 @@ def gen-passphrase [words: int = 4]: nothing -> string {
         | str trim)
     $"($phrase)-($digit)"
 }
+
+def gen-ssh-key [
+    name: path
+    --directory: path = ~/.ssh
+    --no-passphrase
+]: nothing -> string {
+    let key_path = ($directory | path expand --no-symlink | path join $name)
+    let passphrase_args = if $no_passphrase { ["-N" ""] } else { [] }
+    ^ssh-keygen -t ed25519 -C $name -f $key_path ...$passphrase_args
+}
