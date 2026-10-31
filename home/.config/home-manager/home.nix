@@ -58,6 +58,7 @@ in
         unzip
         wget
         xclip
+        xkcdpass
         zip
         yazi
         signal-cli

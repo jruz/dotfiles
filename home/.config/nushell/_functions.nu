@@ -252,3 +252,11 @@ def zellij-mini []: nothing -> string {
     ^just --justfile ~/dev/dotfiles/justfile --working-directory ~/dev/dotfiles zellij-generate-mini
     ^zellij --new-session-with-layout mini --session MINI
 }
+
+def gen-passphrase [words: int = 4]: nothing -> string {
+    let phrase = (^xkcdpass --numwords $words --case capitalize --delimiter "-" --valid-chars '[a-z]'
+        | str trim)
+    let digit = (^shuf --random-source /dev/urandom --input-range 0-9 --head-count 1
+        | str trim)
+    $"($phrase)-($digit)"
+}

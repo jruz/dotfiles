@@ -11,8 +11,8 @@ def find-tests-in-file [file: path]: nothing -> list<record> {
     let content = open --raw $file
     let tests = ($content
         | lines
-        | where $it =~ '^(export )?def test_'
-        | parse --regex '^(?:export )?def (?<test_name>test_\w+)'
+        | where $it =~ '^(export )?def test[-_]'
+        | parse --regex '^(?:export )?def (?<test_name>test[-_][\w-]+)'
         | get test_name)
     if ($tests | is-empty) {
         return []

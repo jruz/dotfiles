@@ -168,7 +168,7 @@ nushell-fix:
   ^nu-lint --config nu-lint.toml --fix home/.config/nushell scripts ...$scripts
 
 nushell-test:
-  test-runner.nu
+  nu --no-config-file home/.local/bin/test-runner.nu
 
 ssh-keygen EMAIL:
   ssh-keygen -t ed25519 -C "{{EMAIL}}"
