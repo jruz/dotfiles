@@ -18,6 +18,7 @@ setup:
 test:
     just bun-test
     just ts-oxlint-rules-check
+    just nushell-test
 
 fix:
     just just-fmt-fix
