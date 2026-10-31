@@ -3,6 +3,11 @@ vim.keymap.set("n", "<space>lf", function()
 end)
 
 require("conform").setup({
+  formatters = {
+    oxfmt = {
+      command = "oxfmt",
+    },
+  },
   formatters_by_ft = {
     css = { "oxfmt" },
     html = { "oxfmt" },
