@@ -14,17 +14,23 @@
   "automergeStrategy": "squash",
   "packageRules": [
     {
-      "matchPackageNames": [
-        "eslint",
-        "@eslint/js",
-        "typescript-eslint",
-        "typescript",
-        "@typescript-eslint/*"
-      ],
-      "groupName": "ESLint + TypeScript",
-      "groupSlug": "typescript-tooling",
+      "matchPackageNames": ["bun", "@types/bun"],
+      "groupName": "Bun",
+      "groupSlug": "bun",
       "separateMajorMinor": false,
-      "commitMessagePrefix": "[deps] ESLint + TypeScript:",
+      "commitMessagePrefix": "[deps] Bun:",
+      "commitMessageAction": "Update",
+      "commitMessageExtra": "",
+      "group": {
+        "commitMessageTopic": "dependencies"
+      }
+    },
+    {
+      "matchPackageNames": ["oxlint", "@oxlint/plugins", "oxlint-tsgolint"],
+      "groupName": "Oxlint",
+      "groupSlug": "oxlint",
+      "separateMajorMinor": false,
+      "commitMessagePrefix": "[deps] Oxlint:",
       "commitMessageAction": "Update",
       "commitMessageExtra": "",
       "group": {
