@@ -1,89 +1,49 @@
 import { log } from "./lib/log.ts";
-import { readFile } from "fs/promises";
+import {
+  checkReleaseSync,
+  formatReleaseFailure,
+} from "./nix-check-version-sync/releases.ts";
+import type { FlakeFile, FlakeInput } from "./nix-check-version-sync/types.ts";
 
-const EXPECTED_VERSION = "26.05";
-
-type FlakeCheck = {
-  file: string;
-  pattern: RegExp;
-  label: string;
-};
-
-const FLAKE_CHECKS: FlakeCheck[] = [
-  {
-    file: "flake.nix",
-    pattern: /nixpkgs\.url.*nixos-([\d.]+)/,
-    label: "nixpkgs",
-  },
+const files: readonly FlakeFile[] = [
   {
     file: "home/.config/home-manager/flake.nix",
-    pattern: /nixpkgs\.url.*nixos-([\d.]+)/,
-    label: "nixpkgs",
-  },
-  {
-    file: "home/.config/home-manager/flake.nix",
-    pattern: /home-manager\.url.*release-([\d.]+)/,
-    label: "home-manager",
+    inputs: ["nixpkgs", "home-manager"],
   },
   {
     file: "mac/nix-darwin/flake.nix",
-    pattern: /nixpkgs\.url.*nixos-([\d.]+)/,
-    label: "nixpkgs",
-  },
-  {
-    file: "mac/nix-darwin/flake.nix",
-    pattern: /nix-darwin\.url.*nix-darwin-([\d.]+)/,
-    label: "nix-darwin",
+    inputs: ["nixpkgs", "nix-darwin"],
   },
 ];
 
-type Mismatch = {
-  file: string;
-  label: string;
-  version: string;
-};
-
-const checkFlake = async (check: FlakeCheck): Promise<Mismatch | null> => {
+const readSource = async (path: string): Promise<string> => {
   try {
-    const content = await readFile(check.file, "utf-8");
-    const match = check.pattern.exec(content);
-    if (!match?.[1]) {
-      return { file: check.file, label: check.label, version: "not found" };
-    }
-    if (match[1] !== EXPECTED_VERSION) {
-      return { file: check.file, label: check.label, version: match[1] };
-    }
-    return null;
-  } catch (e: unknown) {
-    return {
-      file: check.file,
-      label: check.label,
-      version: `read error: ${String(e)}`,
-    };
+    return await Bun.file(path).text();
+  } catch (error) {
+    log.error(`cannot read flake: ${path}`);
+    throw error;
   }
 };
 
-const main = async () => {
-  const checks = FLAKE_CHECKS.map(checkFlake);
-  const results = await Promise.all(checks);
-  const mismatches = results.filter((r): r is Mismatch => r !== null);
+const readInputs = async (file: FlakeFile): Promise<readonly FlakeInput[]> => {
+  const source = await readSource(file.file);
+  return file.inputs.map((name) => ({ file: file.file, name, source }));
+};
 
-  if (mismatches.length === 0) {
-    log.ok(`All Nix channels pinned to ${EXPECTED_VERSION}`);
+const main = async (): Promise<void> => {
+  const source = await readSource("flake.nix");
+  const root: FlakeInput = { file: "flake.nix", name: "nixpkgs", source };
+  const pending = files.map(readInputs);
+  const groups = await Promise.all(pending);
+  const inputs = groups.flat();
+  const result = checkReleaseSync(root, inputs);
+  if (!result.success) {
+    const messages = result.error.map(formatReleaseFailure);
+    messages.forEach(log.error);
+    process.exitCode = 1;
     return;
   }
-
-  mismatches.forEach((m) => {
-    log.error(
-      `${m.file} (${m.label}): ${m.version} (expected ${EXPECTED_VERSION})`,
-    );
-  });
-  process.exit(1);
+  log.ok(`Nix inputs match root nixpkgs release ${result.data}`);
 };
 
-try {
-  await main();
-} catch (error: unknown) {
-  log.error(`version sync: ${String(error)}`);
-  process.exit(1);
-}
+await main();
