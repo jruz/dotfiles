@@ -34,14 +34,17 @@ parallel +RECIPES:
 
 ts-check:
   just parallel \
-    ts-check-prettier \
+    ts-oxfmt-check \
     ts-check-tsc \
     ts-check-eslint \
     ts-check-knip \
     ts-check-knip-production
 
-ts-check-prettier:
-  sandbox pnpm exec prettier --check --cache .
+ts-oxfmt-check:
+  sandbox pnpm exec oxfmt --check
+
+ts-oxfmt-fix:
+  sandbox pnpm exec oxfmt
 
 ts-check-tsc:
   sandbox pnpm exec tsc \
@@ -79,7 +82,7 @@ ts-upgrade +PACKAGES:
     {{PACKAGES}}
 
 ts-fix:
-  sandbox pnpm exec prettier --write --cache .
+  just ts-oxfmt-fix
   sandbox pnpm exec eslint \
     --cache \
     --cache-location node_modules/.cache/eslint/ \
