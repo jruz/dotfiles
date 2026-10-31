@@ -45,18 +45,14 @@ def gdr []: nothing -> string {
     ^git diff $"origin/($branch)"
 }
 
-def --wrapped gl [...args: string]: nothing -> string {
-    ^git log --pretty=format:'%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)' --date=short --max-count=20 ...$args
-}
-
 def gld []: nothing -> string {
     let branch = (this-branch | str trim)
-    gl $"dev..($branch)"
+    ^gl $"dev..($branch)"
 }
 
 def glm []: nothing -> string {
     let branch = (this-branch | str trim)
-    gl $"main..($branch)"
+    ^gl $"main..($branch)"
 }
 
 def grm []: nothing -> string {

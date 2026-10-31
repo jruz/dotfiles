@@ -1,0 +1,41 @@
+#!/usr/bin/env nu
+
+def display-author []: record<author: string, committer: string> -> string {
+    let commit = $in
+    if $commit.author == $commit.committer {
+        return $commit.author
+    }
+    $"($commit.author) \(($commit.committer)\)"
+}
+
+def --wrapped main [...args: string]: nothing -> nothing {
+    let color = if (is-terminal --stdout) { 'always' } else { 'auto' }
+    let result = (^git log $'--color=($color)' --pretty=format:'%ad | %C(yellow)%h%C(reset) | %x1f%an%x1f%cn%x1f | %C(blue)%s%C(reset) (%ar)' --date=short --max-count=20 ...$args | complete)
+    if $result.exit_code != 0 {
+        print --stderr --no-newline $result.stderr
+        exit $result.exit_code
+    }
+
+    let lines = ($result.stdout | lines)
+    let commits = ($lines
+        | parse --regex '^(?<prefix>[^\x1f]*)\x1f(?<author>[^\x1f]*)\x1f(?<committer>[^\x1f]*)\x1f(?<message>.*)$')
+    if ($commits | length) != ($lines | length) {
+        print --stderr 'gl: Git output format is unsupported; remove output-changing flags such as --oneline, --stat, or --patch'
+        exit 1
+    }
+
+    if ($commits | is-empty) {
+        return
+    }
+
+    let width = ($commits
+        | each { select author committer | display-author | str length }
+        | math max)
+    $commits
+    | each {|commit|
+        let author = ($commit | select author committer | display-author | fill --width $width)
+        $'($commit.prefix)($author)($commit.message)'
+    }
+    | str join (char newline)
+    | print
+}
