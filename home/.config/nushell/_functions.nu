@@ -45,17 +45,8 @@ def gdr []: nothing -> string {
     ^git diff $"origin/($branch)"
 }
 
-def gl [range?: string, --limit (-n): int = 15]: nothing -> string {
-    let format = "%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)"
-    let args = [
-        --pretty=format:($format)
-        --date=short
-        --max-count $limit
-    ]
-    match $range {
-        null => { ^git log ...$args }
-        _ => { ^git log ...$args $range }
-    }
+def --wrapped gl [...args: string]: nothing -> string {
+    ^git log --pretty=format:'%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)' --date=short --max-count=20 ...$args
 }
 
 def gld []: nothing -> string {

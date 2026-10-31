@@ -119,7 +119,6 @@ alias gdl = ^git diff HEAD^ HEAD
 alias gdm = ^git diff main
 alias gds = ^git diff --cached
 alias gf = ^git fetch
-alias gl = ^git log --pretty=format:"%ad | %C(yellow)%h%C(reset) | %an | %C(blue)%s%C(reset) (%ar)" --date="short"
 alias gmd = ^git merge dev
 alias gpl = ^git pull --rebase
 alias gps = ^git push
