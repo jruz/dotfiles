@@ -115,7 +115,6 @@ in
         tflint
         tfsec
         pylyzer
-        prettier
         shfmt
 
         # Nix -----------------------
@@ -143,6 +142,7 @@ in
       ++ (with unstable; [
         just
         neovim
+        oxfmt
         nerd-fonts.dejavu-sans-mono
         nerd-fonts.lekton
         usage
