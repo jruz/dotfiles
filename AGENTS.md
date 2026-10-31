@@ -64,6 +64,12 @@ The repository uses a two-tier package management approach:
 - The pnpm store `~/.local/share/pnpm` and cache `~/.cache/pnpm` are shared with the host at the same paths.
 - Files inside the repository remain accessible and writable, including live dotfiles.
 
+## TypeScript Tooling
+
+- Run `just ts::check` for TypeScript checks.
+- Run `just ts::fix` for lint fixes and formatting.
+- Run `just bun::test` for script tests.
+
 ## Common Commands
 
 ### Initial Setup

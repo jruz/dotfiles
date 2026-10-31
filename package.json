@@ -1,13 +1,13 @@
 {
   "name": "dotfiles",
   "scripts": {
+    "knip-check": "knip",
+    "knip-production-check": "knip --production",
+    "oxfmt-check": "oxfmt --check",
+    "oxlint-check": "oxlint --deny-warnings --report-unused-disable-directives-severity error .",
+    "oxlint-rules-check": "node --test .oxlint/*.test.ts",
     "renovate-check": "node --require re2 ./node_modules/renovate/dist/config-validator.js --strict renovate.json",
-    "ts-oxfmt-check": "oxfmt --check",
-    "ts-tsc-check": "tsc",
-    "ts-oxlint-check": "oxlint --deny-warnings --report-unused-disable-directives-severity error .",
-    "ts-oxlint-rules-check": "node --test .oxlint/*.test.ts",
-    "ts-knip-check": "knip",
-    "ts-knip-production-check": "knip --production"
+    "tsc-check": "tsc"
   },
   "devDependencies": {
     "@oxlint/plugins": "1.89.0",

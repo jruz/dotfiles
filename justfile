@@ -1,3 +1,7 @@
+mod ts '.just/ts.justfile'
+mod bun '.just/bun.justfile'
+mod renovate '.just/renovate.justfile'
+
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 check:
@@ -7,23 +11,23 @@ check:
       shellcheck-check \
       lua-check \
       nushell-check \
-      ts-check \
+      ts::check \
       woodpecker-check \
-      renovate-check \
-      bun-check
+      renovate::check \
+      bun::check
 
 setup:
-    just ts-install
+    just ts::install
 
 test:
-    just bun-test
-    just ts-oxlint-rules-check
+    just bun::test
+    just ts::oxlint-rules-check
     just nushell-test
 
 fix:
     just just-fmt-fix
     just nix-fix
-    just ts-fix
+    just ts::fix
 
 clean:
     just nix-clean
@@ -81,66 +85,6 @@ just-fmt-fix:
       --fmt \
       --unstable
 
-# ─── typescript ───────────────────────────────────────────────────────────────
-
-ts-install:
-    sandbox pnpm install \
-      --frozen-lockfile \
-      --strict-peer-dependencies
-
-ts-check:
-    sandbox pnpm run \
-      --parallel \
-      --no-bail \
-      '/^ts-.*-check$/'
-
-ts-oxfmt-check:
-    sandbox pnpm run ts-oxfmt-check
-
-ts-oxfmt-fix:
-    sandbox pnpm exec oxfmt
-
-ts-tsc-check:
-    sandbox pnpm run ts-tsc-check
-
-ts-oxlint-check:
-    sandbox pnpm run ts-oxlint-check
-
-ts-oxlint-rules-check:
-    sandbox pnpm run ts-oxlint-rules-check
-
-ts-oxlint-fix:
-    sandbox pnpm exec oxlint --fix .
-
-ts-knip-check:
-    sandbox pnpm run ts-knip-check
-
-ts-knip-production-check:
-    sandbox pnpm run ts-knip-production-check
-
-ts-outdated:
-    sandbox pnpm outdated
-
-ts-upgrade +PACKAGES:
-    sandbox pnpm \
-      --config.save-exact=true \
-      --config.strict-peer-dependencies=true \
-      update \
-      --latest \
-      {{ PACKAGES }}
-
-ts-fix:
-    just ts-oxlint-fix
-    just ts-oxfmt-fix
-
-# ─── bun ──────────────────────────────────────────────────────────────────────
-
-bun-check:
-    sandbox bun run scripts/bun-check.ts
-
-bun-test:
-    sandbox bun test ./scripts
-
 # ─── nix ──────────────────────────────────────────────────────────────────────
 
 nix-check:
@@ -149,6 +93,7 @@ nix-check:
       --exec nixfmt --check
     statix check .
     deadnix --fail .
+    just nix-version-sync-check
 
 nix-fix:
     fd \
@@ -307,9 +252,6 @@ nushell-set:
 
 woodpecker-check:
     woodpecker-cli lint --strict .woodpecker/
-
-renovate-check:
-    sandbox pnpm run renovate-check
 
 # ─── ssh ──────────────────────────────────────────────────────────────────────
 
