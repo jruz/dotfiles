@@ -48,6 +48,7 @@ in
         yq-go
         lsd
         procs
+        hyperfine
         zenith
         ripgrep
         bat
