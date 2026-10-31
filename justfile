@@ -3,9 +3,9 @@
 check:
     just just-fmt-check
     just nix-check
-    just nix-check-version-sync
-    just lint-sh
-    just lint-lua
+    just nix-version-sync-check
+    just shellcheck-check
+    just lua-check
     just nushell-check
     just ts-check
     just woodpecker-check
@@ -88,10 +88,10 @@ ts-install:
 ts-check:
     just parallel \
       ts-oxfmt-check \
-      ts-check-tsc \
-      ts-check-eslint \
-      ts-check-knip \
-      ts-check-knip-production
+      ts-tsc-check \
+      ts-eslint-check \
+      ts-knip-check \
+      ts-knip-production-check
 
 ts-oxfmt-check:
     sandbox pnpm exec oxfmt --check
@@ -99,22 +99,22 @@ ts-oxfmt-check:
 ts-oxfmt-fix:
     sandbox pnpm exec oxfmt
 
-ts-check-tsc:
+ts-tsc-check:
     sandbox pnpm exec tsc \
       --noEmit \
       --incremental \
       --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo
 
-ts-check-eslint:
+ts-eslint-check:
     sandbox pnpm exec eslint \
       --cache \
       --cache-location node_modules/.cache/eslint/ \
       .
 
-ts-check-knip:
+ts-knip-check:
     sandbox pnpm exec knip
 
-ts-check-knip-production:
+ts-knip-production-check:
     sandbox pnpm exec knip --production
 
 ts-outdated:
@@ -157,7 +157,7 @@ nix-fix:
     statix fix .
     deadnix --edit .
 
-nix-check-version-sync:
+nix-version-sync-check:
     sandbox bun run scripts/nix-check-version-sync.ts
 
 nix-list:
@@ -238,12 +238,12 @@ nix-darwin-update:
 
 # ─── lua ──────────────────────────────────────────────────────────────────────
 
-lint-lua:
+lua-check:
     cd home/.config/nvim && selene .
 
 # ─── shellcheck ───────────────────────────────────────────────────────────────
 
-lint-sh:
+shellcheck-check:
     fd -e sh --exclude tmp -x shellcheck \
       --shell=bash \
       -e SC1090 \
@@ -286,7 +286,7 @@ nushell-fix:
 nushell-test:
     nu --no-config-file home/.local/bin/test-runner.nu
 
-set-shell:
+nushell-set:
     #!/usr/bin/env nu
     let shell_path = if (^uname) == "Darwin" {
       "/run/current-system/sw/bin/nu"
