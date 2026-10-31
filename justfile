@@ -1,413 +1,426 @@
 check:
-  just nix-check
-  just nix-check-version-sync
-  just lint-sh
-  just lint-lua
-  just nushell-check
-  just ts-check
-  just woodpecker-check
-  just test
+    just just-fmt-check
+    just nix-check
+    just nix-check-version-sync
+    just lint-sh
+    just lint-lua
+    just nushell-check
+    just ts-check
+    just woodpecker-check
+    just test
 
 woodpecker-check:
-  woodpecker-cli lint --strict .woodpecker/
+    woodpecker-cli lint --strict .woodpecker/
 
 setup:
-  just ts-install
+    just ts-install
 
 ts-install:
-  sandbox pnpm install \
-    --frozen-lockfile \
-    --strict-peer-dependencies
+    sandbox pnpm install \
+      --frozen-lockfile \
+      --strict-peer-dependencies
 
 parallel +RECIPES:
-  #!/usr/bin/env nu
-  let runs = ([{{RECIPES}}] | par-each {|recipe|
-      ^just $recipe o+e>| complete | insert recipe $recipe })
-  for run in $runs {
-      if $run.exit_code == 0 {
-          print $"PASS ($run.recipe)"
-      } else {
-          print $"FAIL ($run.recipe)" $run.stdout
-      }
-  }
-  if ($runs | any {|run| $run.exit_code != 0 }) { exit 1 }
+    #!/usr/bin/env nu
+    let runs = ([{{ RECIPES }}] | par-each {|recipe|
+        ^just $recipe o+e>| complete | insert recipe $recipe })
+    for run in $runs {
+        if $run.exit_code == 0 {
+            print $"PASS ($run.recipe)"
+        } else {
+            print $"FAIL ($run.recipe)" $run.stdout
+        }
+    }
+    if ($runs | any {|run| $run.exit_code != 0 }) { exit 1 }
 
 ts-check:
-  just parallel \
-    ts-oxfmt-check \
-    ts-check-tsc \
-    ts-check-eslint \
-    ts-check-knip \
-    ts-check-knip-production
+    just parallel \
+      ts-oxfmt-check \
+      ts-check-tsc \
+      ts-check-eslint \
+      ts-check-knip \
+      ts-check-knip-production
 
 ts-oxfmt-check:
-  sandbox pnpm exec oxfmt --check
+    sandbox pnpm exec oxfmt --check
 
 ts-oxfmt-fix:
-  sandbox pnpm exec oxfmt
+    sandbox pnpm exec oxfmt
 
 ts-check-tsc:
-  sandbox pnpm exec tsc \
-    --noEmit \
-    --incremental \
-    --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo
+    sandbox pnpm exec tsc \
+      --noEmit \
+      --incremental \
+      --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo
 
 ts-check-eslint:
-  sandbox pnpm exec eslint \
-    --cache \
-    --cache-location node_modules/.cache/eslint/ \
-    .
+    sandbox pnpm exec eslint \
+      --cache \
+      --cache-location node_modules/.cache/eslint/ \
+      .
 
 ts-check-knip:
-  sandbox pnpm exec knip
+    sandbox pnpm exec knip
 
 ts-check-knip-production:
-  sandbox pnpm exec knip --production
+    sandbox pnpm exec knip --production
 
 bun-test:
-  sandbox bun test
+    sandbox bun test
 
 test:
-  just bun-test
+    just bun-test
 
 ts-outdated:
-  sandbox pnpm outdated
+    sandbox pnpm outdated
 
 ts-upgrade +PACKAGES:
-  sandbox pnpm \
-    --config.save-exact=true \
-    --config.strict-peer-dependencies=true \
-    update \
-    --latest \
-    {{PACKAGES}}
+    sandbox pnpm \
+      --config.save-exact=true \
+      --config.strict-peer-dependencies=true \
+      update \
+      --latest \
+      {{ PACKAGES }}
 
 ts-fix:
-  just ts-oxfmt-fix
-  sandbox pnpm exec eslint \
-    --cache \
-    --cache-location node_modules/.cache/eslint/ \
-    --fix \
-    .
+    just ts-oxfmt-fix
+    sandbox pnpm exec eslint \
+      --cache \
+      --cache-location node_modules/.cache/eslint/ \
+      --fix \
+      .
+
+just-fmt-check:
+    just \
+      --fmt \
+      --check \
+      --unstable
+
+just-fmt-fix:
+    just \
+      --fmt \
+      --unstable
 
 fix:
-  just nix-fix
-  just ts-fix
+    just just-fmt-fix
+    just nix-fix
+    just ts-fix
 
 # ---------------- NTFY
 ntfy-subscribe:
-  #!/usr/bin/env nu
-  let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
-  let notifier = (which terminal-notifier | first | get path)
-  (^launchctl submit
-    -l io.jruz.ntfy-subscribe
-    -o $log_path
-    -e $log_path
-    -- (which ntfy | first | get path) subscribe
-    $env.NTFY_CHANNEL
-    $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
+    #!/usr/bin/env nu
+    let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
+    let notifier = (which terminal-notifier | first | get path)
+    (^launchctl submit
+      -l io.jruz.ntfy-subscribe
+      -o $log_path
+      -e $log_path
+      -- (which ntfy | first | get path) subscribe
+      $env.NTFY_CHANNEL
+      $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
 
 ntfy-stop:
-  launchctl remove io.jruz.ntfy-subscribe
+    launchctl remove io.jruz.ntfy-subscribe
 
 clean:
-  just nix-clean
+    just nix-clean
 
 nix-check:
-  fd \
-    --extension nix \
-    --exec nixfmt --check
-  statix check .
-  deadnix --fail .
+    fd \
+      --extension nix \
+      --exec nixfmt --check
+    statix check .
+    deadnix --fail .
 
 nix-fix:
-  fd \
-    --extension nix \
-    --exec nixfmt
-  statix fix .
-  deadnix --edit .
+    fd \
+      --extension nix \
+      --exec nixfmt
+    statix fix .
+    deadnix --edit .
 
 nix-check-version-sync:
-  sandbox bun run scripts/nix-check-version-sync.ts
+    sandbox bun run scripts/nix-check-version-sync.ts
 
 lint-lua:
-  cd home/.config/nvim && selene .
+    cd home/.config/nvim && selene .
 
 lint-sh:
-  fd -e sh --exclude tmp -x shellcheck \
-    --shell=bash \
-    -e SC1090 \
-    -e SC1091
+    fd -e sh --exclude tmp -x shellcheck \
+      --shell=bash \
+      -e SC1090 \
+      -e SC1091
 
 nushell-check:
-  #!/usr/bin/env nu
-  use std/assert
-  let scripts = (
-    ^rg
-      --files-with-matches
-      --hidden
-      --glob '!.git'
-      --multiline
-      '\A#!/usr/bin/env nu'
-    | lines
-    | path expand
-  )
-  for file in [...(glob '**/*.nu' --exclude ['**/node_modules/**' '**/tmp/**' '**/.git/**']) ...$scripts] {
-    assert (nu-check --debug $file)
-  }
-  ^nu-lint --config nu-lint.toml --format compact home/.config/nushell scripts ...$scripts
+    #!/usr/bin/env nu
+    use std/assert
+    let scripts = (
+      ^rg
+        --files-with-matches
+        --hidden
+        --glob '!.git'
+        --multiline
+        '\A#!/usr/bin/env nu'
+      | lines
+      | path expand
+    )
+    for file in [...(glob '**/*.nu' --exclude ['**/node_modules/**' '**/tmp/**' '**/.git/**']) ...$scripts] {
+      assert (nu-check --debug $file)
+    }
+    ^nu-lint --config nu-lint.toml --format compact home/.config/nushell scripts ...$scripts
 
 nushell-fix:
-  #!/usr/bin/env nu
-  let scripts = (
-    ^rg
-      --files-with-matches
-      --hidden
-      --glob '!.git'
-      --multiline
-      '\A#!/usr/bin/env nu'
-    | lines
-    | path expand
-  )
-  ^nu-lint --config nu-lint.toml --fix home/.config/nushell scripts ...$scripts
+    #!/usr/bin/env nu
+    let scripts = (
+      ^rg
+        --files-with-matches
+        --hidden
+        --glob '!.git'
+        --multiline
+        '\A#!/usr/bin/env nu'
+      | lines
+      | path expand
+    )
+    ^nu-lint --config nu-lint.toml --fix home/.config/nushell scripts ...$scripts
 
 nushell-test:
-  nu --no-config-file home/.local/bin/test-runner.nu
+    nu --no-config-file home/.local/bin/test-runner.nu
 
 ssh-keygen EMAIL:
-  ssh-keygen -t ed25519 -C "{{EMAIL}}"
+    ssh-keygen -t ed25519 -C "{{ EMAIL }}"
 
 github-auth:
-  #!/usr/bin/env nu
-  ^gh auth login
-  ^gh ssh-key add ~/.ssh/jruz.pub
+    #!/usr/bin/env nu
+    ^gh auth login
+    ^gh ssh-key add ~/.ssh/jruz.pub
 
 ssh-setup:
-  #!/usr/bin/env nu
-  if (^uname) == "Darwin" {
-    ^ssh-add --apple-use-keychain ~/.ssh/jruz
-  } else {
-    ^ssh-add ~/.ssh/jruz
-  }
+    #!/usr/bin/env nu
+    if (^uname) == "Darwin" {
+      ^ssh-add --apple-use-keychain ~/.ssh/jruz
+    } else {
+      ^ssh-add ~/.ssh/jruz
+    }
 
 ssh-list:
-  ssh-add -L
+    ssh-add -L
 
 ssh-remove-all:
-  ssh-add -D
+    ssh-add -D
 
 ssh-add-all:
-  just ssh-remove-all
-  ssh-add ~/.ssh/ovh
-  ssh-add ~/.ssh/mini
-  ssh-add ~/.ssh/codeberg
-  ssh-add ~/.ssh/github
+    just ssh-remove-all
+    ssh-add ~/.ssh/ovh
+    ssh-add ~/.ssh/mini
+    ssh-add ~/.ssh/codeberg
+    ssh-add ~/.ssh/github
 
 stow-home:
-  stow -t ~ -v --ignore='home-manager' home
+    stow -t ~ -v --ignore='home-manager' home
 
 stow-mac:
-  just stow-home
-  stow -t ~ -v home-mac
+    just stow-home
+    stow -t ~ -v home-mac
 
 stow-linux:
-  just stow-home
-  stow -t ~ -v home-linux
+    just stow-home
+    stow -t ~ -v home-linux
 
 stow:
-  just stow-home
+    just stow-home
 
 git-hooks-setup:
-  #!/usr/bin/env nu
-  ^git config --local core.hooksPath .githooks
-  print "Git hooks path set to .githooks"
+    #!/usr/bin/env nu
+    ^git config --local core.hooksPath .githooks
+    print "Git hooks path set to .githooks"
 
 git-config:
-  git --no-pager config --global -l
+    git --no-pager config --global -l
 
 github-signing:
-  gh ssh-key add ~/.ssh/jruz.pub --type signing
+    gh ssh-key add ~/.ssh/jruz.pub --type signing
 
 tmux-plugins:
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  # do Ctrl+a I to install the plugins
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    # do Ctrl+a I to install the plugins
 
 nvim-plugins-clean:
-  nvim --headless '+PluginsClean' '+qa'
+    nvim --headless '+PluginsClean' '+qa'
 
 nvim-plugins-update:
-  nvim --headless '+PluginsUpdate!' '+qa'
+    nvim --headless '+PluginsUpdate!' '+qa'
 
 mac-uninstall-dry-run:
-  cd home-mac && brew bundle cleanup
+    cd home-mac && brew bundle cleanup
 
 mac-uninstall:
-  cd home-mac && brew bundle cleanup --force
+    cd home-mac && brew bundle cleanup --force
 
 mac-install:
-  cd home-mac && brew bundle
+    cd home-mac && brew bundle
 
 mac-outdated:
-  brew outdated
-  mas outdated
+    brew outdated
+    mas outdated
 
 mac-update:
-  brew update
-  cd home-mac && brew bundle upgrade
+    brew update
+    cd home-mac && brew bundle upgrade
 
 ubuntu-update:
-  sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove
+    sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove
 
 nix-list:
-  nix-channel --list
+    nix-channel --list
 
 nix-latest:
-  #!/usr/bin/env nu
-  (gh api repos/NixOS/nixpkgs/branches
-    --paginate -q '.[].name'
-    | lines
-    | where {|it| $it =~ '^nixos-\d+\.\d+$'}
-    | sort --natural
-    | last
-    | split row '-'
-    | last)
+    #!/usr/bin/env nu
+    (gh api repos/NixOS/nixpkgs/branches
+      --paginate -q '.[].name'
+      | lines
+      | where {|it| $it =~ '^nixos-\d+\.\d+$'}
+      | sort --natural
+      | last
+      | split row '-'
+      | last)
 
 nix-channel-upgrade VERSION:
-  nix-channel --add https://nixos.org/channels/nixos-{{VERSION}} nixpkgs
-  nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
-  nix-channel --update
-  nix-channel --list
+    nix-channel --add https://nixos.org/channels/nixos-{{ VERSION }} nixpkgs
+    nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+    nix-channel --update
+    nix-channel --list
 
 nix-core-upgrade:
-  sudo nix upgrade-nix
+    sudo nix upgrade-nix
 
 nix-full-upgrade:
-  just nix-channel-upgrade $(just nix-latest)
-  just nix-core-upgrade
-  just nix-hm-update
-  just nix-hm-switch
-  just nix-darwin-update
+    just nix-channel-upgrade $(just nix-latest)
+    just nix-core-upgrade
+    just nix-hm-update
+    just nix-hm-switch
+    just nix-darwin-update
 
 nix-hm-edit:
-  cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
-  nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
+    cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
+    nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
 
 nix-hm-config:
-  rm -rf ~/.config/home-manager
-  cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
+    rm -rf ~/.config/home-manager
+    cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
 
 nix-hm-update:
-  nix flake update --flake ./home/.config/home-manager/
-  just nix-hm-switch
+    nix flake update --flake ./home/.config/home-manager/
+    just nix-hm-switch
 
 nix-hm-switch:
-  #!/usr/bin/env nu
-  ^just nix-hm-config
-  let system = (^nix eval
-    --impure
-    --raw
-    --expr "builtins.currentSystem")
-  let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
-  ^home-manager switch --flake $flake
-  ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
-  ^bat cache --build
+    #!/usr/bin/env nu
+    ^just nix-hm-config
+    let system = (^nix eval
+      --impure
+      --raw
+      --expr "builtins.currentSystem")
+    let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
+    ^home-manager switch --flake $flake
+    ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
+    ^bat cache --build
 
 bootstrap:
-  #!/usr/bin/env nu
-  ^just git-hooks-setup
-  print "Stowing dotfiles..."
-  if (^uname) == "Darwin" {
-    ^just stow-mac
+    #!/usr/bin/env nu
+    ^just git-hooks-setup
+    print "Stowing dotfiles..."
+    if (^uname) == "Darwin" {
+      ^just stow-mac
+      print ""
+      print "Setting up Home Manager..."
+      ^just nix-hm-switch
+      print ""
+      print "Setting up nix-darwin..."
+      ^just nix-darwin-switch
+    } else {
+      ^just stow-linux
+      print ""
+      print "Setting up Home Manager..."
+      ^just nix-hm-switch
+    }
     print ""
-    print "Setting up Home Manager..."
-    ^just nix-hm-switch
+    print "Configuring SSH agent..."
+    ^just ssh-setup
     print ""
-    print "Setting up nix-darwin..."
-    ^just nix-darwin-switch
-  } else {
-    ^just stow-linux
-    print ""
-    print "Setting up Home Manager..."
-    ^just nix-hm-switch
-  }
-  print ""
-  print "Configuring SSH agent..."
-  ^just ssh-setup
-  print ""
-  print "Bootstrap complete!"
+    print "Bootstrap complete!"
 
 nix-darwin-diff:
-	vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
+    vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
 
 nix-darwin-edit:
-	cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
-	nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
+    cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
+    nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
 
 nix-darwin-switch:
-	cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
-	sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+    cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
 nix-darwin-update:
-	nix flake update --flake ~/.config/nix-darwin
-	sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+    nix flake update --flake ~/.config/nix-darwin
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
 set-shell:
-  #!/usr/bin/env nu
-  let shell_path = if (^uname) == "Darwin" {
-    "/run/current-system/sw/bin/nu"
-  } else {
-    $"($env.HOME)/.nix-profile/bin/nu"
-  }
-  let shells = open /etc/shells | lines
-  if not ($shell_path in $shells) {
-    print $"Adding ($shell_path) to /etc/shells..."
-    $"($shell_path)\n" | ^sudo tee --append /etc/shells
-  }
-  print $"Changing shell to ($shell_path)..."
-  print "You may be prompted for your password:"
-  ^chsh -s $shell_path
-  print "Shell changed! Restart your terminal for it to take effect."
+    #!/usr/bin/env nu
+    let shell_path = if (^uname) == "Darwin" {
+      "/run/current-system/sw/bin/nu"
+    } else {
+      $"($env.HOME)/.nix-profile/bin/nu"
+    }
+    let shells = open /etc/shells | lines
+    if not ($shell_path in $shells) {
+      print $"Adding ($shell_path) to /etc/shells..."
+      $"($shell_path)\n" | ^sudo tee --append /etc/shells
+    }
+    print $"Changing shell to ($shell_path)..."
+    print "You may be prompted for your password:"
+    ^chsh -s $shell_path
+    print "Shell changed! Restart your terminal for it to take effect."
 
 nix-clean:
-  nix-collect-garbage
+    nix-collect-garbage
 
 ip-router:
-  #!/usr/bin/env nu
-  let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first
-  if $match == null { error make {msg: "Router not found in ARP table"} }
-  let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
-  if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
-  print $"http://($ip)"
+    #!/usr/bin/env nu
+    let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first
+    if $match == null { error make {msg: "Router not found in ARP table"} }
+    let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
+    if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
+    print $"http://($ip)"
 
 ip-repeater:
-  #!/usr/bin/env nu
-  let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first
-  if $match == null { error make {msg: "Repeater not found in ARP table"} }
-  let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
-  if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
-  print $"http://($ip)"
+    #!/usr/bin/env nu
+    let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first
+    if $match == null { error make {msg: "Repeater not found in ARP table"} }
+    let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
+    if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
+    print $"http://($ip)"
 
 agent-update AGENT:
-  #!/usr/bin/env nu
-  let result = (^sandbox bun run scripts/check-agent-update.ts {{AGENT}} | complete)
-  print $result.stderr
-  if $result.exit_code == 0 {
-    ^just nix-hm-switch
-  } else if $result.exit_code != 2 {
-    exit 1
-  }
+    #!/usr/bin/env nu
+    let result = (^sandbox bun run scripts/check-agent-update.ts {{ AGENT }} | complete)
+    print $result.stderr
+    if $result.exit_code == 0 {
+      ^just nix-hm-switch
+    } else if $result.exit_code != 2 {
+      exit 1
+    }
 
 claude-update:
-  just agent-update claude
+    just agent-update claude
 
 codex-update:
-  just agent-update codex
+    just agent-update codex
 
 pi-update:
-  just agent-update pi
+    just agent-update pi
 
 # ---------------- ZELLIJ
 zellij-generate-mac:
-  sandbox bun run scripts/zellij-generate-layout.ts --name mac
+    sandbox bun run scripts/zellij-generate-layout.ts --name mac
 
 zellij-generate-mini:
-  sandbox bun run scripts/zellij-generate-layout.ts --name mini
+    sandbox bun run scripts/zellij-generate-layout.ts --name mini
