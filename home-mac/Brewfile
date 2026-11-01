@@ -1,7 +1,7 @@
 tap "keith/formulae"
 
 brew "mas"
-brew "reminders-cli"
+brew "keith/formulae/reminders-cli", trusted: true
 brew "stow"
 brew "terminal-notifier"
 
