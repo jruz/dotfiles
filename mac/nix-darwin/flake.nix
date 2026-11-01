@@ -51,6 +51,7 @@
                   "/Applications/Signal.app"
                   "/Applications/Telegram.app"
                   "/Applications/Obsidian.app"
+                  "/Applications/IINA.app"
                   "/System/Applications/Notes.app"
                   "/System/Applications/Reminders.app"
                   "/System/Applications/Calendar.app"
