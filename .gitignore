@@ -17,6 +17,7 @@ home/.config/nix/nix.conf
 home/.ssh/config
 home/.env
 home/.local/bin/chrome-cli
+home/.local/bin/herdr-app
 scripts/zellij-generate-layout.yaml
 home/.config/zellij/layouts/mini.kdl
 home/.config/zellij/layouts/mac.kdl

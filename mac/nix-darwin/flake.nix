@@ -42,6 +42,7 @@
                   "/Applications/Google Chrome.app"
                   "/Applications/Alacritty.app"
                   "/Applications/Ghostty.app"
+                  "/Applications/Herdr.app"
                   "/Applications/Zed.app"
                   "/Applications/Xcode.app"
                   "/Applications/OrbStack.app"
