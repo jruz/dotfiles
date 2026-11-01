@@ -61,6 +61,7 @@
                   "/System/Applications/Calculator.app"
                   "/System/Applications/Home.app"
                   "/Applications/1Password.app"
+                  "/Applications/Bitwarden.app"
                   "/System/Applications/App Store.app"
                   "/System/Applications/System Settings.app"
                 ];

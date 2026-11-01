@@ -45,6 +45,7 @@ cask "zed"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "ASUS Device Discovery", id: 995124504
+mas "Bitwarden", id: 1352778147
 mas "Developer", id: 640199958
 mas "MEGAVPN", id: 6456784858
 mas "Moom", id: 419330170
