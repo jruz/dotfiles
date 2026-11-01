@@ -4,6 +4,7 @@
   unstable,
   nixpkgs-zellij,
   claude-code,
+  herdr-core,
   codex-cli,
   pi,
   woodpecker-settings,
@@ -126,6 +127,7 @@ in
         claude-code.packages.${system}.default
         codex-cli.packages.${system}.default
         gemini-cli
+        herdr-core
         pi.packages.${system}.default
 
         # PERSONAL PROJECTS -------

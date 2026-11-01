@@ -70,6 +70,7 @@
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
+            herdr-core = pkgs.callPackage ./packages/herdr-core.nix { };
             nixpkgs-zellij = nixpkgs-zellij.legacyPackages.${system};
             inherit
               unstable
