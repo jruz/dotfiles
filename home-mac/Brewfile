@@ -1,6 +1,5 @@
 tap "keith/formulae"
 
-brew "beads"
 brew "mas"
 brew "reminders-cli"
 brew "stow"
