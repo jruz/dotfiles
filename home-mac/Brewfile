@@ -40,8 +40,6 @@ cask "vlc"
 cask "wispr-flow"
 cask "zed"
 
-# mas "Pages", id: 361309726
-# mas "Xcode", id: 497799835
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "ASUS Device Discovery", id: 995124504
@@ -51,8 +49,10 @@ mas "MEGAVPN", id: 6456784858
 mas "Moom", id: 419330170
 mas "NextDNS", id: 1464122853
 mas "OneTab", id: 1540160809
+mas "Pages", id: 361309726
 mas "SimplyJSON for Safari", id: 1495193038
 mas "TestFlight", id: 899247664
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vimkey", id: 1585682577
 mas "WireGuard", id: 1451685025
+mas "Xcode", id: 497799835
