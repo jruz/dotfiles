@@ -78,7 +78,7 @@ def print-results-by-file []: list<record> -> nothing {
 }
 
 def main []: nothing -> nothing {
-    let config_dir = $"($env.HOME)/.config/nushell"
+    let config_dir = ($env.FILE_PWD | path join "../../.config/nushell" | path expand)
     let nu_files = (get-test-files $config_dir)
     print $"Scanning ($nu_files | length) Nushell files for tests...\n"
     let all_tests = ($nu_files | discover-all-tests)

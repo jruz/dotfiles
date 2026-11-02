@@ -37,6 +37,7 @@
           nixfmt
           nu-lint
           nushell
+          openssh
           ripgrep
           sandbox
           selene
@@ -44,6 +45,7 @@
           statix
           taplo
           unstable.woodpecker-cli
+          xkcdpass
           yamllint
           zoxide
         ];
