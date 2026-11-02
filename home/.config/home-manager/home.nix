@@ -81,7 +81,6 @@ in
         git-filter-repo
         gitui
         lazygit
-        tea
 
         # SHELLS ---------------------
         atuin
