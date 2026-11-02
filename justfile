@@ -199,34 +199,16 @@ shellcheck-check:
 nushell-check:
     #!/usr/bin/env nu
     use std/assert
-    let scripts = (
-      ^rg
-        --files-with-matches
-        --hidden
-        --glob '!.git'
-        --multiline
-        '\A#!/usr/bin/env nu'
-      | lines
-      | path expand
-    )
-    for file in [...(glob '**/*.nu' --exclude ['**/node_modules/**' '**/tmp/**' '**/.git/**']) ...$scripts] {
-      assert (nu-check --debug $file)
-    }
-    ^nu-lint --config nu-lint.toml --format compact home/.config/nushell scripts ...$scripts
+    use '{{ justfile_directory() }}/scripts/nushell-files.nu' discover
+    let files = discover
+    for file in $files { assert (nu-check --debug $file) }
+    ^nu-lint --config nu-lint.toml --format compact ...$files home/.local/bin
 
 nushell-fix:
     #!/usr/bin/env nu
-    let scripts = (
-      ^rg
-        --files-with-matches
-        --hidden
-        --glob '!.git'
-        --multiline
-        '\A#!/usr/bin/env nu'
-      | lines
-      | path expand
-    )
-    ^nu-lint --config nu-lint.toml --fix home/.config/nushell scripts ...$scripts
+    use '{{ justfile_directory() }}/scripts/nushell-files.nu' discover
+    let files = discover
+    ^nu-lint --config nu-lint.toml --fix ...$files home/.local/bin
 
 nushell-test:
     nu --no-config-file home/.local/bin/test-runner.nu
