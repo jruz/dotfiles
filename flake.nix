@@ -20,48 +20,15 @@
         pkgs = nixpkgs.legacyPackages.${system};
         unstable = import nixpkgs-unstable { inherit system; };
         inherit (builtins.fromJSON (builtins.readFile ./package.json)) engines;
-        nodeImage = "registry.jruz.io/node:${engines.node}-${engines.pnpm}";
-        bunImage = "oven/bun:${engines.bun}";
         sandbox = pkgs.writeShellScriptBin "sandbox" ''
-          set -eu
-          project_root="$(${pkgs.git}/bin/git rev-parse --show-toplevel)"
-          relative_dir="$(${pkgs.coreutils}/bin/realpath --relative-to="$project_root" "$PWD")"
-          runtime_args=()
-          case "''${1-}" in
-            node|pnpm)
-              image=${pkgs.lib.escapeShellArg nodeImage}
-              pnpm_store="$HOME/.local/share/pnpm"
-              pnpm_cache="$HOME/.cache/pnpm"
-              ${pkgs.coreutils}/bin/mkdir --parents "$pnpm_store" "$pnpm_cache"
-              runtime_args+=(
-                --mount "type=bind,src=$pnpm_store,dst=$pnpm_store"
-                --mount "type=bind,src=$pnpm_cache,dst=$pnpm_cache"
-                --env "pnpm_config_store_dir=$pnpm_store/store"
-                --env "pnpm_config_cache_dir=$pnpm_cache"
-              )
-              ;;
-            bun)
-              image=${pkgs.lib.escapeShellArg bunImage}
-              ;;
-            *)
-              printf 'Unsupported sandbox command: %s\n' "''${1-}" >&2
-              exit 1
-              ;;
-          esac
-          exec ${pkgs.docker-client}/bin/docker run \
-            --interactive \
-            --rm \
-            --user "$(${pkgs.coreutils}/bin/id --user):$(${pkgs.coreutils}/bin/id --group)" \
-            --read-only \
-            --cap-drop ALL \
-            --security-opt no-new-privileges \
-            --tmpfs /tmp \
-            --env HOME=/tmp \
-            --mount "type=bind,src=$project_root,dst=/app" \
-            --workdir "/app/$relative_dir" \
-            "''${runtime_args[@]}" \
-            "$image" \
-            "$@"
+          export PATH=${
+            pkgs.lib.makeBinPath [
+              pkgs.docker-client
+              pkgs.git
+              pkgs.coreutils
+            ]
+          }:"$PATH"
+          exec ${pkgs.nushell}/bin/nu --no-config-file ${./scripts/sandbox.nu} "$@"
         '';
         defaultPackages = with pkgs; [
           deadnix

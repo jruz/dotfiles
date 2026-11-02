@@ -42,13 +42,13 @@ oxlint-check:
     sandbox pnpm run oxlint-check
 
 oxlint-fix:
-    sandbox pnpm exec oxlint --fix .
+    sandbox pnpm exec oxlint --config .oxlintrc.json --fix .
 
 oxlint-rules-check:
     sandbox pnpm run oxlint-rules-check
 
-skill-diff:
-    bun "$HOME/.pi/agent/skills/typescript/diff/main.ts"
+skill-check:
+    bun "$HOME/.pi/agent/skills/typescript/skill-check/main.ts"
 
 tsc-check:
     sandbox pnpm run tsc-check

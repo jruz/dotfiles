@@ -1,15 +1,16 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "include": ["**/*", ".oxlint/**/*.ts"],
+  "exclude": ["node_modules", "target"],
   "compilerOptions": {
     "lib": ["ESNext"],
-    "types": ["bun"],
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "erasableSyntaxOnly": true,
+    "types": ["bun"],
+    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "incremental": true,

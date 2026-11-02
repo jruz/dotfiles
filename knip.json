@@ -2,15 +2,9 @@
   "entry": [
     ".oxlint/**/*.test.ts",
     "scripts/*.ts!",
+    "!scripts/**/*.test.ts!",
     "scripts/**/*.test.ts",
     "src/**/*.test.{ts,tsx}"
   ],
-  "project": [
-    ".oxlint/**/*.ts",
-    "src/**/*.{ts,tsx}!",
-    "!src/**/*.test.{ts,tsx}!",
-    "!src/**/*-fixture.ts!",
-    "scripts/**/*.ts!",
-    "!scripts/**/*.test.ts!"
-  ]
+  "project": ["**/*.ts"]
 }

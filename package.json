@@ -4,7 +4,7 @@
     "knip-check": "knip",
     "knip-production-check": "knip --production",
     "oxfmt-check": "oxfmt --check",
-    "oxlint-check": "oxlint --deny-warnings --report-unused-disable-directives-severity error .",
+    "oxlint-check": "oxlint --config .oxlintrc.json --deny-warnings --report-unused-disable-directives-severity error .",
     "oxlint-rules-check": "node --test .oxlint/*.test.ts",
     "renovate-check": "node --require re2 ./node_modules/renovate/dist/config-validator.js --strict renovate.json",
     "tsc-check": "tsc"

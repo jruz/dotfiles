@@ -13,7 +13,7 @@
     "node": true,
     "bun": true
   },
-  "ignorePatterns": ["dist/", "node_modules/"],
+  "ignorePatterns": ["dist/", "node_modules/", "target/"],
   "rules": {
     "local/no-comments": "error",
     "local/no-enums": "error",
