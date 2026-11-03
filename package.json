@@ -26,7 +26,7 @@
   "engines": {
     "bun": "1.4.4",
     "node": "24.22.2",
-    "pnpm": "11.27.0"
+    "pnpm": "11.28.9"
   },
   "dependencies": {
     "@bgotink/kdl": "0.4.1",
