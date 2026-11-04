@@ -1,0 +1,10 @@
+{
+  "zoom": 1.2,
+  "sounds": {
+    "enabled": true
+  },
+  "font": "DejaVuSansM Nerd Font Mono",
+  "font_size": 14,
+  "minimum_contrast": 1,
+  "appearance": "dark"
+}
