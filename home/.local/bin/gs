@@ -1,0 +1,79 @@
+#!/usr/bin/env nu
+
+def parse-files []: list<string> -> list<record> {
+    reduce --fold {files: [], rename: false} {|entry, state|
+        if $state.rename {
+            let file = ($state.files | last)
+            return {
+                files: ($state.files | drop | append ($file | update path $'($entry) → ($file.path)'))
+                rename: false
+            }
+        }
+        let index = ($entry | str substring 0..0)
+        let worktree = ($entry | str substring 1..1)
+        {
+            files: ($state.files | append {
+                index: $index
+                worktree: $worktree
+                path: ($entry | str substring 3..)
+                conflict: ($entry | str substring 0..1 | $in in ['DD' 'AU' 'UD' 'UA' 'DU' 'AA' 'UU'])
+            })
+            rename: ($index in ['R' 'C'] or $worktree in ['R' 'C'])
+        }
+    }
+    | get files
+}
+
+def paint [text: string, style: record]: nothing -> string {
+    if $style.colored { $"(ansi $style.color)($text)(ansi reset)" } else { $text }
+}
+
+def format-path [path: string, style: record]: nothing -> string {
+    let escaped = ($path | str replace --all (char newline) '\n' | str replace --all (char tab) '\t' | str replace --all (char --integer 27) '\e')
+    if not $style.colored { return $escaped }
+    let parts = ($escaped | parse --regex '^(?<parent>(?:.*/)?)(?<name>[^/]+/?)$' | first)
+    $"(ansi dark_gray)($parts.parent)(ansi reset)(paint $parts.name $style)"
+}
+
+def format-group [files: list<record>, style: record]: nothing -> string {
+    if ($files | is-empty) { return '' }
+    let heading = (paint $'($style.title) · ($files | length)' $style)
+    let rows = ($files | each {|file|
+        let code = if $file.conflict or $file.index == '?' { 'U' } else if $style.column == 'index' { $file.index } else { $file.worktree }
+        let color = if $file.conflict or $code == 'D' { 'red' } else if $code == 'U' { 'blue' } else { $style.color }
+        let label = (paint $code ($style | update color $color))
+        let path = (format-path $file.path {color: (if $code == 'D' { 'red' } else { 'reset' }), colored: $style.colored})
+        $" ($label) ($path)"
+    }
+    | str join (char newline))
+    $"($heading)\n($rows)"
+}
+
+def --wrapped main [...args: string]: nothing -> nothing {
+    if ($args | is-not-empty) {
+        let result = (^git status ...$args | complete)
+        print --no-newline $result.stdout
+        print --stderr --no-newline $result.stderr
+        exit $result.exit_code
+    }
+    let result = (^git status --porcelain=v1 --untracked-files=all --null | complete)
+    if $result.exit_code != 0 {
+        print --stderr --no-newline $result.stderr
+        exit $result.exit_code
+    }
+    let entries = ($result.stdout | split row (char nul) | where $it != '')
+    let colored = (is-terminal --stdout)
+    let files = ($entries | parse-files)
+    if ($files | is-empty) {
+        let clean = (paint 'Working tree clean' {color: dark_gray, colored: $colored})
+        print $clean
+        return
+    }
+    let output = ([
+        (format-group ($files | where not conflict | where index not-in [' ' '?']) {title: 'STAGED', color: green, column: index, colored: $colored})
+        (format-group ($files | where { $in.conflict or $in.worktree != ' ' }) {title: 'UNSTAGED', color: yellow, column: worktree, colored: $colored})
+    ]
+    | where $it != ''
+    | str join "\n\n")
+    print --no-newline $"($output)\n"
+}
