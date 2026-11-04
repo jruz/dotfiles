@@ -1,16 +1,24 @@
 #!/usr/bin/env nu
 
-def display-author []: record<author: string, committer: string> -> string {
+def format-commit [width: int, color: string]: record -> string {
     let commit = $in
-    if $commit.author == $commit.committer {
-        return $commit.author
+    let committer = ($commit.committer | fill --width $width)
+    if $color != 'always' {
+        return $'($commit.prefix)($committer) | ($commit.subject)($commit.age)'
     }
-    $"($commit.author) \(($commit.committer)\)"
+    let is_dependency = ($commit.subject | str starts-with '[deps]')
+    let foreground = if $is_dependency { ansi dark_gray } else { ansi reset }
+    let prefix = if $is_dependency {
+        $commit.prefix | str replace (ansi blue) (ansi dark_gray)
+    } else {
+        $commit.prefix
+    }
+    $"($prefix)($foreground)($committer)(ansi reset) | ($foreground)($commit.subject)(ansi dark_gray)($commit.age)(ansi reset)"
 }
 
 def --wrapped main [...args: string]: nothing -> nothing {
     let color = if (is-terminal --stdout) { 'always' } else { 'auto' }
-    let result = (^git log $'--color=($color)' --pretty=format:'%ad | %C(yellow)%h%C(reset) | %x1f%an%x1f%cn%x1f | %C(blue)%s%C(reset) (%ar)' --date=short --max-count=20 ...$args | complete)
+    let result = (^git log $'--color=($color)' --pretty=format:'%C(brightblack)%ad%C(reset) | %C(blue)%h%C(reset) | %x1f%cn%x1f%s%x1f (%ar)' --date=short --max-count=20 ...$args | complete)
     if $result.exit_code != 0 {
         print --stderr --no-newline $result.stderr
         exit $result.exit_code
@@ -18,7 +26,7 @@ def --wrapped main [...args: string]: nothing -> nothing {
 
     let lines = ($result.stdout | lines)
     let commits = ($lines
-        | parse --regex '^(?<prefix>[^\x1f]*)\x1f(?<author>[^\x1f]*)\x1f(?<committer>[^\x1f]*)\x1f(?<message>.*)$')
+        | parse --regex '^(?<prefix>[^\x1f]*)\x1f(?<committer>[^\x1f]*)\x1f(?<subject>[^\x1f]*)\x1f(?<age>.*)$')
     if ($commits | length) != ($lines | length) {
         print --stderr 'gl: Git output format is unsupported; remove output-changing flags such as --oneline, --stat, or --patch'
         exit 1
@@ -29,13 +37,10 @@ def --wrapped main [...args: string]: nothing -> nothing {
     }
 
     let width = ($commits
-        | each { select author committer | display-author | str length }
+        | each { get committer | str length }
         | math max)
     $commits
-    | each {|commit|
-        let author = ($commit | select author committer | display-author | fill --width $width)
-        $'($commit.prefix)($author)($commit.message)'
-    }
+    | each { format-commit $width $color }
     | str join (char newline)
     | print
 }
