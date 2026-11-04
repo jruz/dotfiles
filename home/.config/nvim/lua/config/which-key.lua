@@ -57,13 +57,13 @@ wk.add({
 })
 
 wk.add({
-  { "<space>t", group = "Trouble" },
-  { "<space>tt", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Diagnostics" },
-  { "<space>td", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
-  { "<space>ts", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
-  { "<space>tl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions" },
-  { "<space>tL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
-  { "<space>tq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix" },
+  { "<space>e", group = "Trouble" },
+  { "<space>et", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Diagnostics" },
+  { "<space>ed", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+  { "<space>es", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
+  { "<space>el", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions" },
+  { "<space>eL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+  { "<space>eq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix" },
 })
 
 wk.add({
@@ -79,11 +79,22 @@ wk.add({
 })
 
 wk.add({
-  { "<space>n", group = "File Tree" },
-  { "<space>nt", "<cmd>Neotree toggle<cr>", desc = "Toggle" },
-  { "<space>nf", "<cmd>Neotree reveal<cr>", desc = "Find Current File" },
-  { "<space>ng", "<cmd>Neotree git_status<cr>", desc = "Git Status" },
-  { "<space>nb", "<cmd>Neotree buffers<cr>", desc = "Buffers" },
+  { "<space>n", group = "Next" },
+  { "<space>nh", function() require("gitsigns").next_hunk() end, desc = "Hunk" },
+  { "<space>nf", function() require("config.jump").next_function() end, desc = "Function" },
+  { "<space>ne", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, desc = "Error" },
+  { "<space>N", group = "Previous" },
+  { "<space>Nh", function() require("gitsigns").prev_hunk() end, desc = "Hunk" },
+  { "<space>Nf", function() require("config.jump").prev_function() end, desc = "Function" },
+  { "<space>Ne", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, desc = "Error" },
+})
+
+wk.add({
+  { "<space>t", group = "File Tree" },
+  { "<space>tt", "<cmd>Neotree toggle<cr>", desc = "Toggle" },
+  { "<space>tf", "<cmd>Neotree reveal<cr>", desc = "Find Current File" },
+  { "<space>tg", "<cmd>Neotree git_status<cr>", desc = "Git Status" },
+  { "<space>tb", "<cmd>Neotree buffers<cr>", desc = "Buffers" },
 })
 
 wk.add({
