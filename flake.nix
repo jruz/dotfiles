@@ -1,6 +1,4 @@
 {
-  description = "DevShell";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -56,7 +54,7 @@
 
           shellHook = ''
             echo ""
-            echo "  pnpm Development Shell"
+            echo "  Development Shell"
             echo "  ──────────────────────"
             echo "  nixpkgs      ${pkgs.lib.trivial.release}"
             echo "  node         ${engines.node} (docker)"
