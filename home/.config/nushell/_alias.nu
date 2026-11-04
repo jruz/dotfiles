@@ -24,8 +24,12 @@ alias hconf = ^hx ~/.config/helix/config.toml
 alias nuconf = ^nvim ~/.config/nushell
 alias rtxconf = ^nvim ~/.config/rtx/config.toml
 alias zeconf = ^nvim ~/.config/zellij/config.kdl
-alias jt = ^just tmux
+
 alias j = ^just
+alias jt = ^just tmux
+alias ji = ^just install
+alias js = ^just setup
+
 alias ze = ^zellij
 alias zl = ^zellij list-sessions
 alias zml = ^zellij action move-tab left
@@ -94,8 +98,11 @@ alias da = ^direnv allow
 alias n = ^npm
 alias tags = ^ctags -R --exclude=.git --exclude=node_modules
 alias tf = ^terraform
+
 alias cl = ^claude --dangerously-skip-permissions
+alias clc = ^cl --continue
 alias co = ^codex --dangerously-bypass-approvals-and-sandbox
+alias pic = ^pi --continue
 alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
 alias pi-no-hooks = ^pi --no-extensions --extension ~/dev/projects/pi-extensions/extensions/status-line.ts
 
@@ -132,5 +139,6 @@ alias gst = ^git stash --include-untracked
 alias gstp = ^git stash pop
 alias gwip = ^git commit -m "WIP"
 alias lg = ^lazygit
+alias gv = ^git-viewer
 
 alias ubuntu = ^lsb_release -a
