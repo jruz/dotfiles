@@ -371,6 +371,16 @@ codex-update:
 pi-update:
     just agent-update pi
 
+herdr-core-update:
+    #!/usr/bin/env nu
+    let result = (^sandbox bun run scripts/herdr-core-update.ts | complete)
+    print $result.stderr
+    if $result.exit_code == 0 {
+      ^just nix-hm-switch
+    } else if $result.exit_code != 2 {
+      exit 1
+    }
+
 # ─── ntfy ─────────────────────────────────────────────────────────────────────
 
 ntfy-subscribe:
