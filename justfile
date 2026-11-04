@@ -33,7 +33,12 @@ clean:
     just nix-clean
 
 stow:
-    just stow-home
+    #!/usr/bin/env nu
+    match $nu.os-info.name {
+      "macos" => { ^just stow-mac }
+      "linux" => { ^just stow-linux }
+      $other => { error make {msg: $"Unsupported Stow platform: ($other)"} }
+    }
 
 bootstrap:
     #!/usr/bin/env nu
