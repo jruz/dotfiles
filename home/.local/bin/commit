@@ -1,15 +1,36 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
-let prompt = "
+const PROMPT = "
 Make a commit following the commit skill.
 Rules:
 - If files are staged, commit only those files and exit
 - If nothing is staged, consider all modified files and stage accordingly
 "
 
-(^pi
-    --print
-    --model openai-codex/gpt-6.1-terra
-    --thinking high
-    $prompt)
+def run-codex []: nothing -> string {
+    (^pi
+        --print
+        --model openai-codex/gpt-6-luna
+        --thinking high
+        $PROMPT)
+}
+
+def run-claude []: nothing -> string {
+    (^claude
+        --print
+        --model sonnet
+        --effort medium
+        --permission-mode auto
+        $PROMPT)
+}
+
+def main [
+    --codex # commit through pi using luna (default)
+    --claude # commit through claude using sonnet with medium effort
+]: nothing -> string {
+    if $codex and $claude {
+        error make {msg: "pass only one of --codex or --claude"}
+    }
+    if $claude { run-claude } else { run-codex }
+}
