@@ -1,4 +1,7 @@
 *
 !.gitignore
+!themes/
+themes/*
+!themes/ghostty.json
 !settings.json
 !keys.json
