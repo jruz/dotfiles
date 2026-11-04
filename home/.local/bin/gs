@@ -37,13 +37,13 @@ def format-path [path: string, style: record]: nothing -> string {
 
 def format-group [files: list<record>, style: record]: nothing -> string {
     if ($files | is-empty) { return '' }
-    let heading = (paint $'($style.title) · ($files | length)' $style)
+    let heading = $'($style.title) · ($files | length)'
     let rows = ($files | each {|file|
-        let code = if $file.conflict or $file.index == '?' { 'U' } else if $style.column == 'index' { $file.index } else { $file.worktree }
-        let color = if $file.conflict or $code == 'D' { 'red' } else if $code == 'U' { 'blue' } else { $style.color }
+        let code = if $file.conflict { 'X' } else if $style.column == 'index' { $file.index } else { $file.worktree }
+        let color = if $file.conflict or $code == 'D' { 'red' } else if $code == '?' { 'blue' } else { $style.color }
         let label = (paint $code ($style | update color $color))
         let path = (format-path $file.path {color: (if $code == 'D' { 'red' } else { 'reset' }), colored: $style.colored})
-        $" ($label) ($path)"
+        $"($label) ($path)"
     }
     | str join (char newline))
     $"($heading)\n($rows)"
