@@ -63,7 +63,7 @@ def --wrapped main [...args: string]: nothing -> nothing {
     }
     let entries = ($result.stdout | split row (char nul) | where $it != '')
     let colored = (is-terminal --stdout)
-    let files = ($entries | parse-files)
+    let files = ($entries | parse-files | sort-by path)
     if ($files | is-empty) {
         let clean = (paint 'Working tree clean' {color: dark_gray, colored: $colored})
         print $clean
