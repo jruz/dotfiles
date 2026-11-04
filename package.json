@@ -6,7 +6,6 @@
     "oxfmt-check": "oxfmt --check",
     "oxlint-check": "oxlint --config .oxlintrc.json --deny-warnings --report-unused-disable-directives-severity error .",
     "oxlint-rules-check": "node --test .oxlint/*.test.ts",
-    "renovate-check": "node --require re2 ./node_modules/renovate/dist/config-validator.js --strict renovate.json",
     "tsc-check": "tsc"
   },
   "devDependencies": {
@@ -17,8 +16,6 @@
     "oxfmt": "0.75.0",
     "oxlint": "1.90.0",
     "oxlint-tsgolint": "7.0.2005",
-    "re2": "1.27.0",
-    "renovate": "44.192.1",
     "typescript": "7.0.2"
   },
   "private": true,

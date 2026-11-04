@@ -1,6 +1,5 @@
 mod ts '.just/ts.justfile'
 mod bun '.just/bun.justfile'
-mod renovate '.just/renovate.justfile'
 
 # ─── main ─────────────────────────────────────────────────────────────────────
 
@@ -13,7 +12,6 @@ check:
       nushell-check \
       ts::check \
       woodpecker-check \
-      renovate::check \
       bun::check
 
 setup:
