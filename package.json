@@ -18,7 +18,7 @@
     "oxlint": "1.90.0",
     "oxlint-tsgolint": "7.0.2005",
     "re2": "1.27.0",
-    "renovate": "44.190.2",
+    "renovate": "44.192.1",
     "typescript": "7.0.2"
   },
   "private": true,
