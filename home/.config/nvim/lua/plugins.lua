@@ -93,6 +93,13 @@ require("gitsigns").setup({
 })
 
 require("neo-tree").setup({
+  default_component_configs = {
+    git_status = {
+      symbols = {
+        untracked = "?",
+      },
+    },
+  },
   filesystem = {
     filtered_items = {
       hide_dotfiles = false,
