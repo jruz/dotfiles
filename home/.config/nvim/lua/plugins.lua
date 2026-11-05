@@ -118,6 +118,14 @@ require("neo-tree").setup({
     },
   },
 })
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() ~= 0 then
+      return
+    end
+    require("neo-tree.command").execute({ action = "show", source = "filesystem" })
+  end,
+})
 vim.api.nvim_create_autocmd("FocusGained", {
   callback = function()
     local events = require("neo-tree.events")
