@@ -108,14 +108,6 @@ require("neo-tree").setup({
       ["<C-r>"] = "refresh",
       ["<cr>"] = "open",
       ["<2-LeftMouse>"] = "open",
-      ["<LeftRelease>"] = function(state)
-        local node = state.tree:get_node()
-        if node.type == "directory" then
-          state.commands.toggle_node(state)
-        else
-          state.commands.open(state)
-        end
-      end,
     },
   },
 })

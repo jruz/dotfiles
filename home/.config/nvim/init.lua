@@ -29,12 +29,26 @@ vim.o.splitright = true
 vim.o.syntax = "on"
 vim.o.mouse = "a"
 vim.o.mousescroll = "ver:3,hor:0"
-vim.keymap.set({'n', 'i', 'v'}, '<LeftMouse>', '<Nop>')
+vim.keymap.set({ 'n', 'i', 'v' }, '<LeftMouse>', function()
+  local mouse = vim.fn.getmousepos()
+  if mouse.winid == 0 or mouse.line == 0 then
+    return
+  end
+  local buffer = vim.api.nvim_win_get_buf(mouse.winid)
+  if vim.bo[buffer].filetype ~= "neo-tree" then
+    return
+  end
+  vim.cmd.stopinsert()
+  vim.api.nvim_set_current_win(mouse.winid)
+  vim.fn.cursor(mouse.line, mouse.column)
+end)
 vim.keymap.set({'n', 'i', 'v'}, '<LeftDrag>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<LeftRelease>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<RightMouse>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<MiddleMouse>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<2-LeftMouse>', '<Nop>')
+vim.keymap.set({'n', 'i', 'v'}, '<3-LeftMouse>', '<Nop>')
+vim.keymap.set({'n', 'i', 'v'}, '<4-LeftMouse>', '<Nop>')
 vim.o.showmode = false
 vim.o.smoothscroll = true
 vim.o.list = false
