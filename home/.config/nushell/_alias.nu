@@ -1,4 +1,5 @@
 alias plan = ^nvim PLAN.md
+alias ag = ^nvim AGENTS.md
 
 alias dotfiles = cd ~/dev/dotfiles
 alias dot = cd ~/dev/dotfiles
@@ -57,7 +58,6 @@ alias disks = ^lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
 alias errors = ^journalctl -xe
 alias sx = ^startx
 alias sxe = ^startx ~/dev/dotfiles/X/home/.xinitrc
-alias ag = ^rg --smart-case --hidden
 alias awk = ^gawk
 alias cat = ^bat
 alias find = ^fd
