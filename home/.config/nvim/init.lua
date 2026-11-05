@@ -28,7 +28,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.syntax = "on"
 vim.o.mouse = "a"
-vim.o.mousescroll = "ver:3,hor:0"
+vim.o.mousescroll = "ver:1,hor:0"
 vim.keymap.set({ 'n', 'i', 'v' }, '<LeftMouse>', function()
   local mouse = vim.fn.getmousepos()
   if mouse.winid == 0 or mouse.line == 0 then
