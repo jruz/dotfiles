@@ -41,9 +41,7 @@
 	reword = "!f() { old=$(git log --format=%s -n 1 $1); git commit --allow-empty --only -m \"amend! $old\" -m \"$2\"; GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash $1~1; }; f"
 [credential]
 	helper =
-[credential "https://github.com"]
-	helper = 
-	helper = !/Users/jruz/.nix-profile/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/Users/jruz/.nix-profile/bin/gh auth git-credential
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@gist.github.com:"]
+	insteadOf = https://gist.github.com/
