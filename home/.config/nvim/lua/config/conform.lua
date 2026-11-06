@@ -22,6 +22,7 @@ require("conform").setup({
     yaml = { "oxfmt" },
     clojure = { "joker" },
     lua = { "stylua" },
+    nu = { "nufmt" },
   },
   format_on_save = {
     timeout_ms = 2000,
