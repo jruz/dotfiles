@@ -183,6 +183,7 @@ require("noice").setup({
 })
 
 require("render-markdown").setup({
+  sign = { enabled = false },
   heading = { sign = false, position = "inline", backgrounds = {}, icons = {} },
   code = {
     enabled = true,
