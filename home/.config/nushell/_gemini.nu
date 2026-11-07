@@ -1,3 +1,5 @@
+const MODEL = "gemini-3.5-flash-lite"
+
 def build-payload [text: string]: nothing -> record {
     let prompt = $"I am using Nushell what is the correct command to do: ($text) \n Reply only with the command in raw form no markdown."
     {
@@ -16,7 +18,7 @@ def fetch-response [payload: record]: nothing -> record {
     if ($api_key | is-empty) {
         error make {msg: "GEMINI_API_KEY environment variable not set"}
     }
-    let url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent"
+    let url = $"https://generativelanguage.googleapis.com/v1beta/models/($MODEL):generateContent"
     try {
         http post --headers [
             "x-goog-api-key" $api_key
