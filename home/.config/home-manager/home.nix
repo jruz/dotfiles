@@ -36,6 +36,7 @@ in
         fd
         fontconfig
         fzf
+        gum
         age
         aria2
         util-linux
