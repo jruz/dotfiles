@@ -3,6 +3,11 @@ const MODEL = "gemini-3.5-flash-lite"
 def build-payload [text: string]: nothing -> record {
     let prompt = $"I am using Nushell what is the correct command to do: ($text) \n Reply only with the command in raw form no markdown."
     {
+        generationConfig: {
+            thinkingConfig: {
+                thinkingLevel: "minimal"
+            }
+        }
         contents: [
             {
                 parts: [
