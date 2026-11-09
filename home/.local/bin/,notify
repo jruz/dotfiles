@@ -1,0 +1,19 @@
+#!/usr/bin/env nu
+
+def main [
+    target: string
+    message: string
+] {
+    let channels = match $target {
+        "mobile" => [$env.NTFY_CHANNEL_MOBILE]
+        "desktop" => [$env.NTFY_CHANNEL_DESKTOP]
+        "all" => [$env.NTFY_CHANNEL_MOBILE $env.NTFY_CHANNEL_DESKTOP]
+        _ => {
+            print --stderr "ERROR: target must be mobile, desktop, or all"
+            exit 1
+        }
+    }
+    for channel in $channels {
+        http post $"https://ntfy.sh/($channel)" $message
+    }
+}
