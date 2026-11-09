@@ -30,3 +30,8 @@ home/.local/bin/server-client
 /ager-lock.yaml
 /home/.config/gh/hosts.yml
 /node_modules
+home-mac/.config/zed/.DS_Store
+home-mac/.config/zed/conversations/
+home-mac/.config/zed/embeddings/
+home-mac/.config/zed/prompts/prompts-library-db.*.mdb/
+home-mac/.config/zed/*_backup.json

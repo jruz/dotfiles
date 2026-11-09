@@ -7,6 +7,19 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "auto_install_extensions": {
+    "oxc": true
+  },
+  "ssh_connections": [
+    {
+      "host": "minisforum",
+      "args": [],
+      "projects": []
+    }
+  ],
+  "project_panel": {
+    "dock": "left"
+  },
   "context_servers": {
     "mcp-server-github": {
       "enabled": true,
@@ -26,9 +39,55 @@
     "enabled_in_text_threads": false
   },
   "agent": {
+    "sandbox_permissions": {
+      "network_hosts": ["registry.jruz.io"]
+    },
+    "profiles": {
+      "yolo": {
+        "name": "Yolo",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {}
+      }
+    },
+    "tool_permissions": {
+      "tools": {
+        "terminal": {
+          "default": "allow",
+          "always_allow": [
+            {
+              "pattern": "^git\\b"
+            }
+          ]
+        },
+        "skill": {
+          "default": "allow"
+        }
+      }
+    },
+    "dock": "right",
+    "favorite_models": [
+      {
+        "provider": "openai-subscribed",
+        "model": "gpt-6.1-sol",
+        "enable_thinking": true,
+        "effort": "medium"
+      },
+      {
+        "provider": "openai-subscribed",
+        "model": "gpt-6-luna",
+        "enable_thinking": true,
+        "effort": "high"
+      }
+    ],
+    "threads_sidebar": {
+      "position": "right"
+    },
     "default_model": {
-      "provider": "deepseek",
-      "model": "deepseek-reasoner"
+      "effort": "high",
+      "enable_thinking": true,
+      "provider": "openai-subscribed",
+      "model": "gpt-6-luna"
     }
   },
   "telemetry": {
@@ -49,27 +108,161 @@
     "font_size": 12,
     "max_scroll_history_lines": 100000
   },
-  "code_actions_on_format": {
-    "source.fixAll": true,
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true,
-    "source.fixAll.biome": true,
-    "source.organizeImports.biome": true
-  },
+  "code_actions_on_format": {},
   "soft_wrap": "editor_width",
   "file_types": {
-    "HTML": ["htm", "html", "svelte"],
+    "HTML": ["htm", "html"],
     "Jinja2": ["htmx"],
     "JSON": ["prettierrc"]
   },
-  "formatter": {
-    "language_server": {
-      "name": "biome"
-    }
-  },
+  "formatter": "auto",
   "languages": {
+    "JavaScript": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "JSX": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "TypeScript": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "TSX": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "Vue.js": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "Astro": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "Svelte": {
+      "language_servers": ["oxlint", "oxfmt", "!biome", "!eslint", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "code_action": "source.fixAll.oxc" },
+        { "language_server": { "name": "oxfmt" } }
+      ]
+    },
+    "JSON": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "JSON5": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "JSONC": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "HTML": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "Angular": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "CSS": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "SCSS": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "LESS": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "GraphQL": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "Handlebars": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
     "Markdown": {
-      "format_on_save": "on"
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "MDX": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "YAML": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
+    },
+    "TOML": {
+      "language_servers": ["oxfmt", "!biome", "..."],
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": { "language_server": { "name": "oxfmt" } }
     },
     "Rust": {
       "show_edit_predictions": true
@@ -83,28 +276,6 @@
         }
       }
     },
-    "HTML": {
-      "format_on_save": "on",
-      "formatter": "prettier"
-    },
-    "JSON": {
-      "format_on_save": "on",
-      "formatter": {
-        "external": {
-          "command": "npx",
-          "arguments": [
-            "biome",
-            "format",
-            "--write",
-            "--stdin-file-path={buffer_path}"
-          ]
-        }
-      }
-    },
-    "SCSS": {
-      "format_on_save": "on",
-      "formatter": "prettier"
-    },
     "Python": {
       "format_on_save": "on",
       "formatter": {
@@ -113,14 +284,6 @@
           "arguments": ["-"]
         }
       }
-    },
-    "TypeScript": {
-      "language_servers": ["biome", "typescript-language-server", "!eslint"],
-      "format_on_save": "on",
-      "formatter": { "language_server": { "name": "biome" } }
-    },
-    "Svelte": {
-      "tab_size": 2
     },
     "Jinja2": {
       "format_on_save": "on",
@@ -135,21 +298,12 @@
           "extraArgs": [
             "--",
             "-W",
-            "clipy::pedantic",
+            "clippy::pedantic",
             "-D",
             "clippy::unwrap_used"
           ]
         },
         "checkOnSave": true
-      }
-    },
-    "biome": {
-      "settings": {
-        "require_config_file": true
-      },
-      "binary": {
-        "path": "./node_modules/.bin/biome",
-        "arguments": ["lsp-proxy"]
       }
     }
   }
