@@ -8,7 +8,7 @@
 // command palette
 {
   "auto_install_extensions": {
-    "oxc": true
+    "oxc": false
   },
   "ssh_connections": [
     {
@@ -264,6 +264,11 @@
       "prettier": { "allowed": false },
       "formatter": { "language_server": { "name": "oxfmt" } }
     },
+    "Jinja2": {
+      "format_on_save": "off",
+      "prettier": { "allowed": false },
+      "formatter": []
+    },
     "Rust": {
       "show_edit_predictions": true
     },
@@ -284,13 +289,21 @@
           "arguments": ["-"]
         }
       }
-    },
-    "Jinja2": {
-      "format_on_save": "on",
-      "formatter": "prettier"
     }
   },
   "lsp": {
+    "oxfmt": {
+      "binary": {
+        "path": "/Users/jruz/.nix-profile/bin/oxfmt",
+        "arguments": ["--lsp"]
+      }
+    },
+    "oxlint": {
+      "binary": {
+        "path": "/Users/jruz/.nix-profile/bin/oxlint",
+        "arguments": ["--lsp"]
+      }
+    },
     "rust-analyzer": {
       "initialization_options": {
         "check": {

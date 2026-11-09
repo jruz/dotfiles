@@ -150,6 +150,7 @@ in
         just-lsp
         neovim
         oxfmt
+        oxlint
         nerd-fonts.dejavu-sans-mono
         nerd-fonts.lekton
         usage

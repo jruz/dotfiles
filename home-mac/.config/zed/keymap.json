@@ -32,9 +32,12 @@
     }
   },
   {
-    "context": "vim_mode == normal",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
-      "shift-u": "editor::Redo"
+      "shift-u": "editor::Redo",
+      "space l r": "editor::Rename",
+      "z a": "editor::Fold",
+      "z o": "editor::UnfoldLines"
     }
   },
   {
@@ -42,16 +45,12 @@
     "bindings": {
       "cmd-a z": "workspace::ToggleZoom",
       "cmd-esc": null,
-      "space l r": "editor::Rename",
       "shift-enter": "repl::Run",
       "cmd-r": "editor::Redo",
       "cmd-.": "editor::ShowCompletions",
       "cmd-shift-v": "editor::Paste",
-      "cmd-shift-.": "copilot::NextSuggestion",
       "cmd-shift-,": "zed::OpenKeymap",
       "ctrl-t": "pane::RevealInProjectPanel",
-      "z a": "editor::Fold",
-      "z o": "editor::UnfoldLines",
       "alt-right": "editor::GoToDiagnostic",
       "alt-left": "editor::GoToPreviousDiagnostic",
       "alt-h": "workspace::ToggleLeftDock"
