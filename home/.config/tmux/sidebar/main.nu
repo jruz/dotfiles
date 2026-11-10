@@ -60,12 +60,7 @@ def "main prune" []: nothing -> nothing {
 }
 
 def "main render" []: nothing -> nothing {
-    try {
-        view run $env.TMUX_PANE
-    } catch {|err|
-        print --stderr $"[ERROR] ($err.msg)"
-        exit 1
-    }
+    view run $env.TMUX_PANE
 }
 
 # Set up the sidebar in a tmux window.

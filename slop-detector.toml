@@ -1,5 +1,5 @@
 [ignore.by-rule]
-no-scripts-section = ["package.json"]
 no-long-lines = ["justfile"]
-no-console = ["scripts/lib/output.ts"]
+no-error-make = ["home/.config/nushell/", "home/.config/tmux/sidebar/view.nu"]
 no-complete-rethrow = ["home/.local/bin/,kill-port"]
+no-print-stderr = ["home/.config/nushell/_fzf.nu"]

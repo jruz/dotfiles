@@ -1,9 +1,6 @@
 export def --wrapped query [...args: string]: nothing -> string {
-    let result = (^tmux ...$args | complete)
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    $result.stdout | str trim --right --char (char newline)
+    let output = (^tmux ...$args)
+    $output | str trim --right --char (char newline)
 }
 
 export def --wrapped tmux [...args: string]: nothing -> nothing {

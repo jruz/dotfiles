@@ -1,11 +1,8 @@
 #!/usr/bin/env nu
 
 def shortcuts [table: string, prefix: string]: nothing -> table<key: string, description: string> {
-    let result = (^tmux list-keys -N -P $prefix -T $table | complete)
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    ($result.stdout
+    let output = (^tmux list-keys -N -P $prefix -T $table)
+    ($output
         | lines
         | parse --regex '^\s*(?<key>\S+)\s+(?<description>.+)$')
 }
