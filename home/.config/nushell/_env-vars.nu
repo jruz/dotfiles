@@ -7,4 +7,5 @@ load-env {
     RIPGREP_CONFIG_PATH: $"($env.HOME)/.config/rg/config"
     SOPS_AGE_KEY_FILE: $"($env.HOME)/.config/sops/age/keys.txt"
     DIRENV_LOG_FORMAT: ""
+    NU_LOG_FORMAT: "[%ANSI_START%%LEVEL%%ANSI_STOP%] %MSG%"
 }

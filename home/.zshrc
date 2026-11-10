@@ -31,6 +31,7 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 export DOTFILES="${HOME}/dev/dotfiles"
 export COLORTERM=truecolor
+export NU_LOG_FORMAT='[%ANSI_START%%LEVEL%%ANSI_STOP%] %MSG%'
 
 if [ -f ~/.env ]; then
   set -a
