@@ -49,7 +49,10 @@ def format-group [files: list<record>, style: record]: nothing -> string {
     $"($heading)\n($rows)"
 }
 
-def --wrapped main [...args: string]: nothing -> nothing {
+# Show grouped Git working-tree changes.
+def --wrapped main [
+    ...args: string # Arguments passed to git status instead of the grouped view.
+]: nothing -> nothing {
     if ($args | is-not-empty) {
         let result = (^git status ...$args | complete)
         print --no-newline $result.stdout

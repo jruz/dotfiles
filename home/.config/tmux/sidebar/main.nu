@@ -68,12 +68,18 @@ def "main render" []: nothing -> nothing {
     }
 }
 
-def "main setup" [window: string]: nothing -> nothing {
+# Set up the sidebar in a tmux window.
+def "main setup" [
+    window: string # Target tmux window ID.
+]: nothing -> nothing {
     setup $window
     main refresh
 }
 
-def "main toggle" [window: string]: nothing -> nothing {
+# Toggle the sidebar in a tmux window.
+def "main toggle" [
+    window: string # Target tmux window ID.
+]: nothing -> nothing {
     let sidebars = pane-list $window | where sidebar == 'on'
     if ($sidebars | is-empty) {
         setup $window
@@ -84,7 +90,10 @@ def "main toggle" [window: string]: nothing -> nothing {
     }
 }
 
-def "main enable" [session: string]: nothing -> nothing {
+# Enable sidebars in every window of a tmux session.
+def "main enable" [
+    session: string # Target tmux session ID.
+]: nothing -> nothing {
     let windows = query list-windows -t $session -F '#{window_id}' | lines
     for window in $windows {
         setup $window

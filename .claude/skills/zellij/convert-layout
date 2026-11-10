@@ -1,6 +1,9 @@
 #!/usr/bin/env nu
 
-def main [file: path] {
+# Replace powerline placeholders in a layout file.
+def main [
+    file: path # Layout file to update in place.
+] {
     let content = (open $file)
         | str replace --all "{{PL_RIGHT}}" "\u{e0b0}"
         | str replace --all "{{PL_LEFT}}" "\u{e0b2}"

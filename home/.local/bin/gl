@@ -16,7 +16,10 @@ def format-commit [width: int, color: string]: record -> string {
     $"($prefix)($foreground)($committer)(ansi reset) | ($foreground)($commit.subject)(ansi dark_gray)($commit.age)(ansi reset)"
 }
 
-def --wrapped main [...args: string]: nothing -> nothing {
+# Show a compact Git commit log.
+def --wrapped main [
+    ...args: string # Additional arguments passed to git log.
+]: nothing -> nothing {
     let color = if (is-terminal --stdout) { 'always' } else { 'auto' }
     let result = (^git log $'--color=($color)' --pretty=format:'%C(brightblack)%ad%C(reset) | %C(blue)%h%C(reset) | %x1f%cn%x1f%s%x1f (%ar)' --date=short --max-count=20 ...$args | complete)
     if $result.exit_code != 0 {

@@ -82,7 +82,10 @@ def release [placeholder: string]: nothing -> nothing {
     ^tmux kill-pane -t $placeholder
 }
 
-def "main resize" [placeholder: string]: nothing -> nothing {
+# Resize the margins around a centered pane.
+def "main resize" [
+    placeholder: string # Placeholder pane identifying the centered layout.
+]: nothing -> nothing {
     let state = load-state $placeholder
     let side = side-width $state.window
     ^tmux resize-pane -t $state.left -x $side
@@ -95,7 +98,10 @@ def "main cleanup" [] {
     for placeholder in $orphans { release $placeholder }
 }
 
-def main [pane: string]: nothing -> nothing {
+# Toggle centered zoom for a tmux pane.
+def main [
+    pane: string # Target tmux pane ID.
+]: nothing -> nothing {
     let placeholder = window-option (pane-format $pane '#{window_id}') @center-zoom-placeholder
     if ($placeholder | is-empty) {
         zoom-in $pane

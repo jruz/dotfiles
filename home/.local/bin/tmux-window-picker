@@ -48,7 +48,11 @@ def list-windows []: nothing -> table {
         | parse "{id}\t{session_id}\t{session}\t{active}\t{number}\t{name}")
 }
 
-def "main open" [client: string, width: int]: nothing -> nothing {
+# Open the window picker for a tmux client.
+def "main open" [
+    client: string # Target tmux client.
+    width: int # Available width in terminal columns.
+]: nothing -> nothing {
     log debug (format-log "main open" {client: $client, width: $width})
     try {
         let maximum = (do --capture-errors { ^tmux show-options -gv @window-picker-max-width }
@@ -67,7 +71,10 @@ def "main open" [client: string, width: int]: nothing -> nothing {
     }
 }
 
-def "main preview" [target: string] {
+# Preview a tmux pane.
+def "main preview" [
+    target: string # Target tmux pane ID.
+] {
     log debug (format-log "main preview" {target: $target})
     try {
         let contents = (do --capture-errors { ^tmux capture-pane -ep -S -200 -t $target })
@@ -91,7 +98,10 @@ def "main search" [] {
     }
 }
 
-def main [width: int]: nothing -> nothing {
+# Select a tmux window interactively.
+def main [
+    width: int # Picker width in terminal columns.
+]: nothing -> nothing {
     log debug (format-log "main" {width: $width})
     try {
         do --capture-errors {

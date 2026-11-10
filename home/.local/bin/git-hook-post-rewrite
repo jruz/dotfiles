@@ -1,7 +1,10 @@
 #!/usr/bin/env nu
 # vim: ft=nu
 
-def main [command: string]: nothing -> string {
+# Run post-merge checks after a rebase.
+def main [
+    command: string # Git operation that rewrote commits.
+]: nothing -> string {
     if $command != "rebase" { return }
     ^git hook run --ignore-missing post-merge -- 0
 }

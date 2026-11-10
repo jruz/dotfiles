@@ -1,5 +1,6 @@
 mod ts '.just/ts.justfile'
 mod bun '.just/bun.justfile'
+mod nushell '.just/nushell.justfile'
 
 # ─── main ─────────────────────────────────────────────────────────────────────
 
@@ -9,7 +10,7 @@ check:
       nix-check \
       shellcheck-check \
       lua-check \
-      nushell-check \
+      nushell::check \
       ts::check \
       woodpecker-check \
       bun::check
@@ -20,11 +21,12 @@ setup:
 test:
     just bun::test
     just ts::oxlint-rules-check
-    just nushell-test
+    just nushell::test
 
 fix:
     just just-fmt-fix
     just nix-fix
+    just nushell::fix
     just ts::fix
 
 clean:
@@ -199,39 +201,8 @@ shellcheck-check:
 
 # ─── nushell ──────────────────────────────────────────────────────────────────
 
-nushell-check:
-    #!/usr/bin/env nu
-    use std/assert
-    use '{{ justfile_directory() }}/scripts/nushell-files.nu' discover
-    let files = discover
-    for file in $files { assert (nu-check --debug $file) }
-    ^nu-lint --config nu-lint.toml --format compact ...$files home/.local/bin
-
-nushell-fix:
-    #!/usr/bin/env nu
-    use '{{ justfile_directory() }}/scripts/nushell-files.nu' discover
-    let files = discover
-    ^nu-lint --config nu-lint.toml --fix ...$files home/.local/bin
-
-nushell-test:
-    nu --no-config-file home/.local/bin/test-runner.nu
-
-nushell-set:
-    #!/usr/bin/env nu
-    let shell_path = if (^uname) == "Darwin" {
-      "/run/current-system/sw/bin/nu"
-    } else {
-      $"($env.HOME)/.nix-profile/bin/nu"
-    }
-    let shells = open /etc/shells | lines
-    if not ($shell_path in $shells) {
-      print $"Adding ($shell_path) to /etc/shells..."
-      $"($shell_path)\n" | ^sudo tee --append /etc/shells
-    }
-    print $"Changing shell to ($shell_path)..."
-    print "You may be prompted for your password:"
-    ^chsh -s $shell_path
-    print "Shell changed! Restart your terminal for it to take effect."
+shell-set-nu:
+    nu --no-config-file scripts/shell-set-nu.nu
 
 # ─── woodpecker ───────────────────────────────────────────────────────────────
 

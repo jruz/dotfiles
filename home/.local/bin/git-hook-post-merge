@@ -45,7 +45,10 @@ def warn [check: record]: list<string> -> nothing {
     print ""
 }
 
-def main [_squash: string] {
+# Check dependencies after a merge.
+def main [
+    _squash: string # Git squash-merge indicator.
+] {
     let changed = changed-files
     if "ager-lock.yaml" in $changed { ^ager status }
     for check in $CHECKS {
