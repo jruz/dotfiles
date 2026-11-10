@@ -28,4 +28,5 @@ home/.local/bin/server-channel
 home/.local/bin/server-client
 /result
 /ager-lock.yaml
+/home/.config/gh/hosts.yml
 /node_modules
