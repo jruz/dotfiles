@@ -1,0 +1,43 @@
+#!/usr/bin/env nu
+# vim: ft=nu
+
+use std/log
+
+const BLOCKED = [
+    {name: "Env file" pattern: '(^|/)\.env$'}
+    {name: "Node modules" pattern: '(^|/)node_modules/'}
+    {name: "macOS metadata" pattern: '(^|/)\.DS_Store.?$'}
+    {
+        name: "Claude local settings"
+        pattern: '(^|/)\.claude/settings\.local\.json$'
+    }
+]
+
+def staged-files []: nothing -> list<string> {
+    ^git diff --cached --name-only --diff-filter=ACMR | lines
+}
+
+def blocked-files [rule: record]: list<string> -> list<string> {
+    where $it =~ $rule.pattern
+}
+
+def violations []: list<string> -> list<record> {
+    let staged = $in
+    $BLOCKED
+    | each {|rule| {rule: $rule files: ($staged | blocked-files $rule)} }
+    | where ($it.files | is-not-empty)
+}
+
+def report []: record -> nothing {
+    let violation = $in
+    let files = $violation.files | str join ", "
+    log error $"($violation.rule.name): ($files)"
+}
+
+def main [] {
+    let found = staged-files | violations
+    if ($found | is-empty) { return }
+    for violation in $found { $violation | report }
+    log error "Unstage them with: git rm -r --cached <file>"
+    exit 1
+}

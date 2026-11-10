@@ -29,6 +29,9 @@
 	compactionHeuristic = true
 [rerere]
 	enabled = true
+[hook "git-hook-pre-commit"]
+	event = pre-commit
+	command = ~/.local/bin/git-hook-pre-commit
 [hook "git-hook-post-rewrite"]
 	event = post-rewrite
 	command = ~/.local/bin/git-hook-post-rewrite
