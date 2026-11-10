@@ -1,5 +1,9 @@
 $env.config = ($env.config? | default {} | merge {
   show_banner: false
+  history: {
+    file_format: sqlite
+    isolation: true
+  }
 })
 
 $env.config.rm.always_trash = true
