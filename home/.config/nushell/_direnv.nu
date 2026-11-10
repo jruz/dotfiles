@@ -13,8 +13,9 @@ def --env direnv-reload []: nothing -> nothing {
   direnv-load
 }
 
-alias dr = direnv-reload
+export alias dr = direnv-reload
 
-$env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD? | default []
-
-$env.config.hooks.env_change.PWD ++= [{|| direnv-load }]
+export-env {
+  $env.config.hooks.env_change.PWD = $env.config.hooks.env_change.PWD? | default []
+  $env.config.hooks.env_change.PWD ++= [{|| direnv-load }]
+}

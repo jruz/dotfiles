@@ -1,4 +1,4 @@
-source _functions.nu
+use _functions.nu *
 use std/assert
 
 def test-gen-passphrase-default []: nothing -> nothing {

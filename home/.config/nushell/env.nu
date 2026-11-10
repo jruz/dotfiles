@@ -1,5 +1,5 @@
-source _path.nu
-source _env-load.nu
+use _path.nu
+use _env-load.nu
 source _env-vars.nu
 
 if (which fzf | length) > 0 {
@@ -7,7 +7,7 @@ if (which fzf | length) > 0 {
 }
 
 
-source _direnv.nu
+use _direnv.nu *
 
 if (which starship | length) > 0 {
   source _starship.nu

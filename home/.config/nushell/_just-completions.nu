@@ -1,9 +1,6 @@
 def get-recipes []: nothing -> list<record> {
-    let result = (^just --unstable --dump --dump-format json | complete)
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    let just_json = $result.stdout | from json
+    let output = (^just --unstable --dump --dump-format json)
+    let just_json = $output | from json
     [
         ...(
             $just_json.recipes

@@ -1,7 +1,3 @@
-def is-linux []: nothing -> bool {
-    (uname).kernel-name == "Linux"
-}
-
 def is-osx []: nothing -> bool {
     (uname).kernel-name == "Darwin"
 }
@@ -15,13 +11,13 @@ def osc52-copy []: string -> nothing {
     print --no-newline $"\e]52;c;($data)\e\\"
 }
 
-def wr []: nothing -> string {
+export def wr []: nothing -> string {
     ^nmcli radio wifi off
     sleep 5sec
     ^nmcli radio wifi on
 }
 
-def gcmsg [message: string, --feat, --bugs, --refa, --deps, --tool, ...args: string]: nothing -> string {
+export def gcmsg [message: string, --feat, --bugs, --refa, --deps, --tool, ...args: string]: nothing -> string {
     let types = ([
         (if $feat { "feat" })
         (if $bugs { "bugs" })
@@ -40,78 +36,75 @@ def this-branch []: nothing -> string {
     ^git rev-parse --abbrev-ref HEAD
 }
 
-def gdr []: nothing -> string {
+export def gdr []: nothing -> string {
     let branch = (this-branch | str trim)
     ^git diff $"origin/($branch)"
 }
 
-def gld []: nothing -> string {
+export def gld []: nothing -> string {
     let branch = (this-branch | str trim)
     ^gl $"dev..($branch)"
 }
 
-def glm []: nothing -> string {
+export def glm []: nothing -> string {
     let branch = (this-branch | str trim)
     ^gl $"main..($branch)"
 }
 
-def grm []: nothing -> string {
+export def grm []: nothing -> string {
     ^git fetch
     ^git rebase origin/main
 }
 
-def grc []: nothing -> string {
+export def grc []: nothing -> string {
     with-env {GIT_EDITOR: "true"} { ^git rebase --continue }
 }
 
-def grr []: nothing -> string {
+export def grr []: nothing -> string {
     let branch = (this-branch | str trim)
     ^git reset --hard $"origin/($branch)"
 }
 
-def gpsu []: nothing -> string {
+export def gpsu []: nothing -> string {
     let branch = (this-branch | str trim)
     ^git push --set-upstream origin $branch
 }
 
-def gpsuf []: nothing -> string {
+export def gpsuf []: nothing -> string {
     let branch = (this-branch | str trim)
     ^git push --force --set-upstream origin $branch
 }
 
-def gri [count: int]: nothing -> string {
+export def gri [count: int]: nothing -> string {
     ^git rebase --interactive $"HEAD~($count)"
 }
 
-def last-commit []: nothing -> string {
+export def last-commit []: nothing -> string {
     ^git --no-pager log --max-count 1 --pretty="format:%s"
 }
 
-def tme [name: string]: nothing -> string {
+export def tme [name: string]: nothing -> string {
     ^nvim $"($env.HOME)/dev/dotfiles/.tmuxinator/($name).yml"
 }
 
-def untar [file: path]: nothing -> string {
+export def untar [file: path]: nothing -> string {
     ^tar --extract --gzip --verbose --file $file
 }
 
-def encrypt [file: path]: nothing -> nothing {
+export def encrypt [file: path]: nothing -> nothing {
     let identity = $"($env.HOME)/.config/sops/age/keys.txt"
     ^age --encrypt --identity $identity --output $"($file).age" $file
 }
 
-def decrypt [file: path]: nothing -> nothing {
+export def decrypt [file: path]: nothing -> nothing {
     let identity = $"($env.HOME)/.config/sops/age/keys.txt"
     let output = ($file | str replace --regex '\.age$' '')
     ^age --decrypt --identity $identity --output $output $file
 }
 
 def get-ip [interface: string]: nothing -> string {
-    let result = (^ip --json address show dev $interface | complete)
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    $result.stdout
+    let output = (^ip --json address show dev $interface)
+    $output
     | from json
     | get addr_info
     | flatten
@@ -120,15 +113,15 @@ def get-ip [interface: string]: nothing -> string {
     | get local
 }
 
-def wifi-ip []: nothing -> string {
+export def wifi-ip []: nothing -> string {
     get-ip enp0s20u1
 }
 
-def cable-ip []: nothing -> string {
+export def cable-ip []: nothing -> string {
     get-ip ens9
 }
 
-def eject [device: string]: nothing -> string {
+export def eject [device: string]: nothing -> string {
     ^udisksctl unmount --block-device $device
     ^udisksctl power-off --block-device $device
 }
@@ -141,20 +134,20 @@ def brain-path []: nothing -> string {
     }
 }
 
-def --env brain []: nothing -> nothing {
+export def --env brain []: nothing -> nothing {
     cd (brain-path)
 }
 
-def --env mp []: nothing -> nothing {
+export def --env mp []: nothing -> nothing {
     cd $"(brain-path)/🌞 Morning Pages"
 }
 
-def yf [file: path]: nothing -> nothing {
+export def yf [file: path]: nothing -> nothing {
     let text = open --raw $file
     $text | yo
 }
 
-def yo []: string -> nothing {
+export def yo []: string -> nothing {
     if (is-osx) {
         $in | ^pbcopy
     } else if (is-ssh) {
@@ -164,7 +157,7 @@ def yo []: string -> nothing {
     }
 }
 
-def wh [command: string]: nothing -> table {
+export def wh [command: string]: nothing -> table {
     let result = (which $command)
     if ($result | any {|row| $row.type == "alias" }) {
         scope aliases | where name == $command | select name expansion
@@ -187,75 +180,47 @@ def "nu-complete tmux-sessions" []: nothing -> list<string> {
     | where ($it | is-not-empty)
 }
 
-def tma [session: string@"nu-complete tmux-sessions"]: nothing -> string {
+export def tma [session: string@"nu-complete tmux-sessions"]: nothing -> string {
     ^tmux attach-session -t $session
 }
 
-def tmk [session: string@"nu-complete tmux-sessions"]: nothing -> string {
+export def tmk [session: string@"nu-complete tmux-sessions"]: nothing -> string {
     ^tmux kill-session -t $session
 }
 
-def zk [session: string@"nu-complete zellij-sessions"]: nothing -> string {
-    let result = (^procs $session --no-header --only pid | complete)
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    for id in ($result.stdout | lines) {
+export def zk [session: string@"nu-complete zellij-sessions"]: nothing -> string {
+    let output = (^procs $session --no-header --only pid)
+    for id in ($output | lines) {
         ^kill -9 $id
     }
     ^zellij delete-session --force $session
 }
 
-def za [session: string@"nu-complete zellij-sessions"]: nothing -> string {
+export def za [session: string@"nu-complete zellij-sessions"]: nothing -> string {
     ^zellij attach $session
 }
 
-def zel []: nothing -> string {
+export def zel []: nothing -> string {
     let session_name = ($env.PWD | path basename | str upcase)
     ^zellij attach --create $session_name
 }
 
-def tmux-dev []: nothing -> string {
+export def tmux-dev []: nothing -> string {
     let layout = if (is-osx) { "mac" } else { "mini" }
     ^tmuxinator start $layout
 }
 
-def rm [...files: glob, --_force (-f), --_recursive (-r)]: nothing -> nothing {
-    let expanded = ($files | flatten)
-    if (is-osx) {
-        ^trash ...$expanded
-    } else {
-        ^trash-put ...$expanded
-    }
-}
-
-def kill-port [port: int]: nothing -> nothing {
-    use lib/logger.nu
-    let result = (^lsof -ti $":($port)" | complete)
-    if $result.exit_code == 1 and ($result.stdout | is-empty) {
-        logger warn $"No process found on port ($port)"
-        return
-    }
-    if $result.exit_code != 0 {
-        error make {msg: $result.stderr}
-    }
-    for pid in ($result.stdout | lines) {
-        ^kill -9 $pid
-    }
-    logger ok $"Killed processes on port ($port)"
-}
-
-def zellij-mac []: nothing -> string {
+export def zellij-mac []: nothing -> string {
     ^just --justfile ~/dev/dotfiles/justfile --working-directory ~/dev/dotfiles zellij-generate-mac
     ^zellij --new-session-with-layout mac --session MAC
 }
 
-def zellij-mini []: nothing -> string {
+export def zellij-mini []: nothing -> string {
     ^just --justfile ~/dev/dotfiles/justfile --working-directory ~/dev/dotfiles zellij-generate-mini
     ^zellij --new-session-with-layout mini --session MINI
 }
 
-def gen-passphrase [words: int = 4]: nothing -> string {
+export def gen-passphrase [words: int = 4]: nothing -> string {
     let phrase = (^xkcdpass --numwords $words --case capitalize --delimiter "-" --valid-chars '[a-z]'
         | str trim)
     let digit = (^shuf --random-source /dev/urandom --input-range 0-9 --head-count 1
@@ -263,7 +228,7 @@ def gen-passphrase [words: int = 4]: nothing -> string {
     $"($phrase)-($digit)"
 }
 
-def gen-ssh-key [
+export def gen-ssh-key [
     name: path
     --directory: path = ~/.ssh
     --no-passphrase
