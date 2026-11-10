@@ -59,10 +59,7 @@ alias errors = ^journalctl -xe
 alias sx = ^startx
 alias sxe = ^startx ~/dev/dotfiles/X/home/.xinitrc
 alias awk = ^gawk
-alias cat = ^bat
-alias find = ^fd
-alias grep = ^rg
-alias fd = ^fd --hidden --no-ignore
+alias fda = ^fd --hidden --no-ignore
 
 alias dhcr = ^sudo systemctl restart dhcpcd.service
 
@@ -100,7 +97,7 @@ alias tags = ^ctags -R --exclude=.git --exclude=node_modules
 alias tf = ^terraform
 
 alias cl = ^claude --dangerously-skip-permissions
-alias clc = ^cl --continue
+alias clc = ^claude --dangerously-skip-permissions --continue
 alias co = ^codex --dangerously-bypass-approvals-and-sandbox
 alias pic = ^pi --continue
 alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
