@@ -2,3 +2,4 @@
 no-scripts-section = ["package.json"]
 no-long-lines = ["justfile"]
 no-console = ["scripts/lib/output.ts"]
+no-complete-rethrow = ["home/.local/bin/,kill-port"]

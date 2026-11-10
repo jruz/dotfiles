@@ -1,0 +1,103 @@
+#!/usr/bin/env nu
+
+use ../share/nushell/lib/log.nu
+
+const PROMPT = "
+Make a commit following the commit skill.
+Rules:
+- If files are staged, commit only those files and exit
+- If nothing is staged, consider all modified files and stage accordingly
+- Only inspect the repository, stage changes, and create the commit
+- Do not edit files, fix checks, install dependencies, amend commits, or rewrite history
+- Never bypass Git hooks or retry a failed commit
+- Stop immediately on any error or blocker, including no changes to commit
+- If a commit succeeds, report committed even if a later issue occurs; do not create another commit
+- Reply only with a JSON object, without markdown or additional text
+- On success: {\"status\":\"committed\",\"message\":\"Full commit message, including subject and body\"}
+- On a blocker: {\"status\":\"blocked\",\"message\":\"Error or blocker explaining why no commit was created\"}
+"
+
+def run-codex [skill: path]: nothing -> string {
+    (^gum spin --show-output --spinner.foreground 15 --title "Committing with Codex..." --
+        pi
+        --print
+        --no-context-files
+        --no-extensions
+        --no-mcp
+        --no-skills
+        --skill $skill
+        --no-prompt-templates
+        --model openai-codex/gpt-6-luna
+        --thinking high
+        $PROMPT)
+}
+
+def run-claude [skill: path]: nothing -> string {
+    (^gum spin --show-output --spinner.foreground 15 --title "Committing with Claude..." --
+        claude
+        --print
+        --safe-mode
+        --append-system-prompt (open --raw $skill)
+        --model sonnet
+        --effort medium
+        --permission-mode auto
+        $PROMPT)
+}
+
+def run-gemini [skill: path]: nothing -> string {
+    (^gum spin --show-output --spinner.foreground 15 --title "Committing with Gemini..." --
+        pi
+        --print
+        --no-context-files
+        --no-extensions
+        --no-mcp
+        --no-skills
+        --skill $skill
+        --no-prompt-templates
+        --model google/gemini-3.5-flash-lite
+        --thinking medium
+        $PROMPT)
+}
+
+def main [
+    --codex # commit through pi using luna (default)
+    --claude # commit through claude using sonnet with medium effort
+    --gemini # commit through pi using Gemini 3.5 Flash-Lite with medium thinking
+]: nothing -> nothing {
+    if ([$codex $claude $gemini] | where $it | length) > 1 {
+        log error "Pass only one of --codex, --claude or --gemini."
+        exit 1
+    }
+    let skill = $env.HOME | path join .pi agent skills commit SKILL.md
+    let start = date now
+    try {
+        let output = if $claude {
+            run-claude $skill
+        } else if $gemini {
+            run-gemini $skill
+        } else {
+            run-codex $skill
+        }
+        let result: record<status: string, message: string> = $output | from json
+        let elapsed = (date now) - $start | format duration sec
+        if ($result.message | str trim | is-empty) {
+            log error "The agent returned an empty message. Inspect git status and git log before retrying."
+            exit 1
+        }
+        match $result.status {
+            committed => { print $result.message }
+            blocked => { log error $result.message }
+            _ => {
+                log error "The agent returned an invalid status. Inspect git status and git log before retrying."
+                exit 1
+            }
+        }
+        print ""
+        log info $"Took ($elapsed)."
+        if $result.status == "blocked" { exit 1 }
+    } catch {|failure|
+        log error $failure.rendered
+        log error "Commit execution or reply failed. Inspect git status and git log before retrying."
+        exit 1
+    }
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env nu
+
+use std/log
+
+# Stop processes listening on a TCP port.
+def main [
+    port: int # TCP port whose listening processes should be stopped.
+]: nothing -> nothing {
+    let result = (^lsof -t $"-iTCP:($port)" -sTCP:LISTEN | complete)
+    if $result.exit_code == 1 and ($result.stdout | is-empty) {
+        log warning $"No process found on port ($port)"
+        return
+    }
+    if $result.exit_code != 0 {
+        log error $result.stderr
+        exit $result.exit_code
+    }
+    for pid in ($result.stdout | lines) {
+        ^kill -s TERM $pid
+    }
+    log info $"Sent SIGTERM to TCP listeners on port ($port)"
+}

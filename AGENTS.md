@@ -8,6 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Terminal: Ghostty
 - Multiplexer: Zellij
 
+## Custom Binaries
+
+- Prefix custom executable names in `home/.local/bin/` with `,` (for example `,kill-port`).
+
 ## Tool Usage
 
 - Use `bat --style=numbers --line-range <start>:<end> <file>` to inspect a bounded file slice with line numbers.
