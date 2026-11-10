@@ -1,7 +1,3 @@
-vim.keymap.set("n", "<space>lf", function()
-  require("conform").format({ async = true, lsp_format = "fallback" })
-end)
-
 require("conform").setup({
   formatters = {
     oxfmt = {
@@ -24,8 +20,13 @@ require("conform").setup({
     lua = { "stylua" },
     nu = { "nufmt" },
   },
-  format_on_save = {
-    timeout_ms = 2000,
-    lsp_format = "fallback",
-  },
+  format_on_save = function(bufnr)
+    if vim.b[bufnr].disable_autoformat then
+      return
+    end
+    return {
+      timeout_ms = 2000,
+      lsp_format = "fallback",
+    }
+  end,
 })

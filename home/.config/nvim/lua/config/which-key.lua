@@ -1,5 +1,15 @@
 local wk = require("which-key")
 
+local function format()
+  require("conform").format({ async = true, lsp_format = "fallback" })
+end
+
+local function toggle_format_on_save()
+  vim.b.disable_autoformat = not vim.b.disable_autoformat
+  local state = vim.b.disable_autoformat and "disabled" or "enabled"
+  vim.notify("Format on save " .. state)
+end
+
 wk.add({
   { "<space>f", group = "Find" },
   { "<space>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
@@ -22,7 +32,7 @@ wk.add({
   { "<space>lh", vim.lsp.buf.hover, desc = "Hover" },
   { "<space>ls", vim.lsp.buf.signature_help, desc = "Signature Help" },
   { "<space>la", vim.lsp.buf.code_action, desc = "Code Action" },
-  { "<space>lf", vim.lsp.buf.format, desc = "Format" },
+  { "<space>lf", format, desc = "Format" },
   { "<space>lt", vim.lsp.buf.type_definition, desc = "Type Definition" },
   { "<space>lw", group = "Workspace" },
   { "<space>lwa", vim.lsp.buf.add_workspace_folder, desc = "Add Folder" },
@@ -105,7 +115,8 @@ wk.add({
   { "<space>c", group = "Code" },
   { "<space>ca", vim.lsp.buf.code_action, desc = "Code Action" },
   { "<space>cc", "gcc", desc = "Toggle Comment", remap = true },
-  { "<space>cf", vim.lsp.buf.format, desc = "Format" },
+  { "<space>cd", toggle_format_on_save, desc = "Toggle Format on Save" },
+  { "<space>cf", format, desc = "Format" },
   { "<space>cr", vim.lsp.buf.rename, desc = "Rename" },
 })
 
