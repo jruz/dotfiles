@@ -24,12 +24,14 @@ const release = {
 test("updates the version and every supported checksum", () => {
   const updated = updatePackage(content, release);
   expect(updated).toContain('version = "9.8.7";');
-  expect(updated.match(/sha256 = "a{64}";/g)).toHaveLength(4);
+  const checksums = updated.match(/sha256 = "a{64}";/g);
+  expect(checksums).toHaveLength(4);
 });
 
 test("leaves an up-to-date package unchanged", () => {
   const updated = updatePackage(content, release);
-  expect(updatePackage(updated, release)).toBe(updated);
+  const unchanged = updatePackage(updated, release);
+  expect(unchanged).toBe(updated);
 });
 
 test("rejects incomplete release metadata", () => {

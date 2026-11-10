@@ -35,20 +35,21 @@ export const updatePackage = (content: string, release: unknown): string => {
     throw new Error("missing version: herdr-core.nix");
   }
 
-  return TargetSchema.options.reduce(
-    (updated, name) => {
-      const pattern = new RegExp(`(name = "${name}";\\s+sha256 = ")[^"]+(";)`);
-      if (!pattern.test(updated)) {
-        throw new Error(`missing target: ${name}`);
-      }
-      return updated.replace(
-        pattern,
-        (_match, prefix: string, suffix: string) =>
-          `${prefix}${targets[name].sha256}${suffix}`,
-      );
-    },
-    content.replace(versionPattern, `version = "${version}";`),
+  const versionUpdated = content.replace(
+    versionPattern,
+    `version = "${version}";`,
   );
+  return TargetSchema.options.reduce((updated, name) => {
+    const pattern = new RegExp(`(name = "${name}";\\s+sha256 = ")[^"]+(";)`);
+    if (!pattern.test(updated)) {
+      throw new Error(`missing target: ${name}`);
+    }
+    return updated.replace(
+      pattern,
+      (_match, prefix: string, suffix: string) =>
+        `${prefix}${targets[name].sha256}${suffix}`,
+    );
+  }, versionUpdated);
 };
 
 const main = async (): Promise<void> => {
@@ -62,7 +63,8 @@ const main = async (): Promise<void> => {
   }
 
   const content = await readFile(path, "utf-8");
-  const updated = updatePackage(content, await response.json());
+  const release: unknown = await response.json();
+  const updated = updatePackage(content, release);
   if (updated === content) {
     log.ok("herdr-core is up to date");
     process.exit(2);
