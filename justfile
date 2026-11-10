@@ -15,6 +15,9 @@ check:
       woodpecker-check \
       bun::check
 
+env-keys:
+    nu --no-config-file scripts/env-keys.nu home/.env
+
 setup:
     just ts::install
 
