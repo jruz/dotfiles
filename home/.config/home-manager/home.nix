@@ -87,7 +87,6 @@ in
         atuin
         nixpkgs-zellij.zellij
         nushell
-        nufmt
         zsh
         zinit
         unstable.tmux

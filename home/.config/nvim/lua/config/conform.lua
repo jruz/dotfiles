@@ -18,7 +18,6 @@ require("conform").setup({
     yaml = { "oxfmt" },
     clojure = { "joker" },
     lua = { "stylua" },
-    nu = { "nufmt" },
   },
   format_on_save = function(bufnr)
     if vim.b[bufnr].disable_autoformat then
