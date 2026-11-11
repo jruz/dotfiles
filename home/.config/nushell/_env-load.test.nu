@@ -4,7 +4,7 @@ def check-loader [directory: path, assertions: string]: nothing -> nothing {
     let script = $directory | path join check.nu
     $"use std/assert\nuse '($LOADER)'\n($assertions)\n" | save $script
     with-env {HOME: $directory} {
-        ^nu --no-config-file $script
+        ^nu $script
     }
     rm --permanent --recursive $directory
 }

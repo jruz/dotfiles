@@ -120,7 +120,7 @@ def main [
                     --header='j/k move · type search'
                     --highlight-line
                     --color='bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,hl:#cba6f7,hl+:#cba6f7,border:#b4befe,label:#b4befe,prompt:#cba6f7,pointer:#b4befe,header:#9399b2,info:#9399b2'
-                    --with-shell='nu --no-config-file --commands'
+                    --with-shell='nu --commands'
                     --preview='if {1} != "session" { ^~/.local/bin/tmux-window-picker preview {1} }'
                     --preview-window=$"right,(preview-width $width),border-left,follow"
                     --bind='start:down,j:down,k:up,ctrl-/:toggle-preview'

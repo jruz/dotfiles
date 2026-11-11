@@ -11,7 +11,7 @@ def fixture []: list<string> -> path {
 
 def invoke [root: path, --no-capture]: nothing -> record {
     let flags = if $no_capture { [--no-capture] } else { [] }
-    ^nu --no-config-file $RUNNER $root ...$flags | complete
+    ^nu $RUNNER $root ...$flags | complete
 }
 
 def test-runner-hides-passing-test-output []: nothing -> nothing {

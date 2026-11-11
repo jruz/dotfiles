@@ -16,7 +16,7 @@ check:
       bun::check
 
 env-keys:
-    nu --no-config-file scripts/env-keys.nu home/.env
+    nu scripts/env-keys.nu home/.env
 
 setup:
     just ts::install
@@ -205,7 +205,7 @@ shellcheck-check:
 # ─── nushell ──────────────────────────────────────────────────────────────────
 
 shell-set-nu:
-    nu --no-config-file scripts/shell-set-nu.nu
+    nu scripts/shell-set-nu.nu
 
 # ─── woodpecker ───────────────────────────────────────────────────────────────
 

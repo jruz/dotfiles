@@ -37,7 +37,7 @@ def test-command [file: path, test_name: string]: nothing -> string {
 
 def run-test [file: path, test_name: string]: nothing -> record {
     let command = test-command $file $test_name
-    let result = (^$nu.current-exe --no-config-file --commands $command | complete)
+    let result = (^$nu.current-exe --commands $command | complete)
     {
         passed: ($result.exit_code == 0)
         stdout: $result.stdout
@@ -84,7 +84,7 @@ def main [
         for test in $suite.tests {
             let result = if $no_capture {
                 let command = test-command $suite.file $test
-                let streamed = (^$nu.current-exe --no-config-file --commands $command
+                let streamed = (^$nu.current-exe --commands $command
                     out+err>| tee { print --no-newline }
                     | complete)
                 {passed: ($streamed.exit_code == 0), stdout: '', stderr: ''}

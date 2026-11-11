@@ -34,7 +34,7 @@ def setup [window: string]: nothing -> nothing {
         tmux split-window -h -d -t $work.id -c $work.path
     }
     let sidebar = (query split-window -h -b -f -d -l ($settings.width | into string) -t $work.id -P -F '#{pane_id}'
-        nu --no-config-file $SELF render)
+        nu $SELF render)
     tmux set-option -p -t $sidebar @sidebar on
     tmux select-pane -t $active
 }
