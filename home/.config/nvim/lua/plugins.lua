@@ -182,12 +182,38 @@ require("noice").setup({
   },
 })
 
+vim.api.nvim_set_hl(0, "MarkdownCodePrefix", {
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+})
+
 require("render-markdown").setup({
+  on = {
+    render = function()
+      local background = vim.api.nvim_get_hl(0, { name = "RenderMarkdownCode", link = false }).bg
+      vim.api.nvim_set_hl(0, "MarkdownCodeLanguage", {
+        fg = "#6c7086",
+        bg = background,
+        italic = true,
+        bold = false,
+      })
+      vim.api.nvim_set_hl(0, "MarkdownCodePrefix", { bg = background })
+      vim.api.nvim_set_hl(0, "RenderMarkdown_MarkdownCodePrefix_bg_as_fg", {
+        fg = "#6c7086",
+        bg = background,
+      })
+    end,
+  },
   sign = { enabled = false },
   heading = { sign = false, position = "inline", backgrounds = {}, icons = {} },
   code = {
     enabled = true,
     style = "full",
+    language_icon = false,
+    language_name = true,
+    language_left = "›",
+    language_border = " ",
+    highlight_border = "MarkdownCodePrefix",
+    highlight_language = "MarkdownCodeLanguage",
     left_pad = 0,
     right_pad = 0,
     inline = false,
