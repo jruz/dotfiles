@@ -1,11 +1,11 @@
 export-env {
-    $env.FZF_DEFAULT_COMMAND = 'fd --type file --show-errors --exclude .git --exclude node_modules --exclude .obsidian'
+    $env.FZF_DEFAULT_COMMAND = 'fd --type file --hidden --show-errors --exclude .git --exclude node_modules --exclude .obsidian --exclude target --exclude .direnv'
 }
 
 def list-files []: nothing -> string {
     print --stderr --no-newline "listing files..."
-    let files = (^fd --type file --show-errors
-        --exclude .git --exclude node_modules --exclude .obsidian)
+    let files = (^fd --type file --hidden --show-errors
+        --exclude .git --exclude node_modules --exclude .obsidian --exclude target --exclude .direnv)
     print --stderr --no-newline $"\r(ansi erase_entire_line)"
     $files
 }
