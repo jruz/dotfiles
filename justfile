@@ -1,13 +1,14 @@
 mod ts '.just/ts.justfile'
 mod bun '.just/bun.justfile'
 mod nushell '.just/nushell.justfile'
+mod nix '.just/nix.justfile'
 
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 check:
     just parallel \
       just-fmt-check \
-      nix-check \
+      nix::check \
       shellcheck-check \
       lua-check \
       nushell::check \
@@ -28,7 +29,7 @@ test:
 
 fix:
     just just-fmt-fix
-    just nix-fix
+    just nix::fix
     just nushell::fix
     just ts::fix
 
@@ -94,24 +95,6 @@ just-fmt-fix:
       --unstable
 
 # ─── nix ──────────────────────────────────────────────────────────────────────
-
-nix-check:
-    fd \
-      --extension nix \
-      --exec nixfmt --check
-    statix check .
-    deadnix --fail .
-    just nix-version-sync-check
-
-nix-fix:
-    fd \
-      --extension nix \
-      --exec nixfmt
-    statix fix .
-    deadnix --edit .
-
-nix-version-sync-check:
-    sandbox bun run scripts/nix-check-version-sync.ts
 
 nix-list:
     nix-channel --list
