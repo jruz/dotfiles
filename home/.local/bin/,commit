@@ -60,8 +60,8 @@ def run-gemini [skill: path]: nothing -> string {
 }
 
 def main [
-    --codex # commit through pi using luna (default)
-    --claude # commit through claude using sonnet with medium effort
+    --codex # commit through pi using luna
+    --claude # commit through claude using sonnet with medium effort (default)
     --gemini # commit through pi using Gemini 3.5 Flash-Lite with medium thinking
 ]: nothing -> nothing {
     if ([$codex $claude $gemini] | where $it | length) > 1 {
@@ -75,8 +75,10 @@ def main [
             run-claude $skill
         } else if $gemini {
             run-gemini $skill
-        } else {
+        } else if $codex {
             run-codex $skill
+        } else {
+            run-claude $skill
         }
         let result: record<status: string, message: string> = $output | from json
         let elapsed = (date now) - $start | format duration sec
