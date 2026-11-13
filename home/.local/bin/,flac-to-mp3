@@ -1,0 +1,60 @@
+#!/usr/bin/env nu
+
+const SEVERITY = {INFO: {text: "INFO", number: 9}}
+
+def emit-log [body: string, attributes: record]: nothing -> nothing {
+    print --stderr ({
+        Timestamp: (date now | format date "%+")
+        SeverityText: $SEVERITY.INFO.text
+        SeverityNumber: $SEVERITY.INFO.number
+        Body: $body
+        Attributes: $attributes
+    } | to json --raw)
+}
+
+def convert []: record<source: string, destination: string> -> string {
+    let track = $in
+    emit-log "convert" {track: $track}
+    (^ffmpeg -hide_banner -loglevel error -nostdin -n
+        -i $track.source -map 0:a:0 -map '0:v?' -map_metadata 0
+        -c:a libmp3lame -b:a 320k -c:v copy -id3v2_version 3
+        $track.destination)
+    $track.destination
+}
+
+def main [path?: directory]: nothing -> nothing {
+    emit-log "main" {path: $path}
+    try {
+        let threads = (sys cpu | length)
+        let folder = if $path == null { pwd } else { $path | path expand --strict }
+        let files = (ls $folder
+            | where type == file
+            | where ($it.name | path parse | get extension | str downcase) == "flac"
+            | get name
+            | sort)
+        if ($files | is-empty) {
+            print --stderr $",flac-to-mp3: no FLAC files in ($folder)"
+            exit 1
+        }
+        let output = ($folder | path join "mp3")
+        let tracks = ($files | each {|file| {
+            source: $file
+            destination: ($output | path join $"($file | path parse | get stem).mp3")
+        } })
+        for track in $tracks {
+            if ($track.destination | path exists) {
+                print --stderr $",flac-to-mp3: output already exists: ($track.destination)"
+                exit 1
+            }
+        }
+        mkdir $output
+        let converted = ($tracks
+            | par-each --threads $threads { convert }
+            | collect
+            | length)
+        print $"Converted ($converted) files to ($output)"
+    } catch {|error|
+        print --stderr $",flac-to-mp3: ($error.msg)"
+        exit 1
+    }
+}
