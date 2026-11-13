@@ -5,10 +5,6 @@
     nixpkgs-zellij.url = "github:NixOS/nixpkgs/8777c98512d0f9fd40955686a4c759fa1eb2ebad";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    claude-code = {
-      url = "github:sadjow/claude-code-nix?ref=v2.1.285";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     codex-cli = {
       url = "github:sadjow/codex-cli-nix?ref=v0.160.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +53,6 @@
       nixpkgs-unstable,
       nixpkgs-zellij,
       home-manager,
-      claude-code,
       codex-cli,
       rex,
       pi,
@@ -76,15 +71,19 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           unstable = nixpkgs-unstable.legacyPackages.${system};
+          unfree = import nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "claude-code";
+          };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
+            claude-code = unfree.callPackage ./packages/claude-code.nix { };
             herdr-core = pkgs.callPackage ./packages/herdr-core.nix { };
             nixpkgs-zellij = nixpkgs-zellij.legacyPackages.${system};
             inherit
               unstable
-              claude-code
               codex-cli
               rex
               pi

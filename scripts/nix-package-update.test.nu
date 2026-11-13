@@ -4,13 +4,14 @@ const RUNNER = path self nix-package-update.nu
 const LOCKFILE = "home/.config/home-manager/flake.lock"
 const FLAKE = "home/.config/home-manager/flake.nix"
 const HERDR = "home/.config/home-manager/packages/herdr-core.nix"
+const CLAUDE = "home/.config/home-manager/packages/claude-code.nix"
 
 const SANDBOX = '#!/usr/bin/env nu
 use std/assert
 def main [runtime: string, action: string, script: string, package: string] {
     assert equal [$runtime $action] [bun run]
     assert equal $package $env.PACKAGE
-    let expected = if $package == "herdr-core" {
+    let expected = if $package in [herdr-core claude] {
         "scripts/package-flake-update.ts"
     } else {
         "scripts/npm-flake-update.ts"
@@ -49,7 +50,7 @@ def run [command: string, arguments: list<string>]: nothing -> nothing {
 
 def prepare []: nothing -> nothing {
     mkdir bin home/.config/home-manager/packages
-    for file in [$LOCKFILE $FLAKE $HERDR unrelated] {
+    for file in [$LOCKFILE $FLAKE $HERDR $CLAUDE unrelated] {
         "original" | save $file
     }
     $SANDBOX | save bin/sandbox
@@ -89,7 +90,11 @@ def verify-result [case: record, result: record]: nothing -> nothing {
 }
 
 def verify [package: string, scenario: string]: nothing -> nothing {
-    let source = if $package == "herdr-core" { $HERDR } else { $FLAKE }
+    let source = match $package {
+        "herdr-core" => $HERDR
+        "claude" => $CLAUDE
+        _ => $FLAKE
+    }
     let directory = (^mktemp --directory | str trim)
     let original = pwd
     try {

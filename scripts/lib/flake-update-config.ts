@@ -19,7 +19,17 @@ const PackageSchema = CommonSchema.extend({
   releaseUrl: z.url(),
 }).readonly();
 
-const ConfigSchema = z.discriminatedUnion("kind", [NpmSchema, PackageSchema]);
+const AnthropicSchema = CommonSchema.extend({
+  kind: z.literal("anthropic-manifest"),
+  releasesUrl: z.url(),
+  channel: z.string().min(1),
+}).readonly();
+
+const ConfigSchema = z.discriminatedUnion("kind", [
+  NpmSchema,
+  PackageSchema,
+  AnthropicSchema,
+]);
 const ConfigurationsSchema = z.record(z.string(), ConfigSchema).readonly();
 
 export type NpmConfig = z.infer<typeof NpmSchema>;

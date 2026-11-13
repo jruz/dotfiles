@@ -49,7 +49,8 @@ test("rejects unknown configuration names", () => {
   expect(() => readConfiguration("unknown-package")).toThrow();
 });
 
-test("loads both supported configuration kinds", () => {
-  expect(readConfiguration("claude").kind).toBe("npm");
+test("loads every supported configuration kind", () => {
+  expect(readConfiguration("codex").kind).toBe("npm");
   expect(readConfiguration("herdr-core").kind).toBe("release-manifest");
+  expect(readConfiguration("claude").kind).toBe("anthropic-manifest");
 });

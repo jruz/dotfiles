@@ -126,7 +126,7 @@ in
         nixfmt
 
         # AI -------------------------
-        claude-code.packages.${system}.default
+        claude-code
         codex-cli.packages.${system}.default
         gemini-cli
         herdr-core

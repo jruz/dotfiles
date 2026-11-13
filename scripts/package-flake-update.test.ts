@@ -1,6 +1,9 @@
 import { expect, test } from "bun:test";
 import { readFile } from "node:fs/promises";
-import { updatePackage } from "./package-flake-update.ts";
+import {
+  fromAnthropicManifest,
+  updatePackage,
+} from "./package-flake-update.ts";
 
 const content = await readFile(
   new URL(
@@ -75,4 +78,42 @@ test("fails when the package layout no longer matches", () => {
   expect(() => updatePackage('version = "1.0.0";', release)).toThrow(
     "missing target",
   );
+});
+
+const claudeContent = await readFile(
+  new URL(
+    "../home/.config/home-manager/packages/claude-code.nix",
+    import.meta.url,
+  ),
+  "utf-8",
+);
+const platform = { binary: "claude", checksum: "c".repeat(64), size: 1 };
+const anthropicManifest = {
+  version: "3.2.1",
+  commit: "abc",
+  platforms: {
+    "darwin-arm64": platform,
+    "darwin-x64": platform,
+    "linux-arm64": platform,
+    "linux-x64": platform,
+    "win32-x64": { ...platform, binary: "claude.exe" },
+  },
+};
+
+test("updates the Claude package from an Anthropic manifest", () => {
+  const updated = updatePackage(
+    claudeContent,
+    fromAnthropicManifest(anthropicManifest),
+  );
+  expect(updated).toContain('version = "3.2.1";');
+  expect(updated.match(/sha256 = "c{64}";/g)).toHaveLength(4);
+});
+
+test("rejects an Anthropic manifest with invalid checksums", () => {
+  expect(() =>
+    fromAnthropicManifest({
+      ...anthropicManifest,
+      platforms: { "darwin-arm64": { ...platform, checksum: "invalid" } },
+    }),
+  ).toThrow();
 });

@@ -5,7 +5,7 @@ def configuration [package: string]: nothing -> record {
     if $config == null { error make {msg: $"Unknown package: ($package)"} }
     let script = match $config.kind {
         "npm" => "scripts/npm-flake-update.ts"
-        "release-manifest" => "scripts/package-flake-update.ts"
+        "release-manifest" | "anthropic-manifest" => "scripts/package-flake-update.ts"
         _ => { error make {msg: $"Unknown update kind: ($config.kind)"} }
     }
     {

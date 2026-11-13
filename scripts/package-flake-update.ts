@@ -16,6 +16,15 @@ const ReleaseSchema = z
   })
   .readonly();
 
+const AnthropicManifestSchema = z
+  .object({
+    version: z.string(),
+    platforms: z
+      .record(z.string(), z.object({ checksum: z.string() }).readonly())
+      .readonly(),
+  })
+  .readonly();
+
 const TargetSchema = z
   .object({ name: z.string(), sha256: z.string() })
   .readonly();
@@ -46,18 +55,53 @@ export const updatePackage = (content: string, release: unknown): string => {
   );
 };
 
+export const fromAnthropicManifest = (manifest: unknown) => {
+  const { version, platforms } = AnthropicManifestSchema.parse(manifest);
+  const targets = Object.fromEntries(
+    Object.entries(platforms).map(([name, platform]) => [
+      name,
+      { sha256: platform.checksum },
+    ]),
+  );
+  return ReleaseSchema.parse({ version, targets });
+};
+
+const fetchOk = async (url: string): Promise<Response> => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`release request ${url}: ${response.status}`);
+  }
+  return response;
+};
+
+type PackageConfig = Exclude<
+  ReturnType<typeof readConfiguration>,
+  { kind: "npm" }
+>;
+
+const fetchAnthropicRelease = async (releasesUrl: string, channel: string) => {
+  const pointer = await fetchOk(`${releasesUrl}/${channel}`);
+  const version = (await pointer.text()).trim();
+  const manifest = await fetchOk(`${releasesUrl}/${version}/manifest.json`);
+  return fromAnthropicManifest(await manifest.json());
+};
+
+const fetchRelease = async (config: PackageConfig) => {
+  if (config.kind === "anthropic-manifest") {
+    return fetchAnthropicRelease(config.releasesUrl, config.channel);
+  }
+  const response = await fetchOk(config.releaseUrl);
+  return ReleaseSchema.parse(await response.json());
+};
+
 const prepareUpdate = async () => {
   const config = readConfiguration(process.argv[2]);
-  if (config.kind !== "release-manifest") {
-    throw new Error(`not a release-manifest package: ${config.name}`);
+  if (config.kind === "npm") {
+    throw new Error(`not a package definition: ${config.name}`);
   }
   const path = resolve(import.meta.dir, "..", config.path);
   const content = await readFile(path, "utf-8");
-  const response = await fetch(config.releaseUrl);
-  if (!response.ok) {
-    throw new Error(`release request: ${response.status}`);
-  }
-  const release = ReleaseSchema.parse(await response.json());
+  const release = await fetchRelease(config);
   const updated = updatePackage(content, release);
   return { config, path, content, updated, version: release.version };
 };

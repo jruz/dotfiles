@@ -1,12 +1,10 @@
 {
   "claude": {
-    "kind": "npm",
+    "kind": "anthropic-manifest",
     "name": "Claude",
-    "path": "home/.config/home-manager/flake.nix",
-    "packageName": "@anthropic-ai/claude-code",
-    "distTag": "stable",
-    "repository": "sadjow/claude-code-nix",
-    "tagPrefix": "v"
+    "path": "home/.config/home-manager/packages/claude-code.nix",
+    "releasesUrl": "https://downloads.claude.ai/claude-code-releases",
+    "channel": "stable"
   },
   "codex": {
     "kind": "npm",
