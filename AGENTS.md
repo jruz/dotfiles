@@ -170,6 +170,18 @@ just codex-update
 just pi-update
 ```
 
+### macOS Notifications (ntfy)
+
+- Requires `ntfy` and `terminal-notifier`.
+- The subscriber loads `NTFY_CHANNEL_DESKTOP` from `~/.env`.
+- `just ntfy-install` installs and starts the login LaunchAgent.
+- The LaunchAgent restarts the subscriber if it exits.
+- `just ntfy-subscribe` starts a stopped subscriber.
+- Incoming messages show their title and body as macOS notifications with sound.
+- `just ntfy-stop` stops the subscriber.
+- Restart by stopping then subscribing again.
+- Logs: `~/Library/Logs/ntfy-subscribe.log`.
+
 ### System Updates
 
 Ubuntu full system upgrade:

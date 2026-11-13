@@ -336,20 +336,16 @@ nix-package-update-test:
 
 # ─── ntfy ─────────────────────────────────────────────────────────────────────
 
+ntfy-install:
+    nu scripts/ntfy-install.nu
+
 ntfy-subscribe:
     #!/usr/bin/env nu
-    let log_path = ($env.HOME | path join Library Logs ntfy-subscribe.log)
-    let notifier = (which terminal-notifier | first | get path)
-    (^launchctl submit
-      -l io.jruz.ntfy-subscribe
-      -o $log_path
-      -e $log_path
-      -- (which ntfy | first | get path) subscribe
-      $env.NTFY_CHANNEL
-      $"'($notifier)' -title \"$NTFY_TITLE\" -message \"$NTFY_MESSAGE\" -sound default")
+    ^launchctl bootstrap $"gui/(^id -u | str trim)" ($env.HOME | path join Library LaunchAgents io.jruz.ntfy-subscribe.plist)
 
 ntfy-stop:
-    launchctl remove io.jruz.ntfy-subscribe
+    #!/usr/bin/env nu
+    ^launchctl bootout $"gui/(^id -u | str trim)/io.jruz.ntfy-subscribe"
 
 # ─── zellij ───────────────────────────────────────────────────────────────────
 
