@@ -121,31 +121,4 @@ vim.keymap.set('n', ']d', function()
 end)
 vim.keymap.set('n', '<space>lq', vim.diagnostic.setloclist)
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', '<space>lD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', '<space>ld', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', '<space>li', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<space>lh', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>lwa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>lwd', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>lwl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>lt', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>lr', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>la', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>ln', vim.lsp.buf.references, opts)
-  end,
-})
-
 vim.cmd([[command! LSPConfig :edit ~/.config/nvim/lua/config/lsp.lua]])
