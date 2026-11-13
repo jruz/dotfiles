@@ -314,6 +314,23 @@
         "type": "github"
       }
     },
+    "rex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794546118,
+        "narHash": "sha256-C+YTl7Ku6xQFekijJkrY4fvlnMFOwMeE+cAXMwfu/fg=",
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.0.1794546118-g228358.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "ager": "ager",
@@ -327,6 +344,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-zellij": "nixpkgs-zellij",
         "pi": "pi",
+        "rex": "rex",
         "tree-sitter": "tree-sitter",
         "woodpecker-settings": "woodpecker-settings"
       }

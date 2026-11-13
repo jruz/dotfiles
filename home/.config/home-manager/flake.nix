@@ -13,6 +13,10 @@
       url = "github:sadjow/codex-cli-nix?ref=v0.160.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rex = {
+      url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pi = {
       url = "github:earendil-works/pi?ref=v1.4.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +55,7 @@
       home-manager,
       claude-code,
       codex-cli,
+      rex,
       pi,
       woodpecker-settings,
       codeberg-settings,
@@ -76,6 +81,7 @@
               unstable
               claude-code
               codex-cli
+              rex
               pi
               woodpecker-settings
               codeberg-settings
