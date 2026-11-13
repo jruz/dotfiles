@@ -1,0 +1,35 @@
+{
+  "claude": {
+    "kind": "npm",
+    "name": "Claude",
+    "path": "home/.config/home-manager/flake.nix",
+    "packageName": "@anthropic-ai/claude-code",
+    "distTag": "stable",
+    "repository": "sadjow/claude-code-nix",
+    "tagPrefix": "v"
+  },
+  "codex": {
+    "kind": "npm",
+    "name": "Codex",
+    "path": "home/.config/home-manager/flake.nix",
+    "packageName": "@openai/codex",
+    "distTag": "latest",
+    "repository": "sadjow/codex-cli-nix",
+    "tagPrefix": "v"
+  },
+  "pi": {
+    "kind": "npm",
+    "name": "Pi",
+    "path": "home/.config/home-manager/flake.nix",
+    "packageName": "@earendil-works/pi-coding-agent",
+    "distTag": "latest",
+    "repository": "earendil-works/pi",
+    "tagPrefix": "v"
+  },
+  "herdr-core": {
+    "kind": "release-manifest",
+    "name": "Herdr Core",
+    "path": "home/.config/home-manager/packages/herdr-core.nix",
+    "releaseUrl": "https://releases.herdr.dev/core/latest.json"
+  }
+}

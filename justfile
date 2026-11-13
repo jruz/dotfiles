@@ -26,6 +26,7 @@ test:
     just bun::test
     just ts::oxlint-rules-check
     just nushell::test
+    just nix-package-update-test
 
 fix:
     just just-fmt-fix
@@ -146,13 +147,16 @@ nix-hm-update:
 nix-hm-switch:
     #!/usr/bin/env nu
     ^just nix-hm-config
+    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
     let system = (^nix eval
       --impure
       --raw
       --expr "builtins.currentSystem")
     let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
     ^home-manager switch --flake $flake
+    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
     ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
+    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
     ^bat cache --build
 
 # ─── nix darwin ───────────────────────────────────────────────────────────────
@@ -313,14 +317,7 @@ ip-repeater:
 # ─── agents ───────────────────────────────────────────────────────────────────
 
 agent-update AGENT:
-    #!/usr/bin/env nu
-    let result = (^sandbox bun run scripts/check-agent-update.ts {{ AGENT }} | complete)
-    print $result.stderr
-    if $result.exit_code == 0 {
-      ^just nix-hm-switch
-    } else if $result.exit_code != 2 {
-      exit 1
-    }
+    nu scripts/nix-package-update.nu {{ quote(AGENT) }}
 
 claude-update:
     just agent-update claude
@@ -332,14 +329,10 @@ pi-update:
     just agent-update pi
 
 herdr-core-update:
-    #!/usr/bin/env nu
-    let result = (^sandbox bun run scripts/herdr-core-update.ts | complete)
-    print $result.stderr
-    if $result.exit_code == 0 {
-      ^just nix-hm-switch
-    } else if $result.exit_code != 2 {
-      exit 1
-    }
+    nu scripts/nix-package-update.nu herdr-core
+
+nix-package-update-test:
+    nu --no-config-file scripts/nix-package-update.test.nu
 
 # ─── ntfy ─────────────────────────────────────────────────────────────────────
 
