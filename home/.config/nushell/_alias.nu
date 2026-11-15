@@ -36,8 +36,8 @@ alias zl = ^zellij list-sessions
 alias zml = ^zellij action move-tab left
 alias zmr = ^zellij action move-tab right
 
-alias rconf = ^sudoedit /boot/efi/EFI/refind/refind.conf
-alias ngconf = ^sudoedit /etc/nginx/nginx.conf
+alias rconf = ^sudo --edit /boot/efi/EFI/refind/refind.conf # nu-lint-ignore: dangerous_file_operations
+alias ngconf = ^sudo --edit /etc/nginx/nginx.conf # nu-lint-ignore: dangerous_file_operations
 
 alias hms = ^just --justfile ~/dev/dotfiles/justfile nix-hm-switch
 alias hme = ^just --justfile ~/dev/dotfiles/justfile nix-hm-edit
@@ -53,7 +53,7 @@ alias a = ^yay -Sya --nocleanmenu --noeditmenu --nodiffmenu --noremovemake --cle
 alias upp = ^sudo pacman -Syu
 alias upa = ^pacaur -k
 alias logs = ^journalctl -ef
-alias dnsconf = ^sudoedit /etc/resolv.conf
+alias dnsconf = ^sudo --edit /etc/resolv.conf # nu-lint-ignore: dangerous_file_operations
 alias disks = ^lsblk -o NAME,SIZE,FSTYPE,PARTLABEL,MOUNTPOINT -e 7
 alias errors = ^journalctl -xe
 alias sx = ^startx
@@ -78,7 +78,7 @@ alias la = ^lsd --almost-all --group-dirs=first --human-readable --long
 alias las = ^lsd --almost-all --group-dirs=first --human-readable --long --dereference
 alias lad = ^lsd --almost-all --group-dirs=first --human-readable --long --sort=time
 
-alias hosts = ^sudoedit /etc/hosts
+alias hosts = ^sudo --edit /etc/hosts # nu-lint-ignore: dangerous_file_operations
 alias cls = clear
 alias .. = cd ..
 alias ... = cd ../..
