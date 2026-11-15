@@ -1,27 +1,29 @@
-local function osc52_copy(selection)
-  return function(lines)
-    local text = table.concat(lines, "\n")
-    local b64 = vim.base64.encode(text)
-    local osc52 = string.format("\027]52;%s;%s\007", selection, b64)
-    io.stdout:write(osc52)
-    io.stdout:flush()
-  end
+local function osc52_register(selection)
+  local contents = { { '' }, 'v' }
+  local copy = require('vim.ui.clipboard.osc52').copy(selection)
+
+  return {
+    copy = function(lines, regtype)
+      contents = { vim.deepcopy(lines), regtype }
+      copy(lines)
+    end,
+    paste = function()
+      return vim.deepcopy(contents)
+    end,
+  }
 end
 
-local function osc52_paste(register)
-  return function()
-    return vim.fn.getreg(register)
-  end
-end
+local clipboard = osc52_register('+')
+local primary = osc52_register('*')
 
 vim.g.clipboard = {
   name = 'OSC52',
   copy = {
-    ['+'] = osc52_copy('c'),
-    ['*'] = osc52_copy('p'),
+    ['+'] = clipboard.copy,
+    ['*'] = primary.copy,
   },
   paste = {
-    ['+'] = osc52_paste('+'),
-    ['*'] = osc52_paste('*'),
+    ['+'] = clipboard.paste,
+    ['*'] = primary.paste,
   },
 }
