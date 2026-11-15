@@ -2,7 +2,7 @@ use std/assert
 use nushell-files.nu discover
 
 def fixture []: nothing -> path {
-    let root = mktemp --directory
+    let root = (mktemp --directory | path expand)
     ^git init --initial-branch main $root
     $root
 }
