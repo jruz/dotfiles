@@ -29,6 +29,7 @@ cask "orbstack"
 # cask "protonvpn"
 cask "signal"
 # cask "smartgit"
+cask "tailscale-app"
 cask "telegram"
 cask "the-unarchiver"
 cask "tor-browser"
@@ -46,12 +47,10 @@ mas "Bitwarden", id: 1352778147
 mas "Developer", id: 640199958
 mas "MEGAVPN", id: 6456784858
 mas "Moom", id: 419330170
-mas "NextDNS", id: 1464122853
 mas "OneTab", id: 1540160809
 mas "Pages", id: 361309726
 mas "SimplyJSON for Safari", id: 1495193038
 mas "TestFlight", id: 899247664
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vimkey", id: 1585682577
-mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
