@@ -5,3 +5,6 @@ themes/*
 !themes/ghostty.json
 !settings.json
 !keys.json
+!layouts/
+layouts/*
+!layouts/my-layout.json
