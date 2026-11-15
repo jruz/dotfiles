@@ -1,6 +1,7 @@
 tap "keith/formulae"
 
 brew "mas"
+brew "nicotine-plus"
 brew "keith/formulae/reminders-cli", trusted: true
 brew "stow"
 brew "terminal-notifier"

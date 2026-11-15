@@ -56,6 +56,7 @@
                   "/System/Applications/Reminders.app"
                   "/System/Applications/Calendar.app"
                   "/Applications/Transmission.app"
+                  "/Users/jruz/Applications/Nicotine+.app"
                   "/Applications/MEGAVPN.app"
                   "/System/Applications/Calculator.app"
                   "/Applications/1Password.app"
