@@ -22,7 +22,10 @@ def convert []: record<source: string, destination: string> -> string {
     $track.destination
 }
 
-def main [path?: directory]: nothing -> nothing {
+# Convert FLAC files in a directory to MP3.
+def main [
+    path?: directory # Directory containing FLAC files, defaults to the current directory.
+]: nothing -> nothing {
     emit-log "main" {path: $path}
     try {
         let threads = (sys cpu | length)

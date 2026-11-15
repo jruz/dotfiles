@@ -56,7 +56,10 @@ def commit-update [config: record, version: string]: nothing -> nothing {
     ]
 }
 
-def main [package: string]: nothing -> nothing {
+# Update a flake package, switch Home Manager, and commit the result.
+def main [
+    package: string # Package name from flake-updates.json.
+]: nothing -> nothing {
     try {
         let config = configuration $package
         ensure-clean $config

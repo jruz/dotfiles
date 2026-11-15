@@ -1,8 +1,9 @@
 #!/usr/bin/env nu
 
+# Send a message to ntfy channels.
 def main [
-    target: string
-    message: string
+    target: string # Channel group: mobile, desktop, or all.
+    message: string # Message body to send.
 ] {
     let channels = match $target {
         "mobile" => [$env.NTFY_CHANNEL_MOBILE]
