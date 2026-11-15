@@ -2,6 +2,7 @@ mod ts '.just/ts.justfile'
 mod bun '.just/bun.justfile'
 mod nushell '.just/nushell.justfile'
 mod nix '.just/nix.justfile'
+mod docker '.just/docker.justfile'
 
 # ─── main ─────────────────────────────────────────────────────────────────────
 
