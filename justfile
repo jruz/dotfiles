@@ -207,10 +207,11 @@ ssh-keygen EMAIL:
 
 ssh-setup:
     #!/usr/bin/env nu
+    let keys = ["~/.ssh/minisforum" "~/.ssh/github"] | path expand
     if (^uname) == "Darwin" {
-      ^ssh-add --apple-use-keychain ~/.ssh/jruz
+      ^/usr/bin/ssh-add --apple-use-keychain ...$keys
     } else {
-      ^ssh-add ~/.ssh/jruz
+      ^ssh-add ...$keys
     }
 
 ssh-list:
@@ -218,13 +219,6 @@ ssh-list:
 
 ssh-remove-all:
     ssh-add -D
-
-ssh-add-all:
-    just ssh-remove-all
-    ssh-add ~/.ssh/ovh
-    ssh-add ~/.ssh/mini
-    ssh-add ~/.ssh/codeberg
-    ssh-add ~/.ssh/github
 
 # ─── git ──────────────────────────────────────────────────────────────────────
 
@@ -241,10 +235,10 @@ git-config:
 github-auth:
     #!/usr/bin/env nu
     ^gh auth login
-    ^gh ssh-key add ~/.ssh/jruz.pub
+    ^gh ssh-key add ~/.ssh/github.pub
 
 github-signing:
-    gh ssh-key add ~/.ssh/jruz.pub --type signing
+    gh ssh-key add ~/.ssh/github.pub --type signing
 
 # ─── stow ─────────────────────────────────────────────────────────────────────
 

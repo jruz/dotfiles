@@ -1,6 +1,5 @@
 identity: ~/.config/sops/age/keys.txt
 entries:
-  - home/.config/git/allowed_signers
   - home/.config/nix/nix.conf
   - home/.ssh/config
   - home/.env
