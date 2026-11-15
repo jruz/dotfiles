@@ -74,6 +74,13 @@ The repository uses a two-tier package management approach:
 - Run `just ts::fix` for lint fixes and formatting.
 - Run `just bun::test` for script tests.
 
+## Herdr
+
+- Personal configuration: `home/.config/herdr-app/`.
+- Git tracking exceptions: `home/.config/herdr-app/.gitignore`.
+- Mod development and deployment guidance: `~/dev/projects/herdr-mods/AGENTS.md`.
+- Herdr Core package updates: `just herdr-core-update`.
+
 ## Common Commands
 
 ### Initial Setup
