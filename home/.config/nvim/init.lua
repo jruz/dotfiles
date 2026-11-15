@@ -46,6 +46,7 @@ vim.keymap.set({ 'n', 'i', 'v' }, '<LeftMouse>', function()
   end
   local buffer = vim.api.nvim_win_get_buf(mouse.winid)
   if vim.bo[buffer].filetype ~= "neo-tree" then
+    vim.api.nvim_set_current_win(mouse.winid)
     return
   end
   vim.cmd.stopinsert()
