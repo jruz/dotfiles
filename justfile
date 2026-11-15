@@ -174,8 +174,8 @@ nix-darwin-switch:
     sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 
 nix-darwin-update:
-    nix flake update --flake ~/.config/nix-darwin
-    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
+    nix flake update --flake ~/dev/dotfiles/mac/nix-darwin
+    just nix-darwin-switch
 
 # ─── lua ──────────────────────────────────────────────────────────────────────
 
