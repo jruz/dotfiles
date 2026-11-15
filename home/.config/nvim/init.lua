@@ -29,9 +29,19 @@ vim.o.splitright = true
 vim.o.syntax = "on"
 vim.o.mouse = "a"
 vim.o.mousescroll = "ver:1,hor:0"
+local resizing_split = false
+local function forward_mouse(key)
+  vim.api.nvim_feedkeys(vim.keycode(key), 'n', false)
+end
+
 vim.keymap.set({ 'n', 'i', 'v' }, '<LeftMouse>', function()
   local mouse = vim.fn.getmousepos()
-  if mouse.winid == 0 or mouse.line == 0 then
+  resizing_split = mouse.winid ~= 0 and mouse.line == 0
+  if resizing_split then
+    forward_mouse('<LeftMouse>')
+    return
+  end
+  if mouse.winid == 0 then
     return
   end
   local buffer = vim.api.nvim_win_get_buf(mouse.winid)
@@ -42,8 +52,17 @@ vim.keymap.set({ 'n', 'i', 'v' }, '<LeftMouse>', function()
   vim.api.nvim_set_current_win(mouse.winid)
   vim.fn.cursor(mouse.line, mouse.column)
 end)
-vim.keymap.set({'n', 'i', 'v'}, '<LeftDrag>', '<Nop>')
-vim.keymap.set({'n', 'i', 'v'}, '<LeftRelease>', '<Nop>')
+vim.keymap.set({ 'n', 'i', 'v' }, '<LeftDrag>', function()
+  if resizing_split then
+    forward_mouse('<LeftDrag>')
+  end
+end)
+vim.keymap.set({ 'n', 'i', 'v' }, '<LeftRelease>', function()
+  if resizing_split then
+    resizing_split = false
+    forward_mouse('<LeftRelease>')
+  end
+end)
 vim.keymap.set({'n', 'i', 'v'}, '<RightMouse>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<MiddleMouse>', '<Nop>')
 vim.keymap.set({'n', 'i', 'v'}, '<2-LeftMouse>', '<Nop>')
