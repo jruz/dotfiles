@@ -21,6 +21,10 @@
       url = "github:earendil-works/pi?ref=v1.4.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agent-tool-check = {
+      url = "github:jruz/agent-tool-check";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     woodpecker-settings = {
       url = "git+https://codeberg.org/jruz/woodpecker-settings?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,6 +61,7 @@
       codex-cli,
       rex,
       pi,
+      agent-tool-check,
       woodpecker-settings,
       codeberg-settings,
       claude-statusline,
@@ -83,6 +88,7 @@
               codex-cli
               rex
               pi
+              agent-tool-check
               woodpecker-settings
               codeberg-settings
               claude-statusline

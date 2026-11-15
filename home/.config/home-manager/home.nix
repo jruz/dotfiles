@@ -8,6 +8,7 @@
   codex-cli,
   rex,
   pi,
+  agent-tool-check,
   woodpecker-settings,
   codeberg-settings,
   claude-statusline,
@@ -130,6 +131,7 @@ in
         gemini-cli
         herdr-core
         pi.packages.${system}.default
+        agent-tool-check.packages.${system}.default
 
         # PERSONAL PROJECTS -------
         woodpecker-settings.packages.${system}.default
