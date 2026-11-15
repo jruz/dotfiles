@@ -67,4 +67,4 @@ vim.api.nvim_set_keymap("n", "<C-P>", table.concat(command, ","), { noremap = tr
 
 vim.keymap.set("n", "<C-B>", telescope.buffers, {})
 vim.keymap.set("n", "<C-F>", telescope.live_grep, {})
-vim.keymap.set("n", "<C-D>", tabs.list_tabs, {})
+vim.keymap.set("n", "<leader>ft", tabs.list_tabs, { desc = "Find tabs" })
