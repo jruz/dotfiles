@@ -5,13 +5,11 @@ import {
   updatePackage,
 } from "./package-flake-update.ts";
 
-const content = await readFile(
-  new URL(
-    "../home/.config/home-manager/packages/herdr-core.nix",
-    import.meta.url,
-  ),
-  "utf-8",
+const packageUrl = new URL(
+  "../home/.config/home-manager/packages/herdr-core.nix",
+  import.meta.url,
 );
+const content = await readFile(packageUrl, "utf-8");
 const artifact = { sha256: "a".repeat(64) };
 const release = {
   version: "9.8.7",
@@ -80,13 +78,11 @@ test("fails when the package layout no longer matches", () => {
   );
 });
 
-const claudeContent = await readFile(
-  new URL(
-    "../home/.config/home-manager/packages/claude-code.nix",
-    import.meta.url,
-  ),
-  "utf-8",
+const claudePackageUrl = new URL(
+  "../home/.config/home-manager/packages/claude-code.nix",
+  import.meta.url,
 );
+const claudeContent = await readFile(claudePackageUrl, "utf-8");
 const platform = { binary: "claude", checksum: "c".repeat(64), size: 1 };
 const anthropicManifest = {
   version: "3.2.1",
@@ -101,12 +97,11 @@ const anthropicManifest = {
 };
 
 test("updates the Claude package from an Anthropic manifest", () => {
-  const updated = updatePackage(
-    claudeContent,
-    fromAnthropicManifest(anthropicManifest),
-  );
+  const anthropicRelease = fromAnthropicManifest(anthropicManifest);
+  const updated = updatePackage(claudeContent, anthropicRelease);
   expect(updated).toContain('version = "3.2.1";');
-  expect(updated.match(/sha256 = "c{64}";/g)).toHaveLength(4);
+  const checksums = updated.match(/sha256 = "c{64}";/g);
+  expect(checksums).toHaveLength(4);
 });
 
 test("rejects an Anthropic manifest with invalid checksums", () => {

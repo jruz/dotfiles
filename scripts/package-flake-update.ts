@@ -9,19 +9,23 @@ const ArtifactSchema = z
   .object({ sha256: z.string().regex(/^[a-f0-9]{64}$/) })
   .readonly();
 
+const TargetNameSchema = z.string();
+const ArtifactsSchema = z.record(TargetNameSchema, ArtifactSchema).readonly();
+
 const ReleaseSchema = z
   .object({
     version: z.string().regex(/^[0-9A-Za-z.+-]+$/),
-    targets: z.record(z.string(), ArtifactSchema).readonly(),
+    targets: ArtifactsSchema,
   })
   .readonly();
+
+const PlatformSchema = z.object({ checksum: z.string() }).readonly();
+const PlatformsSchema = z.record(TargetNameSchema, PlatformSchema).readonly();
 
 const AnthropicManifestSchema = z
   .object({
     version: z.string(),
-    platforms: z
-      .record(z.string(), z.object({ checksum: z.string() }).readonly())
-      .readonly(),
+    platforms: PlatformsSchema,
   })
   .readonly();
 
@@ -35,34 +39,31 @@ export const updatePackage = (content: string, release: unknown): string => {
   if (!versionPattern.test(content)) {
     throw new Error("missing version: package definition");
   }
-  const matches = Array.from(
-    content.matchAll(
-      /name = "(?<name>[^"]+)";\s+sha256 = "(?<sha256>[^"]+)";/g,
-    ),
+  const targetMatches = content.matchAll(
+    /name = "(?<name>[^"]+)";\s+sha256 = "(?<sha256>[^"]+)";/g,
   );
+  const matches = Array.from(targetMatches);
   if (matches.length === 0) {
     throw new Error("missing target: package definition");
   }
-  return matches.reduce(
-    (updated, match) => {
-      const target = TargetSchema.parse(match.groups);
-      const artifact = ArtifactSchema.parse(targets[target.name]);
-      return updated.replace(match[0], () =>
-        match[0].replace(target.sha256, artifact.sha256),
-      );
-    },
-    content.replace(versionPattern, `version = "${version}";`),
-  );
+  const versioned = content.replace(versionPattern, `version = "${version}";`);
+  return matches.reduce((updated, match) => {
+    const target = TargetSchema.parse(match.groups);
+    const artifact = ArtifactSchema.parse(targets[target.name]);
+    return updated.replace(match[0], () =>
+      match[0].replace(target.sha256, artifact.sha256),
+    );
+  }, versioned);
 };
 
 export const fromAnthropicManifest = (manifest: unknown) => {
   const { version, platforms } = AnthropicManifestSchema.parse(manifest);
-  const targets = Object.fromEntries(
-    Object.entries(platforms).map(([name, platform]) => [
-      name,
-      { sha256: platform.checksum },
-    ]),
-  );
+  const platformsEntries = Object.entries(platforms);
+  const targetEntries = platformsEntries.map(([name, platform]) => [
+    name,
+    { sha256: platform.checksum },
+  ]);
+  const targets: unknown = Object.fromEntries(targetEntries);
   return ReleaseSchema.parse({ version, targets });
 };
 
@@ -83,7 +84,8 @@ const fetchAnthropicRelease = async (releasesUrl: string, channel: string) => {
   const pointer = await fetchOk(`${releasesUrl}/${channel}`);
   const version = (await pointer.text()).trim();
   const manifest = await fetchOk(`${releasesUrl}/${version}/manifest.json`);
-  return fromAnthropicManifest(await manifest.json());
+  const body: unknown = await manifest.json();
+  return fromAnthropicManifest(body);
 };
 
 const fetchRelease = async (config: PackageConfig) => {
@@ -91,7 +93,8 @@ const fetchRelease = async (config: PackageConfig) => {
     return fetchAnthropicRelease(config.releasesUrl, config.channel);
   }
   const response = await fetchOk(config.releaseUrl);
-  return ReleaseSchema.parse(await response.json());
+  const body: unknown = await response.json();
+  return ReleaseSchema.parse(body);
 };
 
 const prepareUpdate = async () => {

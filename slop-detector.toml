@@ -1,4 +1,5 @@
 [ignore.by-rule]
+no-external-in-each = ["home/.local/bin/,flac-to-mp3"]
 no-long-lines = ["justfile"]
 no-error-make = ["home/.config/nushell/", "home/.config/tmux/sidebar/view.nu"]
 no-complete-rethrow = ["home/.local/bin/,kill-port"]

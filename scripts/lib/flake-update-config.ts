@@ -30,7 +30,10 @@ const ConfigSchema = z.discriminatedUnion("kind", [
   PackageSchema,
   AnthropicSchema,
 ]);
-const ConfigurationsSchema = z.record(z.string(), ConfigSchema).readonly();
+const ConfigurationKeySchema = z.string();
+const ConfigurationsSchema = z
+  .record(ConfigurationKeySchema, ConfigSchema)
+  .readonly();
 
 export type NpmConfig = z.infer<typeof NpmSchema>;
 

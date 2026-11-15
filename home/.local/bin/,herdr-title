@@ -1,9 +1,11 @@
 #!/usr/bin/env nu
 
+use std/log
+
 const INFO = {SeverityText: INFO, SeverityNumber: 9}
 
-def emit-log [body: string, attributes: record] {
-    print --stderr ({
+def emit-log [body: string, attributes: record]: nothing -> nothing {
+    log info ({
         Timestamp: (date now | format date "%+")
         ...$INFO
         Body: $body
@@ -11,17 +13,10 @@ def emit-log [body: string, attributes: record] {
     } | to json --raw)
 }
 
-def parse-result []: record -> record {
-    let result = $in
-    if $result.exit_code != 0 {
-        error make {msg: $"command failed: ($result.stderr)($result.stdout)"}
-    }
-    $result.stdout | from json
-}
-
 def app [args: list<string>]: nothing -> record {
     emit-log app {args: $args}
-    ^herdr-app ...$args | complete | parse-result
+    let output = ^herdr-app ...$args
+    $output | from json
 }
 
 def ancestors [processes: table, pid: int]: nothing -> list<int> {
@@ -30,33 +25,49 @@ def ancestors [processes: table, pid: int]: nothing -> list<int> {
     [$pid] | append (ancestors $processes $parent)
 }
 
-def find-tab [parents: list<int>]: nothing -> record {
+def matching-tabs [parents: list<int>]: nothing -> list<record> {
     emit-log find-tab {parents: $parents}
-    let matches = ((app [ls]).spaces
+    let tabs = ((app [ls]).spaces
         | where machine == null
         | get tabs
-        | flatten
-        | each {|tab|
-            $tab.terminals
-            | each {|terminal|
-                let details = (^hc get $terminal.terminal | complete | parse-result)
-                if $details.foreground?.pid? in $parents {
+        | flatten)
+    mut matches = []
+    for tab in $tabs {
+        for terminal in $tab.terminals {
+            let output = ^hc get $terminal.terminal
+            let details = ($output | from json)
+            if $details.foreground?.pid? in $parents {
+                $matches ++= [
                     {id: $tab.id, label: $details.labels."herdr.tab"?}
-                }
+                ]
             }
         }
-        | flatten)
+    }
+    $matches
+}
+
+# Rename the Herdr tab that owns this process.
+def main [
+    title: string # New tab title.
+]: nothing -> nothing {
+    emit-log main {title: $title}
+    if ($title | str trim | is-empty) {
+        log error "provide a non-empty title"
+        exit 1
+    }
+    let output = ^ps -axo pid=,ppid=
+    let processes = ($output | detect columns --no-headers | rename pid ppid | into int pid ppid)
+    let parents = (ancestors $processes $nu.pid)
+    let matches = matching-tabs $parents
     if ($matches | length) != 1 {
-        error make {msg: "could not uniquely identify this process's Herdr tab"}
+        log error "could not uniquely identify this process's Herdr tab"
+        exit 1
     }
     let tab = ($matches | first)
     if $tab.label != $tab.id {
-        error make {msg: "Herdr tab label does not match the app's tab ID"}
+        log error "Herdr tab label does not match the app's tab ID"
+        exit 1
     }
-    $tab
-}
-
-def rename-tab [tab: record, title: string] {
     emit-log rename-tab {tab: $tab, title: $title}
     app [do tab.rename ({id: $tab.id, name: $title} | to json --raw)]
     let actual = (app [ls]
@@ -66,26 +77,8 @@ def rename-tab [tab: record, title: string] {
         | get name
         | first)
     if $actual != $title {
-        error make {msg: "Herdr did not retain the requested title"}
+        log error "Herdr did not retain the requested title"
+        exit 1
     }
     print $actual
-}
-
-# Rename the Herdr tab that owns this process.
-def main [
-    title: string # New tab title.
-]: nothing -> nothing {
-    emit-log main {title: $title}
-    if ($title | str trim | is-empty) {
-        print --stderr "ERROR: provide a non-empty title"
-        exit 1
-    }
-    try {
-        let processes = (^ps -axo pid=,ppid= | detect columns --no-headers | rename pid ppid | into int pid ppid)
-        let parents = (ancestors $processes $nu.pid)
-        rename-tab (find-tab $parents) $title
-    } catch {|err|
-        print --stderr $"ERROR: ($err.msg)"
-        exit 1
-    }
 }

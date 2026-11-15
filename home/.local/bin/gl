@@ -1,5 +1,7 @@
 #!/usr/bin/env nu
 
+use std/log
+
 def format-commit [width: int, color: string]: record -> string {
     let commit = $in
     let committer = ($commit.committer | fill --width $width)
@@ -21,17 +23,12 @@ def --wrapped main [
     ...args: string # Additional arguments passed to git log.
 ]: nothing -> nothing {
     let color = if (is-terminal --stdout) { 'always' } else { 'auto' }
-    let result = (^git log $'--color=($color)' --pretty=format:'%C(brightblack)%ad%C(reset) | %C(blue)%h%C(reset) | %x1f%cn%x1f%s%x1f (%ar)' --date=short --max-count=20 ...$args | complete)
-    if $result.exit_code != 0 {
-        print --stderr --no-newline $result.stderr
-        exit $result.exit_code
-    }
-
-    let lines = ($result.stdout | lines)
+    let output = ^git log $'--color=($color)' --pretty=format:'%C(brightblack)%ad%C(reset) | %C(blue)%h%C(reset) | %x1f%cn%x1f%s%x1f (%ar)' --date=short --max-count=20 ...$args
+    let lines = ($output | lines)
     let commits = ($lines
         | parse --regex '^(?<prefix>[^\x1f]*)\x1f(?<committer>[^\x1f]*)\x1f(?<subject>[^\x1f]*)\x1f(?<age>.*)$')
     if ($commits | length) != ($lines | length) {
-        print --stderr 'gl: Git output format is unsupported; remove output-changing flags such as --oneline, --stat, or --patch'
+        log error 'gl: Git output format is unsupported; remove output-changing flags such as --oneline, --stat, or --patch'
         exit 1
     }
 

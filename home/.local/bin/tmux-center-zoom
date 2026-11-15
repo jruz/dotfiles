@@ -36,9 +36,12 @@ def save-state [placeholder: string]: record -> nothing {
 }
 
 def load-state [placeholder: string]: nothing -> record {
-    $STATE_KEYS
-    | each {|key| {key: $key, value: (pane-option $placeholder $"@center-zoom-($key)")} }
-    | transpose --header-row --as-record
+    mut state = {}
+    for key in $STATE_KEYS {
+        let value = pane-option $placeholder $"@center-zoom-($key)"
+        $state = ($state | insert $key $value)
+    }
+    $state
 }
 
 def placeholders []: nothing -> list<string> {

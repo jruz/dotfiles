@@ -40,10 +40,11 @@ clean:
 
 stow:
     #!/usr/bin/env nu
+    use std/log
     match $nu.os-info.name {
       "macos" => { ^just stow-mac }
       "linux" => { ^just stow-linux }
-      $other => { error make {msg: $"Unsupported Stow platform: ($other)"} }
+      $other => { log error $"Unsupported Stow platform: ($other)"; exit 1 }
     }
 
 bootstrap:
@@ -295,18 +296,20 @@ ubuntu-update:
 
 ip-router:
     #!/usr/bin/env nu
+    use std/log
     let match = arp -a | lines | find '7c:10:c9:b3:b0:d8' | first
-    if $match == null { error make {msg: "Router not found in ARP table"} }
+    if $match == null { log error "Router not found in ARP table"; exit 1 }
     let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
-    if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
+    if $ip == null { log error "Could not parse IP from ARP entry"; exit 1 }
     print $"http://($ip)"
 
 ip-repeater:
     #!/usr/bin/env nu
+    use std/log
     let match = arp -a | lines | find '8:8a:f1:f:69:f6' | first
-    if $match == null { error make {msg: "Repeater not found in ARP table"} }
+    if $match == null { log error "Repeater not found in ARP table"; exit 1 }
     let ip = $match | parse -r '\((?<ip>[0-9.]+)\)' | get ip.0?
-    if $ip == null { error make {msg: "Could not parse IP from ARP entry"} }
+    if $ip == null { log error "Could not parse IP from ARP entry"; exit 1 }
     print $"http://($ip)"
 
 # ─── agents ───────────────────────────────────────────────────────────────────
@@ -327,7 +330,7 @@ herdr-core-update:
     nu scripts/nix-package-update.nu herdr-core
 
 nix-package-update-test:
-    nu --no-config-file scripts/nix-package-update.test.nu
+    nu scripts/nix-package-update.test.nu
 
 # ─── ntfy ─────────────────────────────────────────────────────────────────────
 

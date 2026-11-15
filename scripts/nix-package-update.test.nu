@@ -1,4 +1,5 @@
 use std/assert
+use std/log
 
 const RUNNER = path self nix-package-update.nu
 const LOCKFILE = "home/.config/home-manager/flake.lock"
@@ -44,8 +45,7 @@ const SCENARIOS = [
 ]
 
 def run [command: string, arguments: list<string>]: nothing -> nothing {
-    let result = (run-external $command ...$arguments | complete)
-    if $result.exit_code != 0 { error make {msg: $result.stderr} }
+    run-external $command ...$arguments
 }
 
 def prepare []: nothing -> nothing {
@@ -89,7 +89,7 @@ def verify-result [case: record, result: record]: nothing -> nothing {
     }
 }
 
-def verify [package: string, scenario: string]: nothing -> nothing {
+def verify [package: string, scenario: string]: nothing -> record {
     let source = match $package {
         "herdr-core" => $HERDR
         "claude" => $CLAUDE
@@ -97,7 +97,7 @@ def verify [package: string, scenario: string]: nothing -> nothing {
     }
     let directory = (^mktemp --directory | str trim)
     let original = pwd
-    try {
+    let outcome = try {
         cd $directory
         prepare
         if $scenario == "dirty-source" {
@@ -112,20 +112,26 @@ def verify [package: string, scenario: string]: nothing -> nothing {
             SCENARIO: $scenario
             SOURCE: $source
             PACKAGE: $package
-        } { ^nu --no-config-file $RUNNER $package | complete })
+        } { ^nu $RUNNER $package | complete })
         verify-result {source: $source, scenario: $scenario} $result
+        {success: true}
     } catch {|error|
-        cd $original
-        rm --recursive --force $directory
-        error make {msg: $error.msg}
+        {success: false, error: $error}
     }
     cd $original
     rm --recursive --force $directory
+    $outcome
 }
 
-for package in [herdr-core claude codex pi] {
-    for scenario in $SCENARIOS {
-        verify $package $scenario
-        print $"PASS ($package): ($scenario)"
+def main []: nothing -> nothing {
+    for package in [herdr-core claude codex pi] {
+        for scenario in $SCENARIOS {
+            let outcome = verify $package $scenario
+            if not $outcome.success {
+                log error $outcome.error.rendered
+                exit 1
+            }
+            print $"PASS ($package): ($scenario)"
+        }
     }
 }

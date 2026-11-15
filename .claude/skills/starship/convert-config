@@ -140,8 +140,9 @@ def main []: nothing -> nothing {
 
   let template = open --raw ($skill_dir | path join "starship.toml")
 
-  let result = replacements | reduce --fold $template {|row, acc|
-    $acc | str replace --all $row.0 $row.1
+  mut result = $template
+  for row in (replacements) {
+    $result = ($result | str replace --all $row.0 $row.1)
   }
 
   $result | save --force $target_file

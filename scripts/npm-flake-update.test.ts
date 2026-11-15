@@ -21,28 +21,32 @@ const content = `{
 }`;
 
 test("reads a configured repository and tag prefix", () => {
-  expect(readCurrentVersion(content, config)).toBe("1.2.3");
+  const version = readCurrentVersion(content, config);
+  expect(version).toBe("1.2.3");
 });
 
 test("updates only the configured flake reference", () => {
-  expect(updateFlake(content, config, "2.0.0-beta.1")).toBe(
-    content.replace("release-1.2.3", "release-2.0.0-beta.1"),
-  );
+  const updated = updateFlake(content, config, "2.0.0-beta.1");
+  const expected = content.replace("release-1.2.3", "release-2.0.0-beta.1");
+  expect(updated).toBe(expected);
 });
 
 test("escapes repository punctuation instead of matching another input", () => {
-  expect(() =>
-    updateFlake(content.replace("tool.nix", "tool-nix"), config, "2.0.0"),
-  ).toThrow("missing flake reference");
+  const unrelated = content.replace("tool.nix", "tool-nix");
+  expect(() => updateFlake(unrelated, config, "2.0.0")).toThrow(
+    "missing flake reference",
+  );
 });
 
 test("leaves an up-to-date flake unchanged", () => {
-  expect(updateFlake(content, config, "1.2.3")).toBe(content);
+  const updated = updateFlake(content, config, "1.2.3");
+  expect(updated).toBe(content);
 });
 
 test("supports tag names without a prefix", () => {
   const unprefixed = { ...config, tagPrefix: "" };
-  expect(readCurrentVersion(content, unprefixed)).toBe("release-1.2.3");
+  const version = readCurrentVersion(content, unprefixed);
+  expect(version).toBe("release-1.2.3");
 });
 
 test("rejects unknown configuration names", () => {

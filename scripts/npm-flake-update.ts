@@ -8,8 +8,10 @@ import {
 import { log } from "./lib/log.ts";
 import { output } from "./lib/output.ts";
 
+const RegistryTagSchema = z.string();
+const RegistryTagsSchema = z.record(RegistryTagSchema, RegistryTagSchema);
 const NpmRegistrySchema = z
-  .object({ "dist-tags": z.record(z.string(), z.string()) })
+  .object({ "dist-tags": RegistryTagsSchema })
   .readonly();
 
 const referencePattern = (config: NpmConfig): RegExp => {
@@ -35,8 +37,9 @@ export const updateFlake = (
   version: string,
 ): string => {
   readCurrentVersion(content, config);
+  const pattern = referencePattern(config);
   return content.replace(
-    referencePattern(config),
+    pattern,
     () => `github:${config.repository}?ref=${config.tagPrefix}${version}`,
   );
 };
@@ -48,7 +51,8 @@ const fetchLatestVersion = async (config: NpmConfig): Promise<string> => {
   if (!response.ok) {
     throw new Error(`npm registry returned ${response.status}`);
   }
-  const data = NpmRegistrySchema.parse(await response.json());
+  const body: unknown = await response.json();
+  const data = NpmRegistrySchema.parse(body);
   return z.string().min(1).parse(data["dist-tags"][config.distTag]);
 };
 
@@ -71,7 +75,8 @@ const main = async (): Promise<void> => {
     log.ok(`${config.name} is up to date`);
     process.exit(2);
   }
-  await writeFile(path, updateFlake(content, config, latest));
+  const updated = updateFlake(content, config, latest);
+  await writeFile(path, updated);
   log.ok(`${config.path} updated`);
   output.json({ version: latest });
 };

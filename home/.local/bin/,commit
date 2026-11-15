@@ -70,36 +70,30 @@ def main [
     }
     let skill = $env.HOME | path join .pi agent skills commit SKILL.md
     let start = date now
-    try {
-        let output = if $claude {
-            run-claude $skill
-        } else if $gemini {
-            run-gemini $skill
-        } else if $codex {
-            run-codex $skill
-        } else {
-            run-claude $skill
-        }
-        let result: record<status: string, message: string> = $output | from json
-        let elapsed = (date now) - $start | format duration sec
-        if ($result.message | str trim | is-empty) {
-            log error "The agent returned an empty message. Inspect git status and git log before retrying."
-            exit 1
-        }
-        match $result.status {
-            committed => { print $result.message }
-            blocked => { log error $result.message }
-            _ => {
-                log error "The agent returned an invalid status. Inspect git status and git log before retrying."
-                exit 1
-            }
-        }
-        print ""
-        log info $"Took ($elapsed)."
-        if $result.status == "blocked" { exit 1 }
-    } catch {|failure|
-        log error $failure.rendered
-        log error "Commit execution or reply failed. Inspect git status and git log before retrying."
+    let output = if $claude {
+        run-claude $skill
+    } else if $gemini {
+        run-gemini $skill
+    } else if $codex {
+        run-codex $skill
+    } else {
+        run-claude $skill
+    }
+    let result: record<status: string, message: string> = $output | from json
+    let elapsed = (date now) - $start | format duration sec
+    if ($result.message | str trim | is-empty) {
+        log error "The agent returned an empty message. Inspect git status and git log before retrying."
         exit 1
     }
+    match $result.status {
+        committed => { print $result.message }
+        blocked => { log error $result.message }
+        _ => {
+            log error "The agent returned an invalid status. Inspect git status and git log before retrying."
+            exit 1
+        }
+    }
+    print ""
+    log info $"Took ($elapsed)."
+    if $result.status == "blocked" { exit 1 }
 }

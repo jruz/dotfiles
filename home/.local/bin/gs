@@ -1,27 +1,27 @@
 #!/usr/bin/env nu
 
 def parse-files []: list<string> -> list<record> {
-    reduce --fold {files: [], rename: false} {|entry, state|
-        if $state.rename {
-            let file = ($state.files | last)
-            return {
-                files: ($state.files | drop | append ($file | update path $'($entry) → ($file.path)'))
-                rename: false
-            }
+    let entries = $in
+    mut files = []
+    mut rename = false
+    for entry in $entries {
+        if $rename {
+            let file = ($files | last)
+            $files = ($files | drop | append ($file | update path $'($entry) → ($file.path)'))
+            $rename = false
+            continue
         }
         let index = ($entry | str substring 0..0)
         let worktree = ($entry | str substring 1..1)
-        {
-            files: ($state.files | append {
-                index: $index
-                worktree: $worktree
-                path: ($entry | str substring 3..)
-                conflict: ($entry | str substring 0..1 | $in in ['DD' 'AU' 'UD' 'UA' 'DU' 'AA' 'UU'])
-            })
-            rename: ($index in ['R' 'C'] or $worktree in ['R' 'C'])
-        }
+        $files ++= [{
+            index: $index
+            worktree: $worktree
+            path: ($entry | str substring 3..)
+            conflict: ($entry | str substring 0..1 | $in in ['DD' 'AU' 'UD' 'UA' 'DU' 'AA' 'UU'])
+        }]
+        $rename = ($index in ['R' 'C'] or $worktree in ['R' 'C'])
     }
-    | get files
+    $files
 }
 
 def paint [text: string, style: record]: nothing -> string {
@@ -54,17 +54,11 @@ def --wrapped main [
     ...args: string # Arguments passed to git status instead of the grouped view.
 ]: nothing -> nothing {
     if ($args | is-not-empty) {
-        let result = (^git status ...$args | complete)
-        print --no-newline $result.stdout
-        print --stderr --no-newline $result.stderr
-        exit $result.exit_code
+        ^git status ...$args
+        return
     }
-    let result = (^git status --porcelain=v1 --untracked-files=all --null | complete)
-    if $result.exit_code != 0 {
-        print --stderr --no-newline $result.stderr
-        exit $result.exit_code
-    }
-    let entries = ($result.stdout | split row (char nul) | where $it != '')
+    let output = ^git status --porcelain=v1 --untracked-files=all --null
+    let entries = ($output | split row (char nul) | where $it != '')
     let colored = (is-terminal --stdout)
     let files = ($entries | parse-files | sort-by path)
     if ($files | is-empty) {
