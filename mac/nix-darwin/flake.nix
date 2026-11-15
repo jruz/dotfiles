@@ -78,7 +78,7 @@
                 NSAutomaticQuoteSubstitutionEnabled = false;
                 NSAutomaticSpellingCorrectionEnabled = false;
                 "com.apple.mouse.tapBehavior" = null;
-                "com.apple.swipescrolldirection" = null;
+                "com.apple.swipescrolldirection" = false;
               };
               finder = {
                 AppleShowAllExtensions = true;
