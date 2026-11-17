@@ -9,6 +9,10 @@
       url = "github:sadjow/codex-cli-nix?ref=v0.160.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    calendula = {
+      url = "github:pimalaya/calendula";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rex = {
       url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +58,7 @@
       nixpkgs-zellij,
       home-manager,
       codex-cli,
+      calendula,
       rex,
       pi,
       agent-tool-check,
@@ -85,6 +90,7 @@
             inherit
               unstable
               codex-cli
+              calendula
               rex
               pi
               agent-tool-check

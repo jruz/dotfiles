@@ -1,0 +1,13 @@
+[accounts.radicale]
+default = true
+caldav.server = "https://dav.jruz.io/"
+caldav.auth.basic.username = "javi@jruz.io"
+caldav.auth.basic.password.command = [
+  "/usr/bin/security",
+  "find-generic-password",
+  "-a",
+  "javi@jruz.io",
+  "-s",
+  "calendula:dav.jruz.io",
+  "-w",
+]

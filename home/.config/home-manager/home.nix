@@ -6,6 +6,7 @@
   claude-code,
   herdr-core,
   codex-cli,
+  calendula,
   rex,
   pi,
   agent-tool-check,
@@ -34,6 +35,7 @@ in
       with pkgs;
       [
         watch
+        calendula.packages.${system}.default
         curl
         fd
         fontconfig
@@ -175,6 +177,8 @@ in
       ]);
 
     file = pkgs.lib.optionalAttrs isDarwin {
+      "Library/Application Support/calendula".source =
+        config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/calendula";
       "Library/Application Support/nushell".source =
         config.lib.file.mkOutOfStoreSymlink "${homeDirectory}/.config/nushell";
     };
