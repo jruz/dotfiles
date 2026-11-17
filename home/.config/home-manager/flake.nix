@@ -34,7 +34,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-statusline = {
-      url = "github:jruz/claude-statusline?ref=v0.4.4";
+      url = "github:jruz/claude-statusline?ref=v0.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ager = {
