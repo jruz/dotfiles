@@ -54,18 +54,18 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1791455542,
-        "narHash": "sha256-B0ygfXzSUfbIbBgHYx02Bn4UDZ29z6eBNGQm1ycMF7M=",
-        "ref": "refs/tags/v0.4.3",
-        "rev": "8ecac949d6b682ed07710125761b40ce0d672581",
-        "revCount": 97,
-        "type": "git",
-        "url": "https://codeberg.org/jruz/claude-statusline"
+        "lastModified": 1794921007,
+        "narHash": "sha256-ZBB3+7ciYDu3Bn1Y1rH56rwXh2lxhSUm1q9FQVdqlZw=",
+        "owner": "jruz",
+        "repo": "claude-statusline",
+        "rev": "e847687b09c32d31e0c5c1cb5b52b0957dced446",
+        "type": "github"
       },
       "original": {
-        "ref": "refs/tags/v0.4.3",
-        "type": "git",
-        "url": "https://codeberg.org/jruz/claude-statusline"
+        "owner": "jruz",
+        "ref": "v0.4.4",
+        "repo": "claude-statusline",
+        "type": "github"
       }
     },
     "codeberg-settings": {
