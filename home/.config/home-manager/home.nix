@@ -13,6 +13,7 @@
   woodpecker-settings,
   codeberg-settings,
   claude-statusline,
+  woodpecker-channel,
   ager,
   git-add-lines,
   tree-sitter,
@@ -139,6 +140,7 @@ in
         woodpecker-settings.packages.${system}.default
         codeberg-settings.packages.${system}.default
         claude-statusline.packages.${system}.default
+        woodpecker-channel.packages.${system}.default
         ager.packages.${system}.default
         git-add-lines.packages.${system}.default
 

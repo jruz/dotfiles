@@ -37,6 +37,10 @@
       url = "github:jruz/claude-statusline?ref=v0.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    woodpecker-channel = {
+      url = "github:jruz/woodpecker-channel?ref=v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ager = {
       url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,6 +69,7 @@
       woodpecker-settings,
       codeberg-settings,
       claude-statusline,
+      woodpecker-channel,
       ager,
       git-add-lines,
       tree-sitter,
@@ -97,6 +102,7 @@
               woodpecker-settings
               codeberg-settings
               claude-statusline
+              woodpecker-channel
               ager
               git-add-lines
               tree-sitter

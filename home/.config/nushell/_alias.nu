@@ -96,8 +96,8 @@ alias n = ^npm
 alias tags = ^ctags -R --exclude=.git --exclude=node_modules
 alias tf = ^terraform
 
-alias cl = ^claude --dangerously-skip-permissions
-alias clc = ^claude --dangerously-skip-permissions --continue
+alias cl = ^claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel
+alias clc = ^claude --dangerously-skip-permissions --dangerously-load-development-channels server:woodpecker-channel --continue
 alias co = ^codex --dangerously-bypass-approvals-and-sandbox
 alias pic = ^pi --continue
 alias pi-debug = ^pi --extension ~/dev/projects/pi-extensions/extensions/chat-preview.ts
