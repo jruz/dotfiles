@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     woodpecker-channel = {
-      url = "github:jruz/woodpecker-channel?ref=v0.1.0";
+      url = "github:jruz/woodpecker-channel?ref=v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ager = {
