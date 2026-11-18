@@ -11,6 +11,8 @@ check:
     just parallel \
       just-fmt-check \
       nix::check \
+      nix::hm-config-check \
+      nix::hm-build-check \
       shellcheck-check \
       lua-check \
       nushell::check \
