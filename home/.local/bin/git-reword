@@ -1,0 +1,14 @@
+#!/usr/bin/env nu
+
+# Replace the message of an earlier commit without an interactive rebase.
+def main [
+    commit: string # Commit to reword, as a hash or relative ref.
+    message: string # New commit message.
+]: nothing -> nothing {
+    let target = (^git rev-parse --verify $"($commit)^{commit}" | str trim)
+    let subject = (^git log --format=%s --max-count=1 $target | str trim)
+    ^git commit --allow-empty --only --message $"amend! ($subject)" --message $message
+    with-env {GIT_SEQUENCE_EDITOR: ':'} {
+        ^git rebase --interactive --autosquash $"($target)~1"
+    }
+}

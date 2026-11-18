@@ -40,8 +40,6 @@
 	command = ~/.local/bin/git-hook-post-merge
 [commit]
 	gpgsign = true
-[alias]
-	reword = "!f() { old=$(git log --format=%s -n 1 $1); git commit --allow-empty --only -m \"amend! $old\" -m \"$2\"; GIT_SEQUENCE_EDITOR=: git rebase --interactive --autosquash $1~1; }; f"
 [credential]
 	helper =
 [url "git@github.com:"]
