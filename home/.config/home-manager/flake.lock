@@ -716,16 +716,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1774978270,
-        "narHash": "sha256-fcFEfoALrbpBD6rWogxJ7FNVlvDQgswoX9ylRgko+8Q=",
+        "lastModified": 1794047988,
+        "narHash": "sha256-vA7vOBDonYNmJMn0xyHqonzTlRBjzXjKiQ4Zq33kgSk=",
         "owner": "tree-sitter",
         "repo": "tree-sitter",
-        "rev": "cd5b087cd9f45ca6d93ab1954f6b7c8534f324d2",
+        "rev": "3fb7be49145acfb07e33b61ed5689e2b6771b2e9",
         "type": "github"
       },
       "original": {
         "owner": "tree-sitter",
-        "ref": "v0.26.8",
+        "ref": "v0.27.2",
         "repo": "tree-sitter",
         "type": "github"
       }
