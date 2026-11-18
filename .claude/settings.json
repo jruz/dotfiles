@@ -62,7 +62,6 @@
       "Read(~/.config/sops/age/keys.txt)",
       "Bash(brew bundle:*)",
       "Bash(darwin-rebuild switch:*)",
-      "Bash(docker run:*)",
       "Bash(home-manager switch:*)",
       "Bash(nix flake update:*)",
       "Bash(nix upgrade-nix:*)",
