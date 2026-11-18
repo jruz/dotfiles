@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     calendula = {
-      url = "github:pimalaya/calendula";
+      url = "github:pimalaya/calendula?ref=v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rex = {
