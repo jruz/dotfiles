@@ -14,6 +14,7 @@
   codeberg-settings,
   claude-statusline,
   woodpecker-channel,
+  template-sync,
   ager,
   git-add-lines,
   tree-sitter,
@@ -141,6 +142,7 @@ in
         codeberg-settings.packages.${system}.default
         claude-statusline.packages.${system}.default
         woodpecker-channel.packages.${system}.default
+        template-sync.packages.${system}.default
         ager.packages.${system}.default
         git-add-lines.packages.${system}.default
 

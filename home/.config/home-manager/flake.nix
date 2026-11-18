@@ -41,6 +41,10 @@
       url = "github:jruz/woodpecker-channel?ref=v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    template-sync = {
+      url = "github:jruz/template-sync?ref=v0.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ager = {
       url = "git+https://codeberg.org/jruz/ager?ref=refs/tags/v0.1.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,6 +74,7 @@
       codeberg-settings,
       claude-statusline,
       woodpecker-channel,
+      template-sync,
       ager,
       git-add-lines,
       tree-sitter,
@@ -103,6 +108,7 @@
               codeberg-settings
               claude-statusline
               woodpecker-channel
+              template-sync
               ager
               git-add-lines
               tree-sitter
