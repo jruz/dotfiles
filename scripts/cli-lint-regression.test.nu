@@ -59,10 +59,17 @@ def test-flac-converter-reports-validation-and-command-failures []: nothing -> n
 
 def test-commit-wrapper-preserves-success-and-original-failure []: nothing -> nothing {
     let root = fixture [gum]
-    let success = invoke $root {command: ',commit', arguments: [], mode: success}
+    let skill = $root | path join .pi agent skills commit
+    mkdir $skill
+    "Synthetic skill" | save ($skill | path join SKILL.md)
+    let success = with-env {HOME: $root} {
+        invoke $root {command: ',commit', arguments: [], mode: success}
+    }
     assert equal $success.exit_code 0 $success.stderr
     assert str contains $success.stdout "Synthetic commit"
-    let failure = invoke $root {command: ',commit', arguments: [], mode: failure}
+    let failure = with-env {HOME: $root} {
+        invoke $root {command: ',commit', arguments: [], mode: failure}
+    }
     assert ($failure.exit_code != 0)
     assert str contains $failure.stderr "synthetic gum failure"
     rm --recursive $root
