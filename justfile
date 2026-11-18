@@ -146,6 +146,9 @@ nix-hm-update:
     nix flake update --flake ./home/.config/home-manager/
     just nix-hm-switch
 
+nix-hm-input-update INPUT:
+    nix flake update {{ quote(INPUT) }} --flake ./home/.config/home-manager/
+
 nix-hm-switch:
     #!/usr/bin/env nu
     ^just nix-hm-config
