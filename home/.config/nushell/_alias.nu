@@ -42,8 +42,8 @@ alias ngconf = ^sudo --edit /etc/nginx/nginx.conf # nu-lint-ignore: dangerous_fi
 alias hms = ^just --justfile ~/dev/dotfiles/justfile home-manager::switch
 alias hme = ^just --justfile ~/dev/dotfiles/justfile home-manager::edit
 
-alias nds = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-switch
-alias nde = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-edit
+alias nds = ^just --justfile ~/dev/dotfiles/justfile nix-darwin::switch
+alias nde = ^just --justfile ~/dev/dotfiles/justfile nix-darwin::edit
 
 alias off = ^shutdown -h now
 alias x = exit

@@ -18,9 +18,9 @@ The following commands are banned in `.claude/settings.json` and MUST be run via
 | Banned Command | Use Instead | Purpose |
 |----------------|-------------|---------|
 | `brew bundle` | `just mac-update` | Update macOS GUI applications |
-| `darwin-rebuild switch` | `just nix-darwin-switch` | Apply macOS system settings |
+| `darwin-rebuild switch` | `just nix-darwin::switch` | Apply macOS system settings |
 | `home-manager switch` | `just home-manager::switch` | Apply Home Manager configuration |
-| `nix flake update` | `just home-manager::update` or `just nix-darwin-update` | Update flake dependencies |
+| `nix flake update` | `just home-manager::update` or `just nix-darwin::update` | Update flake dependencies |
 | `nix upgrade-nix` | `just nix-core-upgrade` | Upgrade Nix itself |
 | `nix-channel --add` | `just nix-channel-upgrade VERSION` | Add/update Nix channels |
 | `nix-channel --update` | `just nix-channel-upgrade VERSION` | Update Nix channels |
@@ -53,10 +53,10 @@ just nix-full-upgrade        # Full upgrade: Nix + Home Manager + nix-darwin
 ### macOS System Configuration (nix-darwin)
 
 ```bash
-just nix-darwin-switch       # Apply nix-darwin system config
-just nix-darwin-update       # Update nix-darwin flake and apply
-just nix-darwin-edit         # Edit nix-darwin config in nvim
-just nix-darwin-diff         # Compare active config with dotfiles version
+just nix-darwin::switch      # Apply nix-darwin system config
+just nix-darwin::update      # Update nix-darwin flake and apply
+just nix-darwin::edit        # Edit nix-darwin config in nvim
+just nix-darwin::diff        # Compare active config with dotfiles version
 ```
 
 ### Dotfiles Deployment
@@ -111,7 +111,7 @@ just mac-update
 nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
 
 # 2. Apply changes using just recipe (NOT darwin-rebuild)
-just nix-darwin-switch
+just nix-darwin::switch
 ```
 
 ## Common Mistakes to Avoid

@@ -3,6 +3,7 @@ mod bun '.just/bun.justfile'
 mod nushell '.just/nushell.justfile'
 mod nix '.just/nix.justfile'
 mod home-manager '.just/home-manager.justfile'
+mod nix-darwin '.just/nix-darwin.justfile'
 mod docker '.just/docker.justfile'
 mod tools '.just/tools.justfile'
 
@@ -61,7 +62,7 @@ bootstrap:
       ^just home-manager::switch
       print ""
       print "Setting up nix-darwin..."
-      ^just nix-darwin-switch
+      ^just nix-darwin::switch
     } else {
       ^just stow-linux
       print ""
@@ -130,27 +131,10 @@ nix-full-upgrade:
     just nix-core-upgrade
     just home-manager::update
     just home-manager::switch
-    just nix-darwin-update
+    just nix-darwin::update
 
 nix-clean:
     nix-collect-garbage
-
-# ─── nix darwin ───────────────────────────────────────────────────────────────
-
-nix-darwin-diff:
-    vimdiff ~/.config/nix-darwin/flake.nix ~/dev/dotfiles/mac/nix-darwin/flake.nix
-
-nix-darwin-edit:
-    cp -r ~/.config/nix-darwin ~/dev/dotfiles/mac
-    nvim ~/dev/dotfiles/mac/nix-darwin/flake.nix
-
-nix-darwin-switch:
-    cp -r ~/dev/dotfiles/mac/nix-darwin ~/.config
-    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
-
-nix-darwin-update:
-    nix flake update --flake ~/dev/dotfiles/mac/nix-darwin
-    just nix-darwin-switch
 
 # ─── lua ──────────────────────────────────────────────────────────────────────
 

@@ -141,25 +141,25 @@ The nix-darwin configuration in `mac/nix-darwin/flake.nix` manages system-level 
 Edit nix-darwin configuration:
 
 ```bash
-just nix-darwin-edit
+just nix-darwin::edit
 ```
 
 Apply nix-darwin changes:
 
 ```bash
-just nix-darwin-switch
+just nix-darwin::switch
 ```
 
 Update nix-darwin flake:
 
 ```bash
-just nix-darwin-update
+just nix-darwin::update
 ```
 
 View differences between active and dotfiles version:
 
 ```bash
-just nix-darwin-diff
+just nix-darwin::diff
 ```
 
 The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied via `darwin-rebuild`.
@@ -218,7 +218,7 @@ When modifying configurations:
 1. Edit files in the appropriate `home*/` directory within this repository
 2. Run the appropriate `just stow-*` command to symlink changes
 3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `just home-manager::switch`
-4. For macOS system settings, edit `mac/nix-darwin/flake.nix` and use `just nix-darwin-switch`
+4. For macOS system settings, edit `mac/nix-darwin/flake.nix` and use `just nix-darwin::switch`
 
 ## Platform-Specific Notes
 

@@ -40,8 +40,8 @@ alias hms='just --justfile ~/dev/dotfiles/justfile home-manager::switch'
 alias hme='just --justfile ~/dev/dotfiles/justfile home-manager::edit'
 
 # Nix Darwin
-alias nds='just --justfile ~/dev/dotfiles/justfile nix-darwin-switch'
-alias nde='just --justfile ~/dev/dotfiles/justfile nix-darwin-edit'
+alias nds='just --justfile ~/dev/dotfiles/justfile nix-darwin::switch'
+alias nde='just --justfile ~/dev/dotfiles/justfile nix-darwin::edit'
 
 # System
 alias off='shutdown -h now'

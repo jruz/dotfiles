@@ -71,7 +71,7 @@ Apply: `cd home-mac && brew bundle`
 
 ### macOS System Settings (nix-darwin)
 Edit: `mac/nix-darwin/flake.nix`
-Apply: `just nix-darwin-switch`
+Apply: `just nix-darwin::switch`
 
 ## Stow Commands
 
