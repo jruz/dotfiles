@@ -14,25 +14,9 @@ const NpmSchema = CommonSchema.extend({
   tagPrefix: z.string(),
 }).readonly();
 
-const PackageSchema = CommonSchema.extend({
-  kind: z.literal("release-manifest"),
-  releaseUrl: z.url(),
-}).readonly();
-
-const AnthropicSchema = CommonSchema.extend({
-  kind: z.literal("anthropic-manifest"),
-  releasesUrl: z.url(),
-  channel: z.string().min(1),
-}).readonly();
-
-const ConfigSchema = z.discriminatedUnion("kind", [
-  NpmSchema,
-  PackageSchema,
-  AnthropicSchema,
-]);
 const ConfigurationKeySchema = z.string();
 const ConfigurationsSchema = z
-  .record(ConfigurationKeySchema, ConfigSchema)
+  .record(ConfigurationKeySchema, NpmSchema)
   .readonly();
 
 export type NpmConfig = z.infer<typeof NpmSchema>;
@@ -40,5 +24,5 @@ export type NpmConfig = z.infer<typeof NpmSchema>;
 export const readConfiguration = (name: unknown) => {
   const key = z.string().min(1).parse(name);
   const configs = ConfigurationsSchema.parse(configurations);
-  return ConfigSchema.parse(configs[key]);
+  return NpmSchema.parse(configs[key]);
 };

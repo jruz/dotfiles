@@ -79,7 +79,6 @@ The repository uses a two-tier package management approach:
 - Personal configuration: `home/.config/herdr-app/`.
 - Git tracking exceptions: `home/.config/herdr-app/.gitignore`.
 - Mod development and deployment guidance: `~/dev/projects/herdr-mods/AGENTS.md`.
-- Herdr Core package updates: `just herdr-core-update`.
 
 ## Common Commands
 
@@ -165,12 +164,18 @@ just nix-darwin-diff
 
 The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied via `darwin-rebuild`.
 
-### Agent Updates
+### Renovate
 
-- Claude and Codex are packaged in `home/.config/home-manager/packages/`.
-- Pi is a flake input in `home/.config/home-manager/flake.nix`.
-- `just claude-update` updates Claude, runs nix-hm-switch and commits.
-- `just pi-update` updates Pi, runs nix-hm-switch and commits.
+- The self-hosted runner reads `renovate.json` and opens PRs that automerge after CI passes.
+- Releases wait 7 days, except `jruz/*` repositories.
+- Pin every Home Manager dependency to a stable release so Renovate can bump it:
+  - Git repository with a flake: add a flake input with `?ref=vX.Y.Z` and add the repository to the flake regex manager. Renovate refreshes `flake.lock`.
+  - Release binaries: package them in `home/.config/home-manager/packages/` with a `version` and per-platform hashes, add a regex manager for the version, and add the hash source to `scripts/renovate-package-hashes.nu`. Renovate refreshes the hashes.
+  - npm release channel: use the npm datasource with `followTag` pointing at the stable dist-tag.
+- Post-upgrade commands must match `allowedCommands` in `~/dev/projects/server/server/renovate/config.json`.
+- Pi is updated manually with `just pi-update`.
+- Validate with `just tools::check`.
+- Preview lookups with `just tools::renovate-dry-run` and read `tmp/renovate-dry-run.log`.
 
 ### macOS Notifications (ntfy)
 

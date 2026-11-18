@@ -58,9 +58,6 @@ const fetchLatestVersion = async (config: NpmConfig): Promise<string> => {
 
 const prepareUpdate = async () => {
   const config = readConfiguration(process.argv[2]);
-  if (config.kind !== "npm") {
-    throw new Error(`not an npm flake: ${config.name}`);
-  }
   const path = resolve(import.meta.dir, "..", config.path);
   const content = await readFile(path, "utf-8");
   const current = readCurrentVersion(content, config);

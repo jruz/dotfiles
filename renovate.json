@@ -10,8 +10,44 @@
         "(?<depName>[\\w-]+) = \\{\\s*url = \"github:(?<packageName>jruz/[\\w-]+|pimalaya/calendula|tree-sitter/tree-sitter)\\?ref=(?<currentValue>v[^\"]+)\";"
       ],
       "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^home/\\.config/home-manager/packages/claude\\.nix$/"
+      ],
+      "matchStrings": ["version = \"(?<currentValue>[^\"]+)\";"],
+      "depNameTemplate": "claude",
+      "packageNameTemplate": "@anthropic-ai/claude-code",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^home/\\.config/home-manager/packages/codex\\.nix$/"
+      ],
+      "matchStrings": ["version = \"(?<currentValue>[^\"]+)\";"],
+      "depNameTemplate": "codex",
+      "packageNameTemplate": "openai/codex",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^rust-v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^home/\\.config/home-manager/packages/herdr-core\\.nix$/"
+      ],
+      "matchStrings": ["version = \"(?<currentValue>[^\"]+)\";"],
+      "depNameTemplate": "herdr-core",
+      "datasourceTemplate": "custom.herdr-core"
     }
   ],
+  "customDatasources": {
+    "herdr-core": {
+      "defaultRegistryUrlTemplate": "https://releases.herdr.dev/core/latest.json",
+      "transformTemplates": ["{\"releases\": [{\"version\": version}]}"]
+    }
+  },
   "rangeStrategy": "pin",
   "semanticCommits": "disabled",
   "commitMessagePrefix": "[deps] {{{depName}}}:",
@@ -29,7 +65,16 @@
       "minimumReleaseAge": "0 days"
     },
     {
+      "matchPackageNames": ["@anthropic-ai/claude-code"],
+      "followTag": "stable"
+    },
+    {
+      "matchDatasources": ["custom.herdr-core"],
+      "minimumReleaseAge": null
+    },
+    {
       "matchManagers": ["custom.regex"],
+      "matchFileNames": ["home/.config/home-manager/flake.nix"],
       "postUpgradeTasks": {
         "installTools": {
           "nix": {}
@@ -38,6 +83,20 @@
           "nix --extra-experimental-features 'nix-command flakes' flake update {{{depName}}} --flake ./home/.config/home-manager"
         ],
         "fileFilters": ["home/.config/home-manager/flake.lock"],
+        "executionMode": "update"
+      }
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchFileNames": ["home/.config/home-manager/packages/*.nix"],
+      "postUpgradeTasks": {
+        "installTools": {
+          "nix": {}
+        },
+        "commands": [
+          "nix --extra-experimental-features 'nix-command flakes' run github:NixOS/nixpkgs/nixos-26.05#nushell -- scripts/renovate-package-hashes.nu {{{depName}}}"
+        ],
+        "fileFilters": ["home/.config/home-manager/packages/*.nix"],
         "executionMode": "update"
       }
     },

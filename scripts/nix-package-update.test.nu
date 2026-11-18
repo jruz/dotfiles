@@ -4,20 +4,13 @@ use std/log
 const RUNNER = path self nix-package-update.nu
 const LOCKFILE = "home/.config/home-manager/flake.lock"
 const FLAKE = "home/.config/home-manager/flake.nix"
-const HERDR = "home/.config/home-manager/packages/herdr-core.nix"
-const CLAUDE = "home/.config/home-manager/packages/claude.nix"
 
 const SANDBOX = '#!/usr/bin/env nu
 use std/assert
 def main [runtime: string, action: string, script: string, package: string] {
     assert equal [$runtime $action] [bun run]
     assert equal $package $env.PACKAGE
-    let expected = if $package in [herdr-core claude] {
-        "scripts/package-flake-update.ts"
-    } else {
-        "scripts/npm-flake-update.ts"
-    }
-    assert equal $script $expected
+    assert equal $script "scripts/npm-flake-update.ts"
     if $env.SCENARIO == "current" { exit 2 }
     if $env.SCENARIO == "updater-failure" { exit 1 }
     "updated" | save --append $env.SOURCE
@@ -49,8 +42,8 @@ def run [command: string, arguments: list<string>]: nothing -> nothing {
 }
 
 def prepare []: nothing -> nothing {
-    mkdir bin home/.config/home-manager/packages
-    for file in [$LOCKFILE $FLAKE $HERDR $CLAUDE unrelated] {
+    mkdir bin home/.config/home-manager
+    for file in [$LOCKFILE $FLAKE unrelated] {
         "original" | save $file
     }
     $SANDBOX | save bin/sandbox
@@ -90,11 +83,7 @@ def verify-result [case: record, result: record]: nothing -> nothing {
 }
 
 def verify [package: string, scenario: string]: nothing -> record {
-    let source = match $package {
-        "herdr-core" => $HERDR
-        "claude" => $CLAUDE
-        _ => $FLAKE
-    }
+    let source = $FLAKE
     let directory = (^mktemp --directory | str trim)
     let original = pwd
     let outcome = try {
@@ -124,7 +113,7 @@ def verify [package: string, scenario: string]: nothing -> record {
 }
 
 def main []: nothing -> nothing {
-    for package in [herdr-core claude pi] {
+    for package in [pi] {
         for scenario in $SCENARIOS {
             let outcome = verify $package $scenario
             if not $outcome.success {

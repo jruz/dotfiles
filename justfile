@@ -315,14 +315,8 @@ ip-repeater:
 agent-update AGENT:
     nu scripts/nix-package-update.nu {{ quote(AGENT) }}
 
-claude-update:
-    just agent-update claude
-
 pi-update:
     just agent-update pi
-
-herdr-core-update:
-    nu scripts/nix-package-update.nu herdr-core
 
 nix-package-update-test:
     nu scripts/nix-package-update.test.nu

@@ -1,11 +1,4 @@
 {
-  "claude": {
-    "kind": "anthropic-manifest",
-    "name": "Claude",
-    "path": "home/.config/home-manager/packages/claude.nix",
-    "releasesUrl": "https://downloads.claude.ai/claude-code-releases",
-    "channel": "stable"
-  },
   "pi": {
     "kind": "npm",
     "name": "Pi",
@@ -14,11 +7,5 @@
     "distTag": "latest",
     "repository": "earendil-works/pi",
     "tagPrefix": "v"
-  },
-  "herdr-core": {
-    "kind": "release-manifest",
-    "name": "Herdr Core",
-    "path": "home/.config/home-manager/packages/herdr-core.nix",
-    "releaseUrl": "https://releases.herdr.dev/core/latest.json"
   }
 }

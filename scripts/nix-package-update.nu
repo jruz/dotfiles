@@ -28,7 +28,6 @@ def main [
     }
     let script = match $package_config.kind {
         "npm" => "scripts/npm-flake-update.ts"
-        "release-manifest" | "anthropic-manifest" => "scripts/package-flake-update.ts"
         _ => {
             log error $"Unknown update kind: ($package_config.kind)"
             exit 1
