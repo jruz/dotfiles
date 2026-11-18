@@ -79,7 +79,7 @@ test("fails when the package layout no longer matches", () => {
 });
 
 const claudePackageUrl = new URL(
-  "../home/.config/home-manager/packages/claude-code.nix",
+  "../home/.config/home-manager/packages/claude.nix",
   import.meta.url,
 );
 const claudeContent = await readFile(claudePackageUrl, "utf-8");

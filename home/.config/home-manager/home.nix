@@ -2,9 +2,9 @@
   config,
   pkgs,
   unstable,
-  claude-code,
+  claude,
+  codex,
   herdr-core,
-  codex-cli,
   calendula,
   rex,
   pi,
@@ -129,8 +129,8 @@ in
         nixfmt
 
         # AI -------------------------
-        claude-code
-        codex-cli.packages.${system}.default
+        claude
+        codex
         gemini-cli
         herdr-core
         pi.packages.${system}.default

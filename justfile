@@ -318,9 +318,6 @@ agent-update AGENT:
 claude-update:
     just agent-update claude
 
-codex-update:
-    just agent-update codex
-
 pi-update:
     just agent-update pi
 

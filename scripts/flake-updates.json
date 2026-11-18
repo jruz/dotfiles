@@ -2,18 +2,9 @@
   "claude": {
     "kind": "anthropic-manifest",
     "name": "Claude",
-    "path": "home/.config/home-manager/packages/claude-code.nix",
+    "path": "home/.config/home-manager/packages/claude.nix",
     "releasesUrl": "https://downloads.claude.ai/claude-code-releases",
     "channel": "stable"
-  },
-  "codex": {
-    "kind": "npm",
-    "name": "Codex",
-    "path": "home/.config/home-manager/flake.nix",
-    "packageName": "@openai/codex",
-    "distTag": "latest",
-    "repository": "sadjow/codex-cli-nix",
-    "tagPrefix": "v"
   },
   "pi": {
     "kind": "npm",

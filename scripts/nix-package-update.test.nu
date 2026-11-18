@@ -5,7 +5,7 @@ const RUNNER = path self nix-package-update.nu
 const LOCKFILE = "home/.config/home-manager/flake.lock"
 const FLAKE = "home/.config/home-manager/flake.nix"
 const HERDR = "home/.config/home-manager/packages/herdr-core.nix"
-const CLAUDE = "home/.config/home-manager/packages/claude-code.nix"
+const CLAUDE = "home/.config/home-manager/packages/claude.nix"
 
 const SANDBOX = '#!/usr/bin/env nu
 use std/assert
@@ -124,7 +124,7 @@ def verify [package: string, scenario: string]: nothing -> record {
 }
 
 def main []: nothing -> nothing {
-    for package in [herdr-core claude codex pi] {
+    for package in [herdr-core claude pi] {
         for scenario in $SCENARIOS {
             let outcome = verify $package $scenario
             if not $outcome.success {

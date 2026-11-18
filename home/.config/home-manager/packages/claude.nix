@@ -43,7 +43,7 @@ let
   );
 in
 stdenv.mkDerivation {
-  pname = "claude-code";
+  pname = "claude";
   inherit version;
 
   src = fetchurl {

@@ -54,7 +54,7 @@ test("rejects unknown configuration names", () => {
 });
 
 test("loads every supported configuration kind", () => {
-  expect(readConfiguration("codex").kind).toBe("npm");
+  expect(readConfiguration("pi").kind).toBe("npm");
   expect(readConfiguration("herdr-core").kind).toBe("release-manifest");
   expect(readConfiguration("claude").kind).toBe("anthropic-manifest");
 });

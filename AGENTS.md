@@ -167,15 +167,10 @@ The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied v
 
 ### Agent Updates
 
-Claude Code, Codex and Pi are installed via Nix flake inputs in `home/.config/home-manager/flake.nix`.
-
-Check npm for the latest version, update flake.nix, and run nix-hm-switch:
-
-```bash
-just claude-update
-just codex-update
-just pi-update
-```
+- Claude and Codex are packaged in `home/.config/home-manager/packages/`.
+- Pi is a flake input in `home/.config/home-manager/flake.nix`.
+- `just claude-update` updates Claude, runs nix-hm-switch and commits.
+- `just pi-update` updates Pi, runs nix-hm-switch and commits.
 
 ### macOS Notifications (ntfy)
 

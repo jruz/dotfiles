@@ -4,10 +4,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    codex-cli = {
-      url = "github:sadjow/codex-cli-nix?ref=v0.160.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     calendula = {
       url = "github:pimalaya/calendula?ref=v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,7 +59,6 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      codex-cli,
       calendula,
       rex,
       pi,
@@ -86,17 +81,17 @@
           unstable = nixpkgs-unstable.legacyPackages.${system};
           unfree = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "claude-code";
+            config.allowUnfreePredicate = pkg: nixpkgs.lib.getName pkg == "claude";
           };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            claude-code = unfree.callPackage ./packages/claude-code.nix { };
+            claude = unfree.callPackage ./packages/claude.nix { };
+            codex = pkgs.callPackage ./packages/codex.nix { };
             herdr-core = pkgs.callPackage ./packages/herdr-core.nix { };
             inherit
               unstable
-              codex-cli
               calendula
               rex
               pi
