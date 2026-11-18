@@ -377,22 +377,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-zellij": {
-      "locked": {
-        "lastModified": 1775576191,
-        "narHash": "sha256-4nNEti+RMAk8ZQHd84FtqZ40yJKS2keub6e6Qc78IPs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8777c98512d0f9fd40955686a4c759fa1eb2ebad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8777c98512d0f9fd40955686a4c759fa1eb2ebad",
-        "type": "github"
-      }
-    },
     "pi": {
       "inputs": {
         "nixpkgs": [
@@ -460,7 +444,6 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs-zellij": "nixpkgs-zellij",
         "pi": "pi",
         "rex": "rex",
         "template-sync": "template-sync",

@@ -2,7 +2,6 @@
   config,
   pkgs,
   unstable,
-  nixpkgs-zellij,
   claude-code,
   herdr-core,
   codex-cli,
@@ -91,7 +90,7 @@ in
 
         # SHELLS ---------------------
         atuin
-        nixpkgs-zellij.zellij
+        zellij
         nushell
         zsh
         zinit

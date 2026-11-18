@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-zellij.url = "github:NixOS/nixpkgs/8777c98512d0f9fd40955686a4c759fa1eb2ebad";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     codex-cli = {
@@ -63,7 +62,6 @@
     {
       nixpkgs,
       nixpkgs-unstable,
-      nixpkgs-zellij,
       home-manager,
       codex-cli,
       calendula,
@@ -96,7 +94,6 @@
           extraSpecialArgs = {
             claude-code = unfree.callPackage ./packages/claude-code.nix { };
             herdr-core = pkgs.callPackage ./packages/herdr-core.nix { };
-            nixpkgs-zellij = nixpkgs-zellij.legacyPackages.${system};
             inherit
               unstable
               codex-cli
