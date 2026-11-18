@@ -128,10 +128,16 @@ Uninstall Homebrew packages not in Brewfile:
 just mac-uninstall
 ```
 
-Update Nix channels and apply Home Manager configuration:
+Update and apply Home Manager configuration:
 
 ```bash
-just nix-update
+just home-manager::update
+```
+
+Upgrade Nix channels, Nix, Home Manager, and nix-darwin on macOS:
+
+```bash
+just nix-full-upgrade
 ```
 
 ### Nix Darwin (macOS System Configuration)

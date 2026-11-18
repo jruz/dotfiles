@@ -130,7 +130,6 @@ nix-full-upgrade:
     just nix-channel-upgrade $(just nix-latest)
     just nix-core-upgrade
     just home-manager::update
-    just home-manager::switch
     just nix-darwin::update
 
 nix-clean:
