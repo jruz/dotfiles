@@ -17,10 +17,6 @@ let
       name = "darwin-arm64";
       sha256 = "85d8c08707fcfd1e78ffa0204eefbc6ec9e4fe22f375fb2767ef85d957ed3161";
     };
-    x86_64-darwin = {
-      name = "darwin-x64";
-      sha256 = "d34e1cb82015b050471a97574aa6ea6f698ecf3a97a61c980961f43ad9f838f5";
-    };
     aarch64-linux = {
       name = "linux-arm64";
       sha256 = "2e2496c9a8065df93acb0fca2d341f59a6b8777649b2e025ab8c9bcd5eef61f3";

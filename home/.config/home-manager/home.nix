@@ -161,9 +161,7 @@ in
         usage
         woodpecker-cli
       ])
-      ++ (pkgs.lib.optionals (system != "x86_64-darwin") [
-        rex.packages.${system}.default
-      ])
+      ++ [ rex.packages.${system}.default ]
       ++ (pkgs.lib.optionals isDarwin [
         darwin.trash
       ])

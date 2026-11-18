@@ -11,10 +11,6 @@ let
       name = "aarch64-apple-darwin";
       sha256 = "7c9f21d5cbae4860d14b379fdcf709ff399ce874fd714b58783e1b4199c2b9a9";
     };
-    x86_64-darwin = {
-      name = "x86_64-apple-darwin";
-      sha256 = "c858bb0149b003a8cf8840a1143c4d953f18bea23ba6ea861d5fdf0b5e29a5a3";
-    };
     aarch64-linux = {
       name = "aarch64-unknown-linux-musl";
       sha256 = "0da6b061f6b5223901a5a73e841bd1466596e2ef620d68823360febed2ff7ebc";
