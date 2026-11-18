@@ -36,8 +36,8 @@ alias rconf='sudo vim /boot/efi/EFI/refind/refind.conf'
 alias ngconf='sudo vim /etc/nginx/nginx.conf'
 
 # Home Manager
-alias hms='just --justfile ~/dev/dotfiles/justfile nix-hm-switch'
-alias hme='just --justfile ~/dev/dotfiles/justfile nix-hm-edit'
+alias hms='just --justfile ~/dev/dotfiles/justfile home-manager::switch'
+alias hme='just --justfile ~/dev/dotfiles/justfile home-manager::edit'
 
 # Nix Darwin
 alias nds='just --justfile ~/dev/dotfiles/justfile nix-darwin-switch'

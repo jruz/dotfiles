@@ -22,7 +22,7 @@ const JUST = '#!/usr/bin/env nu
 def main [recipe: string] {
     $"($recipe)\n" | save --append actions
     if $env.SCENARIO == $recipe { exit 1 }
-    if $recipe == "nix-hm-switch" {
+    if $recipe == "home-manager::switch" {
         "updated" | save --append home/.config/home-manager/flake.lock
     }
 }
@@ -34,7 +34,7 @@ const SCENARIOS = [
     dirty-source
     dirty-lock
     updater-failure
-    nix-hm-switch
+    "home-manager::switch"
 ]
 
 def run [command: string, arguments: list<string>]: nothing -> nothing {
@@ -74,7 +74,7 @@ def verify-result [case: record, result: record]: nothing -> nothing {
             | where $it != ""
             | sort)
         assert equal $committed ([$source $LOCKFILE] | sort)
-        assert equal (open actions | lines) [nix-hm-switch]
+        assert equal (open actions | lines) ["home-manager::switch"]
         assert ((^git log -1 --format=%s | str trim) ends-with "Update to 9.8.7")
     }
     if $scenario in [current dirty-source dirty-lock updater-failure] {

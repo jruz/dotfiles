@@ -19,8 +19,8 @@ The following commands are banned in `.claude/settings.json` and MUST be run via
 |----------------|-------------|---------|
 | `brew bundle` | `just mac-update` | Update macOS GUI applications |
 | `darwin-rebuild switch` | `just nix-darwin-switch` | Apply macOS system settings |
-| `home-manager switch` | `just nix-hm-switch` | Apply Home Manager configuration |
-| `nix flake update` | `just nix-hm-update` or `just nix-darwin-update` | Update flake dependencies |
+| `home-manager switch` | `just home-manager::switch` | Apply Home Manager configuration |
+| `nix flake update` | `just home-manager::update` or `just nix-darwin-update` | Update flake dependencies |
 | `nix upgrade-nix` | `just nix-core-upgrade` | Upgrade Nix itself |
 | `nix-channel --add` | `just nix-channel-upgrade VERSION` | Add/update Nix channels |
 | `nix-channel --update` | `just nix-channel-upgrade VERSION` | Update Nix channels |
@@ -40,9 +40,9 @@ just mac-outdated            # Check for outdated macOS packages
 ### Nix & Home Manager
 
 ```bash
-just nix-hm-switch           # Apply Home Manager config (use after editing home.nix)
-just nix-hm-update           # Update Home Manager flake and apply
-just nix-hm-edit             # Edit Home Manager config in nvim
+just home-manager::switch    # Apply Home Manager config (use after editing home.nix)
+just home-manager::update    # Update Home Manager flake and apply
+just home-manager::edit      # Edit Home Manager config in nvim
 
 just nix-core-upgrade        # Upgrade Nix itself
 just nix-channel-upgrade VER # Upgrade Nix channels to specific version
@@ -91,7 +91,7 @@ just lint                    # Run all linters (shellcheck + selene)
 nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
 
 # 2. Apply changes using just recipe (NOT home-manager switch)
-just nix-hm-switch
+just home-manager::switch
 ```
 
 ### Updating macOS GUI Applications
@@ -118,11 +118,11 @@ just nix-darwin-switch
 
 1. **Running banned commands directly** - Always check if there's a just recipe first
 2. **Forgetting the workflow** - Recipes handle copying configs before applying
-3. **Not using the right recipe** - `nix-hm-switch` vs `nix-hm-update` (update also updates the flake)
+3. **Not using the right recipe** - `home-manager::switch` vs `home-manager::update` (update also updates the flake)
 
 ## Verification
 
 When you need to run a package management or system configuration command:
 1. Check if it's in the banned commands list above
 2. Use the corresponding just recipe instead
-3. If unsure, run `just --list` to see all available recipes
+3. If unsure, run `just --list --list-submodules` to see all available recipes

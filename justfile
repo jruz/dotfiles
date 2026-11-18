@@ -2,6 +2,7 @@ mod ts '.just/ts.justfile'
 mod bun '.just/bun.justfile'
 mod nushell '.just/nushell.justfile'
 mod nix '.just/nix.justfile'
+mod home-manager '.just/home-manager.justfile'
 mod docker '.just/docker.justfile'
 mod tools '.just/tools.justfile'
 
@@ -11,8 +12,8 @@ check:
     just parallel \
       just-fmt-check \
       nix::check \
-      nix::hm-config-check \
-      nix::hm-build-check \
+      home-manager::config-check \
+      home-manager::build-check \
       shellcheck-check \
       lua-check \
       nushell::check \
@@ -57,7 +58,7 @@ bootstrap:
       ^just stow-mac
       print ""
       print "Setting up Home Manager..."
-      ^just nix-hm-switch
+      ^just home-manager::switch
       print ""
       print "Setting up nix-darwin..."
       ^just nix-darwin-switch
@@ -65,7 +66,7 @@ bootstrap:
       ^just stow-linux
       print ""
       print "Setting up Home Manager..."
-      ^just nix-hm-switch
+      ^just home-manager::switch
     }
     print ""
     print "Configuring SSH agent..."
@@ -127,44 +128,12 @@ nix-core-upgrade:
 nix-full-upgrade:
     just nix-channel-upgrade $(just nix-latest)
     just nix-core-upgrade
-    just nix-hm-update
-    just nix-hm-switch
+    just home-manager::update
+    just home-manager::switch
     just nix-darwin-update
 
 nix-clean:
     nix-collect-garbage
-
-# ─── home manager ─────────────────────────────────────────────────────────────
-
-nix-hm-edit:
-    cp -r ~/.config/home-manager ~/dev/dotfiles/home/.config
-    nvim ~/dev/dotfiles/home/.config/home-manager/home.nix
-
-nix-hm-config:
-    rm -rf ~/.config/home-manager
-    cp -r ~/dev/dotfiles/home/.config/home-manager ~/.config
-
-nix-hm-update:
-    nix flake update --flake ./home/.config/home-manager/
-    just nix-hm-switch
-
-nix-hm-input-update INPUT:
-    nix flake update {{ quote(INPUT) }} --flake ./home/.config/home-manager/
-
-nix-hm-switch:
-    #!/usr/bin/env nu
-    ^just nix-hm-config
-    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
-    let system = (^nix eval
-      --impure
-      --raw
-      --expr "builtins.currentSystem")
-    let flake = $"($env.HOME)/.config/home-manager#jruz@($system)"
-    ^home-manager switch --flake $flake
-    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
-    ^cp $"($env.HOME)/.config/home-manager/flake.lock" home/.config/home-manager/flake.lock
-    if $env.LAST_EXIT_CODE != 0 { exit $env.LAST_EXIT_CODE }
-    ^bat cache --build
 
 # ─── nix darwin ───────────────────────────────────────────────────────────────
 

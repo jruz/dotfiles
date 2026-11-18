@@ -39,8 +39,8 @@ alias zmr = ^zellij action move-tab right
 alias rconf = ^sudo --edit /boot/efi/EFI/refind/refind.conf # nu-lint-ignore: dangerous_file_operations
 alias ngconf = ^sudo --edit /etc/nginx/nginx.conf # nu-lint-ignore: dangerous_file_operations
 
-alias hms = ^just --justfile ~/dev/dotfiles/justfile nix-hm-switch
-alias hme = ^just --justfile ~/dev/dotfiles/justfile nix-hm-edit
+alias hms = ^just --justfile ~/dev/dotfiles/justfile home-manager::switch
+alias hme = ^just --justfile ~/dev/dotfiles/justfile home-manager::edit
 
 alias nds = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-switch
 alias nde = ^just --justfile ~/dev/dotfiles/justfile nix-darwin-edit

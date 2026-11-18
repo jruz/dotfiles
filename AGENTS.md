@@ -217,7 +217,7 @@ When modifying configurations:
 
 1. Edit files in the appropriate `home*/` directory within this repository
 2. Run the appropriate `just stow-*` command to symlink changes
-3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `just nix-hm-switch`
+3. For Nix Home Manager changes, edit `home/.config/home-manager/home.nix` and run `just home-manager::switch`
 4. For macOS system settings, edit `mac/nix-darwin/flake.nix` and use `just nix-darwin-switch`
 
 ## Platform-Specific Notes

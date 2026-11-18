@@ -49,6 +49,6 @@ def main [
         exit 1
     }
     let version = ($update.stdout | from json | get version | into string)
-    run just [nix-hm-switch]
+    run just ["home-manager::switch"]
     commit-update $config $version
 }

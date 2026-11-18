@@ -34,7 +34,7 @@ just ubuntu-update
 ```
 
 ```bash
-just nix-hm-update
+just home-manager::update
 ```
 
 ### Fedora
@@ -44,7 +44,7 @@ sudo dnf upgrade --refresh -y && sudo dnf autoremove -y
 ```
 
 ```bash
-just nix-hm-update
+just home-manager::update
 ```
 
 ### NixOS
@@ -54,14 +54,14 @@ sudo nixos-rebuild switch --upgrade
 ```
 
 ```bash
-just nix-hm-update
+just home-manager::update
 ```
 
 ## Notes
 
 - `mac-update` updates Homebrew and upgrades GUI apps from `home-mac/Brewfile`
 - `nix-full-upgrade` combines: nix core upgrade, Home Manager update, and nix-darwin update
-- `nix-hm-update` updates the Home Manager flake and switches to it (CLI tools)
+- `home-manager::update` updates the Home Manager flake and switches to it (CLI tools)
 - `ubuntu-update` runs apt update, full-upgrade, and autoremove
 
 ## Optional Cleanup
