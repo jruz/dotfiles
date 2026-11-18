@@ -1,0 +1,6 @@
+mod renovate 'renovate.justfile'
+mod woodpecker 'woodpecker.justfile'
+
+check:
+    just --justfile {{ justfile() }} woodpecker::check
+    just --justfile {{ justfile() }} renovate::check

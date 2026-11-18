@@ -1,7 +1,7 @@
 set working-directory := '..'
 
 test *ARGS:
-    nu scripts/nushell-test.nu . {{ARGS}}
+    nu scripts/nushell-test.nu . {{ ARGS }}
 
 check:
     #!/usr/bin/env nu

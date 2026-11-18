@@ -1,14 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
     {
       nixpkgs,
-      nixpkgs-unstable,
       flake-utils,
       ...
     }:
@@ -16,7 +14,6 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        unstable = import nixpkgs-unstable { inherit system; };
         inherit (builtins.fromJSON (builtins.readFile ./package.json)) engines;
         sandbox = pkgs.writeShellScriptBin "sandbox" ''
           export PATH=${
@@ -42,7 +39,6 @@
           shellcheck
           statix
           taplo
-          unstable.woodpecker-cli
           xkcdpass
           yamllint
           zoxide

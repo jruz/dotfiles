@@ -2,6 +2,7 @@ set working-directory := '..'
 
 check:
     fd \
+      --hidden \
       --extension nix \
       --exec nixfmt --check
     statix check .
@@ -10,6 +11,7 @@ check:
 
 fix:
     fd \
+      --hidden \
       --extension nix \
       --exec nixfmt
     statix fix .

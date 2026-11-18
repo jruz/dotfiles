@@ -3,6 +3,7 @@ mod bun '.just/bun.justfile'
 mod nushell '.just/nushell.justfile'
 mod nix '.just/nix.justfile'
 mod docker '.just/docker.justfile'
+mod tools '.just/tools.justfile'
 
 # ─── main ─────────────────────────────────────────────────────────────────────
 
@@ -14,7 +15,6 @@ check:
       lua-check \
       nushell::check \
       ts::check \
-      woodpecker-check \
       bun::check
 
 env-keys:
@@ -195,11 +195,6 @@ shellcheck-check:
 
 shell-set-nu:
     nu scripts/shell-set-nu.nu
-
-# ─── woodpecker ───────────────────────────────────────────────────────────────
-
-woodpecker-check:
-    woodpecker-cli lint --strict .woodpecker/
 
 # ─── ssh ──────────────────────────────────────────────────────────────────────
 
