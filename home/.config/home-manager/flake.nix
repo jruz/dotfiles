@@ -49,7 +49,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tree-sitter = {
-      url = "github:tree-sitter/tree-sitter?ref=v0.26.8";
+      url = "github:tree-sitter/tree-sitter?ref=v0.27.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
