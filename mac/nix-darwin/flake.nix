@@ -116,6 +116,7 @@
           security.pam.services.sudo_local.touchIdAuth = true;
 
           nix = {
+            package = pkgs.lix;
             settings = {
               experimental-features = "nix-command flakes";
               substituters = [
