@@ -29,7 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-statusline = {
-      url = "github:jruz/claude-statusline?ref=v0.5.0";
+      url = "github:jruz/claude-statusline?ref=v0.5.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     woodpecker-channel = {
