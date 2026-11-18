@@ -170,7 +170,7 @@ The nix-darwin configuration is deployed to `~/.config/nix-darwin` and applied v
 - Releases wait 7 days, except `jruz/*` repositories.
 - Pin every Home Manager dependency to a stable release so Renovate can bump it:
   - Git repository with a flake: add a flake input with `?ref=vX.Y.Z` and add the repository to the flake regex manager. Renovate refreshes `flake.lock`.
-  - Release binaries: package them in `home/.config/home-manager/packages/` with a `version` and per-platform hashes, add a regex manager for the version, and add the hash source to `scripts/renovate-package-hashes.nu`. Renovate refreshes the hashes.
+  - Release binaries: package them in `home/.config/home-manager/packages/` with a `version` and per-platform hashes, add a regex manager for the version, and add the hash source to `scripts/renovate-package-hashes.ts`. Renovate refreshes the hashes.
   - npm release channel: use the npm datasource with `followTag` pointing at the stable dist-tag.
 - Post-upgrade commands must match `allowedCommands` in `~/dev/projects/server/server/renovate/config.json`.
 - Pi is updated manually with `just pi-update`.

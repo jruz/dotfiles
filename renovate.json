@@ -90,12 +90,7 @@
       "matchManagers": ["custom.regex"],
       "matchFileNames": ["home/.config/home-manager/packages/*.nix"],
       "postUpgradeTasks": {
-        "installTools": {
-          "nix": {}
-        },
-        "commands": [
-          "nix --extra-experimental-features 'nix-command flakes' run github:NixOS/nixpkgs/nixos-26.05#nushell -- scripts/renovate-package-hashes.nu {{{depName}}}"
-        ],
+        "commands": ["node scripts/renovate-package-hashes.ts {{{depName}}}"],
         "fileFilters": ["home/.config/home-manager/packages/*.nix"],
         "executionMode": "update"
       }
