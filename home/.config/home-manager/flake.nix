@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agent-tool-check = {
-      url = "github:jruz/agent-tool-check";
+      url = "github:jruz/agent-tool-check?ref=v0.4.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     woodpecker-settings = {
