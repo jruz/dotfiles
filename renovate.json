@@ -1,7 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "enabledManagers": ["npm"],
+  "enabledManagers": ["npm", "custom.regex"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^home/\\.config/home-manager/flake\\.nix$/"],
+      "matchStrings": [
+        "(?<depName>[\\w-]+) = \\{\\s*url = \"github:(?<packageName>jruz/[\\w-]+|pimalaya/calendula|tree-sitter/tree-sitter)\\?ref=(?<currentValue>v[^\"]+)\";"
+      ],
+      "datasourceTemplate": "github-tags"
+    }
+  ],
   "rangeStrategy": "pin",
   "semanticCommits": "disabled",
   "commitMessagePrefix": "[deps] {{{depName}}}:",
@@ -13,6 +23,24 @@
   "platformAutomerge": true,
   "automergeStrategy": "squash",
   "packageRules": [
+    {
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": ["jruz/**"],
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "postUpgradeTasks": {
+        "installTools": {
+          "nix": {}
+        },
+        "commands": [
+          "nix --extra-experimental-features 'nix-command flakes' flake update {{{depName}}} --flake ./home/.config/home-manager"
+        ],
+        "fileFilters": ["home/.config/home-manager/flake.lock"],
+        "executionMode": "update"
+      }
+    },
     {
       "matchPackageNames": ["bun", "@types/bun"],
       "groupName": "Bun",
