@@ -26,8 +26,8 @@
     "enforce_admins": false,
     "required_pull_request_reviews": null,
     "restrictions": null,
-    "required_linear_history": false,
-    "allow_force_pushes": false,
+    "required_linear_history": true,
+    "allow_force_pushes": true,
     "allow_deletions": false
   },
   "actions": {
