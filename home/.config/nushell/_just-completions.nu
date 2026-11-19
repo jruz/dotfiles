@@ -86,7 +86,6 @@ export extern "just" [
     --variables
     --verbose(-v)
     --yes
-    --help(-h)
     --version(-V)
 
     --alias-style:string@"nu-complete just al-st"
