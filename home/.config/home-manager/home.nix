@@ -9,6 +9,7 @@
   rex,
   pi,
   agent-tool-check,
+  github-settings,
   woodpecker-settings,
   codeberg-settings,
   claude-statusline,
@@ -137,6 +138,7 @@ in
         agent-tool-check.packages.${system}.default
 
         # PERSONAL PROJECTS -------
+        github-settings.packages.${system}.default
         woodpecker-settings.packages.${system}.default
         codeberg-settings.packages.${system}.default
         claude-statusline.packages.${system}.default

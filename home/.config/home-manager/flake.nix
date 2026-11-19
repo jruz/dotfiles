@@ -20,6 +20,10 @@
       url = "github:jruz/agent-tool-check?ref=v0.4.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    github-settings = {
+      url = "github:jruz/github-settings?ref=v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     woodpecker-settings = {
       url = "git+https://codeberg.org/jruz/woodpecker-settings?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +67,7 @@
       rex,
       pi,
       agent-tool-check,
+      github-settings,
       woodpecker-settings,
       codeberg-settings,
       claude-statusline,
@@ -96,6 +101,7 @@
               rex
               pi
               agent-tool-check
+              github-settings
               woodpecker-settings
               codeberg-settings
               claude-statusline
