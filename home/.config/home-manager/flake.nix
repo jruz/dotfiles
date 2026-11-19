@@ -41,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     template-sync = {
-      url = "github:jruz/template-sync?ref=v0.2.0";
+      url = "github:jruz/template-sync?ref=v0.2.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ager = {
