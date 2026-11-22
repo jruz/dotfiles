@@ -92,6 +92,16 @@ require("gitsigns").setup({
   },
 })
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    for _, kind in ipairs({ "Add", "Change", "Delete", "Topdelete", "Changedelete", "Untracked" }) do
+      for _, suffix in ipairs({ "", "Cul" }) do
+        vim.api.nvim_set_hl(0, "GitSignsStaged" .. kind .. suffix, { link = "GitSigns" .. kind .. suffix })
+      end
+    end
+  end,
+})
+
 require("neo-tree").setup({
   default_component_configs = {
     git_status = {
