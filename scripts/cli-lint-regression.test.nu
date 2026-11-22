@@ -135,12 +135,50 @@ def test-notify-rejects-invalid-target-without-network-access []: nothing -> not
     let root = fixture []
     let result = invoke $root {
         command: ',notify'
-        arguments: [invalid message]
+        arguments: [invalid --title Title --message Message]
         mode: success
     }
     assert equal $result.exit_code 1
     assert str contains $result.stderr "target must be mobile, desktop, or all"
     rm --recursive $root
+}
+
+def test-notify-requires-title-and-message []: nothing -> nothing {
+    let root = fixture []
+    let missing_title = invoke $root {
+        command: ',notify'
+        arguments: [desktop --message Message]
+        mode: success
+    }
+    assert equal $missing_title.exit_code 1
+    assert str contains $missing_title.stderr '--title is required'
+    let missing_message = invoke $root {
+        command: ',notify'
+        arguments: [desktop --title Title]
+        mode: success
+    }
+    assert equal $missing_message.exit_code 1
+    assert str contains $missing_message.stderr '--message is required'
+    rm --recursive $root
+}
+
+def test-notify-publishes-title-and-message-to-both-topics []: nothing -> nothing {
+    const NOTIFY_MOCK = path self notify.mock.nu
+    let result = with-env {NTFY_CHANNEL_MOBILE: test-mobile, NTFY_CHANNEL_DESKTOP: test-desktop} {
+        ^nu $NOTIFY_MOCK | complete
+    }
+    assert equal $result.exit_code 0 $result.stderr
+    let requests = $result.stdout | lines | each {|line| $line | from nuon }
+    assert equal $requests [
+        {
+            url: 'https://ntfy.sh'
+            body: {topic: test-mobile, title: 'Café backup', message: 'Backup finished.'}
+        }
+        {
+            url: 'https://ntfy.sh'
+            body: {topic: test-desktop, title: 'Café backup', message: 'Backup finished.'}
+        }
+    ]
 }
 
 def git-fixture []: nothing -> path {

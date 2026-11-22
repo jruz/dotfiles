@@ -2,11 +2,19 @@
 
 use std/log
 
-# Send a message to ntfy channels.
+# Send a notification to ntfy channels.
 def main [
-    target: string # Channel group: mobile, desktop, or all.
-    message: string # Message body to send.
-] {
+    target: string # mobile, desktop, or all.
+    --title: string # Required notification title.
+    --message: string # Required notification body.
+]: nothing -> nothing {
+    let notification = if $title != null and $message != null {
+        {title: $title, message: $message}
+    } else {
+        let missing = if $title == null { '--title' } else { '--message' }
+        log error $"($missing) is required"
+        exit 1
+    }
     let channels = match $target {
         "mobile" => [$env.NTFY_CHANNEL_MOBILE]
         "desktop" => [$env.NTFY_CHANNEL_DESKTOP]
@@ -17,6 +25,7 @@ def main [
         }
     }
     for channel in $channels {
-        http post $"https://ntfy.sh/($channel)" $message
+        let body = {topic: $channel, ...$notification} | to json --raw
+        http post --content-type application/json https://ntfy.sh $body
     }
 }
