@@ -1,4 +1,4 @@
-alias plan = ^nvim PLAN.md
+alias pl = ^nvim PLAN.md
 alias ag = ^nvim AGENTS.md
 
 alias dotfiles = cd ~/dev/dotfiles
