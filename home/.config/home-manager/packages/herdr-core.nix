@@ -5,19 +5,19 @@
 }:
 
 let
-  version = "0.1.21";
+  version = "0.1.22";
   targets = {
     aarch64-darwin = {
       name = "macos-aarch64";
-      sha256 = "1ab38dd9270f63a8f794d6d60e8702eb0d1c85a72bda85d735e5eea43f05ffed";
+      sha256 = "90798daadefa8d126b90ef0bcdbe9c7dda9c6cfbf011a247065ab5da348f350e";
     };
     aarch64-linux = {
       name = "linux-aarch64";
-      sha256 = "e844a2bfab48a226097679d076bc83042fe57fccef5387ef802e5b24e78b529a";
+      sha256 = "98757985245d45f8d73dd85e68b139b7f167c28488bb89edd9834c3f5a5cf4cf";
     };
     x86_64-linux = {
       name = "linux-x86_64";
-      sha256 = "78424755c10a40dde38a0bdb55c20ac19706e9ae05ed68fc2acf1fcff0d941c1";
+      sha256 = "3054ec3992ce80c5715d721caa9dcefa6056721d15dc113f4750afce763ba5df";
     };
   };
   target = targets.${stdenvNoCC.hostPlatform.system};
