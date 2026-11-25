@@ -5,6 +5,7 @@
   claude,
   codex,
   herdr-core,
+  devicehubctl,
   calendula,
   rex,
   pi,
@@ -166,6 +167,7 @@ in
       ++ [ rex.packages.${system}.default ]
       ++ (pkgs.lib.optionals isDarwin [
         darwin.trash
+        devicehubctl
       ])
       ++ (pkgs.lib.optionals (!isDarwin) [
         bubblewrap

@@ -95,6 +95,7 @@
             claude = unfree.callPackage ./packages/claude.nix { };
             codex = pkgs.callPackage ./packages/codex.nix { };
             herdr-core = pkgs.callPackage ./packages/herdr-core.nix { };
+            devicehubctl = pkgs.callPackage ./packages/devicehubctl.nix { };
             inherit
               unstable
               calendula
