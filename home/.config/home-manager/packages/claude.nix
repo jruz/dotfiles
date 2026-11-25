@@ -11,19 +11,19 @@
 }:
 
 let
-  version = "2.1.325";
+  version = "2.1.326";
   targets = {
     aarch64-darwin = {
       name = "darwin-arm64";
-      sha256 = "84590fefe6338be9087f5814b61f9a54c5f21524163a4c127cb5a808e31009f2";
+      sha256 = "e214ad76dcc0e846b03be28ed1c2734aacd4e27acb527cb7f8a9e2bed644e837";
     };
     aarch64-linux = {
       name = "linux-arm64";
-      sha256 = "7b6e484b1989a5a14a4b354709ccc8672518a3ec5b9ccd7981fc6254327fde67";
+      sha256 = "98d56f6ffe53469767a74864a38eaf359d62ef557a8de1b1ad524d61a66ec119";
     };
     x86_64-linux = {
       name = "linux-x64";
-      sha256 = "0dc4f4a9a165fc60746d7ae8489712e5fc352f1e7ad4eb22e7141bd0812eb0cf";
+      sha256 = "b6b3647d981130dc44fc670846ae97b6cde531ffb667cf9c4d17cfcafb38cb37";
     };
   };
   target = targets.${stdenv.hostPlatform.system};
