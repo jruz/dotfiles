@@ -36,6 +36,27 @@ test("updates the hash of every target", () => {
   expect(updated).toBe(expected);
 });
 
+test("updates the hash of nested assets", () => {
+  const nested = `    x86_64-linux = {
+      name = "linux-x64";
+      sha256 = "old-linux";
+      host = {
+        name = "host-linux-x64";
+        sha256 = "old-host";
+      };
+    };
+`;
+  const assets = [
+    { name: "linux-x64", sha256: "new-linux" },
+    { name: "host-linux-x64", sha256: "new-host" },
+  ];
+  const updated = updateHashes(nested, assets);
+  const expectedNested = nested
+    .replace("old-linux", "new-linux")
+    .replace("old-host", "new-host");
+  expect(updated).toBe(expectedNested);
+});
+
 test("lists targets without a hash", () => {
   const partial = [{ name: "linux-x64", sha256: "new-linux" }];
   const missing = missingTargets(content, partial);
